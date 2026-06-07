@@ -1,0 +1,12 @@
+{
+  "name": "ielts-vocab-hub",
+  "version": "1.0.0",
+  "description": "Interactive IELTS Vocabulary Learning Hub",
+  "scripts": {
+    "generate": "node generate-vocab-config.js",
+    "dev": "node generate-vocab-config.js && echo '✅ Config updated. Open index.html in your browser.'"
+  },
+  "keywords": ["IELTS", "vocabulary", "learning"],
+  "author": "",
+  "license": "MIT"
+}

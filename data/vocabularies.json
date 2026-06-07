@@ -1,0 +1,26 @@
+[
+  {
+    "id": "01",
+    "filename": "01 Weather.html",
+    "title": "CHỦ ĐỀ: WEATHER, CLIMATE, ENVIRONMENT AND NATURAL DISASTERS",
+    "description": "Bộ từ vựng thuộc chủ đề Thời tiết, Khí hậu, Môi trường và Thảm họa thiên nhiên đạt mức độ học thuật xuất sắc (Band 7.5+ đến 8.5+), cung cấp vốn từ phong phú, linh hoạt từ các thuật ngữ khoa học khí tư",
+    "topics": 15,
+    "color": "from-blue-400 to-cyan-500"
+  },
+  {
+    "id": "02",
+    "filename": "02 Travel.html",
+    "title": "CHỦ ĐỀ: TRAVEL AND SUSTAINABLE TOURISM DEVELOPMENT",
+    "description": "Bộ từ vựng chủ đề Travel có tính học thuật cao và bao quát toàn diện, lý tưởng cho mức điểm mục tiêu IELTS Band 7.5+ đến 8.5+. Các nhóm từ được phân chia khoa học từ từ vựng mô tả địa hình tự nhiên, c",
+    "topics": 14,
+    "color": "from-emerald-400 to-teal-500"
+  },
+  {
+    "id": "03",
+    "filename": "03 City.html",
+    "title": "CHỦ ĐỀ: ACCOMMODATION, BUILDING AND NOISE IN IELTS",
+    "description": "Nhận xét học thuật: Tài liệu từ vựng chủ đề 'CITY vs. COUNTRY' đạt cấp độ C1/C2 trong bài thi IELTS (Band 7.5+). Danh sách phủ rộng các trường từ chính về Quy hoạch đô thị, Dịch chuyển nhân khẩu học v",
+    "topics": 22,
+    "color": "from-orange-400 to-rose-500"
+  }
+]
