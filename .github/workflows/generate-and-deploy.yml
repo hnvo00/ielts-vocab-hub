@@ -9,24 +9,28 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
 jobs:
   generate-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
     steps:
       # 1. Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       # 2. Setup Node.js
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -34,20 +38,23 @@ jobs:
       - name: Generate vocabulary configuration
         run: node generate-vocab-config.js
 
-      # 4. Commit changes if vocabularies.json was modified (only on main branch)
-      - name: Commit updated vocabularies.json
+      # 4. Commit changes if vocabularies.json and vocabularies.js were modified (only on main branch)
+      - name: Commit updated vocabulary data
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data/vocabularies.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-generate vocabularies.json" && git push)
+          git add data/vocabularies.json data/vocabularies.js
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-generate vocabularies" && git push)
 
-      # 5. Deploy to GitHub Pages
+      # 5. Upload Pages artifact
+      - name: Upload GitHub Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: .
+
+      # 6. Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
-          cname: # Leave empty unless you have a custom domain
+        uses: actions/deploy-pages@v5
