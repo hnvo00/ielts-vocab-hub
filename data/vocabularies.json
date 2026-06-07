@@ -70,5 +70,13 @@
     "description": "Danh sách từ vựng tích hợp toàn diện các khía cạnh về Thể thao và Sức khỏe với độ phức tạp cao (Band 7.5 - 8.5+). Tài liệu cung cấp vốn từ vựng học thuật xuất sắc và các cụm collocation đắt giá giúp h",
     "topics": 1,
     "color": "from-blue-400 to-cyan-500"
+  },
+  {
+    "id": "10",
+    "filename": "10 Health.html",
+    "title": "CHỦ ĐỀ: HEALTH AND SPORTS SCIENCE",
+    "description": "Bộ từ vựng thuộc chủ đề Health & Sports đạt mức độ học thuật C1/C2 (Band 7.5+ - 8.5 IELTS), bao hàm đầy đủ các thuật ngữ chuyên sâu về bệnh học, y tế cộng đồng, phục hồi chức năng và thể thao học. Đây",
+    "topics": 1,
+    "color": "from-emerald-400 to-teal-500"
   }
 ]
