@@ -143,12 +143,16 @@ function saveVocabulariesJson(vocabularies) {
         const configPath = path.join(dataDir, 'vocabularies.json');
         fs.writeFileSync(configPath, JSON.stringify(vocabularies, null, 2));
 
+        const jsPath = path.join(dataDir, 'vocabularies.js');
+        fs.writeFileSync(jsPath, `window.vocabularies = ${JSON.stringify(vocabularies, null, 2)};`);
+
         log(`\n✅ Successfully generated: data/vocabularies.json`, 'green');
+        log(`✅ Successfully generated: data/vocabularies.js`, 'green');
         log(`   Contains ${vocabularies.length} vocabulary topic(s)\n`, 'green');
 
         return true;
     } catch (error) {
-        log(`\n❌ Error writing vocabularies.json: ${error.message}`, 'red');
+        log(`\n❌ Error writing vocabularies.json or vocabularies.js: ${error.message}`, 'red');
         return false;
     }
 }

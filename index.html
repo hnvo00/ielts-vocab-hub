@@ -76,12 +76,14 @@
             </div>
         </div>
 
-        <!-- Vocabulary Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="cardsContainer">
-            <!-- Cards will be rendered here via JavaScript -->
+        <!-- Vocabulary Table -->
+        <div class="overflow-x-auto bg-white rounded-3xl shadow-xs border border-slate-100 mb-12" id="tableWrapper">
+            <table class="min-w-full divide-y divide-slate-200" id="cardsContainer">
+                <!-- Table rows will be rendered here via JavaScript -->
+            </table>
         </div>
 
-        <!-- Empty State (will be hidden once cards load) -->
+        <!-- Empty State (will be hidden once table loads) -->
         <div id="emptyState" class="bg-white rounded-2xl border border-slate-200 p-12 text-center">
             <div class="text-slate-400 mb-4">
                 <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
@@ -117,57 +119,93 @@
     <script>
         // Load vocabularies data and render cards
         async function loadVocabularies() {
+            const requestPath = new URL('data/vocabularies.json', window.location.href).href;
+
             try {
-                const response = await fetch('./data/vocabularies.json');
+                const response = await fetch(requestPath);
+                if (!response.ok) {
+                    throw new Error(`Không tải được file: ${response.status} ${response.statusText}`);
+                }
                 const vocabularies = await response.json();
                 renderCards(vocabularies);
                 updateTotalTopics(vocabularies);
             } catch (error) {
-                console.error('Failed to load vocabularies:', error);
+                console.warn('Fetch failed, attempting local JS fallback:', error);
+                if (window.location.protocol === 'file:') {
+                    try {
+                        const vocabularies = await loadLocalVocabulariesJs();
+                        renderCards(vocabularies);
+                        updateTotalTopics(vocabularies);
+                        return;
+                    } catch (fallbackError) {
+                        console.error('Local JS fallback failed:', fallbackError);
+                        error.message += `; Fallback error: ${fallbackError.message}`;
+                    }
+                }
+
                 document.getElementById('emptyState').innerHTML = `
                     <div class="text-red-400 mb-4">
                         <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
-                    <p class="text-slate-500">Không thể tải dữ liệu. Vui lòng kiểm tra kết nối tệp.</p>
+                    <p class="text-slate-500 mb-2">Không thể tải dữ liệu.</p>
+                    <p class="text-slate-500 text-sm">${error.message}</p>
+                    <p class="text-slate-500 text-sm mt-3">Nếu bạn mở file trực tiếp, hãy chạy một local server hoặc mở trang bằng GitHub Pages để đảm bảo dữ liệu được tải đúng cách.</p>
                 `;
             }
+        }
+
+        function loadLocalVocabulariesJs() {
+            return new Promise((resolve, reject) => {
+                if (window.vocabularies && Array.isArray(window.vocabularies)) {
+                    resolve(window.vocabularies);
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = './data/vocabularies.js';
+                script.onload = () => {
+                    if (window.vocabularies && Array.isArray(window.vocabularies)) {
+                        resolve(window.vocabularies);
+                    } else {
+                        reject(new Error('Không tìm thấy window.vocabularies sau khi tải dữ liệu JS.'));
+                    }
+                };
+                script.onerror = () => reject(new Error('Không thể tải data/vocabularies.js từ local.'));
+                document.body.appendChild(script);
+            });
         }
 
         function renderCards(vocabularies) {
             const container = document.getElementById('cardsContainer');
             const emptyState = document.getElementById('emptyState');
 
-            container.innerHTML = vocabularies.map(vocab => `
-                <div class="vocab-card bg-white rounded-2xl shadow-xs border border-slate-100 overflow-hidden hover:border-slate-200">
-                    <!-- Card Header with Gradient -->
-                    <div class="h-20 bg-gradient-to-r ${vocab.color} opacity-10 border-b border-slate-100 flex items-end px-6 pb-4">
-                        <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-gradient-to-r ${vocab.color}"></div>
-                            <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">${vocab.id}</span>
-                        </div>
-                    </div>
-
-                    <!-- Card Content -->
-                    <div class="p-6">
-                        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-3 line-clamp-2">${vocab.title}</h2>
-                        <p class="text-sm text-slate-600 mb-4 line-clamp-3 leading-relaxed">${vocab.description}</p>
-                        
-                        <!-- Stats -->
-                        <div class="flex items-center gap-4 mb-6 py-3 bg-slate-50 px-4 rounded-lg">
-                            <div class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                                <span class="text-sm font-semibold text-slate-700">${vocab.topics} nhóm</span>
-                            </div>
-                        </div>
-
-                        <!-- CTA Button -->
-                        <a href="./${encodeURIComponent(vocab.filename)}" class="w-full inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95 border border-indigo-600">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                            Học ngay
-                        </a>
-                    </div>
-                </div>
-            `).join('');
+            container.innerHTML = `
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Mã</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Chủ đề</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Số nhóm</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                    ${vocabularies.map(vocab => `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 align-top text-sm font-semibold text-slate-900">${vocab.id}</td>
+                            <td class="px-6 py-4 align-top text-sm text-slate-700 max-w-xl">
+                                <div class="font-semibold text-slate-900">${vocab.title}</div>
+                                <div class="text-xs text-slate-500 mt-1 line-clamp-2">${vocab.description}</div>
+                            </td>
+                            <td class="px-6 py-4 align-top text-sm text-slate-700">${vocab.topics} nhóm</td>
+                            <td class="px-6 py-4 align-top text-sm">
+                                <a href="./${encodeURIComponent(vocab.filename)}" class="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-white font-semibold transition hover:bg-indigo-700">
+                                    Mở bài học
+                                </a>
+                            </td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            `;
 
             emptyState.classList.add('hidden');
         }
