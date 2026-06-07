@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHỦ ĐỀ: ACCOMMODATION, BUILDING & NOISE (Interactive IELTS Vocabulary Hub)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        th {
+            position: relative;
+        }
+        .resizer {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            cursor: col-resize;
+            user-select: none;
+            z-index: 10;
+            transition: background-color 0.15s;
+        }
+        .resizer:hover, .resizing {
+            background-color: rgba(99, 102, 241, 0.4);
+            border-right: 2px solid rgb(79, 70, 229);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+    <div class="max-w-[1600px] mx-auto px-4 py-8 sm:px-6 lg:px-10">
+        
+        <!-- Header Section -->
+        <div class="bg-white rounded-3xl shadow-xs border border-slate-100 p-6 sm:p-8 mb-8 relative overflow-hidden">
+            <!-- Subtle decorative background gradient -->
+            <div class="absolute top-0 right-0 w-80 h-80 bg-indigo-50/50 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+
+            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-8 relative z-10">
+                <div class="flex-1 min-w-0">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600 mb-4 shadow-sm border border-indigo-100/30">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        IELTS Vocabulary Generator Hub (Học Offline)
+                    </span>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight whitespace-pre-line" id="mainTitle">CHỦ ĐỀ: ACCOMMODATION, BUILDING & NOISE</h1>
+                    <div class="mt-4 p-4.5 sm:p-5 bg-gradient-to-br from-slate-50 to-indigo-50/30 border border-slate-200/70 rounded-2xl transition-all hover:bg-slate-50/90 group relative shadow-2xs">
+                        <div class="flex items-center gap-2 mb-1.5 text-indigo-600 font-bold text-[11px] uppercase tracking-wider">
+                            <svg class="w-4 h-4 text-indigo-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            <span>Đánh giá học thuật từ chuyên gia (IELTS Academic Review)</span>
+                        </div>
+                        <p class="text-slate-600 text-xs sm:text-[13px] leading-relaxed font-semibold tracking-wide" id="complexitySummarySection">Bộ từ vựng cung cấp hệ thống thuật ngữ phong phú và chuyên sâu từ Band 6.5 đến 8.5+ về chủ đề Nhà ở, Kiến trúc, và Tiếng ồn đô thị. Tài liệu giúp học viên tối ưu hóa điểm Lexical Resource trong IELTS Speaking Part 1, 2 và Writing Task 2 qua các cấu trúc mô tả không gian sống, kiến trúc đô thị và đánh giá môi trường.</p>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-2.5 lg:pt-2">
+                    <button onclick="copyFullTable('md')" class="inline-flex items-center gap-1.5 bg-slate-900 border border-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95 cursor-pointer">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        Copy Markdown
+                    </button>
+                    <button onclick="copyFullTable('excel')" class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/50 hover:bg-emerald-100 text-emerald-700 px-4 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95 cursor-pointer">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Copy sang Excel / Sheets
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Filters -->
+            <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div class="relative w-full sm:max-w-md">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </span>
+                    <input type="text" id="searchInput" oninput="filterData()" placeholder="Tra nhanh từ vựng, giải thích, từ mẫu hoặc note ghi nhớ..." class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white transition-all text-slate-700">
+                </div>
+                
+                <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                    <div class="flex items-center gap-1.5 text-xs font-semibold text-slate-500 bg-slate-50 border border-slate-200/50 px-3 py-1.5 rounded-lg">
+                        <span>Đang học:</span>
+                        <span id="counter" class="text-indigo-600 font-bold">0 / 0</span>
+                        <span>nhóm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop View Table -->
+        <div class="bg-white rounded-2xl shadow-xs border border-slate-100 overflow-hidden hidden lg:block">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" style="table-layout: fixed;">
+                    <thead>
+                        <tr class="bg-slate-50/50 text-slate-600 uppercase text-[9.5px] font-bold tracking-widest border-b border-slate-100">
+                            <th class="py-3 px-4 text-center select-none" style="width: 50px;">
+                                No.
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-5 select-none" style="width: 200px;">
+                                Từ Vựng & IPA
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-6 select-none" style="width: 325px;">
+                                Meaning & Bản Dịch
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-6 select-none" style="width: 180px;">
+                                Collocations (Học Cụm)
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-6 select-none" style="width: 300px;">
+                                Ví Dụ Minh Họa
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-5 select-none" style="width: 160px;">
+                                Đồng / Trái Nghĩa
+                                <div class="resizer"></div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-slate-100 text-[11.5px]">
+                        <!-- Filled in via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Mobile View Cards -->
+        <div id="mobileCards" class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
+            <!-- Filled via JS -->
+        </div>
+
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-indigo-500/20 text-white px-5 py-3 rounded-2xl text-sm font-medium shadow-2xl translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5">
+        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></svg>
+        <span id="toastMessage">Đã sao chép!</span>
+    </div>
+
+    <!-- Safe JSON Storage for Offline Learning -->
+    <script id="vocabDataRaw" type="application/json">[{"no":1,"vocab":"the building industry, civil engineer, concrete, reinforced concrete, steel, brick, stone, plaster, glass","ipa":"/ðə ˈbɪldɪŋ ˈɪndəstri/, /ˈsɪv.əl ˌen.dʒɪˈnɪər/, /ˈkɒŋ.kriːt/, /ˌriː.ɪnˈfɔːst ˈkɒŋ.kriːt/, /stiːl/, /brɪk/, /stəʊn/, /ˈplɑː.stər/, /ɡlɑːs/","engMean":"The sector that designs and constructs physical structures.\nAn engineer who designs and maintains public works.\nA heavy building material made of lime, cement, sand, and water.\nConcrete strengthened with steel bars or mesh.\nA hard, strong alloy of iron and carbon.\nA small rectangular block of fired clay.\nHard solid nonmetallic mineral matter.\nA soft mixture of sand, lime, and water that hardens on drying.\nA hard, brittle, transparent substance.","viMean":"Ngành công nghiệp xây dựng, kỹ sư dân dụng, và các vật liệu xây dựng cốt lõi (bê tông, bê tông cốt thép, thép, gạch, đá, thạch cao, kính)","collocation":"work in the building industry (làm việc trong ngành xây dựng), rely on reinforced concrete (dựa vào bê tông cốt thép), a plaster ceiling (trần nhà thạch cao)","example1":"The modern building industry relies heavily on civil engineers who use reinforced concrete and steel to ensure structural safety.\nNgành xây dựng hiện đại phụ thuộc lớn vào các kỹ sư dân dụng, những người sử dụng bê tông cốt thép và thép để đảm bảo an toàn cấu trúc.","example2":"While traditional houses were built with brick and stone, modern facades often feature massive sheets of glass and elegant plaster work.\nTrong khi những ngôi nhà truyền thống được xây dựng bằng gạch và đá, mặt tiền hiện đại thường có những tấm kính khổng lồ và công trình thạch cao thanh lịch.","synonyms":"construction sector, structural engineer, building materials","antonyms":"N/A","note":""},{"no":2,"vocab":"the cityscape, vertical city, horizontal city, uniform, uniformity, monotonous, monotonous cityscape, the sameness of buildings, the mingling of buildings of different ages and types","ipa":"/ðə ˈsɪt.i.skeɪp/, /ˈvɜː.tɪ.kəl ˈsɪt.i/, /ˌhɒr.ɪˈzɒn.təl ˈsɪt.i/, /ˈjuː.nɪ.fɔːm/, /ˌjuː.nɪˈfɔː.mə.ti/, /məˈnɒt.ən.əs/, /məˈnɒt.ən.əs ˈsɪt.i.skeɪp/, /ðə ˈseɪm.nəs ɒv ˈbɪldɪŋz/, /ðə ˈmɪŋ.ɡəl.ɪŋ ɒv ˈbɪldɪŋz/","engMean":"The visual appearance of a city.\nA highly dense city spreading upwards with skyscrapers.\nA city spreading outwards with low-rise buildings.\nRemaining the same in all cases and at all times.\nThe quality of being uniform.\nDull, tedious, and lacking in variety.\nA boring urban view due to architectural uniformity.\nThe lack of variety in architectural designs.\nThe mixture of historic and contemporary architecture.","viMean":"Quang cảnh thành phố, thành phố phát triển theo chiều dọc (nhiều nhà cao tầng), thành phố phát triển theo chiều ngang (thấp tầng), đồng đều/giống nhau, sự đồng điệu, đơn điệu, quang cảnh đô thị tẻ nhạt, sự giống nhau của các tòa nhà, sự hòa quyện của các tòa nhà thuộc nhiều thời đại và thể loại.","collocation":"transform the cityscape (thay đổi diện mạo thành phố), tackle urbanization via a vertical city model (giải quyết đô thị hóa qua mô hình thành phố thẳng đứng), monotony of the urban environment (sự đơn điệu của môi trường đô thị)","example1":"A vertical city model can optimize land use in crowded areas, though it might lead to a rather monotonous cityscape due to the uniformity of buildings.\nMô hình thành phố thẳng đứng có thể tối ưu hóa việc sử dụng đất ở các khu vực đông đúc, mặc dù nó có thể dẫn đến một quang cảnh thành phố khá đơn điệu do sự giống nhau của các tòa nhà.","example2":"To prevent the dull sameness of buildings, urban planners should encourage the mingling of buildings of different ages and types to enrich the cityscape.\nĐể ngăn chặn sự giống nhau tẻ nhạt của các tòa nhà, các nhà quy hoạch đô thị nên khuyến khích sự hòa quyện của các tòa nhà thuộc nhiều thời đại và thể loại khác nhau để làm phong phú quang cảnh thành phố.","synonyms":"urban landscape, high-rise metropolis, monotonous scenery, architectural diversity","antonyms":"rural landscape, horizontal city, architectural variety","note":""},{"no":3,"vocab":"real estate, property, property market, get on the property ladder, put down a deposit on a house, mortgage, take out a mortgage, first-time buyer","ipa":"/ˈrɪəl ɪˌsteɪt/, /ˈprɒp.ə.ti/, /ˈprɒp.ə.ti ˈmɑː.kɪt/, /ɡet ɒn ðə ˈprɒp.ə.ti ˈlæd.ər/, /pʊt daʊn ə dɪˈpɒz.ɪt/, /ˈmɔː.ɡɪdʒ/, /teɪk aʊt ə ˈmɔː.ɡɪdʒ/, /ˌfɜːst.taɪm ˈbaɪ.ər/","engMean":"Property consisting of land or buildings.\nA building or land that someone owns.\nThe buying and selling of land and buildings.\nTo buy your first house with the plan to buy bigger ones later.\nTo make an initial payment to secure a home purchase.\nA legal agreement by which a bank lends money for buying property.\nTo borrow money from a bank using property as collateral.\nSomeone buying a property for the first time.","viMean":"Bất động sản, tài sản bất động sản, thị trường bất động sản, bắt đầu sở hữu ngôi nhà đầu tiên, đặt cọc mua nhà, tiền vay ngân hàng mua nhà (vay thế chấp), vay thế chấp, người mua nhà lần đầu.","collocation":"invest in real estate (đầu tư bất động sản), get on the property ladder (bắt đầu mua nhà), take out a mortgage on a home (vay thế chấp mua nhà), put down a deposit on a house (đặt cọc mua nhà)","example1":"Skyrocketing house prices in the real estate market make it nearly impossible for a first-time buyer to get on the property ladder.\nGiá nhà leo thang chóng mặt trên thị trường bất động sản khiến người mua nhà lần đầu hầu như không thể bắt đầu sở hữu ngôi nhà đầu tiên.","example2":"They had to put down a deposit on a house and take out a mortgage to secure ownership of their new property.\nHọ đã phải đặt cọc tiền mua nhà và vay thế chấp ngân hàng để đảm bảo quyền sở hữu tài sản mới của mình.","synonyms":"landed property, housing market, home loan, starter buyer","antonyms":"rented accommodation, outright purchase","note":""},{"no":4,"vocab":"house-hunting, housing shortage, let, long-term let, rent, pay the rent, rental price, house price, tenant, landlord, home buyer, developer","ipa":"/ˈhaʊsˌhʌn.tɪŋ/, /ˈhaʊ.zɪŋ ˈʃɔː.tɪdʒ/, /let/, /lɒŋ-tɜːm let/, /rent/, /peɪ ðə rent/, /ˈren.təl praɪs/, /ˈhaʊs praɪs/, /ˈten.ənt/, /ˈlænd.lɔːd/, /həʊm ˈbaɪ.ər/, /dɪˈvel.ə.pər/","engMean":"The activity of looking for a house to live in.\nA state where there are not enough houses for people.\nAn act of renting out a property.\nA rental agreement for an extended period.\nRegular payment made to a landlord for using a property.\nTo make the monthly rental payment.\nThe cost charged for renting a property.\nThe cost charged for purchasing a house.\nA person who rents a property from a landlord.\nA person or organization that owns and rents out a property.\nA person who purchases a home.\nA person or company that builds or develops houses.","viMean":"Đi tìm nhà để mua/thuê, tình trạng thiếu hụt nhà ở, sự cho thuê/cho thuê, hợp đồng cho thuê dài hạn, tiền thuê nhà, thanh toán tiền thuê, giá thuê nhà, giá mua nhà, người thuê nhà, chủ nhà (người cho thuê), người mua nhà, nhà phát triển dự án.","collocation":"alleviate the housing shortage (giảm bớt sự thiếu hụt nhà ở), secure a long-term let (kí được hợp đồng thuê dài hạn), pay the rent on time (trả tiền thuê nhà đúng hạn), dispute between tenant and landlord (tranh chấp giữa người thuê và chủ nhà)","example1":"The severe housing shortage has driven up both the average house price and the monthly rental price in metropolitan areas.\nTình trạng thiếu hụt nhà ở trầm trọng đã đẩy cả giá nhà trung bình và giá thuê hàng tháng ở các khu vực đô thị lên cao.","example2":"After weeks of exhausting house-hunting, the tenant finally signed a long-term let agreement with a friendly landlord.\nSau nhiều tuần tìm kiếm nhà mệt mỏi, người thuê nhà cuối cùng đã ký hợp đồng thuê dài hạn với một chủ nhà thân thiện.","synonyms":"accommodation search, residential deficit, lease, monthly rent, occupant, property owner, builder","antonyms":"housing surplus, selling outright","note":""},{"no":5,"vocab":"Apartment, Flat, Apartment building, block of flats, Condominium, Duplex, Penthouse, Basement apartment","ipa":"/əˈpɑːt.mənt/, /flæt/, /əˈpɑːt.mənt ˈbɪl.dɪŋ/, /blɒk ɒv flæts/, /ˌkɒn.dəˈmɪn.i.əm/, /ˈdjuː.pleks/, /ˈpent.haʊs/, /ˈbeɪs.mənt əˈpɑːt.mənt/","engMean":"A set of rooms for living in, usually on one floor of a building.\nA suite of rooms forming one residence (often larger/occupying a whole floor).\nA large building containing multiple apartments for rent.\nA large building containing multiple flats.\nA building containing a number of individually owned apartments.\nA residential building divided into two apartments or a two-story apartment.\nAn expensive, luxurious apartment on the top floor of a building.\nAn apartment located below ground level.","viMean":"Căn hộ chung cư, căn hộ lớn (chiếm cả tầng), tòa nhà căn hộ cho thuê, tòa chung cư, chung cư có chủ sở hữu riêng biệt, căn hộ thông tầng/nhà đôi, căn hộ xa hoa áp mái, căn hộ dưới tầng hầm.","collocation":"rent a basement apartment (thuê một căn hộ dưới tầng hầm), own a luxury condominium (sở hữu một căn hộ chung cư cao cấp), stay in a spacious duplex (ở trong một căn hộ thông tầng rộng rãi)","example1":"While renting a basement apartment is highly affordable, it lacks natural light compared to a standard flat in an apartment building.\nTrong khi thuê một căn hộ dưới tầng hầm có giá rất phải chăng, nó lại thiếu ánh sáng tự nhiên so với một căn hộ tiêu chuẩn trong tòa nhà chung cư.","example2":"The wealthy family purchased a luxurious penthouse at the top of the condominium, which was much more spacious than their previous duplex.\nGia đình giàu có đã mua một căn hộ áp mái sang trọng trên đỉnh của tòa chung cư, nơi rộng rãi hơn nhiều so với căn hộ thông tầng trước đây của họ.","synonyms":"suite, lodging, residential block, luxury suite","antonyms":"detached house, single-family home","note":""},{"no":6,"vocab":"Studio apartment, efficiency apartment, Bedsit, bed-sitting room, Bungalow, cottage, Villa, Palace, Cabin, Tent, Tree house, homestay, terraced house","ipa":"/ˈstjuː.di.əʊ əˈpɑːt.mənt/, /ɪˈfɪʃ.ən.si əˈpɑːt.mənt/, /ˈbed.sɪt/, /ˈbedˌsɪt.ɪŋ ruːm/, /ˈbʌŋ.ɡəl.əʊ/, /ˈkɒt.ɪdʒ/, /ˈvɪl.ə/, /ˈpæl.ɪs/, /ˈkæb.ɪn/, /tent/, /triː haʊs/, /ˈhəʊm.steɪ/, /ˈter.əst haʊs/","engMean":"A small apartment with a single main room.\nA small, self-contained single-room apartment.\nA small rented bedroom with cooking facilities but shared bathroom.\nA small house with a single story.\nA small simple house, typically in a rural area.\nA large, luxurious country house.\nA large, grand official residence of a royal person.\nA small wooden shelter.\nA portable shelter made of cloth.\nA playhouse built in the branches of a tree.\nA holiday where guests stay in a local family's home.\nA house built in a row of similar houses joined together.","viMean":"Căn hộ studio (nhỏ, 1 phòng), căn hộ tiện ích diện tích nhỏ, phòng trọ khép kín quy mô nhỏ (chung nhà vệ sinh), nhà trệt 1 tầng đơn giản, nhà nhỏ ở nông thôn, biệt thự sang trọng, cung điện, nhà gỗ nhỏ, lều bạt, nhà trên cây, kỳ nghỉ homestay, nhà phố liền kề.","collocation":"rent a cozy bedsit (thuê một phòng trọ nhỏ), stay at a local homestay (ở tại một homestay địa phương), a luxurious beachfront villa (biệt thự sang trọng trước biển)","example1":"For college students on a budget, a small bedsit or a studio apartment is often a more practical choice than renting a terraced house.\nĐối với sinh viên đại học có ngân sách eo hẹp, một phòng trọ nhỏ hoặc căn hộ studio thường là lựa chọn thiết thực hơn so với việc thuê một căn nhà phố liền kề.","example2":"During our vacation, we bypassed the grand palace and luxury villa, choosing instead to stay in a cozy rustic cottage and a unique tree house for a real eco-experience.\nTrong kỳ nghỉ của mình, chúng tôi đã bỏ qua cung điện lộng lẫy và biệt thự sang trọng, thay vào đó chọn ở trong một ngôi nhà tranh mộc mạc ấm cúng và một ngôi nhà trên cây độc đáo để có trải nghiệm sinh thái thực sự.","synonyms":"single-room unit, cottage, country lodge, mansion, canopy, residential rowhouse","antonyms":"high-rise skyscraper","note":""},{"no":7,"vocab":"public building, office block, pagoda, landmark, a famous landmark, hall of residence, dormitory, dorm room, place of residence, campus, a study, a ward, hospital ward, central business district, shopping center","ipa":"/ˈpʌb.lɪk ˈbɪl.dɪŋ/, /ˈɒf.ɪs blɒk/, /pəˈɡəʊ.də/, /ˈlænd.mɑːk/, /hɔːl ɒv ˈrez.ɪ.dəns/, /ˈdɔː.mɪ.tər.i/, /dɔːm ruːm/, /pleɪs ɒv ˈrez.ɪ.dəns/, /ˈkæm.pəs/, /ə ˈstʌdi/, /ə wɔːd/, /ˈhɒs.pɪ.təl wɔːd/, /ˌsen.trəl ˈbɪz.nɪs ˈdɪs.trɪkt/, /ˈʃɒp.ɪŋ ˌsen.tər/","engMean":"A building open to the general public.\nA large multi-story building used for professional offices.\nA Hindu or Buddhist temple.\nAn easily recognizable building or place of historical or local importance.\nA university building where students live.\nA college residential hall for students.\nA bedroom in a dormitory.\nThe location where a person officially lives.\nThe grounds and buildings of a university.\nA private room in a house used for quiet work.\nA separate room in a hospital for patients.\nThe commercial and business center of a city.\nA large area containing multiple retail stores.","viMean":"Tòa nhà công cộng, tòa nhà văn phòng, chùa, địa điểm nổi tiếng/cột mốc dễ nhận diện, khu ký túc xá, ký túc xá học sinh, phòng ký túc xá, nơi cư trú, khuôn viên trường học, phòng làm việc riêng, phòng bệnh viện, trung tâm tài chính-thương mại thành phố, trung tâm thương mại.","collocation":"a famous historical landmark (địa điểm lịch sử nổi tiếng), live in a university hall of residence (sống trong khu ký túc xá trường đại học), locate in the central business district (nằm ở trung tâm kinh doanh thương mại)","example1":"The historic pagoda is a famous landmark that stands right next to a modern office block on the edge of the campus.\nNgôi chùa lịch sử là một địa danh nổi tiếng nằm ngay cạnh một tòa nhà văn phòng hiện đại ở rìa khuôn viên trường đại học.","example2":"Many students choose to live in a dorm room in the hall of residence to be close to the campus, rather than renting a place of residence far from the central business district.\nNhiều sinh viên chọn sống trong phòng ký túc xá tại khu nội trú để gần khuôn viên trường, thay vì thuê nơi ở xa trung tâm kinh doanh thương mại.","synonyms":"civic structure, commercial tower, shrine, beacon, student housing, domicile, downtown, retail plaza","antonyms":"private residence, remote countryside area","note":""},{"no":8,"vocab":"staircase, arch, fence, double glazing, glass sliding windows, a floor-to-ceiling glass window, solid core wood doors, reclaimed wood","ipa":"/ˈsteə.keɪs/, /ɑːtʃ/, /fens/, /ˌdʌb.əl ˈɡleɪ.zɪŋ/, /ɡlɑːs ˈslaɪ.dɪŋ ˈwɪn.dəʊz/, /flɔːr-tuː-ˈsiː.lɪŋ ɡlɑːs ˈwɪn.dəʊ/, /ˈsɒl.ɪd kɔːr wʊd dɔːz/, /rɪˈkleɪmd wʊd/","engMean":"A set of stairs and its surrounding structure.\nA curved symmetrical structure spanning an opening.\nA barrier enclosing an area.\nWindows with two layers of glass to reduce noise and heat loss.\nWindows that slide open horizontally.\nA window that stretches from the floor all the way to the ceiling.\nDoors made entirely of solid wood without hollow sections inside.\nWood recovered from old buildings or structures for reuse.","viMean":"Cầu thang bộ, mái vòm, hàng rào, cửa kính hai lớp (cách âm/nhiệt), cửa sổ kính trượt, cửa sổ kính sát trần, cửa gỗ lõi đặc, gỗ tái chế.","collocation":"install double glazing (lắp đặt cửa kính hai lớp), enjoy the view through a floor-to-ceiling glass window (thưởng thức tầm nhìn qua cửa sổ kính sát trần), build with reclaimed wood (xây dựng bằng gỗ tái chế)","example1":"To improve thermal efficiency and noise reduction, the architect recommended installing double glazing and solid core wood doors.\nĐể cải thiện hiệu suất nhiệt và giảm tiếng ồn, kiến trúc sư đã khuyên nên lắp đặt cửa kính hai lớp và cửa gỗ lõi đặc.","example2":"The modern loft features a beautiful stone arch, a grand staircase, and a magnificent floor-to-ceiling glass window made with sustainable reclaimed wood frames.\nCăn hộ gác mái hiện đại nổi bật với một mái vòm bằng đá tuyệt đẹp, một cầu thang bộ lớn và một cửa sổ kính sát trần lộng lẫy được làm bằng khung gỗ tái chế bền vững.","synonyms":"stairwell, vault, enclosure wall, insulated windows, repurposed timber","antonyms":"single-paned window, hollow-core doors","note":""},{"no":9,"vocab":"fixtures and fittings, light fixtures, air-con, kitchen cabinet, water heater, crystal chandelier, the cooker, kitchen appliances, blender, juicer, oven, dishwasher, gas/electric stove, gadget, robot vacuum cleaner, air purifier, wallpaper, lace curtains, nightstand, drawer, cabinet, air conditioning system","ipa":"/ˈfɪks.tʃəz ænd ˈfɪt.ɪŋz/, /laɪt ˈfɪks.tʃəz/, /ˈeə.kɒn/, /ˈkɪtʃ.ən ˈkæb.ɪ.nət/, /ˈwɔː.tər ˈhiː.tər/, /ˈkrɪs.təl ˌʃæn.dəˈlɪər/, /ˈkʊk.ər/, /ˈkɪtʃ.ən əˈplaɪ.ən.sɪz/, /ˈblen.dər/, /ˈdʒuː.sər/, /ˈʌv.ən/, /ˈdɪʃˌwɒʃ.ər/, /ɡæs/ɪˈlek.trɪk stəʊv/, /ˈɡædʒ.ɪt/, /rəʊ.bɒt ˈvæk.juːm ˈkliː.nər/, /ˈeə p jʊə.rɪ.faɪ.ər/, /ˈwɔːlˌpeɪ.pər/, /leɪs ˈkɜː.tənz/, /ˈnaɪt.stænd/, /drɔːr/, /ˈkæb.ɪ.nət/, /ˈeə kənˈdɪʃ.ən.ɪŋ ˈsɪs.təm/","engMean":"Fixed items attached to the house plus movable items like furniture.\nElectric lights permanently attached to a building.\nAn air conditioner unit.\nA cupboard installed in a kitchen.\nAn appliance for heating water.\nA decorative hanging light with crystal ornaments.\nA large piece of kitchen equipment for cooking food.\nElectrical machines used in the kitchen.\nA machine for pureeing food.\nA machine for extracting juice from fruit.\nA closed compartment for baking food.\nA machine for washing dishes automatically.\nA device that burns gas or electricity to generate heat for cooking.\nA small mechanical or electronic device.\nA smart vacuum cleaner that operates automatically.\nA device that removes contaminants from the air.\nDecorative paper pasted onto walls.\nCurtains made of delicate openwork fabric.\nA small table kept next to a bed.\nA sliding boxlike compartment in furniture.\nA furniture item with shelves or drawers.\nA system that cools and controls the air quality in a building.","viMean":"Nội thất cố định và di động đi kèm nhà, hệ thống đèn chiếu sáng, điều hòa, tủ bếp, bình nóng lạnh, đèn chùm pha lê, thiết bị nấu bếp đa năng, thiết bị nhà bếp (máy xay, máy ép, lò nướng, máy rửa bát, bếp ga/điện), thiết bị/máy móc nhỏ (robot hút bụi, máy lọc không khí), giấy dán tường, rèm cửa ren, tủ nhỏ đầu giường, ngăn kéo, tủ nhiều ngăn, hệ thống điều hòa không khí.","collocation":"install a crystal chandelier (lắp đặt đèn chùm pha lê), modern kitchen appliances (các thiết bị nhà bếp hiện đại), clean the air with an air purifier (làm sạch không khí bằng máy lọc không khí), buy a house with all fixtures and fittings (mua nhà có sẵn toàn bộ nội thất cố định và di động)","example1":"The rental apartment comes fully furnished with high-quality fixtures and fittings, including light fixtures, kitchen cabinets, and a central air conditioning system.\nCăn hộ cho thuê được trang bị đầy đủ nội thất cố định và di động chất lượng cao, bao gồm hệ thống đèn chiếu sáng, tủ bếp và hệ thống điều hòa trung tâm.","example2":"To simplify daily life, she bought smart gadgets like a robot vacuum cleaner and modern kitchen appliances, including an oven, a dishwasher, and a high-end blender.\nĐể đơn giản hóa cuộc sống hàng ngày, cô ấy đã mua các thiết bị thông minh như robot hút bụi và các thiết bị nhà bếp hiện đại bao gồm lò nướng, máy rửa bát và máy xay chất lượng cao.","synonyms":"household equipment, electrical appliances, electronic devices, home decors","antonyms":"bare structure (no furniture)","note":""},{"no":10,"vocab":"acoustic seal, acoustic properties, high density insulation materials, natural ventilation, ingeniously ventilated building","ipa":"/əˈkuː.stɪk siːl/, /əˈkuː.stɪk ˈprɒp.ə.tiz/, /haɪ ˈden.sɪ.ti ˌɪn.sjəˈleɪ.ʃən məˈtɪə.ri.əlz/, /ˈnætʃ.ər.əl ˌven.tɪˈleɪ.ʃən/, /ɪnˈdʒiː.ni.əs.li ˈven.tɪ.leɪ.tɪd ˈbɪl.dɪŋ/","engMean":"A seal that prevents sound from passing through.\nThe characteristics of a room that determine how sound is transmitted in it.\nMaterials that strongly block heat or sound transfer.\nThe circulation of fresh air through a building without mechanical fans.\nA building designed with clever systems for natural airflow.","viMean":"Gioăng cách âm, đặc tính âm thanh, chất liệu cách điện/nhiệt/âm dày (mật độ cao), sự thông gió tự nhiên, tòa nhà được thông gió một cách tài tình.","collocation":"improve the acoustic properties of the auditorium (cải thiện những đặc tính về âm thanh của thính phòng), install an acoustic seal (lắp đặt gioăng cách âm), utilize natural ventilation (sử dụng hệ thống thông gió tự nhiên)","example1":"The concert hall was designed with high density insulation materials to improve its acoustic properties and prevent external noise.\nPhòng hòa nhạc được thiết kế bằng chất liệu cách âm dày để cải thiện các đặc tính âm thanh và ngăn chặn tiếng ồn bên ngoài.","example2":"By utilizing natural ventilation, this ingeniously ventilated building stays cool during the summer without relying on heavy air conditioning.\nBằng cách tận dụng sự thông gió tự nhiên, tòa nhà được thông gió tài tình này luôn mát mẻ trong suốt mùa hè mà không cần phụ thuộc vào hệ thống điều hòa công suất lớn.","synonyms":"sound barrier, soundproof features, natural airflow, smart ventilation design","antonyms":"poor insulation, stuffy room","note":""},{"no":11,"vocab":"minimalist look, clutter, bare necessities, décor style, interior design, functional, clean, functional design, functionality, aesthetics, functional vs. aesthetic values, create a vintage look, nooks and crannies, have a lot of character, reflect my personality, exterior, interior","ipa":"/ˈmɪn.ɪ.məl.ɪst lʊk/, /ˈklʌt.ər/, /beər nəˈses.ə.tiz/, /ˈdeɪ.kɔːr staɪl/, /ɪnˈtɪə.ri.ər dɪˈzaɪn/, /ˈfʌŋk.ʃən.əl/, /kliːn ˈfʌŋk.ʃən.əl dɪˈzaɪn/, /ˌfʌŋk.ʃənˈæl.ə.ti/, /esˈθet.ɪks/, /ˌfʌŋk.ʃən.əl vɜːsəs esˈθet.ɪk ˈvæl.juːz/, /kriːˈeɪt ə ˈvɪn.tɪdʒ lʊk/, /nʊks ænd ˈkræn.iz/, /hæv ə lɒt ɒv ˈkær.ək.tər/, /rɪˈflekt maɪ ˌpɜː.sənˈæl.ə.ti/, /ɪkˈstɪə.ri.ər/, /ɪnˈtɪə.ri.ər/","engMean":"A simple and uncluttered appearance.\nA collection of things lying about in an untidy mass.\nThe absolute basics needed for living.\nA particular manner of decorating a room.\nThe art of planning the layout and decoration of an architectural interior.\nDesigned to be useful rather than attractive.\nA style focusing on utility, simplicity and clean lines.\nThe quality of being suited to a serving purpose.\nA set of principles concerned with the appreciation of beauty.\nThe balance between usefulness and visual appeal.\nA classic, retro appearance.\nEvery corner and small space of a place.\nDistinctive qualities or features.\nTo show or express one's individual character.\nThe outer surface of a building.\nThe inner part of a building.","viMean":"Vẻ ngoài tối giản, sự bừa bộn, những vật dụng cơ bản, phong cách trang trí, thiết kế nội thất, mang tính thực tế/thực dụng, thiết kế thực dụng đơn giản, tính hữu dụng, tính thẩm mỹ, vẻ ngoài cổ điển, mọi ngóc ngách, có cá tính riêng/phản ánh tính cách cá nhân, bên ngoài, bên trong.","collocation":"embrace a minimalist look (theo đuổi vẻ ngoài tối giản), clear the clutter (dọn dẹp sự bừa bộn), functional vs. aesthetic values (giá trị thực dụng so với thẩm mỹ), have a lot of character (mang đậm cá tính riêng)","example1":"Many modern homeowners embrace a minimalist look, keeping only the bare necessities to avoid clutter.\nNhiều chủ nhà hiện đại theo đuổi vẻ ngoài tối giản, chỉ giữ lại những vật dụng cơ bản để tránh sự bừa bộn.","example2":"While some prefer functional design, others focus on aesthetics, choosing a vintage look that has a lot of character and reflects their personality.\nTrong khi một số người thích thiết kế thực dụng, những người khác lại tập trung vào tính thẩm mỹ, chọn một vẻ ngoài cổ điển mang đậm cá tính riêng và phản ánh tính cách của họ.","synonyms":"simple layout, mess, essentials, decorative style, utility","antonyms":"extravagant look, tidy space, superficiality","note":""},{"no":12,"vocab":"home comforts, all the mod cons, natural light, back garden, infinity pool, full board, physical location, transport link, the train service, eco-housing, be slap-bang at the heart of the city, a nice and quiet neighborhood, quiet-ish area, be naturally lit","ipa":"/həʊm ˈkʌm.fəts/, /ɔːl ðə ˌmɒd ˈkɒnz/, /ˈnætʃ.ər.əl laɪt/, /bæk ˈɡɑː.dən/, /ɪnˈfɪn.ə.ti puːl/, /fʊl bɔːd/, /ˈfɪz.ɪ.kəl ləʊˈkeɪ.ʃən/, /ˈtræn.spɔːt lɪŋk/, /ðə treɪn ˈsɜː.vɪs/, /ˈiː.kəʊ-ˈhaʊ.zɪŋ/, /biː slæp-bæŋ æt ðə hɑːt ɒv ðə ˈsɪt.i/, /ə naɪs ænd ˈkwaɪ.ət ˈneɪ.bə.hʊd/, /ˈkwaɪ.ət.ɪʃ ˈeə.ri/, /biː ˈnætʃ.ər.əl.i lɪt/","engMean":"The comfortable things you have at home.\nAll modern conveniences like washing machines and air conditioners.\nLight from the sun.\nA garden at the rear of a house.\nA swimming pool where the water flows over one or more edges.\nAn arrangement where meals are provided with accommodation.\nThe actual geographic position of a building.\nTransportation network connections.\nRail transportation availability.\nEnvironmentally friendly residential housing.\nRight in the very center of the city.\nA peaceful and safe residential district.\nA relatively quiet area.\nIlluminated by natural light from the sun.","viMean":"Tiện nghi gia đình, đầy đủ các thiết bị gia dụng hiện đại, ánh sáng tự nhiên, vườn sau nhà, bể bơi vô cực, dịch vụ lưu trú trọn gói, vị trí địa lý thực tế, mạng lưới giao thông công cộng, dịch vụ tàu hỏa, nhà ở sinh thái, nằm ngay chính giữa trung tâm thành phố, một khu dân cư yên tĩnh lịch sự, một vùng khá yên tĩnh, được chiếu sáng tự nhiên.","collocation":"equipped with all the mod cons (được trang bị đầy đủ tiện nghi hiện đại), flood the room with natural light (tràn ngập ánh sáng tự nhiên trong phòng), be located slap-bang at the heart of the city (nằm ngay giữa trung tâm thành phố), have excellent transport links (có mạng lưới kết nối giao thông tuyệt vời)","example1":"Although the property is located slap-bang at the heart of the city, it sits in a nice and quiet neighborhood with easy access to the train service.\nMặc dù bất động sản nằm ngay giữa trung tâm thành phố, nó lại tọa lạc trong một khu phố yên tĩnh và lịch sự với lối tiếp cận dịch vụ tàu hỏa rất dễ dàng.","example2":"This modern eco-housing project offers excellent home comforts with all the mod cons, and rooms that are naturally lit by large windows opening to an infinity pool in the back garden.\nDự án nhà ở sinh thái hiện đại này mang lại những tiện nghi gia đình tuyệt vời với đầy đủ các thiết bị hiện đại, và các căn phòng được chiếu sáng tự nhiên bởi các cửa sổ lớn mở ra một bể bơi vô cực ở khu vườn phía sau.","synonyms":"modern amenities, sunlight, prime location, transit networks, green housing","antonyms":"lack of amenities, remote location, noisy district","note":""},{"no":13,"vocab":"erect, construct, build, demolish, demolition, be converted into, redecorate, need redecorating, renovate, do up a home, modifications to houses, the upkeep of, maintenance, cozy up, be fitted on/to/in sth, be installed, come at a significant cost","ipa":"/ɪˈrekt/, /kənˈstrʌkt/, /bɪld/, /dɪˈmɒl.ɪʃ/, /ˌdem.əˈlɪʃ.ən/, /biː kənˈvɜːtɪd ˈɪntuː/, /ˌriːˈdek.ə.reɪt/, /niːd ˌriːˈdek.ə.reɪ.tɪŋ/, /ˈren.ə.veɪt/, /duː ʌp ə həʊm/, /ˌmɒd.ɪ.fɪˈkeɪ.ʃənz tuː ˈhaʊ.sɪz/, /ðiː ˈʌp.kiːp ɒv/, /ˈmeɪn.tən.əns/, /ˈkəʊ.zi ʌp/, /biː ˈfɪt.ɪd ɒn/tuː/ɪn/, /biː ɪnˈstɔːld/, /kʌm æt ə sɪɡˈnɪf.ɪ.kənt kɒst/","engMean":"To build or put up a structure.\nTo build something large.\nTo make by putting parts together.\nTo completely destroy a building.\nThe act of destroying a building.\nTo change the form or purpose of.\nTo paint or wallpaper a room again.\nTo require new decoration.\nTo restore to a good state of repair.\nTo repair and decorate a house.\nChanges made to a building.\nThe cost or process of keeping a building in good condition.\nThe work of keeping something in proper condition.\nTo make a place warmer and more comfortable.\nTo be attached securely to something.\nTo be placed in position ready for use.\nTo be very expensive.","viMean":"Xây dựng, phá hủy, chuyển đổi công năng, trang trí lại, cải tạo/sửa sang nhà cửa, những thay đổi đối với nhà, chi phí duy trì, sự bảo dưỡng, làm ấm cúng hơn, được lắp đặt gắn vào, đắt đỏ.","collocation":"erect a landmark building (xây dựng một tòa nhà biểu tượng), demolish old structures (phá dỡ cấu trúc cũ), renovate/do up a home (cải tạo nhà cửa), the upkeep of a building (chi phí tu sửa duy trì tòa nhà), come at a significant cost (tốn khoản chi phí đáng kể)","example1":"The developer plans to demolish the run-down structures and erect a new eco-housing estate in their place.\nNhà phát triển dự án lên kế hoạch phá dỡ các cấu trúc tồi tàn và xây dựng một khu nhà ở sinh thái mới tại vị trí đó.","example2":"To cozy up their living room, the couple decided to renovate and make several modifications to their house, though the upkeep of such a large property is costly.\nĐể làm ấm cúng hơn phòng khách của mình, cặp vợ chồng đã quyết định cải tạo và thực hiện vài thay đổi cho ngôi nhà của họ, mặc dù chi phí duy trì một bất động sản lớn như vậy là rất đắt đỏ.","synonyms":"put up, tear down, transform, re-ornament, repair, preservation","antonyms":"demolish, construct, damage, neglect","note":""},{"no":14,"vocab":"run-down, dilapidated, aging, aged, worn-out, distressed furniture, structurally sound, pedestrian, well-furnished, well-equipped, newly-built, expertly designed, conventional, conventional brick building, futuristic, open-plan, state-of-the-art, ultramodern, leather, intricate, antique, decorative, decorative stuff/objects, sufficiently cooled","ipa":"/ˌrʌnˈdaʊn/, /dɪˈlæp.ɪ.deɪ.tɪd/, /ˈeɪ.dʒɪŋ/, /eɪdʒd/, /ˌwɔːnˈaʊt/, /dɪˈstrest ˈfɜː.nɪ.tʃər/, /ˈstrʌk.tʃər.əl.i saʊnd/, /pəˈdes.tri.ən/, /ˌwelˈfɜː.nɪʃt/, /ˌwel.ɪˈkwɪpt/, /ˌnjuː.liˈbɪlt/, /ˈek.spɜːt.li dɪˈzaɪnd/, /kənˈven.ʃən.əl/, /kənˈven.ʃən.əl brɪk ˈbɪl.dɪŋ/, /ˌfjuː.tʃəˈrɪs.tɪk/, /ˌəʊ.pənˈplæn/, /ˌsteɪt.əv.ðiːˈɑːt/, /ˌʌl.trəˈmɒd.ən/, /ˈleð.ər/, /ˈɪn.trɪ.kət/, /ænˈtiːk/, /ˈdek.ər.ə.tɪv/, /ˈdek.ər.ə.tɪv stʌf/ˈɒb.dʒɪkts/, /səˈfɪʃ.ənt.li kuːld/","engMean":"In poor physical condition; neglected.\nRun-down and falling into decay.\nGrowing old.\nOld.\nDamaged by long use.\nFurniture intentionally made to look old or rustic.\nSolid and safe in construction.\nLacking inspiration; dull or ordinary.\nProvided with good furniture.\nHaving all necessary tools/equipment.\nConstructed recently.\nDesigned with high professional skill.\nStandard, traditional, or ordinary.\nA traditional building made of clay bricks.\nHaving very modern technology or look.\nHaving few or no walls dividing the living areas.\nHighly modern and advanced.\nExtremely modern.\nMaterial made from animal skin.\nVery detailed and complicated.\nAn object of high value because of its age.\nServing to beautify or ornament.\nItems used to decorate a space.\nKept at a cool, comfortable temperature.","viMean":"Tồi tàn/xuống cấp, đổ nát, cũ kỹ, sờn rách, nội thất giả cổ, kết cấu vững chắc, tầm thường/tẻ nhạt, đầy đủ nội thất, đầy đủ trang thiết bị, mới xây, được thiết kế chuyên nghiệp, truyền thống, tòa nhà bằng gạch truyền thống, mang phong cách tương lai, thiết kế không gian mở, cực kỳ hiện đại, tối tân, bằng da, tinh xảo, cổ xưa, có tính chất trang trí, những thứ đồ trang trí, được làm mát đầy đủ.","collocation":"restore a run-down building (khôi phục một tòa nhà xuống cấp), an open-plan kitchen and living room (căn bếp và phòng khách thiết kế không gian mở), purchase antique leather furniture (mua đồ nội thất bằng da cổ xưa), structurally sound foundation (nền móng có kết cấu vững chắc)","example1":"Although the exterior of the conventional brick building looked run-down and dilapidated, its structure was declared structurally sound by the expert.\nMặc dù bên ngoài tòa nhà bằng gạch truyền thống trông có vẻ xuống cấp và tồi tàn, kết cấu của nó vẫn được chuyên gia tuyên bố là vô cùng vững chắc.","example2":"The newly-built apartment features an open-plan layout, expertly designed with state-of-the-art appliances and custom distressed furniture to create a vintage yet futuristic look.\nCăn hộ mới xây có bố cục không gian mở, được thiết kế chuyên nghiệp với các thiết bị tối tân và nội thất mài cũ theo yêu cầu để tạo nên vẻ ngoài vừa hoài cổ vừa hiện đại.","synonyms":"shabby, decrepit, sturdy, commonplace, fully decorated, high-tech, antique, ornate","antonyms":"brand new, pristine, unstable, empty, plain","note":""},{"no":15,"vocab":"spacious, airy, cramped, stuffy, windowless, high-rise, X-story, tower over, overlook, look out onto, can see sth from the windows, gorgeous views, spectacular views, panoramic view, uninterrupted view","ipa":"/ˈspeɪ.ʃəs/, /ˈeə.ri/, /kræmpt/, /ˈstʌf.i/, /ˈwɪn.dəʊ.ləs/, /ˈhaɪ.raɪz/, /eks-ˈstɔː.ri/, /ˈtaʊ.ər ˈəʊ.vər/, /ˌəʊ.vəˈlʊk/, /lʊk aʊt ˈɒn.tuː/, /kæn siː frɒm ðə ˈwɪn.dəʊz/, /ˈɡɔː.dʒəs vjuːz/, /spekˈtæk.jə.lər vjuːz/, /ˌpæn.əˈræm.ɪk vjuː/, /ˌʌn.ɪn.təˈrʌp.tɪd vjuː/","engMean":"Having ample space.\nSpacious, well-ventilated, and light.\nUncomfortably small or crowded.\nLacking fresh air or ventilation.\nHaving no windows.\nA multi-story building.\nHaving a specific number of floors.\nTo rise high above surroundings.\nTo have a view of from above.\nTo have a view overlooking a specific area.\nTo have a direct line of sight from a window.\nBeautiful, striking sights.\nImpressive, beautiful views.\nAn unobstructed, wide view of an area.\nA clear view not blocked by obstacles.","viMean":"Rộng rãi, thoáng đãng, chật chội, ngột ngạt, không có cửa sổ, cao tầng, có X tầng, cao vượt trội lên, nhìn ra ngoài hướng về, phong cảnh tuyệt đẹp/ngoạn mục, tầm nhìn toàn cảnh, tầm nhìn không bị che chắn.","collocation":"a spacious and airy living room (một phòng khách rộng rãi và thoáng đãng), tower over the surrounding buildings (cao hơn hẳn các tòa nhà xung quanh), enjoy an uninterrupted panoramic view (thưởng thức tầm nhìn toàn cảnh không bị che chắn)","example1":"Instead of living in a cramped, stuffy, and windowless basement apartment, they prefer a spacious, airy flat in a high-rise building.\nThay vì sống trong một căn hộ tầng hầm chật chội, ngột ngạt và không có cửa sổ, họ thích một căn hộ rộng rãi, thoáng đãng trong một tòa nhà cao tầng.","example2":"The penthouse, which sits atop a 30-story tower, overlooks the river and offers gorgeous, uninterrupted panoramic views of the city.\nCăn hộ áp mái nằm trên đỉnh một tòa tháp 30 tầng nhìn ra sông và mang lại tầm nhìn toàn cảnh tuyệt đẹp, không bị che chắn của thành phố.","synonyms":"roomy, breezy, confined, suffocating, dominate, command a view of","antonyms":"cramped, stuffy, low-rise, restricted view","note":""},{"no":16,"vocab":"a blot on the landscape, destroy the integrity of the cityscape, blend in with the surroundings, uphold a traditional building style, contribute to the diversity of building models, a cultural relic","ipa":"/ə blɒt ɒn ðə ˈlænd.skeɪp/, /dɪˈstrɔɪ ðə ɪnˈteɡ.rə.ti ɒv ðə ˈsɪt.i.skeɪp/, /blend ɪn wɪð ðə səˈraʊn.dɪŋz/, /ʌpˈhəʊld ə trəˈdɪʃ.ən.əl ˈbɪl.dɪŋ staɪl/, /kənˈtrɪb.juːt tuː ðə daɪˈvɜː.sə.ti ɒv ˈbɪl.dɪŋ ˈmɒd.əlz/, /ə ˈkʌl.tʃər.əl ˈrel.ɪk/","engMean":"An ugly structure that spoils the view of a place.\nTo ruin the aesthetic unity and design of a city.\nTo look natural and harmonious with the area.\nTo maintain and respect classic architectural designs.\nTo add to the variety of building designs.\nA historical object or building of cultural significance.","viMean":"Vật làm xấu cảnh quan, phá hỏng tính toàn vẹn của cảnh quan thành phố, hài hòa với môi trường xung quanh, giữ vững phong cách xây dựng truyền thống, đóng góp vào sự đa dạng của các mô hình tòa nhà, di tích văn hóa.","collocation":"be considered a blot on the landscape (bị coi là một vết nhơ làm xấu cảnh quan), blend in beautifully with the surroundings (hài hòa tuyệt đẹp với môi trường xung quanh), preserve a cultural relic (bảo tồn một di tích văn hóa)","example1":"The ultra-modern skyscraper was criticized as a blot on the landscape that destroyed the integrity of the historic cityscape.\nTòa nhà chọc trời cực kỳ hiện đại đã bị chỉ trích là một công trình làm xấu cảnh quan, phá hỏng tính toàn vẹn của cảnh quan thành phố lịch sử.","example2":"New developments should blend in with the surroundings and uphold a traditional building style, especially when near a cultural relic, to contribute to the diversity of building models.\nCác công trình mới nên hài hòa với môi trường xung quanh và duy trì phong cách xây dựng truyền thống, đặc biệt là khi ở gần một di tích văn hóa, nhằm đóng góp vào sự đa dạng của các mô hình tòa nhà.","synonyms":"eyesore, ruin urban harmony, fit in, maintain architectural heritage","antonyms":"architectural masterpiece, enhance the aesthetic","note":""},{"no":17,"vocab":"house-warming party, a tight-knit community, see your home as a base, meet the safety standards, desirable, a desirable area","ipa":"/ˈhaʊsˌwɔː.mɪŋ ˈpɑː.ti/, /ə ˌtaɪt.nɪt kəˈmjuː.nə.ti/, /siː jɔː həʊm æz ə beɪs/, /miːt ðə ˈseɪf.ti ˈstæn.dədz/, /dɪˈzaɪə.rə.bəl/, /ə dɪˈzaɪə.rə.bəl ˈeə.ri/","engMean":"A party celebrating a move to a new home.\nA close group of people who support each other.\nTo treat your home simply as a place to sleep or return to after work.\nTo fulfill all official safety requirements.\nHighly pleasing and wanted by many.\nA neighborhood where many people want to live.","viMean":"Tiệc tân gia, cộng đồng dân cư khăng khít, chỉ coi nhà đơn giản là nơi để đi về, đạt các tiêu chuẩn an toàn, đáng khao khát, khu vực sống đáng mơ ước.","collocation":"throw a house-warming party (tổ chức tiệc mừng tân gia), live in a tight-knit community (sống trong một cộng đồng khăng khít), meet the strict safety standards (đáp ứng các tiêu chuẩn an toàn nghiêm ngặt), buy property in a desirable area (mua bất động sản ở một khu vực đáng mơ ước)","example1":"After moving into their new apartment, they threw a lively house-warming party for their neighbors, hoping to fit into the tight-knit community.\nSau khi chuyển vào căn hộ mới, họ đã tổ chức một bữa tiệc tân gia sôi nổi để mời hàng xóm, với hy vọng sớm hòa nhập vào cộng đồng khăng khít này.","example2":"A home that meets the safety standards and offers a beautiful design is highly coveted, making it a highly desirable area for families who do not just see their home as a base.\nMột ngôi nhà đáp ứng các tiêu chuẩn an toàn và có thiết kế đẹp mắt rất được thèm muốn, biến nơi đây thành một khu vực đáng mơ ước cho các gia đình không chỉ coi nhà đơn giản là nơi để đi về.","synonyms":"celebration of a new home, close-knit neighborhood, secure haven, prestigious neighborhood","antonyms":"neglected neighborhood, unsafe area","note":""},{"no":18,"vocab":"heavy traffic noise, background noise, clack, hiss, the clack of high heels on a pavement, the hiss of a coffee machine","ipa":"/ˈhevi ˈtræfɪk nɔɪz/, /ˈbækɡraʊnd nɔɪz/, /klæk/, /hɪs/, /ðə klæk ɒv haɪ hiːlz ɒn ə ˈpeɪvmənt/, /ðə hɪs ɒv ə ˈkɒfi məˈʃiːn/","engMean":"Loud sounds from vehicles on the road.\nExtraneous sound accompanying a primary sound.\nA sharp, quick sound of two hard objects colliding.\nA sharp sibilant sound.\nThe repetitive tapping sound of high-heeled shoes hitting the sidewalk pavement.\nThe sharp sibilant sound of a coffee brewing machine releasing steam.","viMean":"Tiếng ồn giao thông lớn, tiếng ồn nền, tiếng lách cách (như giày cao gót đi trên vỉa hè), tiếng rít (như của máy pha cà phê).","collocation":"drown out the background noise (lấn át tiếng ồn nền), the clack of high heels on a pavement (tiếng lách cách của giày cao gót trên vỉa hè), the constant hiss of a coffee machine (tiếng rít liên tục của máy pha cà phê)","example1":"Living near a main road means enduring heavy traffic noise and constant background noise.\nSống gần đường lớn đồng nghĩa với việc phải chịu đựng tiếng ồn giao thông lớn và tiếng ồn nền liên tục.","example2":"The quiet atmosphere of the cafe was interrupted by the clack of high heels on the pavement and the loud hiss of a coffee machine.\nBầu không khí yên tĩnh của quán cà phê bị gián đoạn bởi tiếng lách cách của giày cao gót trên vỉa hè và tiếng rít lớn của máy pha cà phê.","synonyms":"road noise, ambient noise, click, buzz","antonyms":"silence, quietness","note":""},{"no":19,"vocab":"sleep disturbance, interrupted sleep, uninterrupted sleep, a major distraction, pleasant, soft, intrusive, disruptive, abate, interfere with","ipa":"/sliːp dɪˈstɜː.bəns/, /ˌɪn.təˈrʌp.tɪd sliːp/, /ˌʌn.ɪn.təˈrʌp.tɪd sliːp/, /ə ˈmeɪ.dʒər dɪˈstræk.ʃən/, /ˈplez.ənt/, /sɒft/, /ɪnˈtruː.sɪv/, /dɪsˈrʌp.tɪv/, /əˈbeɪt/, /ˌɪn.təˈfɪər wɪð/","engMean":"Disruption in normal sleeping patterns.\nSleep that is broken by waking up.\nContinuous, peaceful sleep.\nA main thing that prevents concentration.\nGiving a sense of happy satisfaction.\nGentle and not loud.\nCausing disruption or annoyance.\nCausing trouble and stopping something from continuing.\nTo become less intense or widespread.\nTo prevent something from being done smoothly.","viMean":"Sự rối loạn giấc ngủ, giấc ngủ bị ngắt quãng, giấc ngủ không bị gián đoạn, sự gây mất tập trung lớn, dễ chịu, nhẹ nhàng, phiền toái, gây gián đoạn/mất tập trung, giảm bớt, can thiệp/gây trở ngại.","collocation":"suffer from sleep disturbance (bị rối loạn giấc ngủ), a major distraction from study (sự gây mất tập trung lớn đối với việc học), high noise levels interfere with performance (mức độ tiếng ồn cao cản trở hiệu suất)","example1":"Intrusive sounds from construction sites often cause sleep disturbance and interrupted sleep for nearby residents.\nNhững âm thanh phiền toái từ các công trường xây dựng thường gây ra tình trạng rối loạn giấc ngủ và giấc ngủ bị ngắt quãng cho cư dân lân cận.","example2":"Once the loud street noise began to abate, we could finally enjoy a soft, pleasant background music without major distractions.\nKhi tiếng ồn lớn ngoài đường bắt đầu giảm bớt, cuối cùng chúng tôi cũng có thể tận hưởng bản nhạc nền nhẹ nhàng, dễ chịu mà không bị mất tập trung lớn.","synonyms":"insomnia, broken sleep, annoyance, quiet down, hinder","antonyms":"uninterrupted sleep, soothing, helpful, intensify","note":""}]</script>
+
+    <script>
+        const titleEl = document.getElementById('mainTitle');
+        const storageKey = "vocabList_" + encodeURIComponent(titleEl ? titleEl.innerText : "Offline_IELTS");
+        
+        // Load notes from localstorage of the downloaded offline file to make it fully state persistent
+        const savedLocal = localStorage.getItem(storageKey);
+        let vocabData = [];
+        try {
+            vocabData = JSON.parse(document.getElementById('vocabDataRaw').textContent || '[]');
+        } catch (e) {
+            console.error("Failed to parse vocab database", e);
+        }
+        if (savedLocal) {
+            try {
+                const parsed = JSON.parse(savedLocal);
+                // merge saved notes by matching no
+                vocabData.forEach(item => {
+                    const match = parsed.find(x => x.no === item.no);
+                    if (match) {
+                        item.note = match.note || "";
+                    }
+                });
+            } catch (e) {
+                console.error("Failed to parse local storage", e);
+            }
+        }
+        
+        let filteredItems = [...vocabData];
+
+        function splitExample(text) {
+            if (!text) return ["", ""];
+            var cleaned = text.split('\\' + 'n').join(String.fromCharCode(10));
+            var parts = cleaned.split(String.fromCharCode(10));
+            return [parts[0] || "", parts.slice(1).join(String.fromCharCode(10)) || ""];
+        }
+
+        function splitMeanings(text) {
+            if (!text) return [];
+            return text.split(/\s*[,\/]\s*(?![^()]*\))/).map(function(p) {
+                var cleaned = p.trim();
+                if (cleaned.endsWith('.')) {
+                    cleaned = cleaned.slice(0, -1);
+                }
+                return cleaned;
+            });
+        }
+
+        function formatText(text, prefixBullet) {
+            if (!text) return "";
+            var cleaned = text.split('\\' + 'n').join(String.fromCharCode(10));
+            var lines = cleaned.split(String.fromCharCode(10));
+            if (prefixBullet) {
+                var bulletList = [];
+                for (var i = 0; i < lines.length; i++) {
+                    if (lines[i].trim()) {
+                        bulletList.push('* ' + lines[i].trim());
+                    }
+                }
+                return bulletList.join('<br>');
+            }
+            return lines.join('<br>');
+        }
+
+        function speakWord(elementOrWord) {
+            var clean = "";
+            if (typeof elementOrWord === 'string') {
+                clean = elementOrWord.split(',')[0].trim();
+            } else if (elementOrWord && elementOrWord.querySelector) {
+                var span = elementOrWord.querySelector('span');
+                if (span) {
+                    clean = span.innerText.split(',')[0].trim();
+                }
+            }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                var utterance = new SpeechSynthesisUtterance(clean);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Speech synthesis is not supported on your browser.");
+            }
+        }
+
+        function updateNote(no, value) {
+            const index = vocabData.findIndex(x => x.no === no);
+            if (index !== -1) {
+                vocabData[index].note = value;
+                localStorage.setItem(storageKey, JSON.stringify(vocabData));
+            }
+        }
+
+        function executeCopy(text, successMsg) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast(successMsg);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        function generateMarkdown(data) {
+            let md = "| **No.** | **Từ vựng** | **IPA** | **Nghĩa tiếng Anh** | **Nghĩa tiếng Việt** | **Collocation** | **Example 1** | **Example 2** | **Synonyms** | **Antonyms** | **Note** |\n";
+            md += "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |\n";
+            data.forEach(item => {
+                const clean = (str) => (str || "").replace(/\|/g, '\\|').replace(/\n/g, '<br>');
+                md += "| **" + item.no + "** | **" + clean(item.vocab) + "** | " + clean(item.ipa) + " | " + clean(item.engMean) + " | " + clean(item.viMean) + " | " + clean(item.collocation) + " | " + clean(item.example1) + " | " + clean(item.example2) + " | " + clean(item.synonyms) + " | " + clean(item.antonyms) + " | " + clean(item.note) + " |\n";
+            });
+            return md;
+        }
+
+        function generateTSV(data) {
+            let tsv = ["No.", "Từ vựng", "IPA", "Nghĩa tiếng Anh", "Nghĩa tiếng Việt", "Collocation", "Example 1", "Example 2", "Synonyms", "Antonyms", "Note"].join("\t") + "\n";
+            data.forEach(item => {
+                const clean = (str) => (str || "").replace(/\r?\n/g, " ").replace(/\t/g, " ");
+                tsv += [item.no, clean(item.vocab), clean(item.ipa), clean(item.engMean), clean(item.viMean), clean(item.collocation), clean(item.example1), clean(item.example2), clean(item.synonyms), clean(item.antonyms), clean(item.note)].join("\t") + "\n";
+            });
+            return tsv;
+        }
+
+        function copyFullTable(format) {
+            if (filteredItems.length === 0) return;
+            const text = format === 'md' ? generateMarkdown(filteredItems) : generateTSV(filteredItems);
+            const msg = format === 'md' ? "Đã sao chép bảng Markdown!" : "Đã sao chép sang dạng Excel! Hãy dán (Ctrl+V) vào Excel/Sheets.";
+            executeCopy(text, msg);
+        }
+
+        function renderUI() {
+            const tbody = document.getElementById('tableBody');
+            const mobileCards = document.getElementById('mobileCards');
+            const counter = document.getElementById('counter');
+            
+            tbody.innerHTML = '';
+            mobileCards.innerHTML = '';
+            counter.innerText = filteredItems.length + " / " + vocabData.length;
+
+            filteredItems.forEach(item => {
+                // Generate vocabulary vocal chips
+                var vocabWords = (item.vocab || "").split(', ');
+                var highlightedVocabHtml = "";
+                vocabWords.forEach(function(word) {
+                    highlightedVocabHtml += '<div onclick="speakWord(this)" title="Nghe phát âm chuẩn: ' + word + '" class="inline-flex items-center gap-1.5 bg-slate-50/50 hover:bg-indigo-50/30 border border-slate-200/50 hover:border-indigo-200/60 px-2.5 py-1 rounded-lg text-[11.5px] text-slate-800 font-bold tracking-tight cursor-pointer select-none transition-all duration-200 shadow-2xs">' +
+                                               '<span class="leading-none">' + word + '</span>' +
+                                               '<svg class="w-3.5 h-3.5 text-slate-400 shrink-0 hover:text-indigo-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M12 18.75V5.25L7.5 9H4.5v6h3L12 18.75z"></path></svg>' +
+                                           '</div> ';
+                });
+
+                // Generate meanings chips
+                var meaningChipsHtml = "";
+                splitMeanings(item.viMean).forEach(function(mean) {
+                    meaningChipsHtml += '<div class="inline-flex items-center gap-1.5 bg-slate-50/50 hover:bg-indigo-50/30 border border-slate-200/50 hover:border-indigo-200/60 px-2.5 py-1 rounded-lg text-[11.5px] text-slate-800 font-bold tracking-tight select-none transition-all duration-200 shadow-2xs w-fit">' + mean + '</div> ';
+                });
+
+                // Example 1 split
+                var ex1Parts = splitExample(item.example1);
+                var ex1Eng = ex1Parts[0];
+                var ex1Vi = ex1Parts[1];
+
+                // Example 2 split if exists
+                var ex2Html = "";
+                if (item.example2) {
+                    var ex2Parts = splitExample(item.example2);
+                    ex2Html = '<div class="text-[11px] border-l-2 border-emerald-500 pl-2.5 mt-2">' +
+                                '<p class="text-slate-900 font-medium">' + ex2Parts[0] + '</p>' +
+                                '<p class="text-slate-400 italic mt-0.5">' + ex2Parts[1] + '</p>' +
+                              '</div>';
+                }
+
+                // Collocations list
+                var colListHtml = "";
+                if (item.collocation) {
+                    var cols = item.collocation.split(', ');
+                    cols.forEach(function(col) {
+                        if (col.trim()) {
+                            colListHtml += '<div class="flex items-start gap-1"><span class="text-indigo-500 font-extrabold">•</span><span>' + col + '</span></div>';
+                        }
+                    });
+                }
+
+                // 1. Desktop Row
+                var tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50/40 transition-colors group";
+                
+                tr.innerHTML = 
+                    '<td class="py-3.5 px-4 font-bold text-slate-400 text-center bg-slate-50/20">' + item.no + '</td>' +
+                    '<td class="py-3.5 px-5 text-slate-900">' +
+                        '<div class="space-y-2">' +
+                            '<div class="flex flex-wrap gap-1.5 items-center">' + highlightedVocabHtml + '</div>' +
+                            '<span class="text-[11px] text-slate-400 italic block font-normal tracking-wide leading-relaxed pl-1">' + (item.ipa || '') + '</span>' +
+                        '</div>' +
+                    '</td>' +
+                    '<td class="py-3.5 px-6 text-slate-700 leading-relaxed">' +
+                        '<div class="flex flex-wrap gap-1.5 items-center mb-2">' + meaningChipsHtml + '</div>' +
+                        '<div class="text-[11.5px] text-slate-600 bg-slate-50/70 p-2.5 rounded-xl border border-slate-100/50 leading-relaxed">' + formatText(item.engMean, true) + '</div>' +
+                    '</td>' +
+                    '<td class="py-3.5 px-6 text-slate-600 leading-relaxed">' +
+                        '<div class="space-y-1.5 text-[11px]">' + colListHtml + '</div>' +
+                    '</td>' +
+                    '<td class="py-3.5 px-6 text-slate-600 leading-relaxed">' +
+                        '<div class="space-y-2.5">' +
+                            '<div class="text-[11px] border-l-2 border-indigo-500 pl-2.5">' +
+                                '<p class="text-slate-900 font-medium">' + ex1Eng + '</p>' +
+                                '<p class="text-slate-400 italic mt-0.5">' + ex1Vi + '</p>' +
+                            '</div>' +
+                            ex2Html +
+                        '</div>' +
+                    '</td>' +
+                    '<td class="py-3.5 px-5 text-[11px]">' +
+                        '<div class="space-y-2">' +
+                            '<div>' +
+                                '<span class="block font-bold text-slate-400 text-[9.5px] uppercase tracking-wider mb-0.5">ĐỒNG NGHĨA</span>' +
+                                '<span class="text-slate-700 font-medium bg-indigo-50/50 text-indigo-700 px-1.5 py-0.5 rounded text-[10px] block w-full whitespace-normal">' + (item.synonyms || 'N/A') + '</span>' +
+                            '</div>' +
+                            '<div>' +
+                                '<span class="block font-bold text-slate-400 text-[9.5px] uppercase tracking-wider mb-0.5">TRÁI NGHĨA</span>' +
+                                '<span class="text-slate-700 font-medium bg-rose-50/50 text-rose-700 px-1.5 py-0.5 rounded text-[10px] block w-full whitespace-normal">' + (item.antonyms || 'N/A') + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</td>';
+                tbody.appendChild(tr);
+
+                // 2. Mobile Card
+                var card = document.createElement('div');
+                card.className = "bg-white rounded-2xl shadow-xs border border-slate-100 p-4 space-y-3.5 hover:border-indigo-100 transition-all";
+                
+                var cardEx2Html = "";
+                if (item.example2) {
+                    var cardEx2Parts = splitExample(item.example2);
+                    cardEx2Html = '<div class="text-[11px] space-y-0.5 border-l-2 border-emerald-500 pl-2.5">' +
+                                    '<p class="text-slate-900 font-medium">' + cardEx2Parts[0] + '</p>' +
+                                    '<p class="text-slate-400 italic">' + cardEx2Parts[1] + '</p>' +
+                                  '</div>';
+                }
+
+                card.innerHTML = 
+                    '<div class="flex items-start justify-between border-b border-slate-100 pb-2.5">' +
+                        '<div class="flex items-center gap-1.5">' +
+                            '<span class="bg-slate-100 text-slate-700 font-bold text-[11px] px-2 py-0.5 rounded-lg">No. ' + item.no + '</span>' +
+                            '<span class="text-[11px] text-slate-400 italic">' + (item.ipa || '') + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="space-y-1">' +
+                        '<div class="flex flex-wrap gap-1.5 items-center">' + highlightedVocabHtml + '</div>' +
+                        '<div class="flex flex-wrap gap-1.5 items-center mt-1.5 mb-1">' + meaningChipsHtml + '</div>' +
+                        '<p class="text-[11.5px] text-slate-600 bg-slate-50 p-2 rounded-xl border border-slate-100 leading-relaxed mt-1">' + formatText(item.engMean, true) + '</p>' +
+                    '</div>' +
+                    '<div class="space-y-1">' +
+                        '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Cụm Từ (Collocations)</span>' +
+                        '<div class="text-[11.5px] text-slate-600 space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100/50">' + colListHtml + '</div>' +
+                    '</div>' +
+                    '<div class="space-y-1.5 pt-0.5">' +
+                        '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Ví dụ IELTS</span>' +
+                        '<div class="text-[11px] space-y-0.5 border-l-2 border-indigo-500 pl-2.5">' +
+                            '<p class="text-slate-900 font-medium">' + ex1Eng + '</p>' +
+                            '<p class="text-slate-400 italic">' + ex1Vi + '</p>' +
+                        '</div>' +
+                        cardEx2Html +
+                    '</div>' +
+                    '<div class="grid grid-cols-2 gap-2 border-t border-slate-150 pt-2.5 text-[11px]">' +
+                        '<div>' +
+                            '<span class="font-bold text-slate-400 block mb-0.5 text-[9.5px] uppercase tracking-wider">Đồng nghĩa</span>' +
+                            '<span class="text-slate-700 font-medium text-[10px]">' + (item.synonyms || 'N/A') + '</span>' +
+                        '</div>' +
+                        '<div>' +
+                            '<span class="font-bold text-slate-400 block mb-0.5 text-[9.5px] uppercase tracking-wider">Trái nghĩa</span>' +
+                            '<span class="text-slate-700 font-medium text-[10px]">' + (item.antonyms || 'N/A') + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="border-t border-slate-150 pt-2.5">' +
+                        '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ghi Chú Cá Nhân (Note)</span>' +
+                        '<textarea oninput="updateNote(' + item.no + ', this.value)" placeholder="Nhập ghi chú học tập..." class="w-full text-[11.5px] p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500">' + (item.note || "") + '</textarea>' +
+                    '</div>';
+                
+                mobileCards.appendChild(card);
+            });
+        }
+
+        function filterData() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            if (query === "") {
+                filteredItems = [...vocabData];
+            } else {
+                filteredItems = vocabData.filter(item => {
+                    const noteText = (item.note || "").toLowerCase();
+                    return (item.vocab || "").toLowerCase().includes(query) || 
+                           (item.viMean || "").toLowerCase().includes(query) || 
+                           (item.engMean || "").toLowerCase().includes(query) ||
+                           (item.collocation || "").toLowerCase().includes(query) ||
+                           (item.synonyms || "").toLowerCase().includes(query) ||
+                           (item.antonyms || "").toLowerCase().includes(query) ||
+                           noteText.includes(query);
+                });
+            }
+            renderUI();
+        }
+        
+        function initResizers() {
+            var table = document.querySelector('table');
+            if (!table) return;
+            table.style.tableLayout = 'fixed';
+            var ths = table.querySelectorAll('th');
+            
+            var tableWidth = table.offsetWidth || 1200;
+            ths.forEach(function(th) {
+                var widthStyle = th.style.width;
+                if (widthStyle) {
+                    th.style.width = widthStyle;
+                } else {
+                    th.style.width = th.offsetWidth + 'px';
+                }
+            });
+
+            ths.forEach(function(th) {
+                var resizer = th.querySelector('.resizer');
+                if (!resizer) return;
+                
+                resizer.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    var startX = e.clientX;
+                    var startWidth = th.offsetWidth;
+                    resizer.classList.add('resizing');
+                    
+                    function onMouseMove(moveEvent) {
+                        var deltaX = moveEvent.clientX - startX;
+                        th.style.width = Math.max(50, startWidth + deltaX) + 'px';
+                    }
+                    
+                    function onMouseUp() {
+                        resizer.classList.remove('resizing');
+                        document.removeEventListener('mousemove', onMouseMove);
+                        document.removeEventListener('mouseup', onMouseUp);
+                    }
+                    
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                });
+            });
+        }
+
+        // Render dynamic table instantly with zero network delay (even if completely offline)
+        filterData();
+        initResizers();
+    </script>
+</body>
+</html>

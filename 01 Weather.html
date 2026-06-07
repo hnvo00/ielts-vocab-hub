@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHỦ ĐỀ: WEATHER, CLIMATE, ENVIRONMENT AND NATURAL DISASTERS (Interactive IELTS Vocabulary Hub)</title>
+    <title>CHỦ ĐỀ: WEATHER, CLIMATE, ENVIRONMENT, AND NATURAL DISASTERS (Interactive IELTS Vocabulary Hub)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -25,6 +25,24 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
+        th {
+            position: relative;
+        }
+        .resizer {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+            cursor: col-resize;
+            user-select: none;
+            z-index: 10;
+            transition: background-color 0.15s;
+        }
+        .resizer:hover, .resizing {
+            background-color: rgba(99, 102, 241, 0.4);
+            border-right: 2px solid rgb(79, 70, 229);
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen">
@@ -42,15 +60,17 @@
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         IELTS Vocabulary Generator Hub (Học Offline)
                     </span>
-                    <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight whitespace-pre-line" id="mainTitle">CHỦ ĐỀ: WEATHER, CLIMATE, ENVIRONMENT AND NATURAL DISASTERS</h1>
-                    <p class="text-slate-500 mt-3 text-xs sm:text-[13px] leading-relaxed font-semibold bg-indigo-50/10 border border-indigo-500/5 p-4 rounded-2xl whitespace-pre-line tracking-wide" id="complexitySummarySection">Bộ từ vựng thuộc chủ đề Thời tiết, Khí hậu, Môi trường và Thảm họa thiên nhiên đạt mức độ học thuật xuất sắc (Band 7.5+ đến 8.5+), cung cấp vốn từ phong phú, linh hoạt từ các thuật ngữ khoa học khí tượng đến các cụm từ đắt giá về biến đổi khí hậu và ô nhiễm. Tài liệu này đặc biệt thực tiễn cho cả 4 kỹ năng trong kỳ thi IELTS, giúp thí sinh dễ dàng tối ưu hóa điểm số Lexical Resource nhờ các collocations mô tả sắc nét các hiện tượng thời tiết cực đoan, chính sách môi trường và lối sống xanh, ứng dụng trực tiếp vào IELTS Writing Task 2 và Speaking Part 1, 2, 3.</p>
+                    <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight whitespace-pre-line" id="mainTitle">CHỦ ĐỀ: WEATHER, CLIMATE, ENVIRONMENT, AND NATURAL DISASTERS</h1>
+                    <div class="mt-4 p-4.5 sm:p-5 bg-gradient-to-br from-slate-50 to-indigo-50/30 border border-slate-200/70 rounded-2xl transition-all hover:bg-slate-50/90 group relative shadow-2xs">
+                        <div class="flex items-center gap-2 mb-1.5 text-indigo-600 font-bold text-[11px] uppercase tracking-wider">
+                            <svg class="w-4 h-4 text-indigo-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            <span>Đánh giá học thuật từ chuyên gia (IELTS Academic Review)</span>
+                        </div>
+                        <p class="text-slate-600 text-xs sm:text-[13px] leading-relaxed font-semibold tracking-wide" id="complexitySummarySection">Bộ từ vựng đa dạng đạt chuẩn Band 7.5+ (C1/C2) tập trung chuyên sâu vào các chủ đề cốt lõi của IELTS như Climate Change, Environment và Natural Disasters. Sự kết hợp nhuần nhuyễn giữa danh từ học thuật, tính từ tả thời tiết cực đoan và động từ hành động giúp người học nâng cao tối đa điểm Lexical Resource trong cả Writing Task 2 và Speaking Part 3.</p>
+                    </div>
                 </div>
                 
                 <div class="flex flex-wrap gap-2.5 lg:pt-2">
-                    <a href="./index.html" class="inline-flex items-center gap-1.5 bg-slate-500 border border-slate-500 hover:bg-slate-600 text-white px-4 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95 cursor-pointer">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                        Quay lại trang chủ
-                    </a>
                     <button onclick="copyFullTable('md')" class="inline-flex items-center gap-1.5 bg-slate-900 border border-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95 cursor-pointer">
                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                         Copy Markdown
@@ -84,19 +104,36 @@
         <!-- Desktop View Table -->
         <div class="bg-white rounded-2xl shadow-xs border border-slate-100 overflow-hidden hidden lg:block">
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse table-auto">
+                <table class="w-full text-left border-collapse" style="table-layout: fixed;">
                     <thead>
-                        <tr class="bg-slate-50/50 text-slate-600 uppercase text-[10px] font-bold tracking-widest border-b border-slate-100">
-                            <th class="py-4 px-4 w-[3%] text-center">No.</th>
-                            <th class="py-4 px-5 w-[15%]">Từ Vựng & IPA</th>
-                            <th class="py-4 px-6 w-[17%]">Meaning & Bản Dịch</th>
-                            <th class="py-4 px-6 w-[14%]">Collocations (Học Cụm)</th>
-                            <th class="py-4 px-6 w-[25%]">Ví Dụ Minh Họa</th>
-                            <th class="py-4 px-5 w-[12%]">Đồng / Trái Nghĩa</th>
-                            <th class="py-4 px-5 w-[14%]">Note (Ghi Chú)</th>
+                        <tr class="bg-slate-50/50 text-slate-600 uppercase text-[9.5px] font-bold tracking-widest border-b border-slate-100">
+                            <th class="py-3 px-4 text-center select-none" style="width: 50px;">
+                                No.
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-5 select-none" style="width: 200px;">
+                                Từ Vựng & IPA
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-6 select-none" style="width: 325px;">
+                                Meaning & Bản Dịch
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-6 select-none" style="width: 180px;">
+                                Collocations (Học Cụm)
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-6 select-none" style="width: 300px;">
+                                Ví Dụ Minh Họa
+                                <div class="resizer"></div>
+                            </th>
+                            <th class="py-3 px-5 select-none" style="width: 160px;">
+                                Đồng / Trái Nghĩa
+                                <div class="resizer"></div>
+                            </th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody" class="divide-y divide-slate-100 text-xs">
+                    <tbody id="tableBody" class="divide-y divide-slate-100 text-[11.5px]">
                         <!-- Filled in via JS -->
                     </tbody>
                 </table>
@@ -116,209 +153,21 @@
         <span id="toastMessage">Đã sao chép!</span>
     </div>
 
+    <!-- Safe JSON Storage for Offline Learning -->
+    <script id="vocabDataRaw" type="application/json">[{"no":1,"vocab":"the ecosystem, disrupt the ecosystem, lead to the imbalance in the ecosystem","ipa":"/ði ˈiː.koʊˌsɪs.təm/, /dɪsˈrʌpt ði ˈiː.koʊˌsɪs.təm/, /liːd tuː ði ɪmˈbæl.əns ɪn ði ˈiː.koʊˌsɪs.təm/","engMean":"the ecosystem: a biological community of interacting organisms and their physical environment\ndisrupt the ecosystem: to prevent the ecosystem from continuing or operating in a normal way\nlead to the imbalance in the ecosystem: to cause a state where the natural elements are no longer stable or equal","viMean":"hệ sinh thái, phá vỡ hệ sinh thái, dẫn đến sự mất cân bằng trong hệ sinh thái","collocation":"preserve the balance of the ecosystem (bảo tồn sự cân bằng của hệ sinh thái), a fragile ecosystem (một hệ sinh thái mong manh)","example1":"Preserving the balance of the ecosystem is vital because any slight change can have unforeseen consequences.\nBảo tồn sự cân bằng của hệ sinh thái là vô cùng quan trọng vì bất kỳ thay đổi nhỏ nào cũng có thể gây ra những hậu quả không lường trước được.","example2":"Human activities, such as overfishing and deforestation, severely disrupt the ecosystem and lead to the imbalance in the ecosystem.\nCác hoạt động của con người, chẳng hạn như đánh bắt quá mức và tàn phá rừng, làm gián đoạn nghiêm trọng hệ sinh thái và dẫn đến sự mất cân bằng trong hệ sinh thái.","synonyms":"ecological community, disturb the ecological balance, cause environmental instability","antonyms":"maintain ecological balance, stabilize the ecosystem","note":""},{"no":2,"vocab":"biodiversity, the loss/disappearance/extinction of a certain species, natural habitat, the natural world","ipa":"/ˌbaɪ.oʊ.dɪˈvɜːr.sə.t̬i/, /ðə lɔːs/ˌdɪs.əˈpɪr.əns/ɪkˈstɪŋk.ʃən ʌv eɪ ˈsɜːr.tən ˈspiː.ʃiːz/, /ˈnætʃ.ɚ.əl ˈhæb.ə.tæt/, /ðə ˈnætʃ.ɚ.əl wɜːrld/","engMean":"biodiversity: the variety of plant and animal life in a particular habitat\nthe extinction of a certain species: the complete dying out of a specific group of organisms\nnatural habitat: the natural environment in which an animal or plant usually lives\nthe natural world: nature and all living things on Earth","viMean":"đa dạng sinh học, sự biến mất/tuyệt chủng của một loài nhất định, môi trường sống tự nhiên, thế giới tự nhiên","collocation":"protect biodiversity (bảo vệ đa dạng sinh học), destruction of natural habitat (sự phá hủy môi trường sống tự nhiên), explore the natural world (khám phá thế giới tự nhiên)","example1":"The loss of natural habitat due to urbanization is the leading cause of the extinction of a certain species.\nSự mất mát môi trường sống tự nhiên do đô thị hóa là nguyên nhân hàng đầu dẫn đến sự tuyệt chủng của một loài nhất định.","example2":"Protecting biodiversity is our responsibility to maintain the beauty and health of the natural world.\nBảo vệ đa dạng sinh học là trách nhiệm của chúng ta để duy trì vẻ đẹp và sức khỏe của thế giới tự nhiên.","synonyms":"biological diversity, species die-out, native environment, wildlife arena","antonyms":"N/A","note":""},{"no":3,"vocab":"rainfall pattern, the distribution of precipitation, rainwater, precipitation","ipa":"/ˈreɪn.fɑːl ˈpæt̬.ɚn/, /ðə ˌdɪs.trɪˈbjuː.ʃən ʌv prɪˌsɪp.əˈteɪ.ʃən/, /ˈreɪn.wɑː.t̬ɚ/, /prɪˌsɪp.əˈteɪ.ʃən/","engMean":"rainfall pattern: the spatial and temporal distribution of rain over an area\nthe distribution of precipitation: how moisture falling from the atmosphere is spread across a region\nprecipitation: any form of water, such as rain, snow, sleet, or hail, that falls to the Earth's surface","viMean":"quy luật lượng mưa, sự phân bổ lượng mưa, nước mưa, lượng mưa (nói chung)","collocation":"unpredictable rainfall patterns (các quy luật lượng mưa không thể dự đoán), collect rainwater (thu hoạch nước mưa), measure atmospheric precipitation (đo lượng mưa khí quyển)","example1":"Global warming has altered the distribution of precipitation, making dry areas even drier.\nSự nóng lên toàn cầu đã làm thay đổi sự phân bổ lượng mưa, làm cho các khu vực khô hạn ngày càng trở nên khô hạn hơn.","example2":"Due to changing rainfall patterns, farming communities can no longer rely solely on natural rainwater.\nDo quy luật lượng mưa thay đổi, các cộng đồng nông nghiệp không còn có thể chỉ dựa vào nguồn nước mưa tự nhiên.","synonyms":"precipitation trends, moisture distribution, atmospheric water","antonyms":"N/A","note":""},{"no":4,"vocab":"torrential rain, cloudburst, hail, hailstone","ipa":"/təˈren.ʃəl reɪn/, /ˈklaʊd.bɜːrst/, /heɪl/, /ˈheɪl.stoʊn/","engMean":"torrential rain: very heavy, dense, and fast-falling rain\ncloudburst: a sudden, extremely heavy fall of rain\nhailstone: a small, hard ball of ice that falls from the sky like rain","viMean":"mưa xối xả, mưa to đột ngột, mưa đá, cục mưa đá","collocation":"be caught in torrential rain (bị kẹt trong cơn mưa xối xả), a sudden cloudburst (trận mưa lớn đột ngột), damaged by hailstones (bị hư hại bởi mưa đá)","example1":"The sudden cloudburst caught hundreds of commuters off guard, exposing them to torrential rain without umbrellas.\nTrận mưa lớn đột ngột khiến hàng trăm người đi làm không kịp trở tay, khiến họ phải hứng chịu cơn mưa xối xả mà không mang theo ô.","example2":"Heavy hail storms occurred yesterday, with giant hailstones breaking several car windows.\nCơn bão mưa đá lớn đã xảy ra ngày hôm qua, với những cục mưa đá khổng lồ làm vỡ vài cửa kính ô tô.","synonyms":"heavy downpour, severe deluge, ice pellets","antonyms":"light rain, drizzle","note":""},{"no":5,"vocab":"rain/temperature gauge, hygrometer, thermometer, barometer, atmospheric pressure, humidity","ipa":"/ˈreɪn ˌteɪm.prə.tʃɚ ɡeɪdʒ/, /haɪˈɡrɑː.mə.t̬ɚ/, /θɚˈmɑː.mə.t̬ɚ/, /bəˈrɑː.mə.t̬ɚ/, /ˌæt.məsˈfer.ɪk ˈpreʃ.ɚ/, /hjuːˈmɪd.ə.t̬i/","engMean":"rain/temperature gauge: instruments to measure precipitation and temperature levels\nhygrometer: an instrument used to measure moisture content in the air\nbarometer: an instrument that measures atmospheric pressure to forecast weather changes","viMean":"thiết bị đo lượng mưa/nhiệt độ, ẩm kế, nhiệt kế, áp kế, áp suất khí quyển, độ ẩm","collocation":"measure atmospheric pressure (đo áp suất khí quyển), read the thermometer (đọc nhiệt kế), soaring humidity levels (mức độ ẩm tăng vọt)","example1":"A barometer is essential for meteorologists to monitor changes in atmospheric pressure and predict storms.\nÁp kế là thiết bị thiết yếu để các nhà khí tượng học theo dõi các thay đổi trong áp suất khí quyển và dự báo bão.","example2":"According to the hygrometer and temperature gauge, both heat and humidity have risen significantly this morning.\nTheo ẩm kế và thiết bị đo nhiệt độ, cả nhiệt độ và độ ẩm đều tăng đáng kể vào sáng nay.","synonyms":"measuring device, meteorological equipment, ambient moisture","antonyms":"N/A","note":""},{"no":6,"vocab":"searing winds, trade winds, puddle, transitional weather, weather phenomenon","ipa":"/ˈsɪə.rɪŋ wɪndz/, /ˈtreɪd wɪndz/, /ˈpʌd.əl/, /trænˈzɪʃ.ən.əl ˈweð.ɚ/, /ˈweð.ɚ fəˈnɑː.mə.nɑːn/","engMean":"searing winds: extremely hot and dry winds\ntrade winds: steady winds blowing toward the equator\ntransitional weather: the period of weather change between seasons","viMean":"gió nóng, gió mậu dịch, vũng nước, thời tiết lúc giao mùa, hiện tượng thời tiết","collocation":"a rare weather phenomenon (một hiện tượng thời tiết hiếm gặp), dry searing winds (gió nóng khô khốc), step into a puddle (giẫm phải vũng nước)","example1":"During transitional weather, farmers often have to contend with unpredictable dry trade winds.\nTrong thời gian thời tiết giao mùa, nông dân thường phải đối mặt với những cơn gió mậu dịch khô hạn khó lường.","example2":"The occurrence of searing winds that evaporate every puddle within minutes is a severe weather phenomenon.\nSự xuất hiện của những cơn gió nóng thiêu đốt làm bốc hơi mọi vũng nước trong vòng vài phút là một hiện tượng thời tiết khắc nghiệt.","synonyms":"meteorological occurrence, hot gusts, seasonal transition","antonyms":"stable weather","note":""},{"no":7,"vocab":"climate change, sudden climate change, an irregular seesaw of rapid climatic shifts, global warming, humanly caused global warming, environmental change","ipa":"/ˈklaɪ.mət tʃeɪndʒ/, /ˈsʌd.ən ˈklaɪ.mət tʃeɪndʒ/, /ən ɪˈreɡ.jə.lɚ ˈsiː.sɑː ʌv ˈræp.ɪd klaɪˈmæt.ɪk ʃɪfts/, /ˈɡloʊ.bəl ˈwɔːr.mɪŋ/, /ˈhjuː.mən.li kɔːzd ˈɡloʊ.bəl ˈwɔːr.mɪŋ/, /ɪnˌvaɪ.rənˈmen.t̬əl tʃeɪndʒ/","engMean":"climate change: long-term shifts in temperatures and weather patterns\nan irregular seesaw of rapid climatic shifts: erratic and unpredictable fluctuations in weather\nhumanly caused global warming: temperature increases driven primarily by human activities","viMean":"biến đổi khí hậu, biến đổi khí hậu đột ngột, sự biến đổi khí hậu thất thường và nhanh chóng, nóng lên toàn cầu, nóng lên toàn cầu do con người gây ra, sự thay đổi môi trường","collocation":"be at the mercy of climate change (chịu sự ảnh hưởng/chi phối của biến đổi khí hậu), combat human-induced climate change (đấu tranh chống biến đổi khí hậu do con người gây ra), adapt to environmental change (thích nghi với sự thay đổi môi trường)","example1":"Developing countries are often at the mercy of climate change, having fewer resources to cope with sudden climate change.\nCác quốc gia đang phát triển thường chịu sự chi phối của biến đổi khí hậu, do có ít nguồn lực hơn để đối phó với sự biến đổi khí hậu đột ngột.","example2":"We are witnessing an irregular seesaw of rapid climatic shifts, which proves the reality of humanly caused global warming.\nChúng ta đang chứng kiến sự biến đổi khí hậu thất thường và nhanh chóng, điều này chứng minh thực tế của sự nóng lên toàn cầu do con người gây ra.","synonyms":"anthropogenic climate shift, global heating, environmental fluctuations","antonyms":"climate stability","note":""},{"no":8,"vocab":"weather catastrophes, flooding, floods, flash floods, drought, drought cycles, hurricane","ipa":"/ˈweð.ɚ kəˈtæs.trə.fizm/, /ˈflʌd.ɪŋ/, /flʌdz/, /flæʃ flʌdz/, /draʊt/, /draʊt ˈsaɪ.kəlz/, /ˈhɜːr.ɪ.keɪn/","engMean":"weather catastrophes: destructive natural events caused by weather conditions\nflash floods: sudden and severe local flooding, usually due to heavy rainfall\ndrought: a prolonged period of abnormally low rainfall","viMean":"thảm họa thời tiết, nạn lụt, lũ lụt, lũ quét, hạn hán, chu kỳ hạn hán, bão lớn","collocation":"vulnerable to weather catastrophes (dễ bị tổn thương trước thảm họa thời tiết), severe flash floods (lũ quét nghiêm trọng), recurring drought cycles (chu kỳ hạn hán lặp đi lặp lại)","example1":"Flash floods occurred yesterday after the hurricane struck, causing massive flooding in the coastal city.\nLũ quét đã xảy ra hôm qua sau khi cơn bão lớn đổ bộ, gây ra nạn lụt nghiêm trọng ở thành phố ven biển.","example2":"The agricultural sector is heavily affected by recurring drought cycles, which are classified as major weather catastrophes.\nNgành nông nghiệp bị ảnh hưởng nặng nề bởi các chu kỳ hạn hán lặp đi lặp lại, những hiện tượng được phân loại là thảm họa thời tiết lớn.","synonyms":"natural disasters, torrential inundation, prolonged dry spells, tropical storms","antonyms":"N/A","note":""},{"no":9,"vocab":"thunderstorms, thunderclouds, a lightning bolt, celestial phenomena, halo, comet, weather vane","ipa":"/ˈθʌn.dɚ.stɔːrmz/, /ˈθʌn.dɚ.klaʊdz/, /ə ˈlaɪt.nɪŋ boʊlt/, /sɪˈles.tʃəl fəˈnɑː.mə.nə/, /ˈheɪ.loʊ/, /ˈkɑː.mɪt/, /ˈweð.ɚ veɪn/","engMean":"thunderclouds: dark, dense clouds that produce lightning and thunder\na lightning bolt: a powerful flash of electricity in the sky during a storm\ncelestial phenomena: natural occurrences in the sky or outer space","viMean":"bão kèm sấm sét, mây dông, tia sét, hiện tượng thiên văn/trên trời, quầng hào quang, sao chổi, chong chóng gió","collocation":"struck by a lightning bolt (bị đánh trúng bởi tia sét), observe celestial phenomena (quan sát các hiện tượng trên bầu trời), massive thunderclouds gathering (những đám mây dông khổng lồ đang tụ lại)","example1":"During severe thunderstorms, dark thunderclouds block the sunlight completely before a lightning bolt strikes.\nTrong những trận dông bão nghiêm trọng, các đám mây dông đen kịt che khuất hoàn toàn ánh sáng mặt trời trước khi một tia sét đánh xuống.","example2":"Historically, ancient astronomers spent nights observing celestial phenomena like a passing comet or a lunar halo.\nTrong lịch sử, các nhà thiên văn học cổ đại đã dành nhiều đêm để quan sát các hiện tượng trên bầu trời như một ngôi sao chổi đi qua hay quầng mặt trăng.","synonyms":"electrical storms, cosmic events, wind indicator","antonyms":"N/A","note":""},{"no":10,"vocab":"sustainable environmental policies, destructive environmental policies, environmental track record, environmental practices, sound environmental practices","ipa":"/səˈsteɪ.nə.bəl ɪnˌvaɪ.rənˈmen.t̬əl ˈpɑː.lə.siz/, /dɪˈstrʌk.tɪv ɪnˌvaɪ.rənˈmen.t̬əl ˈpɑː.lə.siz/, /ɪnˌvaɪ.rənˈmen.t̬əl træk rəkˈɔːrd/, /ɪnˌvaɪ.rənˈmen.t̬əl ˈpræk.tɪ.sɪz/, /saʊnd ɪnˌvaɪ.rənˈmen.t̬əl ˈpræk.tɪ.sɪz/","engMean":"sustainable environmental policies: laws and regulations designed to protect nature long-term\nsound environmental practices: eco-friendly methods and behaviors\nenvironmental track record: the history of an organization's impact on the environment","viMean":"chính sách môi trường bền vững, chính sách môi trường gây hại, lịch sử hoạt động môi trường, hoạt động thực tiễn về môi trường, các hoạt động bảo vệ môi trường đúng đắn","collocation":"implement sustainable environmental policies (triển khai các chính sách môi trường bền vững), adopt sound environmental practices (áp dụng các hoạt động bảo vệ môi trường đúng đắn), improve environmental track record (cải thiện lịch sử bảo vệ môi trường)","example1":"Large corporations must adopt sound environmental practices to improve their negative environmental track record.\nCác tập đoàn lớn phải áp dụng các hoạt động bảo vệ môi trường đúng đắn để cải thiện lịch sử hoạt động môi trường tiêu cực của họ.","example2":"Governments should abandon destructive environmental policies and transition immediately to sustainable environmental policies.\nCác chính phủ nên từ bỏ các chính sách môi trường gây hại và chuyển đổi ngay sang các chính sách môi trường bền vững.","synonyms":"green regulations, eco-friendly strategies, green records","antonyms":"destructive practices, environmentally harmful policies","note":""},{"no":11,"vocab":"wildfire, megafire, blazes, superhot fires, fire-prone ecosystems, the hit area, the fire brigade","ipa":"/ˈwaɪld.faɪr/, /ˈmeɡ.ə.faɪr/, /ˈbleɪ.zɪz/, /ˌsuː.pɚˈhɑːt ˈfaɪrz/, /ˈfaɪr.proʊn ˈiː.koʊˌsɪs.təmz/, /ðə hɪt ˈer.i.ə/, /ðə ˈfaɪr brɪˈɡeɪd/","engMean":"wildfire: a large, destructive fire that spreads quickly over woodland or brush\nmegafire: an extraordinary large, intense, and destructive wildfire\nfire-prone ecosystems: ecological areas that are highly susceptible to catching fire","viMean":"cháy rừng, siêu đám cháy, ngọn lửa/đám cháy lớn, đám cháy siêu nhiệt, hệ sinh thái dễ bị cháy, vùng bị ảnh hưởng, đội cứu hỏa","collocation":"battle raging blazes (chiến đấu với những đám cháy dữ dội), dispatch the fire brigade (điều động đội cứu hỏa), rehabilitate fire-prone ecosystems (phục hồi các hệ sinh thái dễ bị cháy)","example1":"The fire brigade was quickly dispatched to the hit area to rescue trapped residents from the megafire.\nĐội cứu hỏa đã nhanh chóng được điều động đến vùng bị ảnh hưởng để giải cứu những cư dân bị mắc kẹt khỏi siêu đám cháy.","example2":"Prolonged droughts have turned dry forests into fire-prone ecosystems, causing uncontrollable wildfires and intense blazes.\nHạn hán kéo dài đã biến những khu rừng khô hạn thành hệ sinh thái dễ bị cháy, gây ra những vụ cháy rừng và những đám cháy dữ dội không thể kiểm soát.","synonyms":"forest fire, intense flames, vulnerable zones","antonyms":"N/A","note":""},{"no":12,"vocab":"forecast the weather, observe the sky, cloud over, get soaked/drenched, get/be caught in the rain, put on a raincoat, brave storms","ipa":"/ˈfɔːr.kæst ðə ˈweð.ɚ/, /əbˈzɜːrv ðə skaɪ/, /klaʊd ˈoʊ.vɚ/, /ɡet soʊkt/drentʃt/, /ɡet/biː kɑːt ɪn ðə reɪn/, /pʊt ɑːn eɪ ˈreɪn.koʊt/, /breɪv stɔːrmz/","engMean":"forecast the weather: to predict upcoming weather conditions\nget soaked: to become extremely wet from head to toe\nbrave storms: to fearlessly face and go through stormy weather","viMean":"dự báo thời tiết, quan sát bầu trời, kéo mây âm u, bị ướt sũng, bị dính mưa, mặc áo mưa, đương đầu với bão","collocation":"accurately forecast the weather (dự báo thời tiết chính xác), look up to observe the sky (nhìn lên để quan sát bầu trời), get soaked in a downpour (bị ướt sũng trong trận mưa rào)","example1":"If you fail to look up and observe the sky before going out, you will likely get caught in the rain and get drenched.\nNếu bạn không nhìn lên quan sát bầu trời trước khi đi ra ngoài, bạn rất có thể sẽ bị dính mưa và ướt sũng.","example2":"Meteorologists try to forecast the weather, but when the sky clouds over suddenly, commuters must put on a raincoat to brave storms.\nCác nhà khí tượng học cố gắng dự báo thời tiết, nhưng khi bầu trời đột ngột kéo mây âm u, người tham gia giao thông phải mặc áo mưa để đương đầu với bão.","synonyms":"predict weather conditions, get saturated, weather the storm","antonyms":"stay dry","note":""},{"no":13,"vocab":"battle blazes, contain the flames, fight fires, catch fire, burn with great intensity/severity, scorch, break out, spread, rage","ipa":"/ˈbæt̬.əl ˈbleɪ.zɪz/, /kənˈteɪn ðə fleɪmz/, /faɪt ˈfaɪrz/, /kætʃ ˈfaɪr/, /bɜːrn wɪð ɡreɪt ɪnˈten.sə.t̬i/səˈver.ə.t̬i/, /skɔːrtʃ/, /breɪk aʊt/, /spred/, /reɪdʒ/","engMean":"contain the flames: to restrict the spread of a fire\ncatch fire: to begin to burn\nscorch: to burn the surface of something slightly or severely","viMean":"chiến đấu với đám cháy, ngăn chặn ngọn lửa, chữa cháy, bắt lửa, cháy dữ dội, thiêu rụi, bùng phát, lan rộng, hoành hành","collocation":"fire breaks out suddenly (đám cháy bùng phát đột ngột), contain the raging flames (khống chế ngọn lửa đang hoành hành), scorch acres of forests (thiêu rụi hàng mẫu rừng)","example1":"As soon as the fire broke out and began to spread, the local community rushed to contain the flames before they could rage out of control.\nNgay khi đám cháy bùng phát và bắt đầu lan rộng, cộng đồng địa phương đã nhanh chóng khống chế ngọn lửa trước khi nó hoành hành ngoài tầm kiểm soát.","example2":"Dry wooden structures catch fire easily, burning with great intensity and scorching neighboring residential properties.\nCác cấu trúc bằng gỗ khô rất dễ bắt lửa, cháy dữ dội và thiêu rụi những ngôi nhà dân lân cận.","synonyms":"extinguish fires, ignite, incinerate, amplify","antonyms":"extinguish, put out","note":""},{"no":14,"vocab":"erratic, harsh/extreme, extreme weather events, unaccustomed/freak heat/cold, unprecedented, bitterly/intensely cold, in the depth of winter, dog days, scorching/unbearably/boiling/sweltering hot, mild, prolonged, blustery, the sun is in full swing","ipa":"/ɪˈræt̬.ɪk/, /hɑːrʃ/ɪkˈstriːm/, /ɪkˈstriːm ˈweð.ɚ ɪˈvents/, /ʌn.əˈkʌs.təmd/friːk hiːt/koʊld/, /ʌnˈpres.ɪ.den.t̬ɪd/, /ˈbɪt̬.ɚ.li/ɪnˈtens.li koʊld/, /ɪn ðə depθ ʌv ˈwɪn.t̬ɚ/, /dɔːɡ deɪz/, /ˈskɔːr.tʃɪŋ/ʌnˈber.ə.bli/ˈbɔɪ.lɪŋ/ˈswel.t̬ɚ.ɪŋ hɑːt/, /maɪld/, /prəˈlɑːŋd/, /ˈblʌs.t̬ɚ.i/, /ðə sʌn ɪz ɪn fʊl swɪŋ/","engMean":"erratic: not even or regular in pattern; unpredictable\nunprecedented: never having happened or existed in the past\ndog days: the hottest period of the summer\nsweltering hot: uncomfortably hot with high humidity","viMean":"thất thường, khắc nghiệt, các sự kiện thời tiết cực đoan, đợt nóng/lạnh bất thường, chưa từng có tiền lệ, lạnh buốt, giữa mùa đông lạnh giá, những ngày nóng nhất mùa hè, nóng như thiêu như đốt, ôn hòa, kéo dài, đầy gió mạnh, nắng gắt","collocation":"experience erratic weather (trải qua thời tiết thất thường), suffer unprecedented global warming (chịu sự nóng lên toàn cầu chưa từng có tiền lệ), scorching hot temperatures (nhiệt độ nóng như thiêu như đốt)","example1":"We are facing unprecedented global warming, which triggers frequent and extreme weather events worldwide, making our seasons erratic.\nChúng ta đang đối mặt với sự nóng lên toàn cầu chưa từng có tiền lệ, điều này gây ra các sự kiện thời tiết cực đoan và thường xuyên trên toàn thế giới, làm cho các mùa trở nên thất thường.","example2":"Instead of experiencing a mild autumn, we often transition from bitterly cold depths of winter straight to sweltering hot dog days when the sun is in full swing.\nThay vì được tận hưởng mùa thu ôn hòa, chúng ta thường chuyển giao từ giữa mùa đông lạnh buốt thẳng sang những ngày hè nóng như thiêu như đốt khi nắng đang ở độ gay gắt nhất.","synonyms":"unpredictable, catastrophic climate occurrences, blisteringly hot, freezing cold","antonyms":"predictable, moderate, stable","note":""},{"no":15,"vocab":"fossil fuels, renewable energy, sustainable energy, energy conservation, wildlife conservation, coal","ipa":"/ˈfɑː.səl ˌfjuː.əlz/, /rɪˈnuː.ə.bəl ˈen.ɚ.dʒi/, /səˈsteɪ.nə.bəl ˈen.ɚ.dʒi/, /ˈen.ɚ.dʒi ˌkɑːn.sɚˈveɪ.ʃən/, /ˈwaɪld.laɪf ˌkɑːn.sɚˈveɪ.ʃən/, /koʊl/","engMean":"fossil fuels: natural fuels such as coal or gas, formed in the geological past from the remains of living organisms\nrenewable energy: energy from a source that is not depleted when used\nenergy conservation: the practice of finding ways to use less energy","viMean":"nhiên liệu hóa thạch, năng lượng tái tạo, năng lượng bền vững, bảo tồn năng lượng, bảo tồn động vật hoang dã, than đá","collocation":"depend on fossil fuels (phụ thuộc vào nhiên liệu hóa thạch), advocate for wildlife conservation (vận động bảo tồn động vật hoang dã), transition to sustainable energy (chuyển dịch sang năng lượng bền vững)","example1":"Burning coal and other fossil fuels is majorly responsible for emissions, highlighting the urgent need for renewable energy.\nViệc đốt than đá và các nhiên liệu hóa thạch khác chịu trách nhiệm lớn cho lượng khí thải, làm nổi bật nhu cầu cấp thiết về năng lượng tái tạo.","example2":"Modern environmental groups argue that energy conservation is deeply intertwined with successful wildlife conservation.\nCác nhóm môi trường hiện đại lập luận rằng bảo tồn năng lượng có mối liên hệ sâu sắc với việc bảo tồn động vật hoang dã thành công.","synonyms":"depletable resources, clean energy, preservation of fauna, carbon fuels","antonyms":"fossil fuel dependency","note":""},{"no":16,"vocab":"contamination, emissions, exhaust fumes, greenhouse gasses, marine debris, ocean trash, microscopic plastic bits, oil spill, pollution levels, plastic bag, overpackaged products, overpackaging, heavy industry, air quality, poor air quality","ipa":"/kənˌtæm.əˈneɪ.ʃən/, /iˈmɪʃ.ənz/, /ɪɡˈzɑːst fjuːmz/, /ˈɡriːn.haʊs ˌɡæs.ɪz/, /məˈriːn dɪˈbriː/, /ˈoʊ.ʃən træʃ/, /ˌmaɪ.krəˈskɑː.pɪk ˈplæs.tɪk bɪts/, /ˈɔɪl spɪl/, /pəˈluː.ʃən ˈlev.əlz/, /ˈplæs.tɪk bæɡ/, /ˌoʊ.vɚˈpæk.ɪdʒd ˈprɑː.dʌkts/, /ˌoʊ.vɚˈpæk.ɪ.dʒɪŋ/, /ˈhev.i ˈɪn.dʌs.tri/, /er ˈkwɑːl.ə.t̬i/, /pʊr er ˈkwɑːl.ə.t̬i/","engMean":"contamination: the action of making something impure or toxic\nmarine debris: persistent solid waste discarded in oceans\npoor air quality: atmosphere containing harmful levels of pollutants","viMean":"sự ô nhiễm/nhiễm chất độc, khí thải, khói thải xe cộ, khí nhà kính, rác thải đại dương, rác đại dương, mảnh vi nhựa, sự tràn dầu, mức độ ô nhiễm, túi nilon, sản phẩm đóng gói quá mức, sự đóng gói quá mức, công nghiệp nặng, chất lượng không khí, chất lượng không khí kém","collocation":"soaring greenhouse gas emissions (khí thải nhà kính tăng vọt), combat marine debris (đấu tranh chống rác thải đại dương), toxic contamination of soil (sự ô nhiễm độc hại của đất)","example1":"Heavy industry and vehicle exhaust fumes directly degrade air quality, exposing citizens to severe health risks from poor air quality.\nCông nghiệp nặng và khói thải phương tiện giao thông làm suy giảm trực tiếp chất lượng không khí, khiến người dân phải đối mặt với những nguy cơ sức khỏe nghiêm trọng do chất lượng không khí kém.","example2":"The ocean is filled with marine debris, including plastic bags and microscopic plastic bits, causing toxic contamination in marine wildlife.\nĐại dương đầy rác thải biển, bao gồm túi nilon và các mảnh vi nhựa siêu nhỏ, gây ra sự ô nhiễm độc hại cho các sinh vật biển.","synonyms":"environmental degradation, noxious discharges, sea pollutants, toxic impurities","antonyms":"purification, pristine environment","note":""},{"no":17,"vocab":"go green, environmental well-being, release (vast quantities of) sth into the atmosphere, enter the food chain, be exposed to sth, exposure to sth, deforestation, reduce individual impact, environmentally friendly/eco-friendly, environmentally aware/conscious","ipa":"/ɡoʊ ɡriːn/, /ɪnˌvaɪ.rənˈmen.t̬əl ˌwelˈbiː.ɪŋ/, /rɪˈliːs væst ˈkwɑːn.t̬ə.t̬iz ʌv ˌɪn.tuː ði ˈæt.məs.fɪr/, /ˈen.t̬ɚ ðə fuːd tʃeɪn/, /biː ɪkˈspoʊzd tuː/, /ɪkˈspoʊ.ʒɚ tuː/, /diːˌfɔːr.əˈsteɪ.ʃən/, /rɪˈduːs ˌɪn.dəˈvɪdʒ.u.əl ˈɪm.pækt/, /ɪnˌvaɪ.rənˈmen.t̬əl.i ˈfrend.li/ˈiː.koʊˌfrend.li/, /ɪnˌvaɪ.rənˈmen.t̬əl.i əˈwer/ˈkɑːn.ʃəs/","engMean":"go green: to adopt an environmentally friendly lifestyle\nenvironmental well-being: the healthy state of the ecosystem and environment\ndeforestation: the cutting down and clearing of forest trees","viMean":"sống xanh, sức khỏe/sự an lành của môi trường, thải (lượng lớn) cái gì vào bầu khí quyển, đi vào chuỗi thức ăn, tiếp xúc với cái gì, sự tiếp xúc với cái gì, nạn phá rừng, giảm thiểu tác động cá nhân, thân thiện với môi trường, có nhận thức về môi trường","collocation":"encourage people to go green (khuyến khích người dân sống xanh), combat rampant deforestation (đấu tranh chống nạn phá rừng tràn lan), enhance environmental well-being (nâng cao sức khỏe của môi trường)","example1":"Every citizen should become environmentally conscious and try to go green to reduce individual impact on the planet.\nMỗi công dân nên có nhận thức về môi trường và cố gắng sống xanh để giảm thiểu tác động của cá nhân lên hành tinh.","example2":"When factories release vast quantities of toxins, these chemicals enter the food chain, increasing our cumulative exposure to hazardous pollutants.\nKhi các nhà máy thải ra lượng lớn chất độc, các hóa chất này sẽ đi vào chuỗi thức ăn, làm tăng sự tiếp xúc tích lũy của chúng ta với các chất ô nhiễm nguy hại.","synonyms":"embrace eco-practices, ecological wellness, forest clearing, bioaccumulate","antonyms":"environmental neglect, resource exploitation","note":""},{"no":18,"vocab":"ice/snow thaws, ice shrinks, cut sb off, cut back/down on, breathable clothes, layer up, melt, dam, weather forecasting","ipa":"/aɪs/snoʊ θɔːz/, /aɪs ʃrɪŋks/, /kʌt ˈsʌm.bə.di ɔːf/, /kʌt bæk/daʊn ɑːn/, /ˈbriː.ðə.bəl kloʊðz/, /ˈleɪ.ɚ ʌp/, /melt/, /dæm/, /ˈweð.ɚ ˈfɔːr.kæst.ɪŋ/","engMean":"thaw: to melt or cause to melt after being frozen\nice shrinks: glaciers or polar ice decreasing in size\ncut off: to isolate a person or place completely","viMean":"băng/tuyết tan, băng co lại (giảm diện tích), cô lập ai đó, cắt giảm cái gì, quần áo thoáng mát, mặc nhiều lớp quần áo, tan ra, đập ngăn nước, công tác dự báo thời tiết","collocation":"glacier ice shrinks rapidly (băng sông băng co lại nhanh chóng), cut back on carbon footprint (cắt giảm dấu chân carbon), wear breathable clothes in summer (mặc quần áo thoáng mát vào mùa hè)","example1":"As global temperatures climb, polar ice shrinks and snow thaws, resulting in flash floods that can cut off remote villages.\nKhi nhiệt độ toàn cầu tăng lên, băng ở cực co lại và tuyết tan, dẫn đến các trận lũ quét có thể cô lập các ngôi làng vùng sâu vùng xa.","example2":"Thanks to accurate weather forecasting, residents knew when to wear breathable clothes and when to layer up to avoid getting sick.\nNhờ có công tác dự báo thời tiết chính xác, người dân đã biết khi nào nên mặc quần áo thoáng mát và khi nào nên mặc nhiều lớp để tránh bị ốm.","synonyms":"glacier retreat, isolate, minimize usage, heat-dissipating garments","antonyms":"freeze, expand","note":""},{"no":19,"vocab":"meteorologist, meteorology, astronomer, climate scientist, marine biologist, fishery, unmanaged/unregulated/unbridled/uncontrolled fishery","ipa":"/ˌmiː.t̬i.əˈrɑː.lə.dʒɪst/, /ˌmiː.t̬i.əˈrɑː.lə.dʒi/, /əˈstrɑː.nə.mɚ/, /ˈklaɪ.mət ˈsaɪ.ən.tɪst/, /məˈriːn baɪˈɑː.lə.dʒɪst/, /ˈfɪʃ.ɚ.i/, /ʌnˈmæn.ɪdʒd/ʌnˈreɡ.jə.leɪ.t̬ɪd/ʌnˈbraɪ.dəld/ʌn.kənˈtroʊld ˈfɪʃ.ɚ.i/","engMean":"meteorologist: a specialist in weather forecasting and climate observation\nmarine biologist: a scientist who studies life in the sea\nunregulated fishery: fishing activities conducted without monitoring or limits","viMean":"nhà khí tượng học, khí tượng học, nhà thiên văn học, nhà khoa học khí hậu, nhà sinh vật học biển, khu vực đánh bắt cá, ngành đánh bắt cá vô độ/không kiểm soát","collocation":"consult a meteorologist (tham khảo ý kiến của nhà khí tượng học), study marine biology (nghiên cứu sinh vật học biển), ban uncontrolled fishery (cấm hoạt động đánh bắt cá không kiểm soát)","example1":"A professional meteorologist analyzes real-time data to issue storm warnings, working closely with climate scientists.\nMột nhà khí tượng học chuyên nghiệp phân tích dữ liệu thời gian thực để đưa ra các cảnh báo bão, làm việc chặt chẽ với các nhà khoa học khí hậu.","example2":"A prominent marine biologist raised concerns that unbridled and unregulated fishery is leading to the total depletion of local marine stocks.\nMột nhà sinh vật học biển nổi tiếng đã bày tỏ lo ngại rằng hoạt động đánh bắt cá vô độ và không kiểm soát đang dẫn đến việc cạn kiệt hoàn toàn trữ lượng sinh vật biển địa phương.","synonyms":"weather forecaster, ocean scientist, chaotic fishing industry","antonyms":"regulated fishery, sustainable aquaculture","note":""}]</script>
+
     <script>
         const titleEl = document.getElementById('mainTitle');
         const storageKey = "vocabList_" + encodeURIComponent(titleEl ? titleEl.innerText : "Offline_IELTS");
         
         // Load notes from localstorage of the downloaded offline file to make it fully state persistent
         const savedLocal = localStorage.getItem(storageKey);
-        const vocabData = [
-  {
-    "no": 1,
-    "vocab": "the ecosystem, disrupt the ecosystem, lead to the imbalance in the ecosystem, preserve/conserve the balance of the ecosystem",
-    "ipa": "/ðə ˈiː.kəʊˌsɪs.təm/, /dɪsˈrʌpt ðə ˈiː.kəʊˌsɪs.təm/, /liːd tuː ði ɪmˈbæl.əns ɪn ðə ˈiː.kəʊˌsɪs.təm/, /prɪˈzɜːv / kənˈsɜːv ðə ˈbæl.əns ɒv ðə ˈiː.kəʊˌsɪs.təm/",
-    "engMean": "A biological community of interacting organisms and their physical environment.\\nTo break up or throw into present disorder the ecological balance.\\nTo cause a state of instability in nature.\\nTo maintain and protect the natural stability of an ecological system.",
-    "viMean": "hệ sinh thái, phá vỡ hệ sinh thái, dẫn đến sự mất cân bằng trong hệ sinh thái, bảo tồn sự cân bằng của hệ sinh thái",
-    "collocation": "preserve the balance of the ecosystem (bảo tồn sự cân bằng của hệ sinh thái), disrupt the whole ecosystem (phá vỡ toàn bộ hệ sinh thái)",
-    "example1": "The loss of a certain species could disrupt the whole ecosystem and lead to a severe imbalance in the ecosystem.\\nSự biến mất của một loài nhất định có thể làm phá vỡ toàn bộ hệ sinh thái và dẫn đến sự mất cân bằng nghiêm trọng trong hệ sinh thái.",
-    "example2": "Humans should strive to preserve the balance of the ecosystem by adopting more sustainable environmental practices.\\nCon người nên nỗ lực bảo tồn sự cân bằng của hệ sinh thái bằng cách thực hiện các hoạt động bảo vệ môi trường bền vững hơn.",
-    "synonyms": "ecological system, biological community, environment",
-    "antonyms": "N/A",
-    "note": ""
-  },
-  {
-    "no": 2,
-    "vocab": "biodiversity, the natural world, natural habitat, a loss of habitat",
-    "ipa": "/ˌbaɪ.əʊ.daɪˈvɜː.sə.ti/, /ðə ˈnætʃ.ər.əl wɜːld/, /ˈnætʃ.ər.əl ˈhæb.ɪ.tæt/, /ə lɒs ɒv ˈhæb.ɪ.tæt/",
-    "engMean": "The variety of plant and animal life in the world or in a particular habitat.\\nNature and all living things not made by humans.\\nThe natural home or environment of an animal, plant, or other organism.\\nThe destruction or disappearance of natural homes for wildlife.",
-    "viMean": "đa dạng sinh học, thế giới tự nhiên, môi trường sống tự nhiên, sự biến mất của môi trường sống",
-    "collocation": "conserve biodiversity (bảo tồn đa dạng sinh học), protect the natural world (bảo vệ thế giới tự nhiên), suffer from a loss of habitat (chịu đựng sự mất mát môi trường sống)",
-    "example1": "Deforestation for agricultural purposes has resulted in a massive loss of habitat for thousands of wildlife species.\\nViệc phá rừng phục vụ mục đích nông nghiệp đã dẫn đến sự mất mát môi trường sống trên diện rộng cho hàng ngàn loài động vật hoang dã.",
-    "example2": "Protecting biodiversity in the natural world is crucial for maintaining ecological stability and supporting human survival.\\nBảo vệ đa dạng sinh học trong thế giới tự nhiên là vô cùng quan trọng để duy trì sự ổn định sinh thái và hỗ trợ sự sống còn của con người.",
-    "synonyms": "ecological diversity, mother nature, wildlife habitat",
-    "antonyms": "artificial environment, synthetic habitat",
-    "note": ""
-  },
-  {
-    "no": 3,
-    "vocab": "the loss/disappearance/extinction of a certain species, affect wildlife, protect wildlife, wildlife conservation",
-    "ipa": "/ðə lɒs / ˌdɪs.əˈpɪə.rəns / ɪkˈstɪŋk.ʃən ɒv ə ˈsɜː.tən ˈspiː.ʃiːz/, /əˈfekt ˈwaɪld.laɪf/, /prəˈtekt ˈwaɪld.laɪf/, /ˈwaɪld.laɪf ˌkɒn.səˈveɪ.ʃən/",
-    "engMean": "The complete dying out or termination of a group of organisms.\\nTo produce an effect on wild animals and plants.\\nTo safeguard flora and fauna from damage or harm.\\nThe practice of protecting wild plant and animal species and their habitats.",
-    "viMean": "sự mất mát/biến mất/tuyệt chủng của một loài nhất định, ảnh hưởng đến thế giới hoang dã, bảo vệ thế giới hoang dã, bảo tồn thế giới hoang dã",
-    "collocation": "face extinction (đối mặt với sự tuyệt chủng), prevent the disappearance of species (ngăn chặn sự biến mất của các loài), fund wildlife conservation (tài trợ cho hoạt động bảo tồn động vật hoang dã)",
-    "example1": "Human activities heavily affect wildlife, driving many vulnerable creatures to the brink of extinction.\\nCác hoạt động của con người ảnh hưởng nặng nề đến thế giới hoang dã, đẩy nhiều loài sinh vật dễ bị tổn thương đến bờ vực tuyệt chủng.",
-    "example2": "Governments must invest more in wildlife conservation to protect endangered species from disappearing forever.\\nCác chính phủ phải đầu tư nhiều hơn vào bảo tồn động vật hoang dã để bảo vệ các loài có nguy cơ tuyệt chủng khỏi bị biến mất vĩnh viễn.",
-    "synonyms": "species eradication, fauna and flora protection",
-    "antonyms": "species proliferation",
-    "note": ""
-  },
-  {
-    "no": 4,
-    "vocab": "the distribution of precipitation, rainfall pattern, rainwater, torrential rain, cloudburst, rain/temperature gauge, hygrometer, humidity, thermometer, barometer, atmospheric pressure",
-    "ipa": "/ðə ˌdɪs.trɪˈbjuː.ʃən ɒv prɪˌsɪp.ɪˈteɪ.ʃən/, /ˈreɪn.fɔːl ˈpæt.ən/, /ˈreɪn.wɔː.tər/, /təˈren.ʃəl reɪn/, /ˈklaʊd.bɜːst/, /reɪn ˈtem.prə.tʃər ɡeɪdʒ/, /haɪˈɡrɒm.ɪ.tər/, /hjuːˈmɪd.ə.ti/, /θəˈmɒm.ɪ.tər/, /bəˈrɒm.ɪ.tər/, /ˌæt.məsˈfer.ɪk ˈpreʃ.ər/",
-    "engMean": "How rain, snow, sleet, or hail is distributed geographically.\\nThe habitual pattern of rainfall in an area.\\nWater that has fallen as rain.\\nVery heavy and fast-falling rain.\\nA sudden, very heavy fall of rain.\\nInstruments used to measure rain, temperature, humidity, atmospheric pressure, and the respective physical properties.",
-    "viMean": "sự phân bổ lượng mưa, quy luật lượng mưa, nước mưa, mưa to xối xả, mưa to đột ngột, cái đo lượng mưa/nhiệt độ, cái đo độ ẩm, độ ẩm, nhiệt kế, cái đo khí áp, áp suất khí quyển",
-    "collocation": "heavy/driving/pouring rain (mưa to xối xả), gauge atmospheric pressure (đo áp suất khí quyển), high humidity levels (mức độ ẩm cao)",
-    "example1": "The region experienced a sudden cloudburst, resulting in torrential rain that completely overwhelmed the drainage system.\\nVùng này đã trải qua một trận mưa lớn đột ngột, dẫn đến mưa xối xả làm tràn ngập hoàn toàn hệ thống thoát nước.",
-    "example2": "Meteorologists utilize barometers to measure atmospheric pressure and hygrometers to evaluate relative humidity.\\nCác nhà khí tượng học sử dụng khí áp kế để đo áp suất khí quyển và ẩm kế để đánh giá độ ẩm tương đối.",
-    "synonyms": "precipitation distribution, downpour, climate instruments",
-    "antonyms": "drizzle, light rain, dry weather",
-    "note": ""
-  },
-  {
-    "no": 5,
-    "vocab": "put on a raincoat, be caught in the rain, get soaked/drenched, observe the sky, watch the weather forecast, wear/put on, sport/don sth, breathable clothes, layer up",
-    "ipa": "/pʊt ɒn ə ˈreɪn.kəʊt/, /bi kɔːt ɪn ðə reɪn/, /ɡet səʊkt / drentʃt/, /əbˈzɜːv ðə skaɪ/, /wɒtʃ ðə ˈweð.ə ˌfɔː.kɑːst/, /weər / pʊt ɒn/, /spɔːt / dɒn ˈsʌm.θɪŋ/, /ˈbriː.ðə.bəl kləʊðz/, /ˈleɪ.ər ʌp/",
-    "engMean": "To dress in a waterproof garment.\\nTo be unexpectedly trapped in rainfall.\\nTo become completely wet.\\nTo look closely at the heavens.\\nTo check meteorological predictions.\\nTo wear or place clothing on one's body.\\nTo wear something proudly or put on an item of clothing.\\nTo wear lightweight clothing that allows air to pass.\\nTo wear several layers of clothing.",
-    "viMean": "mặc áo mưa, bị dính mưa, ướt nhẹp/ướt sũng, quan sát bầu trời, xem dự báo thời tiết, mặc/đeo quần áo, diện/mặc cái gì, quần áo thông thoáng, mặc nhiều lớp",
-    "collocation": "be caught in a cloudburst (gặp mưa rào đột ngột), get soaked to the skin (ướt sũng tới da), watch the weather forecast closely (theo dõi sát sao dự báo thời tiết), layer up in winter (mặc nhiều lớp vào mùa đông)",
-    "example1": "Since I forgot to watch the weather forecast, I got caught in the rain and ended up getting drenched to the skin.\\nVì tôi quên xem dự báo thời tiết, tôi đã bị dính mưa và cuối cùng bị ướt sũng đến tận da.",
-    "example2": "In hot summers, people prefer to sport breathable clothes, whereas in winter, they have to layer up to stay warm.\\nVào mùa hè nóng nực, mọi người thích diện quần áo thông thoáng hơn, trong khi vào mùa đông, họ phải mặc nhiều lớp để giữ ấm.",
-    "synonyms": "get wet through, dress in, bundle up",
-    "antonyms": "stay dry",
-    "note": ""
-  },
-  {
-    "no": 6,
-    "vocab": "hail, hailstone, sunny/rainy/cold spells, searing winds, trade winds, climate change, sudden climate change, transitional weather, weather phenomenon/phenomena, celestial phenomena, halo, comet, weather vane",
-    "ipa": "/heɪl/, /ˈheɪl.stəʊn/, /ˈsʌn.i / ˈreɪn.i / kəʊld spelz/, /ˈsɪə.rɪŋ wɪndz/, /treɪd wɪndz/, /ˈklaɪ.mət tʃeɪndʒ/, /ˈsʌd.ən ˈklaɪ.mət tʃeɪndʒ/, /trænˈzɪʃ.ən.əl ˈweð.ər/, /ˈweð.ə fəˈnɒm.ɪ.nən / fəˈnɒm.ɪ.nə/, /sɪˈles.ti.əl fəˈnɒm.ɪ.nə/, /ˈheɪ.ləʊ/, /ˈkɒm.ɪt/, /ˈweð.ə veɪn/",
-    "engMean": "Small, hard balls of ice that fall from the sky like rain.\\nA single ball of ice.\\nPeriods of specific weather conditions.\\nVery hot and dry winds.\\nWind blowing steadily toward the equator.\\nLong-term alteration of temperature and typical weather patterns.\\nA shift in weather during seasonal change.\\nAn observable meteorological event.",
-    "viMean": "mưa đá, cục mưa đá, đợt nắng/mưa/rét, gió nóng, gió mậu dịch, biến đổi khí hậu, biến đổi khí hậu đột ngột, thời tiết lúc đổi mùa, hiện tượng thời tiết (số ít/nhiều), hiện tượng trên bầu trời, quầng (mặt trăng/mặt trời), sao chổi, chong chóng gió",
-    "collocation": "endure cold spells (chịu đựng những đợt rét), observe celestial phenomena (quan sát các hiện tượng thiên văn), transitional weather phase (giai đoạn thời tiết chuyển mùa)",
-    "example1": "During transitional weather, local populations often suffer from sudden cold spells and unpredicted rainfall.\\nTrong thời tiết chuyển mùa, người dân địa phương thường phải chịu đựng những đợt rét đột ngột và lượng mưa không dự báo trước.",
-    "example2": "The formation of giant hailstones is an extreme weather phenomenon that is becoming more frequent due to climate change.\\nSự hình thành các cục mưa đá khổng lồ là một hiện tượng thời tiết cực đoan đang trở nên thường xuyên hơn do biến đổi khí hậu.",
-    "synonyms": "meteorological events, cosmic occurrences",
-    "antonyms": "stable climate",
-    "note": ""
-  },
-  {
-    "no": 7,
-    "vocab": "an irregular seesaw of rapid climatic shifts, natural capriciousness, climatic conditions, environmental change, global warming, global cooling/dimming, humanly caused global warming/ human-induced climate change, climate scientist",
-    "ipa": "/ən ɪˈreɡ.jə.lər ˈsiː.sɔː ɒv ˈræp.ɪd klaɪˈmæt.ɪk ʃɪfts/, /ˈnætʃ.ər.əl kəˈprɪʃ.əs.nəs/, /klaɪˈmæt.ɪk kənˈdɪʃ.ənz/, /ɪnˌvaɪ.rənˈmen.təl tʃeɪndʒ/, /ˈɡləʊ.bəl ˈwɔː.mɪŋ/, /ˈɡləʊ.bəl ˈkuː.lɪŋ / ˈdɪm.ɪŋ/, /ˈhjuː.mən.li kɔːzd ˈɡləʊ.bəl ˈwɔː.mɪŋ / ˈhjuː.mən ɪnˈdjuːst ˈklaɪ.mət tʃeɪndʒ/, /ˈklaɪ.mət ˈsaɪən.tɪst/",
-    "engMean": "Unpredictable and volatile fluctuations in regional weather.\\nThe erratic, unpredictable behavior of nature.\\nState of atmosphere regarding heat, moisture, wind, etc.\\nAlterations in physical and biological systems.\\nGradual increase in Earth's temperature.\\nOpposite cooling trends.\\nClimate change caused by human activity.\\nA researcher studying climatic variations.",
-    "viMean": "sự thay đổi khí hậu nhanh chóng không theo quy luật, sự đồng bóng của tự nhiên, các điều kiện khí hậu, sự thay đổi môi trường, sự nóng lên toàn cầu, sự nguội lạnh/mờ đi toàn cầu, sự nóng lên toàn cầu do con người gây ra/ biến đổi khí hậu do con người tạo ra, nhà khoa học khí hậu",
-    "collocation": "combat human-induced climate change (đấu tranh chống biến đổi khí hậu do con người gây ra), adapt to harsh climatic conditions (thích nghi với các điều kiện khí hậu khắc nghiệt)",
-    "example1": "Climate scientists warn that human-induced climate change is creating an irregular seesaw of rapid climatic shifts across the globe.\\nCác nhà khoa học khí hậu cảnh báo rằng biến đổi khí hậu do con người gây ra đang tạo ra một sự thay đổi khí hậu nhanh chóng không theo quy luật trên toàn cầu.",
-    "example2": "Despite the natural capriciousness of weather patterns, the general trend of global warming is undeniable.\\nMặc dù có sự đồng bóng tự nhiên của các hình thái thời tiết, xu hướng chung của sự nóng lên toàn cầu là không thể phủ nhận.",
-    "synonyms": "anthropogenic climate change, environmental shifts",
-    "antonyms": "natural climate cycles",
-    "note": ""
-  },
-  {
-    "no": 8,
-    "vocab": "weather catastrophes, environmental disasters, flooding, floods, flash floods, puddle, drought, drought cycles, hurricane, thunderstorms, thunderclouds, a lightning bolt, dam, cut sb off",
-    "ipa": "/ˈweð.ər kəˈtæs.trə.fiz/, /ɪnˌvaɪ.rənˈmen.təl dɪˈzɑː.stəz/, /ˈflʌd.ɪŋ/, /flʌdz/, /flæʃ flʌdz/, /ˈpʌd.əl/, /draʊt/, /draʊt ˈsaɪ.kəlz/, /ˈhʌr.ɪ.kən/, /ˈθʌn.də.stɔːmz/, /ˈθʌn.də.klaʊdz/, /ə ˈlaɪt.nɪŋ bəʊlt/, /dæm/, /kʌt ˈsʌm.bə.di ɒf/",
-    "engMean": "Devastating weather and ecological events.\\nOverflowing of water onto dry land.\\nSudden local floods due to heavy rain.\\nA small pool of water on the ground.\\nProlonged dry periods without rain.\\nViolent tropical storms.\\nRainstorms with lightning and thunder.\\nClouds producing thunder.\\nA flash of lightning.\\nA barrier holding back water.\\nTo isolate someone or a place.",
-    "viMean": "thảm họa thời tiết, thảm họa môi trường, nạn lụt/lũ lụt, lũ quét, vũng nước, hạn hán, chu kỳ hạn hán, bão lớn, bão có sét, mây dông, tia chớp, đập, bị cô lập",
-    "collocation": "trigger flash floods (gây ra lũ quét), suffer from prolonged drought cycles (chịu đựng các chu kỳ hạn hán kéo dài), be cut off by flooding (bị cô lập bởi lũ lụt), a lightning bolt strikes (tia sét đánh)",
-    "example1": "The remote mountain village was completely cut off after a sudden cloudburst triggered catastrophic flash floods.\\nNgôi làng miền núi hẻo lánh đã hoàn toàn bị cô lập sau khi một trận mưa lớn đột ngột gây ra lũ quét thảm khốc.",
-    "example2": "While some areas are ravaged by intense thunderstorms, other regions endure relentless drought cycles.\\nTrong khi một số khu vực bị tàn phá bởi các cơn bão dông dữ dội, các vùng khác lại phải chịu đựng những chu kỳ hạn hán không ngừng.",
-    "synonyms": "natural calamities, extreme weather occurrences",
-    "antonyms": "N/A",
-    "note": ""
-  },
-  {
-    "no": 9,
-    "vocab": "wildfire, megafire, blazes, superhot fires, fire-prone ecosystems, the hit area, the fire brigade, battle blazes, contain the flames, fight fires, catch fire, burn with great intensity/severity, scorch, fire break out, fire spread, fire rage",
-    "ipa": "/ˈwaɪld.faɪər/, /ˈmeɡ.ə.faɪər/, /ˈbleɪ.zɪz/, /ˈsuː.pə.hɒt faɪərz/, /faɪər prəʊn ˈiː.kəʊˌsɪs.təmz/, /ðə hɪt ˈeə.ri.ə/, /ðə ˈfaɪər brɪˈɡeɪd/, /ˈbæt.əl ˈbleɪ.zɪz/, /kənˈteɪn ðə fleɪmz/, /faɪt faɪərz/, /kætʃ faɪər/, /bɜːn wɪð ɡreɪt ɪnˈten.sə.ti/, /skɔːtʃ/, /faɪər breɪk aʊt/, /faɪər spred/, /faɪər reɪdʒ/",
-    "engMean": "Large, destructive fires in wilderness.\\nExtremely large and intense wildfires.\\nIntense, hot fires.\\nEcosystems vulnerable to forest fires.\\nThe affected zone.\\nThe emergency organization that fights fires.\\nTo struggle to put out massive fires.\\nTo restrict the spread of fire.\\nTo ignite.\\nTo burn fiercely.\\nTo burn the surface of.\\nTo start, spread, or rage uncontrollably.",
-    "viMean": "cháy rừng, siêu cháy rừng, ngọn lửa lớn, đám cháy siêu nóng, hệ sinh thái dễ bị cháy rừng, vùng bị ảnh hưởng, đội cứu hỏa, chiến đấu với ngọn lửa, kiềm chế ngọn lửa, chữa cháy, bị bắt lửa, cháy dữ dội, thiêu trụi, (lửa) bùng phát, (lửa) lan rộng, (lửa) hoành hành",
-    "collocation": "fire-prone ecosystems (các hệ sinh thái dễ bị cháy rừng), contain the raging flames (kiềm chế ngọn lửa hoành hành), the fire brigade battles the blazes (đội cứu hỏa chiến đấu với đám cháy)",
-    "example1": "When a wildfire breaks out in fire-prone ecosystems, it can quickly burn with great intensity and scorch thousands of hectares.\\nKhi cháy rừng bùng phát ở các hệ sinh thái dễ bị cháy rừng, nó có thể nhanh chóng cháy dữ dội và thiêu trụi hàng ngàn hecta.",
-    "example2": "The local fire brigade worked tirelessly to contain the flames and rescue residents from the hit area.\\nĐội cứu hỏa địa phương đã làm việc không mệt mỏi để khống chế ngọn lửa và giải cứu cư dân khỏi khu vực bị ảnh hưởng.",
-    "synonyms": "forest fires, infernos, conflagrations",
-    "antonyms": "N/A",
-    "note": ""
-  },
-  {
-    "no": 10,
-    "vocab": "destructive environmental policies, sustainable environmental policies, have a good/poor environmental track record, environmental practices, sound environmental practices",
-    "ipa": "/dɪˈstrʌk.tɪv ɪnˌvaɪ.rənˈmen.təl ˈpɒl.ə.siz/, /səˈsteɪ.nə.bəl ɪnˌvaɪ.rənˈmen.təl ˈpɒl.ə.siz/, /hæv ə ɡʊd / pʊər ɪnˌvaɪ.rənˈmen.təl træk rɪˈkɔːd/, /ɪnˌvaɪ.rənˈmen.təl ˈpræk.tɪ.sɪz/, /saʊnd ɪnˌvaɪ.rənˈmen.təl ˈpræk.tɪ.sɪz/",
-    "engMean": "Guidelines or actions that harm the environment.\\nEcology-friendly government or corporate guidelines.\\nHistory of eco-friendly actions (or lack thereof).\\nActions and activities that impact nature.\\nEnvironmentally beneficial actions.",
-    "viMean": "các chính sách hủy hoại môi trường, các chính sách môi trường bền vững, có lịch sử môi trường tốt/tồi tệ, các hoạt động liên quan đến môi trường, các hoạt động tốt cho môi trường",
-    "collocation": "adopt sustainable environmental policies (áp dụng các chính sách môi trường bền vững), implement sound environmental practices (thực hiện các hoạt động tốt cho môi trường), a company with a poor environmental track record (một công ty có hồ sơ môi trường kém)",
-    "example1": "Companies that have a poor environmental track record should be heavily fined for their destructive environmental policies.\\nCác công ty có lịch sử môi trường tồi tệ nên bị phạt nặng vì các chính sách hủy hoại môi trường của họ.",
-    "example2": "Governments must encourage industries to shift towards sound environmental practices by introducing green subsidies.\\nCác chính phủ phải khuyến khích các ngành công nghiệp chuyển hướng sang các hoạt động tốt cho môi trường bằng cách đưa ra các khoản trợ cấp xanh.",
-    "synonyms": "eco-policies, green practices, ecological history",
-    "antonyms": "N/A",
-    "note": ""
-  },
-  {
-    "no": 11,
-    "vocab": "fishery, unmanaged/unregulated/unbridled/uncontrolled fishery without quotas, marine biologist, marine debris / ocean trash, microscopic plastic bits, oil spill",
-    "ipa": "/ˈfɪʃ.ər.i/, /ʌnˈmæn.ɪdʒt / ʌnˈreɡ.jə.leɪ.tɪd / ʌnˈbraɪ.dəld / ˌʌn.kənˈtrəʊld ˈfɪʃ.ər.i wɪˈðaʊt ˈkwəʊ.təz/, /məˈriːn baɪˈɒl.ə.dʒɪst/, /məˈriːn dɪˈbriː / ˈəʊ.ʃən træʃ/, /ˌmaɪ.krəˈskɒp.ɪk ˈplæs.tɪk bɪts/, /ɔɪl spɪl/",
-    "engMean": "An area where fish are caught for commercial purposes.\\nFishing without regulations or limits.\\nA scientist who studies marine life.\\nGarbage or waste found in the sea.\\nExtremely small pieces of plastic in water.\\nAn accidental release of liquid petroleum into the environment.",
-    "viMean": "vùng đánh bắt cá, vùng đánh bắt cá không có sự quản lý/không theo quy định/không kiềm chế/không kiểm soát không có hạn ngạch, nhà sinh vật học biển, mảnh vụn đại dương/rác đại dương, mẩu nhựa siêu nhỏ, sự cố tràn dầu",
-    "collocation": "tackle marine debris (giải quyết rác thải đại dương), prevent oil spills (ngăn chặn tràn dầu), unregulated fishery without quotas (đánh bắt không kiểm soát không có hạn ngạch)",
-    "example1": "Marine biologists are highly concerned about the amount of marine debris and microscopic plastic bits entering the food chain.\\nCác nhà sinh vật học biển rất lo ngại về lượng rác thải đại dương và những mẩu nhựa siêu nhỏ xâm nhập vào chuỗi thức ăn.",
-    "example2": "Unregulated fishery without quotas has severely depleted fish stocks and damaged local marine ecosystems.\\nViệc đánh bắt cá không được kiểm soát và không có hạn ngạch đã làm suy giảm nghiêm trọng trữ lượng cá và hủy hoại hệ sinh thái biển địa phương.",
-    "synonyms": "marine ecology, sea pollution, plastic particles",
-    "antonyms": "N/A",
-    "note": ""
-  },
-  {
-    "no": 12,
-    "vocab": "meteorologist, meteorology, astronomer, weather forecasting, weather observation data, weather records, a polar climate, the formation of sth (e.g. rain, clouds, wind, storms), brave storms, lightning strikes",
-    "ipa": "/ˌmiː.ti.əˈrɒl.ə.dʒɪst/, /ˌmiː.ti.əˈrɒl.ə.dʒi/, /əˈstrɒn.ə.mər/, /ˈweð.ər ˈfɔː.kɑː.stɪŋ/, /ˈweð.ər ˌɒb.zəˈveɪ.ʃən ˈdeɪ.tə/, /ˈweð.ər rɪˈkɔːdz/, /ə ˈpəʊ.lər ˈklaɪ.mət/, /ðə fɔːˈmeɪ.ʃən ɒv ˈsʌm.θɪŋ/, /breɪv stɔːmz/, /ˈlaɪt.nɪŋ straɪks/",
-    "engMean": "A specialist in meteorology; a weather forecaster.\\nThe study of atmosphere and weather.\\nA scientist who studies stars and planets.\\nPredicting atmospheric conditions.\\nInformation recorded from weather patterns.\\nHistorical atmospheric measurements.\\nExtremely cold climate near the poles.\\nThe process of bringing something into existence.\\nTo face violent weather courageously.\\nWhen atmospheric electricity hits the ground or an object.",
-    "viMean": "nhà khí tượng học, khí tượng học, nhà thiên văn học, việc dự báo thời tiết, dữ liệu quan sát thời tiết, các ghi chép thời tiết, khí hậu vùng cực, sự hình thành của cái gì (mưa, mây, gió, bão), đương đầu với bão, sét đánh",
-    "collocation": "advance weather forecasting (tiến bộ trong dự báo thời tiết), analyze weather observation data (phân tích dữ liệu quan sát thời tiết), study the formation of storms (nghiên cứu sự hình thành của các cơn bão)",
-    "example1": "Modern meteorologists rely on advanced weather observation data to study the formation of storms and make accurate forecasts.\\nCác nhà khí tượng học hiện đại dựa vào dữ liệu quan sát thời tiết tiên tiến để nghiên cứu sự hình thành của các cơn bão và đưa ra các dự báo chính xác.",
-    "example2": "Fishermen often have to brave storms at sea, placing themselves at risk of violent lightning strikes.\\nNgư dân thường phải đương đầu với các cơn bão trên biển, đặt mình vào nguy cơ bị sét đánh dữ dội.",
-    "synonyms": "weather forecasting science, weather logs",
-    "antonyms": "N/A",
-    "note": ""
-  },
-  {
-    "no": 13,
-    "vocab": "universal, irregular/erratic/unpredictable, harsh/extreme, extreme weather events, unaccustomed, unaccustomed/freak heat/cold, unprecedented, unprecedented global warming, bitterly/intensely cold, bitterly/intensely cold winters, in the depth of winter, dog days, scorching/unbearably/boiling/sweltering hot, mild, mild winters, prolonged, prolonged warming, cloudy, cloudy/grey sky, clear blue sky/azure sky, blustery, windy, on a blustery day, drafty/draughty room, the sun is in full swing",
-    "ipa": "/ˌjuː.nɪˈvɜː.səl/, /ɪˈreɡ.jə.lər / ɪˈræt.ɪk / ˌʌn.prɪˈdɪk.tə.bəl/, /hɑːʃ / ɪkˈstriːm/, /ɪkˈstriːm ˈweð.ər ɪˈvents/, /ˌʌn.əˈkʌs.təmd/, /ˌʌn.əˈkʌs.təmd / friːk hiːt / kəʊld/, /ʌnˈpres.ɪ.den.tɪd/, /ʌnˈpres.ɪ.den.tɪd ˈɡləʊ.bəl ˈwɔː.mɪŋ/, /ˈbɪt.əl.i / ɪnˈtens.li kəʊld/, /ˈbɪt.əl.i / ɪnˈtens.li kəʊld ˈwɪn.təz/, /ɪn ðə depθ ɒv ˈwɪn.tər/, /dɒɡ deɪz/, /ˈskɔː.tʃɪŋ / ʌnˈbeə.rə.bli / ˈbɔɪ.lɪŋ / ˈswel.tər.ɪŋ hɒt/, /maɪld/, /maɪld ˈwɪn.təz/, /prəˈlɒŋd/, /prəˈlɒŋd ˈwɔː.mɪŋ/, /ˈklaʊ.di/, /ˈklaʊ.di / ɡreɪ skaɪ/, /klɪər bluː skaɪ / ˈæʒ.ər skaɪ/, /ˈblʌs.tər.i/, /ˈwɪn.di/, /ɒn ə ˈblʌs.tər.i deɪ/, /ˈdrɑːf.ti ruːm/, /ðə sʌn ɪz ɪn fʊl swɪŋ/",
-    "engMean": "Existing or occurring everywhere.\\nNot even or regular; unpredictable.\\nSevere or hostile conditions.\\nUnusual or severe weather events.\\nNot familiar or typical.\\nAn extreme period of heat or cold.\\nNever done or known before.\\nExtremely and painfully cold.\\nThe middle or coldest part of winter.\\nThe hottest days of summer.\\nExtremely hot temperatures.\\nModerately warm; not harsh.\\nContinuing for a long time.\\nFilled with clouds.\\nBright, clear blue.\\nStrong winds blowing.\\nA room with uncomfortable currents of cold air.\\nThe sun shining intensely.",
-    "viMean": "xảy ra mọi nơi, thất thường/không đều/không có quy luật, khắc nghiệt, các sự kiện thời tiết cực đoan, bất thường, đợt nóng/lạnh bất thường, chưa từng có tiền lệ, sự nóng lên toàn cầu chưa từng có tiền lệ, lạnh cóng, những mùa đông lạnh cóng, giữa mùa đông lạnh giá, những ngày nóng nhất mùa hè, nóng cháy da thịt/nóng không chịu nổi/nóng sôi sục/nóng oi ả, dễ chịu, mùa đông dễ chịu, kéo dài, sự ấm lên kéo dài, nhiều mây, bầu trời nhiều mây/xám xịt, bầu trời trong xanh, lộng gió, ngày lộng gió, căn phòng lộng gió lùa, nắng to/nắng chang chang",
-    "collocation": "witness unprecedented global warming (chứng kiến sự nóng lên toàn cầu chưa từng có tiền lệ), experience scorching hot dog days (trải qua những ngày hè nóng như đổ lửa), suffer from bitterly cold winters (chịu đựng những mùa đông lạnh giá buốt)",
-    "example1": "Due to unprecedented global warming, many regions now suffer from an erratic seesaw of bitterly cold winters and scorching hot summers.\\nDo sự nóng lên toàn cầu chưa từng có tiền lệ, nhiều khu vực hiện nay phải chịu một sự thay đổi khí hậu thất thường giữa mùa đông lạnh giá và mùa hè nóng như thiêu đốt.",
-    "example2": "While the sun was in full swing yesterday, today the city is covered in a cloudy, grey sky on a blustery day.\\nTrong khi ngày hôm qua nắng to chang chang, hôm nay thành phố lại bao phủ bởi bầu trời xám xịt nhiều mây vào một ngày lộng gió.",
-    "synonyms": "unpredictable climatic patterns, severe temperature extremes",
-    "antonyms": "temperate, steady climate",
-    "note": ""
-  },
-  {
-    "no": 14,
-    "vocab": "pollution levels, contamination, environmental issues, power plant, fossil fuels, coal, greenhouse gasses, greenhouse gas levels soar, emissions, exhaust fumes, plastic bag, overpackaged products, overpackaging, heavy industry, air quality, poor air quality, deforestation, release (vast quantities of) sth into the atmosphere, enter the food chain, be exposed to sth (e.g. pollutants)",
-    "ipa": "/pəˈluː.ʃən ˈlev.əlz/, /kənˌtæm.ɪˈneɪ.ʃən/, /ɪnˌvaɪ.rənˈmen.təl ˈɪʃ.uːz/, /ˈpaʊ.ər plɑːnt/, /ˈfɒs.əl ˈfjuː.əlz/, /kəʊl/, /ˈɡriːn.haʊs ˈɡæs.ɪz/, /ˈɡriːn.haʊs ɡæs ˈlev.əlz sɔːr/, /iˈmɪʃ.ənz/, /ɪɡˈzɔːst fjuːmz/, /ˈplæs.tɪk bæɡ/, /ˌəʊ.vəˈpæk.ɪdʒt ˈprɒd.ʌkts/, /ˌəʊ.vəˈpæk.ɪ.dʒɪŋ/, /ˈhev.i ˈɪn.də.stri/, /eə ˈkwɒl.ə.ti/, /pʊər eə ˈkwɒl.ə.ti/, /diːˌfɒr.ɪˈsteɪ.ʃən/, /rɪˈliːs ˈvɑːst ˈkwɒn.tə.tiz ɒv ˈsʌm.θɪŋ ˈɪn.tuː ði ˈæt.məs.fɪər/, /ˈen.tər ðə fuːd tʃeɪn/, /bi ɪkˈspəʊzd tuː ˈsʌm.θɪŋ/",
-    "engMean": "Amount of pollutants in the atmosphere.\\nThe action of making something impure.\\nProblems related to the environment.\\nAn industrial facility for power generation.\\nEnergy resources like coal, gas, and oil.\\nCarbonaceous fuel.\\nGases trapping heat in the atmosphere.\\nDramatic increases in greenhouse gas concentrations.\\nDischarged pollutants.\\nGases ejected from engines.\\nPlastic carrying bags.\\nGoods wrapped in excessive packaging.\\nExcess packaging practice.\\nManufacturing industries causing high pollution.\\nThe clean/dirty state of air.\\nLow grade air quality.\\nDestruction of forest areas.\\nTo discharge massive volumes of pollutants.\\nTo penetrate the biological consumption cycle.\\nTo be in contact with harmful elements.",
-    "viMean": "mức độ ô nhiễm, sự nhiễm chất có hại, các vấn đề môi trường, nhà máy điện, nhiên liệu hóa thạch, than, khí nhà kính, lượng khí nhà kính tăng vọt, lượng khí thải, khí thải xe cộ, túi ni-lông, sản phẩm bị đóng gói quá mức, đóng gói quá mức, công nghiệp nặng, chất lượng không khí, chất lượng không khí kém, sự phá rừng, thải ra lượng lớn chất gì vào khí quyển, đi vào chuỗi thức ăn, tiếp xúc với chất gì",
-    "collocation": "trigger poor air quality (gây ra chất lượng không khí kém), burn fossil fuels (đốt nhiên liệu hóa thạch), release vast quantities of emissions (thải ra lượng lớn khí thải), be exposed to high pollution levels (tiếp xúc với mức độ ô nhiễm cao)",
-    "example1": "Coal-burning power plants and heavy industry release vast quantities of greenhouse gases into the atmosphere, causing pollution levels to soar.\\nCác nhà máy điện đốt than và ngành công nghiệp nặng thải ra một lượng lớn khí nhà kính vào khí quyển, khiến mức độ ô nhiễm tăng vọt.",
-    "example2": "Deforestation and excessive overpackaging contribute to catastrophic environmental issues, exposing humans and wildlife to toxic contamination.\\nTình trạng phá rừng và việc đóng gói quá mức sản phẩm góp phần gây ra các vấn đề môi trường thảm khốc, khiến con người và động vật hoang dã tiếp xúc với sự ô nhiễm độc hại.",
-    "synonyms": "environmental degradation, industrial contamination, atmospheric emissions",
-    "antonyms": "N/A",
-    "note": ""
-  },
-  {
-    "no": 15,
-    "vocab": "renewable energy, sustainable energy, energy conservation, environmental well-being, go green, recycle, protect our living environment, be contaminated with, contaminated site, environmentally friendly/ eco-friendly, be environmentally aware/conscious, be at the mercy of climate change, be prone to, be susceptible to / be vulnerable to",
-    "ipa": "/rɪˈnjuː.ə.bəl ˈen.ə.dʒi/, /səˈsteɪ.nə.bəl ˈen.ə.dʒi/, /ˈen.ə.dʒi ˌkɒn.səˈveɪ.ʃən/, /ɪnˌvaɪ.rənˈmen.təl ˌwelˈbiː.ɪŋ/, /ɡəʊ ɡriːn/, /ˌriːˈsaɪ.kəl/, /prəˈtekt ˈaʊər ˈlɪv.ɪŋ ɪnˈvaɪ.rən.mənt/, /bi kənˈtæm.ɪ.neɪ.tɪd wɪð/, /kənˈtæm.ɪ.neɪ.tɪd saɪt/, /ɪnˌvaɪ.rənˈmen.təl.i ˈfrend.li / ˈiː.kəʊˌfrend.li/, /bi ɪnˌvaɪ.rənˈmen.təl.i əˈweər / ˈkɒn.ʃəs/, /bi æt ðə ˈmɜː.si ɒv ˈklaɪ.mət tʃeɪndʒ/, /bi prəʊn tuː/, /bi səˈsep.tə.bəl tuː / bi ˈvʌl.nər.ə.bəl tuː/",
-    "engMean": "Energy from naturally replenishing resources.\\nEnergy usable over a long period.\\nThe preservation of energy resources.\\nThe health and viability of nature.\\nTo adopt an environmentally friendly lifestyle.\\nTo process waste materials for reuse.\\nTo secure our ecological surroundings.\\nTo be polluted or made toxic.\\nAn area affected by pollution.\\nNot harmful to the environment.\\nAware of ecological issues.\\nPowerless against global warming impacts.\\nLikely to suffer from or be affected by something.",
-    "viMean": "năng lượng tái tạo, năng lượng bền vững, bảo tồn năng lượng, sức khỏe môi trường, sống xanh, tái chế, bảo vệ môi trường sống của chúng ta, bị nhiễm chất độc hại, địa điểm bị ô nhiễm, thân thiện với môi trường, có ý thức/quan tâm đến môi trường, chịu sự ảnh hưởng (phó mặc cho) biến đổi khí hậu, dễ bị ảnh hưởng bởi cái gì, dễ bị tổn thương bởi cái gì",
-    "collocation": "transition to renewable energy (chuyển sang năng lượng tái tạo), promote energy conservation (thúc đẩy bảo tồn năng lượng), adopt eco-friendly habits (áp dụng các thói quen thân thiện với môi trường), vulnerable ecosystems (các hệ sinh thái dễ bị tổn thương)",
-    "example1": "By going green and transitioning to renewable energy, we can protect our living environment and enhance ecological well-being.\\nBằng cách sống xanh và chuyển dịch sang năng lượng tái tạo, chúng ta có thể bảo vệ môi trường sống của mình và tăng cường sức khỏe của hệ sinh thái.",
-    "example2": "Countries that are vulnerable to extreme weather events find themselves at the mercy of climate change, especially in low-lying contaminated sites.\\nCác quốc gia dễ bị tổn thương trước các hiện tượng thời tiết cực đoan thấy mình phải chịu sự ảnh hưởng của biến đổi khí hậu, đặc biệt là ở các khu vực ô nhiễm ở vùng trũng thấp.",
-    "synonyms": "green living, ecological mindfulness, climate susceptibility",
-    "antonyms": "N/A",
-    "note": ""
-  }
-];
+        let vocabData = [];
+        try {
+            vocabData = JSON.parse(document.getElementById('vocabDataRaw').textContent || '[]');
+        } catch (e) {
+            console.error("Failed to parse vocab database", e);
+        }
         if (savedLocal) {
             try {
                 const parsed = JSON.parse(savedLocal);
@@ -336,15 +185,53 @@
         
         let filteredItems = [...vocabData];
 
-        function formatText(text) {
-            return text ? text.split('\n').join('<br>') : "";
+        function splitExample(text) {
+            if (!text) return ["", ""];
+            var cleaned = text.split('\\' + 'n').join(String.fromCharCode(10));
+            var parts = cleaned.split(String.fromCharCode(10));
+            return [parts[0] || "", parts.slice(1).join(String.fromCharCode(10)) || ""];
         }
 
-        function speakWord(word) {
-            const clean = word.split(',')[0].trim();
+        function splitMeanings(text) {
+            if (!text) return [];
+            return text.split(/\s*[,\/]\s*(?![^()]*\))/).map(function(p) {
+                var cleaned = p.trim();
+                if (cleaned.endsWith('.')) {
+                    cleaned = cleaned.slice(0, -1);
+                }
+                return cleaned;
+            });
+        }
+
+        function formatText(text, prefixBullet) {
+            if (!text) return "";
+            var cleaned = text.split('\\' + 'n').join(String.fromCharCode(10));
+            var lines = cleaned.split(String.fromCharCode(10));
+            if (prefixBullet) {
+                var bulletList = [];
+                for (var i = 0; i < lines.length; i++) {
+                    if (lines[i].trim()) {
+                        bulletList.push('* ' + lines[i].trim());
+                    }
+                }
+                return bulletList.join('<br>');
+            }
+            return lines.join('<br>');
+        }
+
+        function speakWord(elementOrWord) {
+            var clean = "";
+            if (typeof elementOrWord === 'string') {
+                clean = elementOrWord.split(',')[0].trim();
+            } else if (elementOrWord && elementOrWord.querySelector) {
+                var span = elementOrWord.querySelector('span');
+                if (span) {
+                    clean = span.innerText.split(',')[0].trim();
+                }
+            }
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(clean);
+                var utterance = new SpeechSynthesisUtterance(clean);
                 utterance.lang = 'en-US';
                 utterance.rate = 0.85;
                 window.speechSynthesis.speak(utterance);
@@ -420,121 +307,142 @@
             counter.innerText = filteredItems.length + " / " + vocabData.length;
 
             filteredItems.forEach(item => {
-                const highlightedVocab = item.vocab.split(', ').map(word => {
-                    const cleanWordForJs = word.replace(/'/g, "\\'");
-                    return `
-                    <div class="inline-flex items-center gap-1 bg-slate-50 border border-slate-100 px-1.5 py-0.5 rounded text-[11px] text-slate-900 font-semibold my-[1px] hover:border-indigo-200 transition-colors">
-                        <span>${word}</span>
-                        <button onclick="speakWord('${cleanWordForJs}')" title="Nghe phát âm chuẩn: ${word}" class="p-0.5 rounded hover:bg-indigo-50 text-slate-400 hover:text-indigo-600 transition-colors cursor-pointer inline-flex items-center justify-center">
-                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072M12 18.75V5.25L7.5 9H4.5v6h3L12 18.75z"></path></svg>
-                        </button>
-                    </div>`;
-                }).join(' ');
+                // Generate vocabulary vocal chips
+                var vocabWords = (item.vocab || "").split(', ');
+                var highlightedVocabHtml = "";
+                vocabWords.forEach(function(word) {
+                    highlightedVocabHtml += '<div onclick="speakWord(this)" title="Nghe phát âm chuẩn: ' + word + '" class="inline-flex items-center gap-1.5 bg-slate-50/50 hover:bg-indigo-50/30 border border-slate-200/50 hover:border-indigo-200/60 px-2.5 py-1 rounded-lg text-[11.5px] text-slate-800 font-bold tracking-tight cursor-pointer select-none transition-all duration-200 shadow-2xs">' +
+                                               '<span class="leading-none">' + word + '</span>' +
+                                               '<svg class="w-3.5 h-3.5 text-slate-400 shrink-0 hover:text-indigo-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M12 18.75V5.25L7.5 9H4.5v6h3L12 18.75z"></path></svg>' +
+                                           '</div> ';
+                });
+
+                // Generate meanings chips
+                var meaningChipsHtml = "";
+                splitMeanings(item.viMean).forEach(function(mean) {
+                    meaningChipsHtml += '<div class="inline-flex items-center gap-1.5 bg-slate-50/50 hover:bg-indigo-50/30 border border-slate-200/50 hover:border-indigo-200/60 px-2.5 py-1 rounded-lg text-[11.5px] text-slate-800 font-bold tracking-tight select-none transition-all duration-200 shadow-2xs w-fit">' + mean + '</div> ';
+                });
+
+                // Example 1 split
+                var ex1Parts = splitExample(item.example1);
+                var ex1Eng = ex1Parts[0];
+                var ex1Vi = ex1Parts[1];
+
+                // Example 2 split if exists
+                var ex2Html = "";
+                if (item.example2) {
+                    var ex2Parts = splitExample(item.example2);
+                    ex2Html = '<div class="text-[11px] border-l-2 border-emerald-500 pl-2.5 mt-2">' +
+                                '<p class="text-slate-900 font-medium">' + ex2Parts[0] + '</p>' +
+                                '<p class="text-slate-400 italic mt-0.5">' + ex2Parts[1] + '</p>' +
+                              '</div>';
+                }
+
+                // Collocations list
+                var colListHtml = "";
+                if (item.collocation) {
+                    var cols = item.collocation.split(', ');
+                    cols.forEach(function(col) {
+                        if (col.trim()) {
+                            colListHtml += '<div class="flex items-start gap-1"><span class="text-indigo-500 font-extrabold">•</span><span>' + col + '</span></div>';
+                        }
+                    });
+                }
 
                 // 1. Desktop Row
-                const tr = document.createElement('tr');
+                var tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50/40 transition-colors group";
-                tr.innerHTML = `
-                    <td class="py-4 px-4 font-bold text-slate-400 text-center bg-slate-50/20">${item.no}</td>
-                    <td class="py-4 px-5 w-[15%] font-bold text-slate-900">
-                        <div class="space-y-1.5">
-                            <div class="flex flex-wrap gap-1">${highlightedVocab}</div>
-                            <span class="text-[11px] text-slate-400 italic block font-normal tracking-wide leading-relaxed">${item.ipa}</span>
-                        </div>
-                    </td>
-                    <td class="py-4 px-6 text-slate-700 leading-relaxed">
-                        <div class="font-extrabold text-slate-900 mb-1.5 text-xs bg-slate-50/50 p-1 rounded inline-block">${formatText(item.viMean)}</div>
-                        <div class="text-[11px] text-slate-500 bg-slate-50/70 p-2.5 rounded-xl border border-slate-100/50">${formatText(item.engMean)}</div>
-                    </td>
-                    <td class="py-4 px-6 text-slate-600 leading-relaxed">
-                        <div class="space-y-1.5 text-[11px]">
-                            ${item.collocation.split(', ').map(col => '<div class="flex items-start gap-1"><span class="text-indigo-500 font-extrabold">•</span><span>' + col + '</span></div>').join('')}
-                        </div>
-                    </td>
-                    <td class="py-4 px-6 text-slate-600 leading-relaxed">
-                        <div class="space-y-3">
-                            <div class="text-[11px] border-l-2 border-indigo-500 pl-2.5">
-                                <p class="text-slate-900 font-medium">${item.example1.split('\n')[0]}</p>
-                                <p class="text-slate-400 italic mt-0.5">${item.example1.split('\n')[1] || ''}</p>
-                            </div>
-                            ${item.example2 ? `
-                            <div class="text-[11px] border-l-2 border-emerald-500 pl-2.5">
-                                <p class="text-slate-900 font-medium">s${item.example2.split('\n')[0]}</p>
-                                <p class="text-slate-400 italic mt-0.5">s${item.example2.split('\n')[1] || ''}</p>
-                            </div>` : ''}
-                        </div>
-                    </td>
-                    <td class="py-4 px-5 text-[11px]">
-                        <div class="space-y-2">
-                            <div>
-                                <span class="block font-bold text-slate-400 text-[9px] uppercase tracking-wider mb-0.5">Đồng nghĩa</span>
-                                <span class="text-slate-700 font-medium bg-indigo-50/50 text-indigo-700 px-1.5 py-0.5 rounded text-[10px] block w-full whitespace-normal">${item.synonyms}</span>
-                            </div>
-                            <div>
-                                <span class="block font-bold text-slate-400 text-[9px] uppercase tracking-wider mb-0.5">Trái nghĩa</span>
-                                <span class="text-slate-700 font-medium bg-rose-50/50 text-rose-700 px-1.5 py-0.5 rounded text-[10px] block w-full whitespace-normal">${item.antonyms}</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="py-4 px-5">
-                        <textarea onblur="updateNote(${item.no}, this.value)" placeholder="Ấn để ghi chú..." class="w-full text-xs p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/30 hover:bg-slate-50 focus:bg-white min-h-[240px] h-full resize-y text-slate-700 font-medium leading-relaxed">${item.note || ""}</textarea>
-                    </td>
-                `;
+                
+                tr.innerHTML = 
+                    '<td class="py-3.5 px-4 font-bold text-slate-400 text-center bg-slate-50/20">' + item.no + '</td>' +
+                    '<td class="py-3.5 px-5 text-slate-900">' +
+                        '<div class="space-y-2">' +
+                            '<div class="flex flex-wrap gap-1.5 items-center">' + highlightedVocabHtml + '</div>' +
+                            '<span class="text-[11px] text-slate-400 italic block font-normal tracking-wide leading-relaxed pl-1">' + (item.ipa || '') + '</span>' +
+                        '</div>' +
+                    '</td>' +
+                    '<td class="py-3.5 px-6 text-slate-700 leading-relaxed">' +
+                        '<div class="flex flex-wrap gap-1.5 items-center mb-2">' + meaningChipsHtml + '</div>' +
+                        '<div class="text-[11.5px] text-slate-600 bg-slate-50/70 p-2.5 rounded-xl border border-slate-100/50 leading-relaxed">' + formatText(item.engMean, true) + '</div>' +
+                    '</td>' +
+                    '<td class="py-3.5 px-6 text-slate-600 leading-relaxed">' +
+                        '<div class="space-y-1.5 text-[11px]">' + colListHtml + '</div>' +
+                    '</td>' +
+                    '<td class="py-3.5 px-6 text-slate-600 leading-relaxed">' +
+                        '<div class="space-y-2.5">' +
+                            '<div class="text-[11px] border-l-2 border-indigo-500 pl-2.5">' +
+                                '<p class="text-slate-900 font-medium">' + ex1Eng + '</p>' +
+                                '<p class="text-slate-400 italic mt-0.5">' + ex1Vi + '</p>' +
+                            '</div>' +
+                            ex2Html +
+                        '</div>' +
+                    '</td>' +
+                    '<td class="py-3.5 px-5 text-[11px]">' +
+                        '<div class="space-y-2">' +
+                            '<div>' +
+                                '<span class="block font-bold text-slate-400 text-[9.5px] uppercase tracking-wider mb-0.5">ĐỒNG NGHĨA</span>' +
+                                '<span class="text-slate-700 font-medium bg-indigo-50/50 text-indigo-700 px-1.5 py-0.5 rounded text-[10px] block w-full whitespace-normal">' + (item.synonyms || 'N/A') + '</span>' +
+                            '</div>' +
+                            '<div>' +
+                                '<span class="block font-bold text-slate-400 text-[9.5px] uppercase tracking-wider mb-0.5">TRÁI NGHĨA</span>' +
+                                '<span class="text-slate-700 font-medium bg-rose-50/50 text-rose-700 px-1.5 py-0.5 rounded text-[10px] block w-full whitespace-normal">' + (item.antonyms || 'N/A') + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                    '</td>';
                 tbody.appendChild(tr);
 
                 // 2. Mobile Card
-                const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl shadow-sm border border-slate-100 p-5 space-y-4 hover:border-indigo-100 transition-all";
-                card.innerHTML = `
-                    <div class="flex items-start justify-between border-b border-slate-100 pb-3">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-slate-100 text-slate-700 font-bold text-xs px-2.5 py-1 rounded-lg">No. ${item.no}</span>
-                            <span class="text-[11px] text-slate-400 italic">${item.ipa.split(',')[0]}...</span>
-                        </div>
-                    </div>
-                    
-                    <div class="space-y-1">
-                        <div class="flex flex-wrap gap-1.5 items-center"> ${highlightedVocab}</div>
-                        <p class="text-xs font-bold text-indigo-950 mt-2 bg-indigo-50 p-1.5 rounded inline-block">${item.viMean}</p>
-                        <p class="text-[11px] text-slate-500 bg-slate-50 p-2 rounded-lg border border-slate-100 leading-relaxed mt-1.5">${formatText(item.engMean)}</p>
-                    </div>
+                var card = document.createElement('div');
+                card.className = "bg-white rounded-2xl shadow-xs border border-slate-100 p-4 space-y-3.5 hover:border-indigo-100 transition-all";
+                
+                var cardEx2Html = "";
+                if (item.example2) {
+                    var cardEx2Parts = splitExample(item.example2);
+                    cardEx2Html = '<div class="text-[11px] space-y-0.5 border-l-2 border-emerald-500 pl-2.5">' +
+                                    '<p class="text-slate-900 font-medium">' + cardEx2Parts[0] + '</p>' +
+                                    '<p class="text-slate-400 italic">' + cardEx2Parts[1] + '</p>' +
+                                  '</div>';
+                }
 
-                    <div class="space-y-1.5">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Cụm Từ (Collocations)</span>
-                        <div class="text-xs text-slate-600 space-y-1.5 bg-slate-50/50 p-2.5 rounded-xl border border-slate-100/50">
-                            ${item.collocation.split(', ').map(col => '<div class="flex items-start gap-1"><span class="text-indigo-500 font-bold">•</span><span>' + col + '</span></div>').join('')}
-                        </div>
-                    </div>
-
-                    <div class="space-y-2.5 pt-1">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Ví dụ IELTS</span>
-                        <div class="text-xs space-y-1 border-l-2 border-indigo-500 pl-3">
-                            <p class="text-slate-900 font-medium">${item.example1.split('\n')[0]}</p>
-                            <p class="text-slate-400 italic">${item.example1.split('\n')[1] || ''}</p>
-                        </div>
-                        ${item.example2 ? `
-                        <div class="text-xs space-y-1 border-l-2 border-emerald-500 pl-3">
-                            <p class="text-slate-900 font-medium">${item.example2.split('\n')[0]}</p>
-                            <p class="text-slate-400 italic">${item.example2.split('\n')[1] || ''}</p>
-                        </div>` : ''}
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-2 border-t border-slate-150 pt-3 text-[11px]">
-                        <div>
-                            <span class="font-bold text-slate-400 block mb-0.5 text-[9px] uppercase tracking-wider">Đồng nghĩa</span>
-                            <span class="text-slate-700 font-medium text-[10px]">${item.synonyms}</span>
-                        </div>
-                        <div>
-                            <span class="font-bold text-slate-400 block mb-0.5 text-[9px] uppercase tracking-wider">Trái nghĩa</span>
-                            <span class="text-slate-700 font-medium text-[10px]">${item.antonyms}</span>
-                        </div>
-                    </div>
-
-                    <div class="border-t border-slate-100 pt-3">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ghi chú (Note)</span>
-                        <textarea onblur="updateNote(${item.no}, this.value)" placeholder="Nhập ghi chú học tập..." class="w-full text-xs p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500 bg-white min-h-[120px] resize-y">${item.note || ""}</textarea>
-                    </div>
-                `;
+                card.innerHTML = 
+                    '<div class="flex items-start justify-between border-b border-slate-100 pb-2.5">' +
+                        '<div class="flex items-center gap-1.5">' +
+                            '<span class="bg-slate-100 text-slate-700 font-bold text-[11px] px-2 py-0.5 rounded-lg">No. ' + item.no + '</span>' +
+                            '<span class="text-[11px] text-slate-400 italic">' + (item.ipa || '') + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="space-y-1">' +
+                        '<div class="flex flex-wrap gap-1.5 items-center">' + highlightedVocabHtml + '</div>' +
+                        '<div class="flex flex-wrap gap-1.5 items-center mt-1.5 mb-1">' + meaningChipsHtml + '</div>' +
+                        '<p class="text-[11.5px] text-slate-600 bg-slate-50 p-2 rounded-xl border border-slate-100 leading-relaxed mt-1">' + formatText(item.engMean, true) + '</p>' +
+                    '</div>' +
+                    '<div class="space-y-1">' +
+                        '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Cụm Từ (Collocations)</span>' +
+                        '<div class="text-[11.5px] text-slate-600 space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100/50">' + colListHtml + '</div>' +
+                    '</div>' +
+                    '<div class="space-y-1.5 pt-0.5">' +
+                        '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Ví dụ IELTS</span>' +
+                        '<div class="text-[11px] space-y-0.5 border-l-2 border-indigo-500 pl-2.5">' +
+                            '<p class="text-slate-900 font-medium">' + ex1Eng + '</p>' +
+                            '<p class="text-slate-400 italic">' + ex1Vi + '</p>' +
+                        '</div>' +
+                        cardEx2Html +
+                    '</div>' +
+                    '<div class="grid grid-cols-2 gap-2 border-t border-slate-150 pt-2.5 text-[11px]">' +
+                        '<div>' +
+                            '<span class="font-bold text-slate-400 block mb-0.5 text-[9.5px] uppercase tracking-wider">Đồng nghĩa</span>' +
+                            '<span class="text-slate-700 font-medium text-[10px]">' + (item.synonyms || 'N/A') + '</span>' +
+                        '</div>' +
+                        '<div>' +
+                            '<span class="font-bold text-slate-400 block mb-0.5 text-[9.5px] uppercase tracking-wider">Trái nghĩa</span>' +
+                            '<span class="text-slate-700 font-medium text-[10px]">' + (item.antonyms || 'N/A') + '</span>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="border-t border-slate-150 pt-2.5">' +
+                        '<span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ghi Chú Cá Nhân (Note)</span>' +
+                        '<textarea oninput="updateNote(' + item.no + ', this.value)" placeholder="Nhập ghi chú học tập..." class="w-full text-[11.5px] p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500">' + (item.note || "") + '</textarea>' +
+                    '</div>';
+                
                 mobileCards.appendChild(card);
             });
         }
@@ -546,21 +454,64 @@
             } else {
                 filteredItems = vocabData.filter(item => {
                     const noteText = (item.note || "").toLowerCase();
-                    return item.vocab.toLowerCase().includes(query) || 
-                           item.viMean.toLowerCase().includes(query) || 
-                           item.engMean.toLowerCase().includes(query) ||
-                           item.collocation.toLowerCase().includes(query) ||
-                           item.synonyms.toLowerCase().includes(query) ||
-                           item.antonyms.toLowerCase().includes(query) ||
+                    return (item.vocab || "").toLowerCase().includes(query) || 
+                           (item.viMean || "").toLowerCase().includes(query) || 
+                           (item.engMean || "").toLowerCase().includes(query) ||
+                           (item.collocation || "").toLowerCase().includes(query) ||
+                           (item.synonyms || "").toLowerCase().includes(query) ||
+                           (item.antonyms || "").toLowerCase().includes(query) ||
                            noteText.includes(query);
                 });
             }
             renderUI();
         }
+        
+        function initResizers() {
+            var table = document.querySelector('table');
+            if (!table) return;
+            table.style.tableLayout = 'fixed';
+            var ths = table.querySelectorAll('th');
+            
+            var tableWidth = table.offsetWidth || 1200;
+            ths.forEach(function(th) {
+                var widthStyle = th.style.width;
+                if (widthStyle) {
+                    th.style.width = widthStyle;
+                } else {
+                    th.style.width = th.offsetWidth + 'px';
+                }
+            });
 
-        window.onload = function() {
-            renderUI();
-        };
+            ths.forEach(function(th) {
+                var resizer = th.querySelector('.resizer');
+                if (!resizer) return;
+                
+                resizer.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    var startX = e.clientX;
+                    var startWidth = th.offsetWidth;
+                    resizer.classList.add('resizing');
+                    
+                    function onMouseMove(moveEvent) {
+                        var deltaX = moveEvent.clientX - startX;
+                        th.style.width = Math.max(50, startWidth + deltaX) + 'px';
+                    }
+                    
+                    function onMouseUp() {
+                        resizer.classList.remove('resizing');
+                        document.removeEventListener('mousemove', onMouseMove);
+                        document.removeEventListener('mouseup', onMouseUp);
+                    }
+                    
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                });
+            });
+        }
+
+        // Render dynamic table instantly with zero network delay (even if completely offline)
+        filterData();
+        initResizers();
     </script>
 </body>
 </html>
