@@ -2,25 +2,73 @@ window.vocabularies = [
   {
     "id": "01",
     "filename": "01 Weather.html",
-    "title": "CHỦ ĐỀ: WEATHER, CLIMATE, ENVIRONMENT AND NATURAL DISASTERS",
-    "description": "Bộ từ vựng thuộc chủ đề Thời tiết, Khí hậu, Môi trường và Thảm họa thiên nhiên đạt mức độ học thuật xuất sắc (Band 7.5+ đến 8.5+), cung cấp vốn từ phong phú, linh hoạt từ các thuật ngữ khoa học khí tư",
-    "topics": 15,
+    "title": "CHỦ ĐỀ: WEATHER, CLIMATE, ENVIRONMENT, AND NATURAL DISASTERS",
+    "description": "Bộ từ vựng đa dạng đạt chuẩn Band 7.5+ (C1/C2) tập trung chuyên sâu vào các chủ đề cốt lõi của IELTS như Climate Change, Environment và Natural Disasters. Sự kết hợp nhuần nhuyễn giữa danh từ học thuậ",
+    "topics": 1,
     "color": "from-blue-400 to-cyan-500"
   },
   {
     "id": "02",
     "filename": "02 Travel.html",
-    "title": "CHỦ ĐỀ: TRAVEL AND SUSTAINABLE TOURISM DEVELOPMENT",
-    "description": "Bộ từ vựng chủ đề Travel có tính học thuật cao và bao quát toàn diện, lý tưởng cho mức điểm mục tiêu IELTS Band 7.5+ đến 8.5+. Các nhóm từ được phân chia khoa học từ từ vựng mô tả địa hình tự nhiên, c",
-    "topics": 14,
+    "title": "CHỦ ĐỀ: TRAVEL AND TOURISM",
+    "description": "Bộ từ vựng chủ đề Travel and Tourism bao gồm các thuật ngữ học thuật và quán ngữ nâng cao thuộc Band 7.5+ (C1/C2). Từ vựng phân loại sâu sắc giữa trải nghiệm cá nhân, miêu tả cảnh quan và các tác động",
+    "topics": 1,
     "color": "from-emerald-400 to-teal-500"
   },
   {
     "id": "03",
     "filename": "03 City.html",
-    "title": "CHỦ ĐỀ: ACCOMMODATION, BUILDING AND NOISE IN IELTS",
-    "description": "Nhận xét học thuật: Tài liệu từ vựng chủ đề 'CITY vs. COUNTRY' đạt cấp độ C1/C2 trong bài thi IELTS (Band 7.5+). Danh sách phủ rộng các trường từ chính về Quy hoạch đô thị, Dịch chuyển nhân khẩu học v",
-    "topics": 22,
+    "title": "CHỦ ĐỀ: CITY vs. COUNTRY",
+    "description": "Bộ từ vựng thuộc chủ đề City vs. Country đạt mức độ C1-C2 (IELTS 7.5+), tập trung cao độ vào việc so sánh đời sống đô thị và nông thôn. Các thuật ngữ kinh tế - xã hội, cấu trúc cơ sở hạ tầng, và sắc t",
+    "topics": 1,
     "color": "from-orange-400 to-rose-500"
+  },
+  {
+    "id": "04",
+    "filename": "04 Building.html",
+    "title": "CHỦ ĐỀ: ACCOMMODATION, BUILDING & NOISE",
+    "description": "Bộ từ vựng cung cấp hệ thống thuật ngữ phong phú và chuyên sâu từ Band 6.5 đến 8.5+ về chủ đề Nhà ở, Kiến trúc, và Tiếng ồn đô thị. Tài liệu giúp học viên tối ưu hóa điểm Lexical Resource trong IELTS ",
+    "topics": 1,
+    "color": "from-purple-400 to-pink-500"
+  },
+  {
+    "id": "05",
+    "filename": "05 Food.html",
+    "title": "CHỦ ĐỀ: FOOD AND SUSTAINABLE AGRICULTURE",
+    "description": "Tài liệu tổng hợp vốn từ vựng học thuật vượt trội (Band 7.5+ - C1/C2) liên quan mật thiết tới hai chủ đề thường xuyên xuất hiện nhất trong IELTS: Food & Nutrition và Agriculture. Các từ vựng được liên",
+    "topics": 1,
+    "color": "from-indigo-400 to-blue-500"
+  },
+  {
+    "id": "06",
+    "filename": "06 Film.html",
+    "title": "CHỦ ĐỀ: FILM AND MEDIA IN IELTS",
+    "description": "Bộ từ vựng thuộc chủ đề phim ảnh và truyền thông (Film & Media) sở hữu độ phức tạp ngôn ngữ cao, đạt chuẩn Band 7.5 - 8.5+. Danh sách chứa nhiều thuật ngữ chuyên môn về kỹ xảo điện ảnh, các tính từ nâ",
+    "topics": 1,
+    "color": "from-cyan-400 to-emerald-500"
+  },
+  {
+    "id": "07",
+    "filename": "07 Book.html",
+    "title": "CHỦ ĐỀ: BOOKS AND LIBRARIES IN THE DIGITAL AGE",
+    "description": "Bộ từ vựng thuộc chủ đề 'Book & Library' đạt mức độ học thuật cao, tương đương Band 7.5+ (C1/C2). Tài liệu cung cấp vốn từ phong phú về phân loại ấn phẩm, hành vi đọc và quản lý thư viện hiện đại, giú",
+    "topics": 1,
+    "color": "from-rose-400 to-orange-500"
+  },
+  {
+    "id": "08",
+    "filename": "08 Music.html",
+    "title": "CHỦ ĐỀ: MUSIC AND LIVE PERFORMANCE",
+    "description": "Bộ từ vựng đa dạng bao gồm cả các thuật ngữ chuyên ngành và các diễn đạt cao cấp (C1/C2) liên quan đến chủ đề Music và Live Performance. Tài liệu hỗ trợ đắc lực cho bài thi IELTS Speaking Part 1, 2, 3",
+    "topics": 1,
+    "color": "from-violet-400 to-purple-500"
+  },
+  {
+    "id": "09",
+    "filename": "09 Sport.html",
+    "title": "CHỦ ĐỀ: SPORT AND PHYSICAL HEALTH",
+    "description": "Danh sách từ vựng tích hợp toàn diện các khía cạnh về Thể thao và Sức khỏe với độ phức tạp cao (Band 7.5 - 8.5+). Tài liệu cung cấp vốn từ vựng học thuật xuất sắc và các cụm collocation đắt giá giúp h",
+    "topics": 1,
+    "color": "from-blue-400 to-cyan-500"
   }
 ];
