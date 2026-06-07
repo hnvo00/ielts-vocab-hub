@@ -50,7 +50,7 @@ jobs:
       # 5. Upload Pages artifact
       - name: Upload GitHub Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
