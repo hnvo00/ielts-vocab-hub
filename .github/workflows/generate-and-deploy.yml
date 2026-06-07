@@ -1,0 +1,48 @@
+name: Auto-Generate Vocab Config & Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  generate-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      # 2. Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # 3. Run the vocabulary config generator
+      - name: Generate vocabulary configuration
+        run: node generate-vocab-config.js
+
+      # 4. Commit changes if vocabularies.json was modified (only on main branch)
+      - name: Commit updated vocabularies.json
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/vocabularies.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-generate vocabularies.json" && git push)
+
+      # 5. Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          cname: # Leave empty unless you have a custom domain
