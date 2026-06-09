@@ -135,6 +135,10 @@
                                 Đồng / Trái Nghĩa
                                 <div class="resizer"></div>
                             </th>
+                            <th class="py-3 px-5 select-none" style="width: 180px;">
+                                Note
+                                <div class="resizer"></div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="tableBody" class="divide-y divide-slate-100 text-[12.5px]">
@@ -392,6 +396,9 @@
                                 '<span class="text-slate-700 font-medium bg-rose-50/50 text-rose-700 px-1.5 py-0.5 rounded text-[11px] block w-full whitespace-normal">' + (item.antonyms || 'N/A') + '</span>' +
                             '</div>' +
                         '</div>' +
+                    '</td>
+                    '<td class="py-3.5 px-5 text-[12px] text-slate-700 leading-relaxed whitespace-pre-wrap break-words">' +
+                        '<div class="bg-slate-50/70 p-3 rounded-2xl border border-slate-200/70 min-h-[76px] text-[12px] text-slate-700">' + ((item.note && item.note.trim()) ? item.note.split('\n').join('<br>') : 'N/A') + '</div>' +
                     '</td>';
                 tbody.appendChild(tr);
 
