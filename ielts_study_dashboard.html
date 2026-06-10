@@ -64,10 +64,13 @@
                 <h1 class="text-3xl font-bold text-slate-900 tracking-tight">IELTS Strategy Dashboard</h1>
                 <p class="text-slate-500 mt-2">Dành cho: <span class="font-semibold text-slate-700 underline">Data Analyst Pro</span> | Mục tiêu: 7.0 - 7.5 Overall</p>
             </div>
-            <div class="flex gap-3">
-                <span class="bg-teal-100 text-teal-800 skill-badge">Speaking: 7.0 Target</span>
-                <span class="bg-indigo-100 text-indigo-800 skill-badge">Writing: 7.0 Target</span>
-                <span class="bg-slate-200 text-slate-800 skill-badge">18h/Tuần</span>
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="flex gap-3 flex-wrap justify-center">
+                    <span class="bg-teal-100 text-teal-800 skill-badge">Speaking: 7.0 Target</span>
+                    <span class="bg-indigo-100 text-indigo-800 skill-badge">Writing: 7.0 Target</span>
+                    <span class="bg-slate-200 text-slate-800 skill-badge">18h/Tuần</span>
+                </div>
+                <a href="index.html" class="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50">Về Trang Chủ</a>
             </div>
         </header>
 
@@ -777,6 +780,32 @@
             document.getElementById('sprint-progress-bar').style.width = `${pct}%`;
         }
 
+        function getDailyNote(dayId) {
+            const notes = JSON.parse(localStorage.getItem('ieltsDailyNotes') || '{}');
+            return notes[dayId] || '';
+        }
+
+        function saveDailyNote(dayId, noteText) {
+            const notes = JSON.parse(localStorage.getItem('ieltsDailyNotes') || '{}');
+            notes[dayId] = noteText;
+            localStorage.setItem('ieltsDailyNotes', JSON.stringify(notes));
+        }
+
+        function escapeHtml(value) {
+            return String(value || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function resizeDailyTextarea(textarea) {
+            if (!textarea) return;
+            textarea.style.height = 'auto';
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+
         function renderDailyCards(weekId) {
             const data = syllabusData[weekId];
             document.getElementById('tutor-note-content').innerText = data.tutorNote;
@@ -837,10 +866,17 @@
                                 <span><span class="font-semibold text-slate-700 text-xs uppercase tracking-wider mr-1">Output:</span> <span class="text-slate-600">${day.output}</span></span>
                             </p>
                         </div>
+
+                        <div class="mt-4 pt-3 border-t border-slate-100">
+                            <label for="note-${day.id}" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Ghi chú học tập</label>
+                            <textarea id="note-${day.id}" oninput="resizeDailyTextarea(this); saveDailyNote('${day.id}', this.value)" placeholder="Viết ghi chú, câu hỏi hoặc điều cần nhớ..." class="mt-2 w-full min-h-[100px] resize-none overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-300" rows="4">${escapeHtml(savedNote)}</textarea>
+                        </div>
                     </div>
                 </div>
                 `;
                 container.innerHTML += html;
+                const textarea = document.getElementById(`note-${day.id}`);
+                if (textarea) resizeDailyTextarea(textarea);
             });
             
             updateProgress(weekId);
