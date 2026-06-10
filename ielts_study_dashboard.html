@@ -879,6 +879,7 @@
                     </div>
                 </div>
                 `;
+                container.innerHTML += html;
                 const textarea = document.getElementById(`note-${day.id}`);
                 if (textarea) resizeDailyTextarea(textarea);
             });
