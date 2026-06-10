@@ -625,6 +625,11 @@
             updateProgress(weekId);
         }
         
+        function autoResizeNoteTextarea(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = textarea.scrollHeight + 'px';
+        }
+
         function saveUserNote(taskId) {
             const noteContent = document.getElementById('note-' + taskId).value;
             userNotes[taskId] = noteContent;
@@ -720,7 +725,7 @@
                                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                 My Notes
                             </label>
-                            <textarea id="note-${day.id}" onchange="saveUserNote('${day.id}')" placeholder="Nhập ghi chú cá nhân (từ vựng mới, lỗi sai cần nhớ, ý tưởng...)" class="w-full text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-lg p-2 focus:ring-1 focus:ring-indigo-400 focus:outline-none resize-y min-h-[60px]">${currentNote}</textarea>
+                            <textarea id="note-${day.id}" rows="4" onchange="saveUserNote('${day.id}')" oninput="autoResizeNoteTextarea(this)" placeholder="Nhập ghi chú cá nhân (từ vựng mới, lỗi sai cần nhớ, ý tưởng...)" class="w-full text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-lg p-2 focus:ring-1 focus:ring-indigo-400 focus:outline-none resize-y min-h-[80px]">${currentNote}</textarea>
                         </div>
                     </div>
                 </div>
