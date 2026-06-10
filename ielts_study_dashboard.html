@@ -25,12 +25,6 @@
             max-height: 400px;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
         .nav-tab.active {
             border-bottom: 3px solid #0f172a;
             color: #0f172a;
@@ -42,16 +36,6 @@
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: 600;
-        }
-        
-        .sprint-timeline::before {
-            content: '';
-            position: absolute;
-            left: 11px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: #e2e8f0;
         }
     </style>
 </head>
@@ -74,7 +58,6 @@
         <!-- Navigation Tabs -->
         <nav class="flex border-b border-slate-200 mb-8 overflow-x-auto no-scrollbar">
             <button onclick="switchTab('overview')" id="tab-overview" class="nav-tab px-6 py-3 whitespace-nowrap">Lộ trình Tổng quan</button>
-
             <button onclick="switchTab('syllabus')" id="tab-syllabus" class="nav-tab active px-6 py-3 whitespace-nowrap">Giáo án Chi tiết (Sprints)</button>
         </nav>
 
@@ -204,12 +187,15 @@
             </div>
         </section>
 
-        <!-- Tab Content: Syllabus (Redesigned as Agile Sprints with Notes) -->
+        <!-- Tab Content: Syllabus (Agile Sprints Layout 2 Columns Stacked) -->
         <section id="content-syllabus" class="space-y-8">
             <div class="prose max-w-none flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                 <div>
-                    <h2 class="text-2xl font-bold flex items-center text-slate-800"><svg class="w-7 h-7 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>Tutor's Daily Check-ins (Từ 12/06)</h2>
-                    <p class="text-slate-600 mt-2">Đồng bộ giờ học: <span class="font-semibold">T2-T6 (1.5 - 2h), T7-CN (3 - 4h)</span>. Đánh dấu ✅ và Note lại kiến thức mỗi ngày nhé!</p>
+                    <h2 class="text-2xl font-bold flex items-center text-slate-800">
+                        <svg class="w-7 h-7 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        Tutor's Daily Check-ins (Từ 12/06)
+                    </h2>
+                    <p class="text-slate-600 mt-2">Đồng bộ giờ học: <span class="font-semibold text-indigo-600">T2-T6 (1.5 - 2h), T7-CN (3 - 4h)</span>. Đánh dấu ✅ và Note lại kiến thức mỗi ngày nhé!</p>
                 </div>
                 <!-- Week Selector -->
                 <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm">
@@ -231,9 +217,9 @@
                 </div>
             </div>
 
-            <!-- Daily Cards Container -->
-            <div id="daily-cards-container" class="grid gap-4 md:grid-cols-2">
-                <!-- Javascript injects daily lesson cards here -->
+            <!-- Daily Cards Container (2 Columns Grid Layout) -->
+            <div id="daily-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Javascript injects daily lesson cards here side-by-side -->
             </div>
             
             <!-- Tutor Feedback Section (Bottom) -->
@@ -243,7 +229,7 @@
                 </div>
                 <div>
                     <h4 class="font-bold text-blue-900 mb-1">Tutor's Note Tuần này:</h4>
-                    <p id="tutor-note-content" class="text-sm text-blue-800 leading-relaxed">Hãy nhớ rằng thời gian đầu làm đề Reading sẽ rất nản. Đừng áp lực thời gian vội, mục tiêu tuần này của chúng ta là lập được Keyword Table chuẩn xác.</p>
+                    <p id="tutor-note-content" class="text-sm text-blue-800 leading-relaxed"></p>
                 </div>
             </div>
         </section>
@@ -298,56 +284,56 @@
             }
         }
 
-        // --- DAILY SYLLABUS DATA (LMS Style) WITH PROCESSING & UPDATED DURATIONS ---
+        // --- DAILY SYLLABUS DATA WITH COHESIVE TOPICS & BALANCED TIME BLOCKING ---
         const syllabusData = {
-            1: { // Week 1: 12/06 - 18/06 (Start mid-week)
+            1: { 
                 dateRange: "12/06 - 18/06 (Tuần 1 - Khởi Động)",
                 tutorNote: "Chào mừng bạn đến với lộ trình! Vì tuần đầu chúng ta bắt đầu vào Thứ 6 (12/06), mình sẽ giao bài nhẹ nhàng để bạn quen nhịp. Chú ý khối lượng bài cuối tuần sẽ nặng hơn nhé.",
                 days: [
                     {
-                        id: "w1-d1", dayName: "Thứ 6", date: "12/06", type: "Reading Diagnostic", duration: "1.5h",
+                        id: "w1-d1", dayName: "Thứ 6", date: "12/06", type: "Reading Diagnostic", topic: "Workspace & Corporate Culture", duration: "1.5h",
                         tutorMsg: "Hôm nay làm nhẹ 1 Passage (Cam 15). Chậm cũng được, nhưng phải rà lại xem tại sao mình sai.",
                         tasks: ["Làm Passage 1 (Cam 15 - Test 1) không ép thời gian.", "Tra từ mới, lập Keyword Table (Bảng từ đồng nghĩa)."],
                         processing: "Đọc theo phương pháp Tracking: Dùng bút/chuột track theo từng dòng. Không dịch word-by-word. Highlight các keyword từ câu hỏi để tìm trong bài.",
                         output: "Hoàn thành 1 Keyword Table. Đánh giá tốc độ Skimming hiện tại."
                     },
                     {
-                        id: "w1-d2", dayName: "Thứ 7", date: "13/06", type: "Listening Diagnostic", duration: "3h",
+                        id: "w1-d2", dayName: "Thứ 7", date: "13/06", type: "Listening Diagnostic", topic: "Customer Services & Banking", duration: "3h",
                         tutorMsg: "Cuối tuần! Bạn có 3 tiếng. Cày Section 1 & 2 Listening. Đây là phần ăn điểm, cẩn thận bẫy đánh vần.",
-                        tasks: ["Nghe Section 1 & 2 (Cam 15 - Test 1).", "Check transcript.", "Luyện Note-taking (ghi chú nhanh) khi nghe 1 bài TedTalk."],
+                        tasks: ["Nghe Section 1 & 2 (Cam 15 - Test 1).", "Check transcript.", "Luyện Note-taking (ghi chú nhanh) khi nghe 1 bài đối thoại ngắn."],
                         processing: "Phân tích kỹ bẫy spelling/số liệu. Nghe lại 3 lần những chỗ bị hụt. Tập ghi keywords của đoạn audio ra nháp thay vì viết cả câu.",
                         output: "Xác định được lỗi sai: Do phát âm kém hay do thiếu từ vựng."
                     },
                     {
-                        id: "w1-d3", dayName: "Chủ Nhật", date: "14/06", type: "Speaking Setup", duration: "3h",
+                        id: "w1-d3", dayName: "Chủ Nhật", date: "14/06", type: "Speaking Setup", topic: "Personal Background & Tech Habits", duration: "3h",
                         tutorMsg: "Từ vựng 5.0 là điểm yếu nhất hiện tại. Dành 3 tiếng hôm nay để bơm Collocations và lên kế hoạch.",
                         tasks: ["Học 15 Collocations chủ đề Work & Technology.", "Ghi âm trả lời 3 câu Part 1.", "Review tổng quan lộ trình tuần tới."],
                         processing: "Học qua Anki/Flashcards 30 phút. Luyện Shadowing nhại giọng 15 phút. Thu âm 2 lần, lần 2 bắt buộc phải chèn 3 từ mới học vào.",
                         output: "Sử dụng được cụm từ tự nhiên, không dùng từ đơn lẻ."
                     },
                     {
-                        id: "w1-d4", dayName: "Thứ 2", date: "15/06", type: "Writing (Data Structure)", duration: "1.5h",
+                        id: "w1-d4", dayName: "Thứ 2", date: "15/06", type: "Writing Structure", topic: "Data Trends & Visualization", duration: "1.5h",
                         tutorMsg: "DA thì phải viết báo cáo Data mượt! Hôm nay học cấu trúc Task 1.",
                         tasks: ["Học các cụm từ chỉ xu hướng (Fluctuate, Plunge, Soar, Remained stable).", "Viết Mở bài (Intro) & Overview cho 2 biểu đồ Line/Bar."],
                         processing: "Nhìn vào biểu đồ như đang nhìn Dashboard. Chọn 2 điểm nổi bật nhất (cao nhất/thấp nhất/xu hướng chung) để viết Overview.",
                         output: "Viết được Introduction và Overview chuẩn ngữ pháp trong 10 phút."
                     },
                     {
-                        id: "w1-d5", dayName: "Thứ 3", date: "16/06", type: "Reading (Speed)", duration: "1.5h",
+                        id: "w1-d5", dayName: "Thứ 3", date: "16/06", type: "Reading (Speed)", topic: "Automation & Artificial Intelligence", duration: "1.5h",
                         tutorMsg: "Tiếp tục làm quen với cường độ đọc tiếng Anh.",
                         tasks: ["Làm Passage 2 (Cam 15 - Test 1). Bấm giờ 20 phút.", "Review Keyword Table. Học cách đoán nghĩa từ qua ngữ cảnh."],
                         processing: "Ép thời gian bằng đồng hồ đếm ngược. Nếu gặp từ lạ, đọc câu trước và câu sau để đoán ngữ cảnh, tuyệt đối không tra từ điển khi đang làm.",
                         output: "Quen với việc không cần hiểu 100% từ mới vẫn tìm được đáp án."
                     },
                     {
-                        id: "w1-d6", dayName: "Thứ 4", date: "17/06", type: "Listening (Dictation)", duration: "1.5h",
+                        id: "w1-d6", dayName: "Thứ 4", date: "17/06", type: "Listening (Dictation)", topic: "Academic Projects & Lectures", duration: "1.5h",
                         tutorMsg: "Section 3 thường là màn đối thoại dài. Bạn sẽ bị dội nếu không nghe quen.",
                         tasks: ["Nghe Section 3 (Cam 15 - Test 1).", "Chọn 1 phút (đoạn khó nhất) để luyện Nghe - Chép chính tả (Dictation)."],
                         processing: "Nghe từng câu 3s, dừng và chép lại y xì đúc những gì nghe được. Sai mạo từ (a/an/the) hoặc số nhiều (s) cũng phải đánh dấu đỏ.",
                         output: "Nghe rõ các đuôi 's', 'ed' và Linking words."
                     },
                     {
-                        id: "w1-d7", dayName: "Thứ 5", date: "18/06", type: "Speaking (Shadowing)", duration: "1.5h",
+                        id: "w1-d7", dayName: "Thứ 5", date: "18/06", type: "Speaking (Shadowing)", topic: "Digital Infrastructure & Software", duration: "1.5h",
                         tutorMsg: "Để nói tự nhiên, hãy bắt chước cách người ta nhấn nhá.",
                         tasks: ["Chọn 1 video TedTalk (chủ đề Tech/Data) dài 3 phút.", "Luyện Shadowing (Nhại giọng) theo video 15 phút. Ghi âm so sánh."],
                         processing: "Nghe 1 câu -> pause -> nói nhại lại y hệt tone giọng, sự lên xuống, ngắt nghỉ. Lặp lại 3-5 lần/câu.",
@@ -355,54 +341,54 @@
                     }
                 ]
             },
-            2: { // Week 2
+            2: { 
                 dateRange: "19/06 - 25/06 (Tuần 2 - Nạp Vocab & Form)",
                 tutorNote: "Tuần thứ 2, chúng ta sẽ bắt đầu thiết lập 'Master Story' cho Part 2 và dàn ý (Outline) chuẩn cho Task 2. Tận dụng 6h cuối tuần nhé!",
                 days: [
                     {
-                        id: "w2-d1", dayName: "Thứ 6", date: "19/06", type: "Speaking (Master Story 1)", duration: "1.5h",
+                        id: "w2-d1", dayName: "Thứ 6", date: "19/06", type: "Speaking (Story)", topic: "Project Management & Obstacles", duration: "1.5h",
                         tutorMsg: "Bắt đầu 'gom' đề Part 2. Chọn 1 dự án khó khăn nhất bạn từng làm.",
                         tasks: ["Soạn dàn ý Tiếng Việt & Tiếng Anh cho Master Story số 1 (Dự án DA).", "Ghi âm nói thử 2 phút dựa trên dàn ý."],
                         processing: "Gạch đầu dòng 5W1H (Who, What, When, Where, Why, How). Tuyệt đối không viết thành đoạn văn để học thuộc. Chỉ học outline.",
                         output: "Hoàn thiện khung sườn (Mindmap) cho Story 1. Tự tin nói không vấp."
                     },
                     {
-                        id: "w2-d2", dayName: "Thứ 7", date: "20/06", type: "Writing (T2 Foundation)", duration: "3.5h",
+                        id: "w2-d2", dayName: "Thứ 7", date: "20/06", type: "Writing Foundation", topic: "Logic Chains & Balanced Arguments", duration: "3.5h",
                         tutorMsg: "Có 3.5h hôm nay, tập trung cao độ! Task 2 quyết định điểm Viết. Bạn phải tư duy như viết Clean Code.",
                         tasks: ["Học Linear Thinking (Tư duy tuyến tính).", "Phân tích cấu trúc (Outline) của 2 bài Mẫu điểm cao.", "Viết 1 bài T1 báo cáo số liệu."],
                         processing: "Tách nhỏ từng phần của bài mẫu: Gạch dưới Topic Sentence, highlight từ vựng tốt. Cấu trúc bài viết của bạn phải rõ như 1 sơ đồ khối (flowchart).",
                         output: "Biết cách viết 1 đoạn Body chuẩn: Topic -> Explain -> Example."
                     },
                     {
-                        id: "w2-d3", dayName: "Chủ Nhật", date: "21/06", type: "Reading & Error Log", duration: "2.5h",
+                        id: "w2-d3", dayName: "Chủ Nhật", date: "21/06", type: "Reading Log", topic: "Environmental Science & Data Tracking", duration: "2.5h",
                         tutorMsg: "Cuối tuần rà soát lại các lỗi sai hệ thống.",
                         tasks: ["Làm Passage 3 (Cam 15) - Dạng khó.", "Lập Error Log (Sổ tay lỗi sai): Phân loại lỗi.", "Review từ vựng trên Anki."],
                         processing: "Lập bảng paraphrase chi tiết cho Passage 3. Dò chéo đáp án sai với lời giải thích chi tiết. Tự hỏi: 'Tại sao mình lại bị lừa ở câu này?'.",
                         output: "Nhận diện được cái bẫy mình hay mắc phải nhất."
                     },
                     {
-                        id: "w2-d4", dayName: "Thứ 2", date: "22/06", type: "Listening (Speed up)", duration: "1.5h",
+                        id: "w2-d4", dayName: "Thứ 2", date: "22/06", type: "Listening (Speed)", topic: "Corporate Frameworks & Infrastructure", duration: "1.5h",
                         tutorMsg: "Tăng tốc độ xử lý âm thanh trong Section 4.",
                         tasks: ["Nghe Section 4 (Cam 15 - Test 1).", "Luyện nghe Note-taking chủ động, chú ý Linking words (But, However)."],
                         processing: "Nhắm mắt lại nghe 1 lần để nắm mạch bài. Nghe lần 2 để bắt keyword. Khi nghe thấy 'However', 'In contrast', chuẩn bị tinh thần có đáp án.",
                         output: "Nắm được cấu trúc của 1 bài giảng học thuật (Lecture)."
                     },
                     {
-                        id: "w2-d5", dayName: "Thứ 3", date: "23/06", type: "Speaking (Vocab Expansion)", duration: "1.5h",
+                        id: "w2-d5", dayName: "Thứ 3", date: "23/06", type: "Speaking (Expansion)", topic: "Higher Education & Modern Society", duration: "1.5h",
                         tutorMsg: "Thêm 'gia vị' cho câu nói bằng các Collocations đắt giá.",
                         tasks: ["Học 10 Collocations chủ đề Education & Society.", "Ứng dụng trả lời 3 đề Part 1 mới. Ghi âm, tự sửa lặp từ."],
                         processing: "Ép bản thân thay thế các từ như 'I think' thành 'From my perspective', 'Very good' thành 'Highly beneficial'.",
                         output: "Giảm tỷ lệ dùng từ cơ bản, tăng chất lượng Vocab."
                     },
                     {
-                        id: "w2-d6", dayName: "Thứ 4", date: "24/06", type: "Writing (T1 Practice)", duration: "1.5h",
+                        id: "w2-d6", dayName: "Thứ 4", date: "24/06", type: "Writing Practice", topic: "Comparative Analytics Reports", duration: "1.5h",
                         tutorMsg: "Thực hành viết một bài báo cáo số liệu trọn vẹn.",
                         tasks: ["Viết 1 Full bài Task 1 (Line Graph) trong 20 phút.", "Review Grammar (Kiểm tra lỗi S-V Agreement)."],
                         processing: "Bấm giờ 20p. 3p phân tích, 15p viết, 2p check lại 's/es' và thì Quá khứ. Không tẩy xóa nhiều.",
                         output: "Viết được 150 chữ trong 20 phút, mô tả logic xu hướng."
                     },
                     {
-                        id: "w2-d7", dayName: "Thứ 5", date: "25/06", type: "Review & Tutor Check", duration: "1.5h",
+                        id: "w2-d7", dayName: "Thứ 5", date: "25/06", type: "Review & Check", topic: "Syllabus Synthesis & Refactoring", duration: "1.5h",
                         tutorMsg: "Kết thúc chu kỳ 2. Hệ thống lại kiến thức.",
                         tasks: ["Ôn tập toàn bộ Anki/Vocab đã nhập trong 2 tuần.", "Gửi bài Writing T1 cho AI/Tutor chấm. Đọc kỹ feedback."],
                         processing: "Chỉ đọc lại các flashcards đánh dấu 'Quên' (Hard). Dịch feedback của Tutor thành các hành động (Actionable insights) cho tuần tới.",
@@ -412,23 +398,30 @@
             }
         };
 
-        // --- AUTO-GENERATE WEEKS 3 TO 22 WITH SYNCED HOURS & PROCESSING ---
+        // --- AUTO-GENERATE WEEKS 3 TO 22 WITH EXACT HOUR MATCHING & TOPIC FOCUS ---
         const generateRestOfSyllabus = () => {
-            let currentDate = new Date(2026, 5, 26); // Start of Week 3 (June 26, 2026, Friday)
+            let currentDate = new Date(2026, 5, 26); 
             
+            // Comprehensive topic inventory for variety across 22 weeks
+            const topicInventory = {
+                1: ["Urban Infrastructure", "Digital Literacy", "Social Connectivity", "Renewable Energy", "Demographic Shifts", "Consumer Behavior", "Syntax Syntax"],
+                2: ["Macroeconomics", "E-commerce Logistics", "Data Privacy Rules", "Public Transportation", "Sustainable Development", "Global Trade Ecosystems", "Automation Risk"],
+                3: ["Forecast Projections", "AI Ethics", "Advanced Business Models", "Corporate Compliance", "FinTech Innovation", "Cloud Architectures", "Strategic Resource Management"]
+            };
+
             for (let w = 3; w <= 22; w++) {
                 let phase = 1;
                 let phaseName = "Nạp Vocab & Nền Tảng";
-                let tutorNote = "Kiên trì với việc luyện tập hàng ngày. Lượng kiến thức mới sẽ khá nhiều, đừng bỏ cuộc! Chú ý dành thời lượng lớn vào Thứ 7/CN.";
+                let tutorNote = "Kiên trì với việc luyện tập hàng ngày. Hãy tập trung khai thác các cụm từ (Collocations) cho Topic tuần này. Lượng bài cuối tuần được cấu trúc từ 3h - 4h để tập trung đẩy sâu.";
                 if (w >= 9 && w <= 16) {
                     phase = 2;
                     phaseName = "Xây Framework & Logic";
-                    tutorNote = "Giai đoạn này tập trung vào sự mạch lạc (Coherence). Hãy dùng Master Story và Linear Thinking triệt để. Cuối tuần sẽ có Full Mock Test.";
+                    tutorNote = "Giai đoạn này tập trung hoàn toàn vào sự mạch lạc (Coherence). Hãy dùng Master Story và cấu trúc A.R.E.A triệt để để trả lời.";
                 }
                 if (w >= 17) {
                     phase = 3;
                     phaseName = "Thực Chiến & Ép Xung";
-                    tutorNote = "Ép thời gian! Trong phòng thi, hoàn thành bài đúng giờ quan trọng hơn việc viết một câu xuất sắc mà bỏ trống phần còn lại.";
+                    tutorNote = "Chạy đua với thời gian! Hãy viết và nói với tốc độ thực tế phòng thi. Điểm rơi phong độ của bạn sẽ đạt đỉnh ở chuỗi tuần cuối này.";
                 }
                 
                 let sprint = Math.ceil(w / 4);
@@ -440,7 +433,7 @@
                 let dateRange = `${formatDate(currentDate)} - ${formatDate(endDate)} (Tuần ${w} - Sprint ${sprint})`;
                 if(w === 22) {
                     dateRange = `${formatDate(currentDate)} - ${formatDate(endDate)} (Tuần 22 - Sẵn Sàng Thi)`;
-                    tutorNote = "Tuần cuối cùng! Thả lỏng tinh thần, không nạp thêm kiến thức mới. Review lại các lỗi sai hệ thống. Bạn đã chuẩn bị rất tốt!";
+                    tutorNote = "Tuần cuối cùng! Thả lỏng tinh thần, review nhẹ nhàng các lỗi sai cũ. Bạn đã hoàn tất dự án 400 giờ học cực kỳ xuất sắc. Tự tin lên nhé!";
                 }
 
                 const daysData = [];
@@ -451,122 +444,123 @@
                     const dayName = dayNames[dDate.getDay()];
                     
                     let type, duration, tutorMsg, tasks, processing, output;
+                    let currentTopic = topicInventory[phase][d % topicInventory[phase].length];
                     
-                    if (phase === 1) { // GIAI ĐOẠN 1
-                        if(d === 0) { // Thứ 6
-                            type = "Speaking (Story)"; duration = "1.5h"; tutorMsg = "Tập trung xây dựng ý tưởng cho các topic khó nhằn.";
-                            tasks = ["Áp dụng Master Story cho đề mô tả người/vật.", "Ghi âm nói 2 phút."]; 
-                            processing = "Brainstorm 5W1H. Ghi âm và nghe lại, note lại chính xác những chỗ bạn bị ấp úng hoặc 'ờ', 'à'.";
-                            output = "Nói tự nhiên, không ngập ngừng hay bí từ.";
-                        } else if(d === 1) { // Thứ 7
-                            type = "Writing (T1 & T2)"; duration = "3.5h"; tutorMsg = "Cuối tuần có 3.5h, hãy cày sâu Writing nhé.";
-                            tasks = ["Viết 1 Mở bài/Overview T1.", "Lập Outline 2 đề T2.", "Viết 1 đoạn Body T2."]; 
-                            processing = "Review cấu trúc câu phức. Check lỗi S-V agreement. Không tra từ điển trong lúc viết để rèn phản xạ.";
-                            output = "Quen thuộc cấu trúc bài viết chuẩn IELTS. Hoàn thành 1 Body T2.";
-                        } else if(d === 2) { // Chủ Nhật
-                            type = "Review & Vocab"; duration = "2.5h"; tutorMsg = "Dành 2.5h nhẹ nhàng ôn tập, chuẩn bị cho tuần sau.";
-                            tasks = ["Ôn tập 50 flashcards Anki.", "Làm 1 Passage R/L nhẹ nhàng.", "Xem lại lỗi sai của tuần."]; 
-                            processing = "Ghi chép Error Log. Lập Keyword Table cẩn thận. Hình dung (Visualize) lại các từ vựng khó.";
-                            output = "Thuộc 80% từ mới trong tuần. Không sai lặp lại.";
-                        } else if(d === 3) { // Thứ 2
-                            type = "Listening (Note)"; duration = "1.5h"; tutorMsg = "Bắt từ khóa chính xác khi nghe băng tốc độ cao.";
-                            tasks = ["Làm 1 Section 3 Cam 16.", "Chép chính tả 1 đoạn khó."]; 
-                            processing = "Luyện nghe chép chính tả (dictation) 5 phút. Focus vào Linking words để đoán hướng câu chuyện.";
-                            output = "Cải thiện kỹ năng bắt âm đuôi (s/ed).";
-                        } else if(d === 4) { // Thứ 3
-                            type = "Reading (Scan)"; duration = "1.5h"; tutorMsg = "Không cần hiểu hết bài đọc, chỉ cần tìm đúng chỗ.";
-                            tasks = ["Làm 1 Passage 2.", "Cập nhật Keyword Table."]; 
-                            processing = "Dùng bút/chuột track theo line để mắt quen với tốc độ. Skim nhanh câu đầu và cuối của mỗi đoạn.";
-                            output = "Làm quen với tốc độ 20 phút/Passage.";
-                        } else if(d === 5) { // Thứ 4
-                            type = "Speaking (Colloc)"; duration = "1.5h"; tutorMsg = "Nói như người bản xứ với Collocations và Idioms.";
-                            tasks = ["Học 10 cụm từ chủ đề Environment/Society.", "Luyện trả lời Part 1."]; 
-                            processing = "Nhại giọng Shadowing. Ghi âm và tự nghe lại xem âm điệu đã có độ 'nhấn nhá' chưa.";
-                            output = "Dùng được ít nhất 3 Idioms/Collocations.";
-                        } else if(d === 6) { // Thứ 5
-                            type = "Grammar Focus"; duration = "1.5h"; tutorMsg = "Sai ngữ pháp vặt sẽ làm mất band 7.0 nhanh chóng.";
-                            tasks = ["Ôn tập Câu điều kiện (If) & Mệnh đề quan hệ.", "Viết 5 câu phức áp dụng cho DA."]; 
-                            processing = "Viết ra giấy, gạch chân phân tích rõ Chủ ngữ (S) - Vị ngữ (V) - Tân ngữ (O).";
-                            output = "Viết đúng cấu trúc câu phức tạp.";
+                    if (phase === 1) { 
+                        if(d === 0) { 
+                            type = "Speaking (Story)"; duration = "1.5h"; tutorMsg = "Tập trung xây dựng ý tưởng cốt lõi cho các đề miêu tả.";
+                            tasks = ["Áp dụng Master Story vào đề bài miêu tả người/vật.", "Ghi âm nói liên tục trong 2 phút."]; 
+                            processing = "Brainstorm bằng Mindmap thay vì viết script từ. Thu âm bản 1, nghe lại sửa lỗi ngắt ngữ điệu, thu âm bản 2.";
+                            output = "Nói trôi chảy không ngập ngừng quá 3 giây.";
+                        } else if(d === 1) { 
+                            type = "Writing Form", duration = "3.5h"; tutorMsg = "Cuối tuần có 3.5h, hãy cày sâu cấu trúc so sánh dữ liệu và phân tích luận điểm.";
+                            tasks = ["Viết 1 Mở bài & Overview T1.", "Lập dàn ý chi tiết cho 2 đề Task 2.", "Viết thử một đoạn Body hoàn chỉnh."]; 
+                            processing = "Kiểm soát chặt chẽ câu phức và liên từ (Whereas, In comparison). Đoạn văn tuân thủ cấu trúc Flowchart logic.";
+                            output = "Hoàn thành 1 đoạn Body T2 và 1 khung Overview chuẩn xác.";
+                        } else if(d === 2) { 
+                            type = "Review & Vocab"; duration = "2.5h"; tutorMsg = "Dành 2.5h ngày Chủ nhật để hệ thống hóa dữ liệu từ vựng.";
+                            tasks = ["Ôn tập 50 flashcards trên Anki.", "Làm 1 bài Reading Passage ngắn.", "Cập nhật Error Log cá nhân."]; 
+                            processing = "Học từ vựng qua ngữ cảnh câu thay vì học từ đơn lẻ. Đánh dấu các bẫy đồng nghĩa vừa phát hiện.";
+                            output = "Thu thuộc 80% cụm từ mới của tuần, không lặp lại lỗi cũ.";
+                        } else if(d === 3) { 
+                            type = "Listening (Note)"; duration = "1.5h"; tutorMsg = "Rèn luyện khả năng bắt âm đuôi của từ vựng.";
+                            tasks = ["Làm 1 Section 3 Cam 16.", "Chọn 1 đoạn audio ngắn để chép chính tả (Dictation)."]; 
+                            processing = "Nghe từng cụm 3-5 từ, dừng băng và chép lại. Sửa lỗi mạo từ, số nhiều bằng mực đỏ.";
+                            output = "Tăng độ nhạy bén bắt âm đuôi (s/ed) lên 90%.";
+                        } else if(d === 4) { 
+                            type = "Reading (Scan)"; duration = "1.5h"; tutorMsg = "Áp dụng kỹ thuật quét dữ liệu nhanh để định vị thông tin.";
+                            tasks = ["Làm 1 Passage 2 đề Cam.", "Lập Keyword Table chi tiết cho các câu làm sai."]; 
+                            processing = "Dùng kỹ thuật Scanning tìm từ đồng nghĩa. Không đọc dịch toàn bộ văn bản.";
+                            output = "Định vị vùng chứa đáp án dưới 45 giây/câu.";
+                        } else if(d === 5) { 
+                            type = "Speaking (Colloc)"; duration = "1.5h"; tutorMsg = "Nâng cấp từ vựng Part 1 bằng cụm collocations tự nhiên.";
+                            tasks = ["Học 10 cụm từ nâng cao theo chủ đề tuần.", "Luyện trả lời 5 câu hỏi Part 1 Forecast."]; 
+                            processing = "Luyện Shadowing 15 phút. Khi trả lời, ép bản thân dùng từ đồng nghĩa nâng cao thay cho từ cơ bản.";
+                            output = "Sử dụng mượt mà ít nhất 3 Collocations đắt giá.";
+                        } else if(d === 6) { 
+                            type = "Grammar Focus"; duration = "1.5h"; tutorMsg = "Kiểm soát câu phức để đạt tiêu chí ngữ pháp Band 7.";
+                            tasks = ["Ôn tập sâu về mệnh đề quan hệ (Which/Who) và câu điều kiện.", "Viết 5 câu phức mô tả hệ thống dữ liệu."]; 
+                            processing = "Phân tích cấu trúc câu độc lập và câu phụ thuộc để đảm bảo tính chính xác hoàn hảo.";
+                            output = "Viết câu phức hoàn chỉnh không mắc lỗi cú pháp.";
                         }
-                    } else if (phase === 2) { // GIAI ĐOẠN 2
-                        if(d === 0) { // Thứ 6
-                            type = "Speaking (Gộp Đề)"; duration = "2h"; tutorMsg = "Dùng 1 câu chuyện cân 10 đề Part 2. Tư duy tái sử dụng!";
-                            tasks = ["Thử nghiệm Master Story với 5 đề Forecast khác.", "Luyện phản xạ chuyển ý."]; 
-                            processing = "Vẽ Mindmap 1 câu chuyện lõi -> vẽ các mũi tên map ra 3 đề khác nhau. Luyện câu chuyển ý mượt.";
-                            output = "Chuyển ý mượt mà không bị sượng.";
-                        } else if(d === 1) { // Thứ 7
-                            type = "Mock R/L & T2"; duration = "3.5h"; tutorMsg = "Thử thách 3.5h cuối tuần! Đo lường năng lực R/L.";
-                            tasks = ["Làm full đề R/L.", "Chấm điểm.", "Viết full Task 2."]; 
-                            processing = "Bấm giờ nghiêm ngặt (60p R, 40p L, 40p W). Phân tích nguyên nhân sai R/L ngay sau khi làm xong.";
-                            output = "Đo lường chính xác Band R/L hiện tại. Viết xong T2 chuẩn thời gian.";
-                        } else if(d === 2) { // Chủ Nhật
-                            type = "Review & S(Part 3)"; duration = "2.5h"; tutorMsg = "Review kỹ lỗi và nâng cấp tư duy phản biện cho Part 3.";
-                            tasks = ["Review Error Log R/L.", "Luyện A.R.E.A framework cho Part 3."]; 
-                            processing = "Thu âm câu trả lời Part 3, dùng fillers tự nhiên (Well, as far as I'm concerned). Chú ý mở rộng ý tưởng.";
-                            output = "Trả lời mạch lạc, ý tưởng có chiều sâu vĩ mô.";
-                        } else if(d === 3) { // Thứ 2
-                            type = "Reading (Deep Dive)"; duration = "1.5h"; tutorMsg = "Xử lý triệt để dạng bài T/F/NG thường gây mất điểm.";
-                            tasks = ["Làm 2 passage chuyên dạng T/F/NG.", "Phân tích cách bẫy của giám khảo."]; 
-                            processing = "Gạch chân keywords trong câu hỏi, đối chiếu logic chặt chẽ với text trong đoạn văn.";
-                            output = "Giảm thiểu lỗi sai ở câu T/F/NG.";
-                        } else if(d === 4) { // Thứ 3
-                            type = "Writing (Speed)"; duration = "1.5h"; tutorMsg = "Bắt đầu tăng tốc độ viết dần lên.";
-                            tasks = ["Viết 1 Task 1 trọn vẹn trong 18 phút.", "Viết 1 Body Task 2 trong 10 phút."]; 
-                            processing = "Viết một lèo không dùng Backspace quá nhiều. Luôn dàn ý (Outline) trước khi cắm cúi viết.";
-                            output = "Viết chuẩn thời gian, không bôi xóa nhiều.";
-                        } else if(d === 5) { // Thứ 4
-                            type = "Listening (Sec 4)"; duration = "1.5h"; tutorMsg = "Luyện tập độ tập trung cao độ với bài giảng một người nói.";
-                            tasks = ["Làm Section 4 của 2 đề Cam.", "Tập Note-taking ý chính bài giảng."]; 
-                            processing = "Luyện note-taking dạng flowchart/bullet points. Không cố nghe từng từ, nghe đại ý.";
-                            output = "Không bị lạc trôi khi bài nghe quá dài.";
-                        } else if(d === 6) { // Thứ 5
-                            type = "Speaking (Master Story)"; duration = "1.5h"; tutorMsg = "Nâng cấp từ vựng cho câu chuyện tủ.";
-                            tasks = ["Paraphrase lại story cũ với Vocab xịn hơn.", "Thu âm lại Part 2."]; 
-                            processing = "Tra từ điển Thesaurus để thay thế các động từ/tính từ yếu (bad -> detrimental, good -> stellar).";
-                            output = "Nâng cấp bài Part 2 lên mức Lexical Band 7.";
+                    } else if (phase === 2) { 
+                        if(d === 0) {
+                            type = "Speaking (Gộp Đề)"; duration = "2h"; tutorMsg = "Sử dụng chiến lược gộp đề thông minh để giảm tải khối lượng ôn tập.";
+                            tasks = ["Ứng dụng Master Story vào 5 đề Part 2 ngẫu nhiên.", "Luyện tập các câu chuyển ý linh hoạt."]; 
+                            processing = "Tập trung chuyển ngữ cảnh mượt mà từ dự án dữ liệu sang chủ đề của đề bài (ví dụ: một quyết định quan trọng).";
+                            output = "Lái được 5 đề Forecast khác nhau về 1 câu chuyện tủ.";
+                        } else if(d === 1) {
+                            type = "Mock R/L & T2"; duration = "3.5h"; tutorMsg = "Thử thách 3.5h cuối tuần! Ép bản thân làm việc dưới áp lực thời gian.";
+                            tasks = ["Làm full đề Reading & Listening Cam.", "Chấm điểm chi tiết.", "Viết full 1 bài Task 2 luận điểm."]; 
+                            processing = "Canh giờ chuẩn: 60p R, 40p L, 40p W. Viết Task 2 theo tư duy tuyến tính (Linear Thinking), luận điểm rõ ràng.";
+                            output = "Đo lường chính xác band điểm R/L hiện tại. Hoàn thành bài viết.";
+                        } else if(d === 2) {
+                            type = "Review & Part 3"; duration = "2.5h"; tutorMsg = "Phát triển tư duy phân tích đa chiều cho các câu hỏi Part 3.";
+                            tasks = ["Review chi tiết Error Log bài test hôm qua.", "Luyện nói Part 3 theo khung tư duy A.R.E.A."]; 
+                            processing = "Thu âm bài nói Part 3. Đảm bảo có đủ: Luận điểm trực tiếp -> Giải thích nguyên nhân -> Ví dụ thực tế.";
+                            output = "Trả lời câu hỏi Part 3 dài 4-5 câu có cấu trúc logic vững chãi.";
+                        } else if(d === 3) {
+                            type = "Reading (Deep)"; duration = "1.5h"; tutorMsg = "Giải quyết triệt để các dạng bài bẫy logic cao.";
+                            tasks = ["Làm 2 passage chuyên dạng Matching Headings / Information.", "Cập nhật bảng từ đồng nghĩa."]; 
+                            processing = "Đọc câu chủ đề của đoạn để tìm Main Idea trước khi đọc chi tiết phương án trả lời.";
+                            output = "Nâng tỷ lệ chính xác dạng bài Matching lên trên 80%.";
+                        } else if(d === 4) {
+                            type = "Writing (Speed)"; duration = "1.5h"; tutorMsg = "Rèn luyện tốc độ viết luận điểm nhanh, súc tích.";
+                            tasks = ["Viết 1 bài Task 1 trọn vẹn trong 18 phút.", "Lập outline cho 3 đề Task 2 trong 15 phút."]; 
+                            processing = "Ép thời gian bằng đồng hồ cát/đếm ngược. Tập trung viết câu ngắn gọn, mạch lạc, tránh lặp từ.";
+                            output = "Kiểm soát tốt phân bổ thời gian viết bài.";
+                        } else if(d === 5) {
+                            type = "Listening (Sec 4)"; duration = "1.5h"; tutorMsg = "Rèn luyện độ bền sự tập trung với chuỗi audio học thuật dài.";
+                            tasks = ["Làm Section 4 của 2 đề Cam khác nhau.", "Luyện ghi chú nhanh cấu trúc bài thuyết trình."]; 
+                            processing = "Bám sát các liên từ chỉ thứ tự (Firstly, Turn to next point) để không bị mất dấu vị trí điền từ.";
+                            output = "Ăn trọn điểm Section 4 với tỷ lệ chính xác trên 85%.";
+                        } else if(d === 6) {
+                            type = "Speaking (Upgrade)"; duration = "1.5h"; tutorMsg = "Nâng cấp chất lượng từ vựng trong bài nói Part 2.";
+                            tasks = ["Thay thế từ vựng thông thường trong Master Story bằng từ nâng cao.", "Thu âm lại bản hoàn chỉnh."]; 
+                            processing = "Sử dụng từ điển nâng cao để lọc các động từ/tính từ mạnh (VD: change -> revolutionise, help -> assist).";
+                            output = "Bài nói đạt tiêu chí Lexical Resource tương đương Band 7.0.";
                         }
-                    } else { // GIAI ĐOẠN 3 (Tháng 10 - 11)
-                        if(w === 22) { // Special Week 22
-                            if(d === 0) { type = "Mental Prep"; duration = "1.5h"; tutorMsg="Ôn nhẹ nhàng."; tasks=["Xem lại dàn ý T1/T2.", "Đọc lại Error Log."]; processing="Thư giãn. Không làm đề căng."; output="Thuộc cấu trúc làm bài."; }
-                            else if(d === 1) { type = "Rest"; duration = "2h"; tutorMsg="Nghỉ ngơi chuẩn bị thi."; tasks=["Nghe podcast giải trí.", "Soạn giấy tờ thi."]; processing="Ngủ sớm."; output="Sức khỏe tốt nhất."; }
-                            else { type = "Ready"; duration = "1h"; tutorMsg="Go hit that 7.5!"; tasks=["Tự tin bước vào phòng thi."]; processing="Hít thở sâu."; output="Complete!"; }
+                    } else { 
+                        if(w === 22) { 
+                            if(d === 0) { type = "Mental Prep"; duration = "1.5h"; tutorMsg="Ôn tập nhẹ nhàng giữ phong độ."; tasks=["Xem lại dàn ý tổng quan.", "Đọc lại Sổ tay lỗi sai."]; processing="Thư giãn đầu óc, đi dạo. Tuyệt đối không làm đề mới gây căng thẳng."; output="Tâm lý thoải mái, tự tin."; }
+                            else if(d === 1) { type = "Rest Day"; duration = "2h"; tutorMsg="Chuẩn bị mọi điều kiện tốt nhất."; tasks=["Nghe podcast tiếng Anh giải trí.", "Kiểm tra giấy tờ, căn cước công dân."]; processing="Ăn uống đủ chất, ngủ sớm trước 10h đêm."; output="Thể lực đạt đỉnh."; }
+                            else { type = "Ready to Win"; duration = "1h"; tutorMsg="Bạn đã làm rất xuất sắc! Hãy vào phòng thi và lấy 7.5 về nào."; tasks=["Tự tin bước vào phòng thi thực chiến."]; processing="Hít thở sâu, điềm tĩnh trả lời như đang demo dự án với sếp."; output="Hoàn thành xuất sắc mục tiêu!"; }
                         } else {
-                            if(d === 0) { // Thứ 6
-                                type = "Forecast Speaking"; duration = "2h"; tutorMsg = "Tập trung giải quyết đề Forecast mới nhất (Quý 3).";
-                                tasks = ["Cày 5 đề Forecast Part 1 & 2.", "Ghi âm liên tục."]; 
-                                processing = "Luyện tập giả lập phòng thi. Không nhìn script (kịch bản). Giữ eye-contact với camera/gương.";
-                                output = "Phản xạ ngay lập tức với đề thật.";
-                            } else if(d === 1) { // Thứ 7
-                                type = "Full Mock Test"; duration = "4h"; tutorMsg = "Thi thử như thi thật! Kỷ luật thép trong 4h này.";
-                                tasks = ["Thi thử Full 4 kỹ năng liên tục.", "Dùng giấy làm bài thi chuẩn IELTS."]; 
-                                processing = "Uống đủ nước, đi vệ sinh trước. Bấm giờ liên tục 3 tiếng không ngắt quãng. KHÔNG tra từ điển.";
-                                output = "Rèn luyện thể lực & tâm lý phòng thi thực tế.";
-                            } else if(d === 2) { // Chủ Nhật
-                                type = "Cool Down & Fix"; duration = "2h"; tutorMsg = "Sau thi thử là lúc nhìn nhận lại bản thân. Sửa lỗi triệt để.";
-                                tasks = ["Review chi tiết lỗi sai Mock Test.", "Nâng cấp từ vựng Writing từ bài hôm qua."]; 
-                                processing = "Tập trung sửa các lỗi bất cẩn (Spelling, Plural). Đọc bài mẫu Writing cùng đề để đánh giá mức độ.";
-                                output = "Xác định được 1-2 điểm chí mạng cần sửa ngay.";
-                            } else if(d === 3) { // Thứ 2
-                                type = "Writing (Time Mgt)"; duration = "1.5h"; tutorMsg = "Tuyệt đối tuân thủ thời gian 40 phút cho Task 2.";
-                                tasks = ["Viết full 1 bài Task 2.", "Dành 3-5 phút cuối Proofreading."]; 
-                                processing = "Chỉ cho phép 35 phút viết, chuông reo lập tức dừng để dùng 5 phút còn lại dò lỗi Grammar/Spelling.";
-                                output = "Hoàn thành bài trong thời gian, sạch lỗi vặt.";
-                            } else if(d === 4) { // Thứ 3
-                                type = "Forecast Part 3"; duration = "1.5h"; tutorMsg = "Giám khảo Part 3 sẽ hỏi xoáy đáp xoay. Cứ bình tĩnh.";
-                                tasks = ["Luyện Part 3 với các câu hỏi khó.", "Tập dùng Fillers."]; 
-                                processing = "Tập tư duy phản biện: Đưa ra góc nhìn ngược lại (Alternative view) để kéo dài câu trả lời.";
-                                output = "Giữ thái độ điềm tĩnh khi gặp câu hỏi khó.";
-                            } else if(d === 5) { // Thứ 4
-                                type = "R/L Maintenance"; duration = "1.5h"; tutorMsg = "Duy trì cảm giác làm bài cho Nghe - Đọc.";
-                                tasks = ["Làm 1 Test Reading/Listening đan xen.", "Đọc lướt 1 bài báo tiếng Anh (Tech/Biz)."]; 
-                                processing = "Giữ nhịp độ. Luyện Skimming bài báo dài để mắt không bị mỏi khi vào thi.";
-                                output = "Giữ vững phong độ vững chắc Band 8.0.";
-                            } else if(d === 6) { // Thứ 5
-                                type = "Writing T1 (Map/Process)"; duration = "1.5h"; tutorMsg = "Không được chủ quan với Map và Process.";
-                                tasks = ["Viết 1 bài Map hoặc Process.", "Học từ vựng chỉ phương hướng/các bước."]; 
-                                processing = "Ôn kỹ từ vựng định hướng (North, South) và các động từ thay đổi (undergo, transform, constructed).";
-                                output = "Không bị bất ngờ, bối rối nếu đề ra dạng Map/Process.";
+                            if(d === 0) { 
+                                type = "Forecast Speaking"; duration = "2h"; tutorMsg = "Tấn công trực diện bộ đề Forecast Quý 3 thật tế.";
+                                tasks = ["Cày 5 bộ đề Forecast Part 1 & 2 ngẫu nhiên.", "Thu âm liên tục không ngừng nghỉ."]; 
+                                processing = "Giả lập phòng thi thật: Bốc đề ngẫu nhiên, có 1 phút chuẩn bị và nói liên tục không được dừng sửa lỗi.";
+                                output = "Xóa bỏ hoàn toàn tâm lý hoang mang khi gặp đề lạ.";
+                            } else if(d === 1) { 
+                                type = "Full Mock Test"; duration = "4h"; tutorMsg = "Cuối tuần có 4h, hãy làm một bài test toàn diện dưới áp lực phòng thi.";
+                                tasks = ["Thi thử liên tục Listening -> Reading -> Writing.", "Sử dụng đúng phiếu trả lời chuẩn."]; 
+                                processing = "Tắt điện thoại, không tra từ điển, làm bài liên tục trong 3 tiếng để luyện sức bền bộ não.";
+                                output = "Kiểm soát hoàn hảo áp lực thời gian và tâm lý phòng thi.";
+                            } else if(d === 2) { 
+                                type = "Cool Down & Fix"; duration = "2h"; tutorMsg = "Sửa kỹ từng lỗi nhỏ để tối ưu hóa điểm số.";
+                                tasks = ["Review chi tiết lỗi sai bài Mock Test.", "Nâng cấp cấu trúc viết câu chưa mượt."]; 
+                                processing = "Dành thời gian rà soát các lỗi bất cẩn (plural, spelling). Viết lại (Rewrite) những câu bị ghi chú diễn đạt yếu.";
+                                output = "Triệt tiêu 100% các lỗi careless mistakes.";
+                            } else if(d === 3) { 
+                                type = "Writing (Mgt)"; duration = "1.5h"; tutorMsg = "Luyện kỹ năng kiểm soát thời gian vàng cho Task 2.";
+                                tasks = ["Viết full 1 bài Task 2 Forecast.", "Dành 3-5 phút cuối để proofread."]; 
+                                processing = "Ép thời gian viết trong đúng 35 phút, dừng bút khi chuông reo để dành thời gian rà lỗi chính tả.";
+                                output = "Hoàn thành bài viết sạch sẽ cấu trúc, mạch lạc.";
+                            } else if(d === 4) { 
+                                type = "Forecast Part 3"; duration = "1.5h"; tutorMsg = "Giám khảo Part 3 sẽ hỏi dồn dập, hãy dùng tư duy logic để phản biện.";
+                                tasks = ["Luyện Part 3 với chuỗi câu hỏi Forecast trừu tượng.", "Tập phản xạ dùng các câu câu giờ thông minh."]; 
+                                processing = "Sử dụng tư duy phản biện (Alternative góc nhìn) để mở rộng câu trả lời mà không bị lặp ý.";
+                                output = "Phản xạ mượt mà, câu trả lời sâu sắc đạt chuẩn Band 7.5.";
+                            } else if(d === 5) { 
+                                type = "R/L Maintenance"; duration = "1.5h"; tutorMsg = "Duy trì phong độ làm bài đỉnh cao cho Nghe và Đọc.";
+                                tasks = ["Làm 1 bài Test Reading/Listening đan xen.", "Đọc lướt 1 bài báo chuyên ngành (Tech/Analytics)."]; 
+                                processing = "Giữ nhịp độ đọc quét nhanh, bảo toàn cảm giác phòng thi cho hai kỹ năng ăn điểm chính.";
+                                output = "Duy trì độ chính xác vững vàng ở mức Band 8.0.";
+                            } else if(d === 6) { 
+                                type = "Writing (Rare Types)"; duration = "1.5h"; tutorMsg = "Kiểm soát rủi ro với các dạng bài hiếm gặp của Task 1.";
+                                tasks = ["Viết 1 bài Map hoặc Process trong bộ Forecast.", "Review từ vựng chỉ vị trí, các bước vận hành."]; 
+                                processing = "Bám sát quy trình tuyến tính của biểu đồ Process hoặc sự thay đổi địa lý của biểu đồ Map.";
+                                output = "Tự tin xử lý mọi dạng đề bài được giao.";
                             }
                         }
                     }
@@ -574,7 +568,7 @@
                     if(w < 22 || (w === 22 && d < 3)) {
                         daysData.push({
                             id: `w${w}-d${d+1}`, dayName: dayName, date: formatDate(dDate),
-                            type: type, duration: duration, tutorMsg: tutorMsg,
+                            type: type, topic: currentTopic, duration: duration, tutorMsg: tutorMsg,
                             tasks: tasks, processing: processing, output: output
                         });
                     }
@@ -669,63 +663,67 @@
                 const currentNote = userNotes[day.id] || '';
 
                 const html = `
-                <div id="card-${day.id}" class="flex flex-col md:flex-row gap-4 p-5 rounded-xl border ${cardBg} shadow-sm transition-all hover:shadow-md">
+                <div id="card-${day.id}" class="flex flex-col p-5 rounded-xl border ${cardBg} shadow-sm transition-all hover:shadow-md">
                     
-                    <!-- Date/Check Column -->
-                    <div class="flex md:flex-col items-center md:items-start justify-between md:justify-start md:w-32 border-b md:border-b-0 md:border-r border-slate-100 pb-3 md:pb-0 md:pr-4 flex-shrink-0">
+                    <!-- Top Info Header Row -->
+                    <div class="flex items-start justify-between border-b border-slate-100 pb-3 mb-4">
                         <div>
-                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">${day.dayName}</span>
-                            <span class="text-lg font-bold text-slate-800">${day.date}</span>
-                            <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded block mt-1 w-max border border-slate-200">⏱ ${day.duration}</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm font-bold text-slate-800">${day.dayName} (${day.date})</span>
+                                <span class="text-[10px] font-bold bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200">⏱ ${day.duration}</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-1.5 mt-2">
+                                <span class="bg-${typeColor}-100 text-${typeColor}-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">${day.type}</span>
+                                <span class="bg-slate-100 text-slate-600 text-[10px] font-medium px-2 py-0.5 rounded flex items-center gap-1">
+                                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    Topic: <span class="font-semibold text-slate-700">${day.topic}</span>
+                                </span>
+                            </div>
                         </div>
-                        <button id="btn-${day.id}" onclick="toggleTaskComplete('${day.id}', ${weekId})" class="mt-0 md:mt-4 ${btnColor} hover:text-emerald-600 transition-colors cursor-pointer group flex flex-col items-center" title="Đánh dấu hoàn thành">
+                        <button id="btn-${day.id}" onclick="toggleTaskComplete('${day.id}', ${weekId})" class="${btnColor} hover:text-emerald-600 transition-colors cursor-pointer flex flex-col items-center" title="Đánh dấu hoàn thành">
                             ${iconHtml}
-                            <span class="text-[9px] font-medium text-slate-400 mt-1 group-hover:text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity absolute md:relative -bottom-4 md:bottom-0">Xong</span>
+                            <span class="text-[9px] font-medium text-slate-400 mt-0.5">Xong</span>
                         </button>
                     </div>
 
-                    <!-- Content Column -->
-                    <div class="flex-1 flex flex-col">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="bg-${typeColor}-100 text-${typeColor}-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">${day.type}</span>
-                        </div>
-                        
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex gap-3 items-start mb-3">
-                            <img src="https://ui-avatars.com/api/?name=Tutor&background=6366f1&color=fff&rounded=true" class="w-8 h-8 rounded-full shadow-sm flex-shrink-0 mt-0.5" alt="Tutor">
-                            <p class="text-sm text-slate-700 italic leading-snug">" ${day.tutorMsg} "</p>
+                    <!-- Content Details -->
+                    <div class="space-y-3 flex-1 flex flex-col">
+                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex gap-2.5 items-start">
+                            <img src="https://ui-avatars.com/api/?name=Tutor&background=6366f1&color=fff&rounded=true" class="w-7 h-7 rounded-full shadow-sm flex-shrink-0" alt="Tutor">
+                            <p class="text-xs text-slate-700 italic leading-relaxed">" ${day.tutorMsg} "</p>
                         </div>
 
-                        <div class="mb-3">
-                            <h5 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center"><svg class="w-3.5 h-3.5 mr-1 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg> Tasks hôm nay:</h5>
-                            <ul class="text-sm text-slate-700 space-y-1.5 list-disc pl-5 font-medium">
+                        <div>
+                            <h5 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center"><svg class="w-3.5 h-3.5 mr-1 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg> Tasks chiến đấu:</h5>
+                            <ul class="text-xs text-slate-600 space-y-1 list-disc pl-4 font-medium">
                                 ${day.tasks.map(t => `<li>${t}</li>`).join('')}
                             </ul>
                         </div>
                         
                         ${day.processing ? `
-                        <div class="mb-3 bg-indigo-50/50 p-2.5 rounded border border-indigo-50">
-                            <span class="text-[10px] font-bold text-indigo-500 uppercase tracking-wider block mb-1 flex items-center">
+                        <div class="bg-indigo-50/40 p-2.5 rounded border border-indigo-50/60">
+                            <span class="text-[9px] font-bold text-indigo-500 uppercase tracking-wider block mb-1 flex items-center">
                                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                                Processing (Phương pháp)
+                                Processing (Phương pháp học)
                             </span>
-                            <p class="text-xs text-slate-600 leading-relaxed">${day.processing}</p>
+                            <p class="text-[11px] text-slate-600 leading-relaxed">${day.processing}</p>
                         </div>
                         ` : ''}
 
-                        <div class="pt-2 border-t border-slate-100 mb-3">
-                            <p class="text-sm flex items-start">
-                                <span class="text-emerald-500 font-bold mr-1.5 mt-0.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span>
-                                <span><span class="font-semibold text-slate-700 text-xs uppercase tracking-wider mr-1">Output:</span> <span class="text-slate-600">${day.output}</span></span>
+                        <div class="pt-2 border-t border-slate-100">
+                            <p class="text-xs flex items-start">
+                                <span class="text-emerald-500 font-bold mr-1 mt-0.5"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span>
+                                <span><span class="font-semibold text-slate-700 text-[11px] uppercase tracking-wider mr-1">Output:</span> <span class="text-slate-600">${day.output}</span></span>
                             </p>
                         </div>
                         
-                        <!-- Personal Notes Field -->
+                        <!-- Free-text Note Field directly placed below Output row -->
                         <div class="mt-auto pt-3 border-t border-slate-100">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center">
-                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center">
+                                <svg class="w-2.5 h-2.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                 My Notes
                             </label>
-                            <textarea id="note-${day.id}" rows="4" onchange="saveUserNote('${day.id}')" oninput="autoResizeNoteTextarea(this)" placeholder="Nhập ghi chú cá nhân (từ vựng mới, lỗi sai cần nhớ, ý tưởng...)" class="w-full text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-lg p-2 focus:ring-1 focus:ring-indigo-400 focus:outline-none resize-y min-h-[80px]">${currentNote}</textarea>
+                            <textarea id="note-${day.id}" rows="3" onchange="saveUserNote('${day.id}')" oninput="autoResizeNoteTextarea(this)" placeholder="Gõ từ vựng mới, lỗi ngữ pháp hụt hoặc insight bài học vào đây..." class="w-full text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-lg p-2 focus:ring-1 focus:ring-indigo-400 focus:outline-none resize-y min-h-[60px]">${currentNote}</textarea>
                         </div>
                     </div>
                 </div>
