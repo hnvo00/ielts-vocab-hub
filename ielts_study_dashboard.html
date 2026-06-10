@@ -255,7 +255,7 @@
             </div>
 
             <!-- Daily Cards Container -->
-            <div id="daily-cards-container" class="space-y-4">
+            <div id="daily-cards-container" class="grid gap-4 xl:grid-cols-2">
                 <!-- Javascript injects daily lesson cards here -->
             </div>
             
@@ -835,54 +835,50 @@
 
                 const savedNote = getDailyNote(day.id);
                 const html = `
-                <div id="card-${day.id}" class="flex flex-col md:flex-row gap-4 p-5 rounded-xl border ${cardBg} shadow-sm transition-all hover:shadow-md">
+                <div id="card-${day.id}" class="grid grid-cols-1 md:grid-cols-[126px_minmax(0,1fr)] gap-4 p-5 rounded-3xl border ${cardBg} shadow-sm hover:shadow-md transition-all">
                     
                     <!-- Date/Check Column -->
-                    <div class="flex md:flex-col items-center md:items-start justify-between md:justify-start md:w-32 border-b md:border-b-0 md:border-r border-slate-100 pb-3 md:pb-0 md:pr-4 flex-shrink-0">
+                    <div class="flex flex-col justify-between rounded-3xl border border-slate-200 bg-slate-50 p-4 text-slate-700">
                         <div>
-                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">${day.dayName}</span>
-                            <span class="text-lg font-bold text-slate-800">${day.date}</span>
-                            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded block mt-1 w-max">${day.duration}</span>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">${day.dayName}</span>
+                            <div class="text-2xl font-bold text-slate-900">${day.date}</div>
+                            <div class="text-[10px] text-slate-500 mt-2 uppercase tracking-wide">${day.duration}</div>
                         </div>
-                        <button id="btn-${day.id}" onclick="toggleTaskComplete('${day.id}', ${weekId})" class="mt-0 md:mt-4 ${btnColor} hover:text-emerald-600 transition-colors cursor-pointer group flex flex-col items-center" title="Đánh dấu hoàn thành">
+                        <button id="btn-${day.id}" onclick="toggleTaskComplete('${day.id}', ${weekId})" class="mt-4 inline-flex items-center justify-center rounded-full ${btnColor} border border-slate-200 bg-white p-3 text-slate-500 hover:border-emerald-300 hover:text-emerald-600 transition-colors" title="Đánh dấu hoàn thành">
                             ${iconHtml}
-                            <span class="text-[9px] font-medium text-slate-400 mt-1 group-hover:text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity absolute md:relative -bottom-4 md:bottom-0">Xong</span>
                         </button>
                     </div>
 
                     <!-- Content Column -->
-                    <div class="flex-1 space-y-3">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-${typeColor}-100 text-${typeColor}-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">${day.type}</span>
-                        </div>
-                        
-                        <div class="bg-slate-50 p-3 rounded-lg border border-slate-100 flex gap-3 items-start">
-                            <img src="https://ui-avatars.com/api/?name=Tutor&background=6366f1&color=fff&rounded=true" class="w-8 h-8 rounded-full shadow-sm flex-shrink-0 mt-0.5" alt="Tutor">
-                            <p class="text-sm text-slate-700 italic">" ${day.tutorMsg} "</p>
+                    <div class="space-y-4">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <span class="bg-${typeColor}-100 text-${typeColor}-800 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">${day.type}</span>
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">#${day.id}</span>
                         </div>
 
-                        <div>
-                            <h5 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 flex items-center"><svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg> Tasks hôm nay:</h5>
-                            <ul class="text-sm text-slate-600 space-y-1.5 list-disc pl-5">
+                        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                            <p class="italic">" ${day.tutorMsg} "</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="text-xs font-bold uppercase tracking-wider text-slate-500">Tasks hôm nay</div>
+                            <ul class="text-sm text-slate-600 space-y-1 list-disc pl-5">
                                 ${day.tasks.map(t => `<li>${t}</li>`).join('')}
                             </ul>
                         </div>
-                        
-                        <div class="pt-2 border-t border-slate-100">
-                            <p class="text-sm flex items-start">
-                                <span class="text-emerald-500 font-bold mr-1.5 mt-0.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></span>
-                                <span><span class="font-semibold text-slate-700 text-xs uppercase tracking-wider mr-1">Output:</span> <span class="text-slate-600">${day.output}</span></span>
-                            </p>
+
+                        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 text-sm">
+                            <p class="font-semibold text-slate-700 uppercase tracking-wider text-xs mb-2">Output</p>
+                            <p class="text-slate-600">${day.output}</p>
                         </div>
 
-                        <div class="mt-4 pt-3 border-t border-slate-100">
+                        <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
                             <label for="note-${day.id}" class="text-xs font-semibold uppercase tracking-wider text-slate-500">Ghi chú học tập</label>
-                            <textarea id="note-${day.id}" oninput="resizeDailyTextarea(this); saveDailyNote('${day.id}', this.value)" placeholder="Viết ghi chú, câu hỏi hoặc điều cần nhớ..." class="mt-2 w-full min-h-[100px] resize-none overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-300" rows="4">${escapeHtml(savedNote)}</textarea>
+                            <textarea id="note-${day.id}" oninput="resizeDailyTextarea(this); saveDailyNote('${day.id}', this.value)" placeholder="Viết ghi chú, câu hỏi hoặc điều cần nhớ..." class="mt-2 w-full min-h-[96px] resize-none overflow-hidden rounded-3xl border border-slate-200 bg-white px-3 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-300" rows="4">${escapeHtml(savedNote)}</textarea>
                         </div>
                     </div>
                 </div>
                 `;
-                container.innerHTML += html;
                 const textarea = document.getElementById(`note-${day.id}`);
                 if (textarea) resizeDailyTextarea(textarea);
             });
