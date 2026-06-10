@@ -408,10 +408,10 @@
                     output: 'Kiểm soát tốt câu phức. Nắm vững cấu trúc đoạn văn.' 
                 },
                 { 
-                    day: 'Chủ Nhật', type: 'Review & Tutor', color: 'orange', duration: '3h', time: '14:00 - 17:00', isWide: true, 
+                    day: 'Chủ Nhật', type: 'Review & Tutor', color: 'orange', duration: '4h', time: '14:00 - 18:00', isWide: true, 
                     columns: [['Ôn tập Anki/Quizlet toàn bộ từ vựng R/L/S/W trong tuần.', 'Review lại Keyword Table R/L.'], ['Gửi bài Writing T1/T2 cho Tutor/AI chấm và phân tích lỗi.', 'Mock-test Speaking Part 1, 2 (Ghi âm hoặc luyện cùng Tutor).']], 
                     processing: 'Ghi chú "Lỗi Sai Hệ Thống" (Spelling, sai thì) cần tránh vào Sổ tay. Lên kế hoạch điều chỉnh cho tuần sau.',
-                    output: 'Tiêu hóa kiến thức tuần. Biết chính xác điểm cần khắc phục.' 
+                    output: 'Tiêu hóa kiến thức tuần. Biết chính xác điểm cần khắc phục.'
                 }
             ],
             2: [
@@ -452,10 +452,10 @@
                     output: 'Làm quen nhịp độ thi thực tế của kỹ năng Output.' 
                 },
                 { 
-                    day: 'Chủ Nhật', type: 'Tutor Feedback', color: 'orange', duration: '3h', time: '14:00 - 17:00', isWide: true, 
+                    day: 'Chủ Nhật', type: 'Tutor Feedback', color: 'orange', duration: '4h', time: '14:00 - 18:00', isWide: true, 
                     columns: [['Xem lại nhận xét của Tutor cho bài Viết. Sửa lại (Rewrite) các câu dùng từ chưa tự nhiên.', 'Sửa lỗi phát âm và độ trôi chảy từ bài Mock Speaking.'], ['Đọc lướt 1-2 bài Passage (Reading) chuyên ngành DA để giữ nhịp độ Skimming.', 'Review Anki các Idioms và Collocations mới.']], 
                     processing: 'Cập nhật lại Error Log. Nghiên cứu cách nâng cấp (Upgrade) từ vựng từ Band 6.0 lên 7.0 qua các bài chữa.',
-                    output: 'Nhận thức rõ hạn chế hiện tại. Có giải pháp cho tuần tới.' 
+                    output: 'Nhận thức rõ hạn chế hiện tại. Có giải pháp cho tuần tới.'
                 }
             ],
             3: [
@@ -506,99 +506,99 @@
 
         // --- DAILY SYLLABUS DATA (LMS Style) ---
         const syllabusData = {
-            1: { // Week 1: 12/06 - 18/06 (Start mid-week)
-                dateRange: "12/06 - 18/06 (Tuần 1 - Khởi Động)",
-                tutorNote: "Chào mừng bạn đến với lộ trình! Vì tuần đầu chúng ta bắt đầu vào Thứ 6 (12/06), mình sẽ giao bài nhẹ nhàng để bạn quen nhịp. Tập trung vào việc 'Đo lường' xem mình đang hụt ở đâu nhé.",
+            1: { // Week 1: 15/06 - 21/06 (Monday start)
+                dateRange: "15/06 - 21/06 (Tuần 1 - Khởi Động)",
+                tutorNote: "Chào mừng bạn đến với lộ trình! Tuần này bắt đầu từ Thứ 2 để chúng ta có nhịp học ổn định. Tập trung vào việc 'Đo lường' xem mình đang hụt ở đâu nhé.",
                 days: [
                     {
-                        id: "w1-d1", dayName: "Thứ 6", date: "12/06", type: "Reading Diagnostic", duration: "1.5h",
-                        tutorMsg: "Hôm nay làm nhẹ 1 Passage (Cam 15). Chậm cũng được, nhưng phải rà lại xem tại sao mình sai.",
-                        tasks: ["Làm Passage 1 (Cam 15 - Test 1) không ép thời gian.", "Tra từ mới, lập Keyword Table (Bảng từ đồng nghĩa) giữa câu hỏi & bài đọc."],
-                        output: "Hoàn thành 1 Keyword Table. Đánh giá tốc độ Skimming hiện tại."
+                        id: "w1-d1", dayName: "Thứ 2", date: "15/06", type: "Listening & Doc", duration: "1.5h",
+                        tutorMsg: "Làm 1 Full Test Listening (Cam 15-16). Kết hợp ghi chú và nghe chép chính tả để rút kinh nghiệm.",
+                        tasks: ["Làm 1 Full Test Listening (Cam 15-16).", "Thực hành: Luyện Dictation (Nghe chép chính tả) một đoạn Section 3/4 khó hiểu nhất."],
+                        output: "Hiểu nguyên nhân sai của 100% câu đánh lụi/sai."
                     },
                     {
-                        id: "w1-d2", dayName: "Thứ 7", date: "13/06", type: "Listening Diagnostic", duration: "2h",
-                        tutorMsg: "Làm Section 1 & 2 Listening. Đây là phần ăn điểm, cẩn thận bẫy đánh vần (spelling) số/tên.",
-                        tasks: ["Nghe Section 1 & 2 (Cam 15 - Test 1).", "Check transcript. Đánh dấu các chỗ bị lỡ thông tin (do nối âm hay do không biết từ)."],
-                        output: "Xác định được lỗi sai: Do phát âm kém hay do thiếu từ vựng."
+                        id: "w1-d2", dayName: "Thứ 3", date: "16/06", type: "Speaking S-1", duration: "1.5h - 2h",
+                        tutorMsg: "Học 5-7 cụm Collocations chủ đề Work/Tech/Study và luyện Part 1 với chủ đề quen thuộc.",
+                        tasks: ["Học 5-7 cụm Collocations chủ đề Work/Tech/Study.", "Thực hành: Luyện Part 1 với các chủ đề quen thuộc (Hometown, Accommodation). Áp dụng từ mới học."],
+                        output: "Phát âm chuẩn xác hơn, sử dụng được ít nhất 3 từ mới tự nhiên."
                     },
                     {
-                        id: "w1-d3", dayName: "Chủ Nhật", date: "14/06", type: "Speaking (Vocab Setup)", duration: "2h",
-                        tutorMsg: "Từ vựng 5.0 là điểm yếu nhất hiện tại. Chúng ta bắt đầu bơm Collocations.",
-                        tasks: ["Học 10 Collocations chủ đề Work & Technology (Dùng Anki/Quizlet).", "Ghi âm trả lời 3 câu Part 1, chèn ít nhất 2 từ mới vừa học vào câu trả lời."],
-                        output: "Sử dụng được cụm từ tự nhiên, không dùng từ đơn lẻ."
+                        id: "w1-d3", dayName: "Thứ 4", date: "17/06", type: "Reading & Vocab", duration: "1.5h - 2h",
+                        tutorMsg: "Làm 1 Full Test Reading và cập nhật Keyword Table để đo tốc độ Skimming.",
+                        tasks: ["Làm 1 Full Test Reading (Cam 15-16).", "Thực hành: Đọc một tài liệu Data ngắn bằng tiếng Anh và cập nhật Keyword Table."],
+                        output: "Sở hữu 1 bảng 20+ cặp từ đồng nghĩa mới. Xác định được dạng bài yếu."
                     },
                     {
-                        id: "w1-d4", dayName: "Thứ 2", date: "15/06", type: "Writing (Data Structure)", duration: "1.5h",
-                        tutorMsg: "DA thì phải viết báo cáo Data mượt! Hôm nay học cấu trúc Task 1.",
-                        tasks: ["Học các cụm từ chỉ xu hướng (Fluctuate, Plunge, Soar, Remained stable).", "Viết Mở bài (Intro) & Overview cho 2 biểu đồ Line/Bar."],
-                        output: "Viết được Introduction và Overview chuẩn ngữ pháp trong 10 phút."
+                        id: "w1-d4", dayName: "Thứ 5", date: "18/06", type: "Speaking S-2", duration: "1.5h",
+                        tutorMsg: "Xây dựng dàn ý cho Master Story và luyện nói 2 phút theo dàn ý.",
+                        tasks: ["Xây dựng dàn ý cho 'Master Story' số 1 (Ví dụ: Dự án DA).", "Thực hành: Tập nói liên tục 2 phút theo dàn ý, bấm giờ."],
+                        output: "Hoàn thiện 1 Master Story, tự tin nói không vấp trong 2 phút."
                     },
                     {
-                        id: "w1-d5", dayName: "Thứ 3", date: "16/06", type: "Reading (Speed)", duration: "1.5h",
-                        tutorMsg: "Tiếp tục làm quen với cường độ đọc tiếng Anh.",
-                        tasks: ["Làm Passage 2 (Cam 15 - Test 1). Bấm giờ 20 phút.", "Review Keyword Table. Học cách đoán nghĩa từ qua ngữ cảnh."],
-                        output: "Quen với việc không cần hiểu 100% từ mới vẫn tìm được đáp án."
+                        id: "w1-d5", dayName: "Thứ 6", date: "19/06", type: "Writing T1 (Data)", duration: "1.5h",
+                        tutorMsg: "Học từ vựng xu hướng và thực hành viết Introduction + Overview cho biểu đồ.",
+                        tasks: ["Học từ vựng xu hướng (Trends) và cấu trúc so sánh.", "Thực hành: Viết phần Mở bài (Introduction) và Tổng quan (Overview) cho 2 biểu đồ Line/Bar."],
+                        output: "Viết được Introduction và Overview nhanh, chuẩn ngữ pháp."
                     },
                     {
-                        id: "w1-d6", dayName: "Thứ 4", date: "17/06", type: "Listening (Dictation)", duration: "1.5h",
-                        tutorMsg: "Section 3 thường là màn đối thoại dài. Bạn sẽ bị dội nếu không nghe quen.",
-                        tasks: ["Nghe Section 3 (Cam 15 - Test 1).", "Chọn 1 phút (đoạn khó nhất) để luyện Nghe - Chép chính tả (Dictation)."],
-                        output: "Nghe rõ các đuôi 's', 'ed' và Linking words."
+                        id: "w1-d6", dayName: "Thứ 7", date: "20/06", type: "Writing T2 & Email", duration: "3h",
+                        tutorMsg: "Ôn ngữ pháp và thực hành viết đoạn Body Task 2, kèm email tóm tắt ý chính.",
+                        tasks: ["Ôn tập Ngữ pháp (Thì, Mệnh đề quan hệ).", "Học cấu trúc bài Task 2 (Opinion/Discussion).", "Thực hành: Viết một email báo cáo ngắn tóm tắt ý chính của 1 bài Task 2 mẫu."],
+                        output: "Kiểm soát tốt câu phức. Nắm vững cấu trúc đoạn văn."
                     },
                     {
-                        id: "w1-d7", dayName: "Thứ 5", date: "18/06", type: "Speaking (Shadowing)", duration: "1.5h",
-                        tutorMsg: "Để nói tự nhiên, hãy bắt chước cách người ta nhấn nhá.",
-                        tasks: ["Chọn 1 video TedTalk (chủ đề Tech/Data) dài 3 phút.", "Luyện Shadowing (Nhại giọng) theo video 15 phút. Ghi âm so sánh."],
-                        output: "Cải thiện Pronunciation (Phát âm) và Intonation (Ngữ điệu)."
+                        id: "w1-d7", dayName: "Chủ Nhật", date: "21/06", type: "Review & Tutor", color: "orange", duration: "4h", time: "14:00 - 18:00", isWide: true,
+                        tutorMsg: "Review toàn bộ tuần, chữa bài Writing và Speaking cùng Tutor/AI.",
+                        tasks: ['Ôn tập Anki/Quizlet toàn bộ từ vựng R/L/S/W trong tuần.', 'Review lại Keyword Table R/L.', 'Gửi bài Writing T1/T2 cho Tutor/AI chấm và phân tích lỗi.', 'Mock-test Speaking Part 1, 2 (Ghi âm hoặc luyện cùng Tutor).'],
+                        output: 'Tiêu hóa kiến thức tuần. Biết chính xác điểm cần khắc phục.'
                     }
                 ]
             },
-            2: { // Week 2
-                dateRange: "19/06 - 25/06 (Tuần 2 - Nạp Vocab & Form)",
+            2: { // Week 2: 22/06 - 28/06 (Monday start)
+                dateRange: "22/06 - 28/06 (Tuần 2 - Nạp Vocab & Form)",
                 tutorNote: "Tuần thứ 2, chúng ta sẽ bắt đầu thiết lập 'Master Story' cho Part 2 và dàn ý (Outline) chuẩn cho Task 2. Đừng bỏ bữa nào nhé!",
                 days: [
                     {
-                        id: "w2-d1", dayName: "Thứ 6", date: "19/06", type: "Speaking (Master Story 1)", duration: "1.5h",
-                        tutorMsg: "Bắt đầu 'gom' đề Part 2. Chọn 1 dự án khó khăn nhất bạn từng làm.",
-                        tasks: ["Soạn dàn ý Tiếng Việt & Tiếng Anh cho Master Story số 1 (Dự án DA).", "Ghi âm nói thử 2 phút dựa trên dàn ý."],
-                        output: "Hoàn thiện khung sườn (Mindmap) cho Story 1. Tự tin nói không vấp."
+                        id: "w2-d1", dayName: "Thứ 2", date: "22/06", type: "Reading/List. (Khó)", duration: "1.5h",
+                        tutorMsg: "Xử lý dạng bài hóc búa và luyện nghe Note-taking chủ động.",
+                        tasks: ["Xử lý dạng bài hóc búa (T/F/NG, Matching Headings của Reading).", "Luyện nghe Note-taking chủ động, chú ý Linking words (L)."],
+                        output: "Giảm sai sót ở dạng bài khó. Nhận diện bẫy tốt hơn."
                     },
                     {
-                        id: "w2-d2", dayName: "Thứ 7", date: "20/06", type: "Writing (T2 Foundation)", duration: "2h",
-                        tutorMsg: "Task 2 quyết định điểm Viết. Bạn phải tư duy như viết Clean Code.",
-                        tasks: ["Học Linear Thinking (Tư duy tuyến tính).", "Phân tích cấu trúc (Outline) của 2 bài Mẫu điểm cao."],
-                        output: "Biết cách viết 1 đoạn Body chuẩn: Topic -> Explain -> Example."
+                        id: "w2-d2", dayName: "Thứ 3", date: "23/06", type: "Speaking (Gộp đề)", duration: "2h",
+                        tutorMsg: "Áp dụng Master Stories vào nhiều đề Forecast khác nhau.",
+                        tasks: ["Kỹ thuật Gộp đề Part 2: Áp dụng 3 Master Stories vào 10 đề Forecast ngẫu nhiên.", "Thực hành: Kể lại câu chuyện dưới dạng giải thích vấn đề (Problem-Solving)."],
+                        output: "Sử dụng thành thạo Master Stories cho nhiều ngữ cảnh khác nhau."
                     },
                     {
-                        id: "w2-d3", dayName: "Chủ Nhật", date: "21/06", type: "Reading & Error Log", duration: "2h",
-                        tutorMsg: "Dành cuối tuần để rà soát lại các lỗi sai hệ thống.",
-                        tasks: ["Làm Passage 3 (Cam 15 - Test 1) - Dạng khó.", "Lập Error Log (Sổ tay lỗi sai): Phân loại lỗi do T/F/NG hay do thiếu vocab."],
-                        output: "Nhận diện được cái bẫy mình hay mắc phải nhất."
+                        id: "w2-d3", dayName: "Thứ 4", date: "24/06", type: "Writing T2 (Linear)", duration: "2h",
+                        tutorMsg: "Tập trung vào tư duy tuyến tính và viết Body mạch lạc.",
+                        tasks: ["Luyện Linear Thinking (Tư duy tuyến tính).", "Thực hành: Brainstorm nhanh cho 5 đề Task 2 khác nhau trong 25 phút (5p/đề)."],
+                        output: "Tăng tốc độ nghĩ ý tưởng. Dàn ý mạch lạc, không lan man."
                     },
                     {
-                        id: "w2-d4", dayName: "Thứ 2", date: "22/06", type: "Listening (Speed up)", duration: "1.5h",
-                        tutorMsg: "Tăng tốc độ xử lý âm thanh trong Section 4.",
-                        tasks: ["Nghe Section 4 (Cam 15 - Test 1).", "Luyện nghe Note-taking chủ động, chú ý Linking words (But, However)."],
-                        output: "Nắm được cấu trúc của 1 bài giảng học thuật (Lecture)."
+                        id: "w2-d4", dayName: "Thứ 5", date: "25/06", type: "Speaking S-3 (A.R.E.A)", duration: "2h",
+                        tutorMsg: "Luyện Part 3 với framework A.R.E.A và tư duy phản biện.",
+                        tasks: ["Luyện Part 3 với framework A.R.E.A (Answer - Reason - Example - Alternative).", "Thực hành: Tập giải thích các quan điểm vĩ mô (Xã hội, Kinh tế)."],
+                        output: "Trả lời Part 3 dài 4-5 câu có cấu trúc rõ ràng. Không bị bí ý."
                     },
                     {
-                        id: "w2-d5", dayName: "Thứ 3", date: "23/06", type: "Speaking (Vocab Expansion)", duration: "1.5h",
-                        tutorMsg: "Thêm 'gia vị' cho câu nói bằng các Collocations đắt giá.",
-                        tasks: ["Học 10 Collocations chủ đề Education & Society.", "Ứng dụng trả lời 3 đề Part 1 mới. Ghi âm, tự sửa lặp từ."],
-                        output: "Giảm tỷ lệ dùng từ 'I think/Very good/Bad'."
+                        id: "w2-d5", dayName: "Thứ 6", date: "26/06", type: "Writing T1/T2 (Speed)", duration: "1.5h",
+                        tutorMsg: "Ép tốc độ viết và kiểm soát lỗi ngữ pháp khi viết nhanh.",
+                        tasks: ["Viết một bài Task 1 hoặc một đoạn Body Task 2 hoàn chỉnh.", "Thực hành: Chuyển đổi một ý tưởng phức tạp thành một đoạn giải thích mạch lạc."],
+                        output: "Cải thiện tốc độ viết và kiểm soát lỗi ngữ pháp."
                     },
                     {
-                        id: "w2-d6", dayName: "Thứ 4", date: "24/06", type: "Writing (T1 Practice)", duration: "1.5h",
-                        tutorMsg: "Thực hành viết một bài báo cáo số liệu trọn vẹn.",
-                        tasks: ["Viết 1 Full bài Task 1 (Line Graph) trong 20 phút.", "Review Grammar (Kiểm tra lỗi S-V Agreement, Thì quá khứ)."],
-                        output: "Viết được 150 chữ trong 20 phút, mô tả logic xu hướng."
+                        id: "w2-d6", dayName: "Thứ 7", date: "27/06", type: "Mock S/W & Report", color: "purple", duration: "3h",
+                        tutorMsg: "Thi thử Speaking và Writing liên tục trong không gian áp lực.",
+                        tasks: ["Thi thử Speaking Part 1, 2, 3 liên tục với Tutor hoặc tự ghi âm.", "Viết Full Task 1 & 2 trong đúng 60 phút."],
+                        output: "Làm quen nhịp độ thi thực tế của kỹ năng Output."
                     },
                     {
-                        id: "w2-d7", dayName: "Thứ 5", date: "25/06", type: "Review & Tutor Check", duration: "1.5h",
-                        tutorMsg: "Cuối tuần của chu kỳ 2. Hệ thống lại kiến thức.",
-                        tasks: ["Ôn tập toàn bộ Anki/Vocab đã nhập trong 2 tuần.", "Gửi bài Writing T1 cho AI/Tutor chấm. Đọc kỹ feedback."],
-                        output: "Nhớ 80% từ mới. Biết được lỗi Grammar cố hữu để sửa."
+                        id: "w2-d7", dayName: "Chủ Nhật", date: "28/06", type: "Tutor Feedback", color: "orange", duration: "4h", time: "14:00 - 18:00", isWide: true,
+                        tutorMsg: "Review kỹ toàn bộ liệu trình tuần, sửa lỗi Writing và Speaking. ",
+                        tasks: ['Xem lại nhận xét của Tutor cho bài Viết. Sửa lại các câu dùng từ chưa tự nhiên.', 'Sửa lỗi phát âm và độ trôi chảy từ bài Mock Speaking.', 'Đọc lướt 1-2 bài Passage chuyên ngành DA để giữ nhịp độ Skimming.', 'Review Anki các Idioms và Collocations mới.'],
+                        output: 'Nhận thức rõ hạn chế hiện tại. Có giải pháp cho tuần tới.'
                     }
                 ]
             }
@@ -606,7 +606,7 @@
 
         // --- AUTO-GENERATE WEEKS 3 TO 22 ---
         const generateRestOfSyllabus = () => {
-            let currentDate = new Date(2026, 5, 26); // Start of Week 3 (June 26, 2026, Friday)
+            let currentDate = new Date(2026, 5, 29); // Start of Week 3 (June 29, 2026, Monday)
             
             for (let w = 3; w <= 22; w++) {
                 let phase = 1;
