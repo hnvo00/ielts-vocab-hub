@@ -833,6 +833,7 @@
                 if(day.type.includes('Reading') || day.type.includes('Listening') || day.type.includes('R/L')) typeColor = 'blue';
                 if(day.type.includes('Mock') || day.type.includes('Cool')) typeColor = 'orange';
 
+                const savedNote = getDailyNote(day.id);
                 const html = `
                 <div id="card-${day.id}" class="flex flex-col md:flex-row gap-4 p-5 rounded-xl border ${cardBg} shadow-sm transition-all hover:shadow-md">
                     
