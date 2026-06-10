@@ -344,19 +344,26 @@
 
         // Tab Switching Logic
         function switchTab(tabId) {
-            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('tab-' + tabId).classList.add('active');
-            
-            document.getElementById('content-overview').classList.add('hidden');
-            document.getElementById('content-schedule').classList.add('hidden');
-            document.getElementById('content-syllabus').classList.add('hidden');
-            
-            document.getElementById('content-' + tabId).classList.remove('hidden');
+            const validTabs = ['overview', 'schedule', 'syllabus'];
+            if (!validTabs.includes(tabId)) tabId = 'overview';
 
-            if(tabId === 'schedule' && !document.getElementById('schedule-container').innerHTML.trim()) {
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+            const activeButton = document.getElementById('tab-' + tabId);
+            if (activeButton) activeButton.classList.add('active');
+            
+            validTabs.forEach(tab => {
+                const section = document.getElementById('content-' + tab);
+                if (section) section.classList.add('hidden');
+            });
+            const activeContent = document.getElementById('content-' + tabId);
+            if (activeContent) activeContent.classList.remove('hidden');
+
+            localStorage.setItem('ieltsDashboardActiveTab', tabId);
+
+            if (tabId === 'schedule') {
                 switchSchedulePhase(1);
             }
-            if(tabId === 'syllabus' && document.getElementById('week-selector').options.length === 0) {
+            if (tabId === 'syllabus') {
                 initSyllabus();
             }
         }
@@ -972,7 +979,10 @@
         
         // Initialization
         window.onload = () => {
-            switchSchedulePhase(1); 
+            const savedTab = localStorage.getItem('ieltsDashboardActiveTab');
+            const validTabs = ['overview', 'schedule', 'syllabus'];
+            const tabToShow = validTabs.includes(savedTab) ? savedTab : 'overview';
+            switchTab(tabToShow);
         };
     </script>
 </body>
