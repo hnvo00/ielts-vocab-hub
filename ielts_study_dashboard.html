@@ -11,6 +11,7 @@
         
         body {
             font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
             background-color: #f8f9fa;
             color: #334155;
         }
@@ -45,13 +46,18 @@
         <!-- Header -->
         <header class="mb-10 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">IELTS Strategy Dashboard</h1>
+                <h1 class="text-4xl font-bold text-slate-900 tracking-tight">IELTS Strategy Dashboard</h1>
                 <p class="text-slate-500 mt-2">Dành cho: <span class="font-semibold text-slate-700 underline">Data Analyst Pro</span> | Mục tiêu: 7.0 - 7.5 Overall</p>
             </div>
-            <div class="flex gap-3">
-                <span class="bg-teal-100 text-teal-800 skill-badge">Speaking: 7.0 Target</span>
-                <span class="bg-indigo-100 text-indigo-800 skill-badge">Writing: 7.0 Target</span>
-                <span class="bg-slate-200 text-slate-800 skill-badge">18h/Tuần</span>
+            <div class="flex flex-col sm:flex-row items-center justify-end gap-3">
+                <div class="flex flex-wrap gap-3 justify-center sm:justify-end">
+                    <span class="bg-teal-100 text-teal-800 skill-badge">Speaking: 7.0 Target</span>
+                    <span class="bg-indigo-100 text-indigo-800 skill-badge">Writing: 7.0 Target</span>
+                    <span class="bg-slate-200 text-slate-800 skill-badge">18h/Tuần</span>
+                </div>
+                <a href="index.html" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50">
+                    Quay về trang chủ
+                </a>
             </div>
         </header>
 
