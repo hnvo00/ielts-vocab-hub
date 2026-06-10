@@ -45,7 +45,7 @@
         <!-- Header -->
         <header class="mb-10 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-4">
             <div>
-                <h1 class="text-4xl font-bold text-slate-900 tracking-tight">IELTS Strategy Dashboard</h1>
+                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">IELTS Strategy Dashboard</h1>
                 <p class="text-slate-500 mt-2">Dành cho: <span class="font-semibold text-slate-700 underline">Ielts Learner</span> | Mục tiêu: 7.0 - 7.5 Overall</p>
             </div>
             <div class="flex flex-col sm:flex-row items-center justify-end gap-3">
@@ -196,16 +196,16 @@
         <section id="content-syllabus" class="space-y-8">
             <div class="prose max-w-none flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                 <div>
-                    <h2 class="text-2xl font-bold flex items-center text-slate-800">
+                    <h3 class="text-xl font-bold flex items-center text-slate-800">
                         <svg class="w-7 h-7 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                         Tutor's Daily Check-ins (Từ 12/06)
-                    </h2>
-                    <p class="text-slate-600 mt-2">Đồng bộ giờ học: <span class="font-semibold text-indigo-600">T2-T6 (1.5 - 2h), T7-CN (3 - 4h)</span>. Đánh dấu ✅ và Note lại kiến thức mỗi ngày nhé!</p>
+                    </h3>
+                    <p class="text-slate-600 mt-2 text-sm">Đồng bộ giờ học: <span class="font-semibold text-indigo-600">T2-T6 (1.5 - 2h), T7-CN (3 - 4h)</span>. Mark Done và Note lại kiến thức mỗi ngày nhé!</p>
                 </div>
                 <!-- Week Selector -->
                 <div class="flex items-center gap-2 bg-white px-4 py-2 rounded-lg border border-slate-200 shadow-sm">
-                    <span class="text-sm font-semibold text-slate-600">Tuần:</span>
-                    <select id="week-selector" onchange="renderDailyCards(this.value)" class="text-sm border-none bg-transparent font-bold text-indigo-600 focus:ring-0 cursor-pointer outline-none max-w-[200px] truncate">
+                    <span class="text-[12px] font-semibold text-slate-600">Tuần:</span>
+                    <select id="week-selector" onchange="renderDailyCards(this.value)" class="text-[12px] border-none bg-transparent font-bold text-indigo-600 focus:ring-0 cursor-pointer outline-none min-w-[260px]">
                         <!-- Javascript will inject options here -->
                     </select>
                 </div>
