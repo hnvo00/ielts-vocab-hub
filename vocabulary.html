@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows of IELTS Vocab - 30 Ô Cửa Sổ Từ Vựng</title>
-    <meta name="description" content="30 ô cửa sổ từ vựng IELTS: mở tài liệu, ghi chú, lập kế hoạch và theo dõi tiến độ học theo ngày.">
+    <title>Windows of IELTS Vocab — 31 Topic Windows</title>
+    <meta name="description" content="31 IELTS vocabulary windows: open materials, take notes, plan sessions and track daily study progress.">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -113,7 +113,7 @@
                 <div class="w-full sm:w-72 bg-purple-100/80 p-3 rounded-2xl border border-purple-200/80">
                     <div class="flex justify-between items-center text-xs font-bold text-purple-800 mb-1.5">
                         <span>Tiến độ hoàn thành</span>
-                        <span id="progress-text" class="bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">0 / 30 (0%)</span>
+                        <span id="progress-text" class="bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">0 / 31 (0%)</span>
                     </div>
                     <div class="w-full bg-white rounded-full h-3 overflow-hidden p-0.5 shadow-inner">
                         <div id="progress-bar" class="bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
@@ -136,10 +136,10 @@
         <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-6 bg-white/70 p-3.5 rounded-2xl border border-purple-200/60 shadow-sm">
             <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-center lg:justify-start">
                 <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-600 text-white shadow-sm">
-                    Tất cả (<span id="count-all">30</span>)
+                    Tất cả (<span id="count-all">31</span>)
                 </button>
                 <button onclick="setFilter('new')" id="filter-new" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
-                    🌱 Chưa học (<span id="count-new">30</span>)
+                    🌱 Chưa học (<span id="count-new">31</span>)
                 </button>
                 <button onclick="setFilter('learning')" id="filter-learning" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
                     📖 Đang học (<span id="count-learning">0</span>)
@@ -358,36 +358,37 @@
         // 30 topics. `file` is the source HTML in this folder.
         // Topics without a file yet will show "Sắp cập nhật" (add the filename later).
         const topicsData = [
-            { id: 1, code: "01", title: "Environment, Climate, Weather", emoji: "🌿", sub: "Weather, climate, environment & natural disasters", file: "01 Weather.html" },
+            { id: 1, code: "01", title: "Environment, Climate & Weather", emoji: "🌿", sub: "Weather, climate, environment & natural disasters", file: "01 Weather.html" },
             { id: 2, code: "02", title: "Travel", emoji: "✈️", sub: "Travel and tourism", file: "02 Travel.html" },
             { id: 3, code: "03", title: "City", emoji: "🏙️", sub: "City vs. country", file: "03 City.html" },
             { id: 4, code: "04", title: "Building", emoji: "🏛️", sub: "Accommodation, building & noise", file: "04 Building.html" },
             { id: 5, code: "05", title: "Food", emoji: "🍰", sub: "Food and sustainable agriculture", file: "05 Food.html" },
             { id: 6, code: "06", title: "Film", emoji: "🎬", sub: "Film and media", file: "06 Film.html" },
             { id: 7, code: "07", title: "Book", emoji: "📚", sub: "Books and libraries in the digital age", file: "07 Book.html" },
-            { id: 8, code: "10", title: "Music", emoji: "🎵", sub: "Music", file: "08 Music.html" },
-            { id: 9, code: "11", title: "Sport", emoji: "🏅", sub: "Sport", file: "09 Sport.html" },
-            { id: 10, code: "12", title: "Health", emoji: "🩺", sub: "Health", file: "10 Health.html" },
-            { id: 11, code: "13", title: "Internet", emoji: "🌐", sub: "Internet", file: "11 Internet.html" },
-            { id: 12, code: "14", title: "Work", emoji: "💼", sub: "Work", file: "12 Work.html" },
-            { id: 13, code: "15", title: "Business", emoji: "📈", sub: "Business", file: "13 Business.html" },
-            { id: 14, code: "16", title: "Advertising", emoji: "📢", sub: "Advertising", file: "14 Advertising.html" },
-            { id: 15, code: "17", title: "Crime", emoji: "⚖️", sub: "Crime, law and social security", file: "15 Crime.docx" },
-            { id: 16, code: "18", title: "Famous", emoji: "🌟", sub: "Famous people", file: null },
-            { id: 17, code: "19", title: "Fashion", emoji: "👗", sub: "Fashion", file: null },
-            { id: 18, code: "20", title: "Person", emoji: "🧑", sub: "Person", file: null },
-            { id: 19, code: "21", title: "Festival", emoji: "🏮", sub: "Festival", file: null },
-            { id: 20, code: "22A", title: "Space", emoji: "🪐", sub: "Space", file: null },
-            { id: 21, code: "22B", title: "Education", emoji: "🎓", sub: "Vocab; L (University, Paper); R; S; W", file: null },
-            { id: 22, code: "23", title: "News", emoji: "📰", sub: "Listening (News); Speaking (News)", file: null },
-            { id: 23, code: "24", title: "Language", emoji: "🗣️", sub: "Vocab; R (Language); S (Foreign lang); W", file: null },
-            { id: 24, code: "25", title: "Play, Entertainment & Games", emoji: "🎮", sub: "Vocab; L; R; S (Free time, Toy, Game); W", file: null },
-            { id: 25, code: "26", title: "Hobby & Pastime", emoji: "🧶", sub: "Vocab; R (Hobby); S (Entertainment); W", file: null },
-            { id: 26, code: "27", title: "Family & Friends", emoji: "🏡", sub: "Vocab; S (Friends & Family); W (Family)", file: null },
-            { id: 27, code: "28", title: "Age & Generations", emoji: "⏳", sub: "Vocab; L (Children); R (Old); S; W (Teenager)", file: null },
-            { id: 28, code: "29", title: "Photography (Photo)", emoji: "📸", sub: "Vocab; Speaking (Photo)", file: null },
-            { id: 29, code: "30", title: "Art & Museum", emoji: "🎨", sub: "Vocab; L (Museum); R; S (Art); W (Art, Museum)", file: null },
-            { id: 30, code: "31", title: "History & Archeology", emoji: "🏺", sub: "Vocab; L (Archeology); R; S (History); W", file: null }
+            { id: 8, code: "08", title: "Music", emoji: "🎵", sub: "Music and live performance", file: "08 Music.html" },
+            { id: 9, code: "09", title: "Sport", emoji: "🏅", sub: "Sport and physical health", file: "09 Sport.html" },
+            { id: 10, code: "10", title: "Health", emoji: "🩺", sub: "Health and sports science", file: "10 Health.html" },
+            { id: 11, code: "11", title: "Internet", emoji: "🌐", sub: "Technology and its multifaceted impacts", file: "11 Internet.html" },
+            { id: 12, code: "12", title: "Work", emoji: "💼", sub: "Business management and strategic success", file: "12 Work.html" },
+            { id: 13, code: "13", title: "Business", emoji: "📈", sub: "Business & enterprise success", file: "13 Business.html" },
+            { id: 14, code: "14", title: "Advertising", emoji: "📢", sub: "Advertising and consumerism", file: "14 Advertising.html" },
+            { id: 15, code: "15", title: "Crime", emoji: "⚖️", sub: "Crime, law and social security", file: "15 Crime.docx" },
+            { id: 16, code: "16", title: "Famous", emoji: "🌟", sub: "Famous people", file: null },
+            { id: 17, code: "17", title: "Fashion", emoji: "👗", sub: "Fashion", file: null },
+            { id: 18, code: "18", title: "Person", emoji: "🧑", sub: "Appearance and personality", file: null },
+            { id: 19, code: "19", title: "Festival", emoji: "🏮", sub: "Festivals and celebrations", file: null },
+            { id: 20, code: "20", title: "Space", emoji: "🪐", sub: "Space exploration", file: null },
+            { id: 21, code: "21", title: "Science", emoji: "🔬", sub: "Science and scientific research", file: null },
+            { id: 22, code: "22", title: "Education", emoji: "🎓", sub: "University, papers, listening, reading & writing", file: null },
+            { id: 23, code: "23", title: "News", emoji: "📰", sub: "Listening and speaking about the news", file: null },
+            { id: 24, code: "24", title: "Language", emoji: "🗣️", sub: "Language learning, reading, speaking & writing", file: null },
+            { id: 25, code: "25", title: "Play, Entertainment & Games", emoji: "🎮", sub: "Free time, toys and games", file: null },
+            { id: 26, code: "26", title: "Hobby & Pastime", emoji: "🧶", sub: "Hobbies, reading and entertainment", file: null },
+            { id: 27, code: "27", title: "Family & Friends", emoji: "🏡", sub: "Friends, family and relationships", file: null },
+            { id: 28, code: "28", title: "Age & Generations", emoji: "⏳", sub: "Children, the elderly and teenagers", file: null },
+            { id: 29, code: "29", title: "Photography (Photo)", emoji: "📸", sub: "Photography and speaking about photos", file: null },
+            { id: 30, code: "30", title: "Art & Museum", emoji: "🎨", sub: "Art and museums", file: null },
+            { id: 31, code: "31", title: "History & Archeology", emoji: "🏺", sub: "History and archeology", file: null }
         ];
 
         const STORAGE_KEY = 'ielts_windows_tracker_v3';

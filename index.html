@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IELTS 7.5 Mastery Pipeline — 30-Week Tracker</title>
+  <title>IELTS 7.5 Mastery Pipeline — Study Tracker</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & JetBrains Mono -->
@@ -144,7 +144,7 @@
             Command Center
           </button>
           <button onclick="switchMainView('matrix')" id="nav-matrix" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-900">
-            30-Topic Matrix
+            Topic Matrix
           </button>
           <button onclick="switchMainView('redlist')" id="nav-redlist" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
             Red List
@@ -154,12 +154,12 @@
 
         <a href="./vocabulary.html" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition">
           <i data-lucide="book-open" class="w-4 h-4"></i>
-          30 Vocabulary Topics
+          Vocabulary Topics
         </a>
 
         <!-- Export / Import Backup -->
         <div class="flex items-center gap-1.5 pl-2 border-l border-slate-200">
-          <button onclick="syncFromSheets(true)" id="sync-sheet-btn" title="Đồng bộ từ Google Sheet" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+          <button onclick="syncFromSheets(true)" id="sync-sheet-btn" title="Sync from Google Sheet" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
             <i data-lucide="refresh-cw" class="w-4 h-4"></i>
           </button>
           <button onclick="exportData()" title="Export JSON Backup" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
@@ -179,7 +179,7 @@
         Active Week
       </button>
       <button onclick="switchMainView('matrix')" id="mnav-matrix" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-slate-600">
-        30 Topics
+        Topic Matrix
       </button>
       <button onclick="switchMainView('redlist')" id="mnav-redlist" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-slate-600">
         Red List (<span id="mnav-redlist-badge">0</span>)
@@ -198,12 +198,12 @@
             <i data-lucide="book-open" class="w-5 h-5"></i>
           </div>
           <div class="min-w-0">
-            <p class="text-sm font-semibold text-slate-900">30 Vocabulary Topics</p>
-            <p class="text-xs text-slate-500">Mở thư viện 30 chủ đề, ghi chú và theo dõi tiến độ từng chủ đề.</p>
+            <p class="text-sm font-semibold text-slate-900">Vocabulary Topics</p>
+            <p class="text-xs text-slate-500">Open the topic library, take notes and track progress for each topic.</p>
           </div>
         </div>
         <span class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 group-hover:bg-emerald-700 transition shrink-0">
-          Mở 30 chủ đề
+          Open topics
           <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </span>
       </a>
@@ -219,7 +219,7 @@
         </div>
         <div class="flex items-baseline gap-1.5">
           <span id="kpi-mastered" class="text-2xl font-bold tracking-tight text-slate-900">0</span>
-          <span class="text-xs font-medium text-slate-400">/ 30</span>
+          <span id="kpi-mastered-total" class="text-xs font-medium text-slate-400">/ 30</span>
         </div>
         <div class="mt-2 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
           <div id="kpi-mastered-bar" class="bg-emerald-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
@@ -311,7 +311,7 @@
               />
               <i data-lucide="pencil" class="w-4 h-4 text-slate-400 shrink-0 opacity-60 group-hover:opacity-100"></i>
             </div>
-            <p class="text-xs text-slate-500">Click the topic title above anytime to customize it to match your 30-topic list.</p>
+            <p class="text-xs text-slate-500">Click the topic title above anytime to customize it to match your topic list.</p>
           </div>
 
           <!-- Week Switcher Controls -->
@@ -549,18 +549,18 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- VIEW 2: 30-TOPIC MASTER MATRIX & SPACED REVIEW QUEUE                  -->
+    <!-- VIEW 2: TOPIC MASTER MATRIX & SPACED REVIEW QUEUE                  -->
     <!-- ===================================================================== -->
     <div id="view-matrix" class="hidden space-y-5">
       <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-apple flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 class="text-lg font-bold text-slate-900">30-Topic Master Matrix &amp; Spaced Retention Queue</h2>
+          <h2 class="text-lg font-bold text-slate-900">Topic Master Matrix &amp; Spaced Retention Queue</h2>
           <p class="text-xs text-slate-500">Click any week card to open its Command Center. Completed topics automatically trigger +1w, +3w, and +6w reviews.</p>
         </div>
 
         <!-- Filter Pills -->
         <div class="flex flex-wrap items-center gap-1.5">
-          <button onclick="setMatrixFilter('all')" id="mfilter-all" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white">All (30)</button>
+          <button onclick="setMatrixFilter('all')" id="mfilter-all" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white">All</button>
           <button onclick="setMatrixFilter('active')" id="mfilter-active" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">In Progress</button>
           <button onclick="setMatrixFilter('review')" id="mfilter-review" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Review Due</button>
           <button onclick="setMatrixFilter('mastered')" id="mfilter-mastered" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Mastered</button>
@@ -568,7 +568,7 @@
         </div>
       </div>
 
-      <!-- 30-Topic Grid -->
+      <!-- Topic Grid -->
       <div id="matrix-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- Populated by JS -->
       </div>
@@ -581,7 +581,7 @@
           </span>
           <div class="min-w-0">
             <p class="text-xs font-bold text-slate-900"><span id="phase2-title">Full Mock Exam Calibration</span> <span class="text-slate-400 font-normal">·</span> <span id="phase2-dates" class="font-normal text-slate-500"></span></p>
-            <p class="text-[11px] text-slate-500">After the 30 topic weeks, move into full mock exams and error calibration.</p>
+            <p class="text-[11px] text-slate-500">After the topic weeks, move into full mock exams and error calibration.</p>
           </div>
         </div>
         <span id="phase2-phase" class="text-[11px] font-semibold text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-lg shrink-0">Phase 2</span>
@@ -658,7 +658,7 @@
 
   <!-- Minimal Footer -->
   <footer class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 border-t border-slate-200/60 mt-8">
-    <p>30-Week Sprint (Nov 2026 – Jun 2027) → 4-Week Mock Exam Calibration → July 2027 Target</p>
+    <p>Topic Sprint (Nov 2026 – Jun 2027) → 4-Week Mock Exam Calibration → July 2027 Target</p>
     <button onclick="resetDemoPrompt()" class="mt-2 sm:mt-0 text-slate-400 hover:text-rose-600 underline transition-colors">
       Reset All Tracker Data
     </button>
@@ -685,7 +685,7 @@
 
   <script>
     // =========================================================================
-    // 1. DEFAULT DATA & DAY-BY-DAY CURRICULUM ARCHITECTURE (30 IELTS TOPICS)
+    // 1. DEFAULT DATA & DAY-BY-DAY CURRICULUM ARCHITECTURE
     // =========================================================================
     const DEFAULT_TOPICS = [
       "Environment & Climate Change",
@@ -718,6 +718,41 @@
       "History, Tradition & Modernity",
       "Business, Entrepreneurship & Economy",
       "Ethics, Moral Dilemmas & Future Society"
+    ];
+
+    // Titles from earlier sheet versions. Used once to migrate states saved
+    // before weeks carried their own last-known sheet title.
+    const PREVIOUS_SHEET_TITLES = [
+      "Environment, Climate & Weather",
+      "Travel",
+      "City",
+      "Building",
+      "Food",
+      "Film",
+      "Book",
+      "Music",
+      "Sport",
+      "Health",
+      "Internet",
+      "Work",
+      "Business",
+      "Advertising",
+      "Crime",
+      "Famous Fashion Person",
+      "Festival",
+      "Space",
+      "Education",
+      "News",
+      "Language",
+      "Play, Entertainment & Games",
+      "Hobby & Pastime",
+      "Family & Friends",
+      "Age & Generations",
+      "Photography (Photo)",
+      "Art & Museum",
+      "History & Archeology",
+      "Full Mock Exam Calibration (Phase 2)",
+      "Final Exam Calibration & Polish"
     ];
 
     const GATE_META = {
@@ -956,6 +991,7 @@
           weekNumber: idx + 1,
           title,
           customTitle: false,
+          sheetTitle: '',
           phase: 'Topic Sprint Phase',
           dateRange,
           days: buildDefaultDaysForWeek(idx),
@@ -998,7 +1034,7 @@
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw) {
           const parsed = JSON.parse(raw);
-          if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length === 30) {
+          if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length > 0) {
             appState = parsed;
             return;
           }
@@ -1026,7 +1062,7 @@
     }
 
     // =========================================================================
-    // 2B. GOOGLE SHEET SYNC (Master Timeline + 30-Topic Detailed Schedule)
+    // 2B. GOOGLE SHEET SYNC (Master Timeline + Detailed Schedule)
     // =========================================================================
     const SHEET_ID = '191oY3oh2eqdy5WbaAUCiKhtQN7vGrLLO';
     const SHEET_GID_MASTER = '1045481230';
@@ -1135,8 +1171,11 @@
         const phase = (cells[3] || '').trim();
         if (!week || !title) continue;
         const entry = { week, title, dates, phase };
-        if (week <= 30) topics.push(entry);
-        else if (!phase2) phase2 = entry;
+        if (/mock\s*exam|calibration/i.test(title)) {
+          if (!phase2) phase2 = entry;
+        } else {
+          topics.push(entry);
+        }
       }
       return { meta, topics, phase2 };
     }
@@ -1193,7 +1232,7 @@
       const topics = master.topics.length
         ? master.topics
         : DEFAULT_TOPICS.map((title, idx) => ({ week: idx + 1, title, dates: '', phase: 'Topic Sprint Phase' }));
-      return topics.slice(0, 30).map((topic, idx) => {
+      return topics.map((topic, idx) => {
         const prev = oldWeeks[idx] || {};
         const prevDays = Array.isArray(prev.days) ? prev.days : [];
         const sheetDays = detail[topic.week] || [];
@@ -1237,12 +1276,22 @@
           };
         });
         const oldDefault = DEFAULT_TOPICS[idx] || '';
-        const isCustomTitle = prev.customTitle === true || (prev.title && prev.title !== oldDefault && prev.title !== topic.title);
+        const knownSheetTitles = new Set([...DEFAULT_TOPICS, ...PREVIOUS_SHEET_TITLES, ...(master.topics || []).map(item => item.title)]);
+        const previousSheetTitle = prev.sheetTitle || '';
+        let isCustomTitle;
+        if (previousSheetTitle) {
+          isCustomTitle = prev.customTitle === true && Boolean(prev.title) && prev.title !== previousSheetTitle;
+        } else if (prev.customTitle === true) {
+          isCustomTitle = Boolean(prev.title) && !knownSheetTitles.has(prev.title);
+        } else {
+          isCustomTitle = Boolean(prev.title && prev.title !== oldDefault && !knownSheetTitles.has(prev.title));
+        }
         return {
           ...prev,
           weekNumber: idx + 1,
           title: isCustomTitle ? prev.title : topic.title,
           customTitle: isCustomTitle,
+          sheetTitle: topic.title,
           dateRange: topic.dates || prev.dateRange || '',
           phase: topic.phase || 'Topic Sprint Phase',
           days
@@ -1283,7 +1332,7 @@
     async function syncFromSheets(manual = false) {
       if (sheetSyncInFlight) return;
       if (location.protocol === 'file:') {
-        if (manual) showToast('Đồng bộ Google Sheet cần chạy qua http(s), không mở trực tiếp file.', 'error');
+        if (manual) showToast('Sheet sync requires http(s). Open the site from a server, not a local file.', 'error');
         return;
       }
       sheetSyncInFlight = true;
@@ -1317,12 +1366,12 @@
         if (btn) {
           const now = new Date();
           const time = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-          btn.title = `Đồng bộ từ Google Sheet (lần cuối: ${time})`;
+          btn.title = `Sync from Google Sheet (last sync: ${time})`;
         }
-        if (manual) showToast('Đã đồng bộ nội dung từ Google Sheet');
+        if (manual) showToast('Synced content from Google Sheet');
       } catch (error) {
         console.error('Google Sheet sync failed:', error);
-        if (manual) showToast('Không đồng bộ được Google Sheet. Kiểm tra quyền chia sẻ.', 'error');
+        if (manual) showToast('Could not sync the Google Sheet. Check sharing permissions.', 'error');
       } finally {
         sheetSyncInFlight = false;
         if (btn) {
@@ -1408,7 +1457,9 @@
       const activeStats = getWeekCompletionStats(currentWeek);
 
       document.getElementById('kpi-mastered').textContent = masteredCount;
-      document.getElementById('kpi-mastered-bar').style.width = `${Math.round((masteredCount / 30) * 100)}%`;
+      document.getElementById('kpi-mastered-bar').style.width = `${Math.round((masteredCount / Math.max(appState.weeks.length, 1)) * 100)}%`;
+      const masteredTotal = document.getElementById('kpi-mastered-total');
+      if (masteredTotal) masteredTotal.textContent = `/ ${appState.weeks.length}`;
 
       document.getElementById('kpi-consistency').textContent = `${activeStats.pct}%`;
       const consTag = document.getElementById('kpi-consistency-tag');
@@ -1448,14 +1499,14 @@
       }).join('');
 
       document.getElementById('btn-prev-week').disabled = appState.activeWeek <= 1;
-      document.getElementById('btn-next-week').disabled = appState.activeWeek >= 30;
+      document.getElementById('btn-next-week').disabled = appState.activeWeek >= appState.weeks.length;
     }
 
     function renderCommandCenter() {
       const week = appState.weeks[appState.activeWeek - 1];
       const stats = getWeekCompletionStats(week);
 
-      document.getElementById('active-week-pill').textContent = `WEEK ${week.weekNumber} OF 30`;
+      document.getElementById('active-week-pill').textContent = `WEEK ${week.weekNumber} OF ${appState.weeks.length}`;
       document.getElementById('active-week-dates').textContent = week.dateRange;
       document.getElementById('active-topic-title').value = week.title;
 
@@ -1827,7 +1878,7 @@
     }
 
     function selectWeek(weekNum) {
-      if (weekNum < 1 || weekNum > 30) return;
+      if (weekNum < 1 || weekNum > appState.weeks.length) return;
       appState.activeWeek = weekNum;
       flashcardIndex = 0;
       isCardFlipped = false;
@@ -2115,7 +2166,7 @@
       reader.onload = function(e) {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length === 30) {
+          if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length > 0) {
             appState = parsed;
             saveState();
             renderAll();
