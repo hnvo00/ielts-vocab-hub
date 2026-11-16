@@ -200,11 +200,78 @@
                     </div>
                 </div>
 
-                <!-- Plan -->
+                <!-- Milestones -->
                 <section>
-                    <h3 class="text-sm font-bold text-purple-900 mb-2.5 flex items-center gap-1.5">
-                        <span>🗓️</span> Kế hoạch học theo ngày
-                    </h3>
+                    <div class="flex items-center justify-between gap-3 mb-2.5">
+                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
+                            <span>🎯</span> Tiến độ học & ôn tập
+                        </h3>
+                        <span id="milestone-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0/4 mốc</span>
+                    </div>
+                    <div class="space-y-2" id="modal-checklist">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
+                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
+                                <input type="checkbox" data-step="0" onchange="toggleStep(0)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                                <span class="text-sm min-w-0">
+                                    <span class="block font-bold text-purple-950">Học từ vựng</span>
+                                    <span class="block text-xs text-purple-600">Hoàn thành danh sách từ vựng của chủ đề</span>
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
+                                <input type="date" id="step-date-0" onchange="saveStepDate(0)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
+                            </label>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
+                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
+                                <input type="checkbox" data-step="1" onchange="toggleStep(1)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                                <span class="text-sm min-w-0">
+                                    <span class="block font-bold text-purple-950">Ôn tập lần 1</span>
+                                    <span class="block text-xs text-purple-600">Ôn lại sau buổi học đầu tiên</span>
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
+                                <input type="date" id="step-date-1" onchange="saveStepDate(1)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
+                            </label>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
+                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
+                                <input type="checkbox" data-step="2" onchange="toggleStep(2)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                                <span class="text-sm min-w-0">
+                                    <span class="block font-bold text-purple-950">Ôn tập lần 2</span>
+                                    <span class="block text-xs text-purple-600">Củng cố từ vựng & collocations</span>
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
+                                <input type="date" id="step-date-2" onchange="saveStepDate(2)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
+                            </label>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
+                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
+                                <input type="checkbox" data-step="3" onchange="toggleStep(3)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                                <span class="text-sm min-w-0">
+                                    <span class="block font-bold text-purple-950">Ôn tập lần 3</span>
+                                    <span class="block text-xs text-purple-600">Ôn tập cuối trước khi hoàn thành chủ đề</span>
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
+                                <input type="date" id="step-date-3" onchange="saveStepDate(3)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Plan + sessions -->
+                <section>
+                    <div class="flex items-center justify-between gap-3 mb-2.5">
+                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
+                            <span>🗓️</span> Kế hoạch & theo dõi buổi học
+                        </h3>
+                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0/0 buổi</span>
+                    </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <label class="block">
                             <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Bắt đầu</span>
@@ -218,70 +285,28 @@
                         </label>
                     </div>
                     <p id="plan-status" class="text-xs font-bold text-purple-600 mt-2">Chưa đặt kế hoạch</p>
-                </section>
 
-                <!-- 4 layers -->
-                <section>
-                    <h3 class="text-sm font-bold text-purple-900 mb-2.5 flex items-center gap-1.5">
-                        <span>🔑</span> Checklist 4 lớp
-                    </h3>
-                    <div class="space-y-2" id="modal-checklist">
-                        <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 cursor-pointer transition">
-                            <input type="checkbox" data-step="0" onchange="toggleStep(0)" class="custom-checkbox mt-0.5 w-5 h-5 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
-                            <div class="text-sm">
-                                <p class="font-bold text-purple-950">1. Khung cửa kính (Core Lexicon & Paraphrase)</p>
-                                <p class="text-xs text-purple-600">Nạp 15–20 từ vựng đắt giá & bảng nâng cấp từ vựng Band 5.5 → 7.5+</p>
-                            </div>
-                        </label>
-                        <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 cursor-pointer transition">
-                            <input type="checkbox" data-step="1" onchange="toggleStep(1)" class="custom-checkbox mt-0.5 w-5 h-5 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
-                            <div class="text-sm">
-                                <p class="font-bold text-purple-950">2. Chốt khóa (Collocations & Idioms)</p>
-                                <p class="text-xs text-purple-600">Nắm vững 5–7 cụm Collocations tự nhiên & 2–3 Idioms dùng cho Speaking</p>
-                            </div>
-                        </label>
-                        <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 cursor-pointer transition">
-                            <input type="checkbox" data-step="2" onchange="toggleStep(2)" class="custom-checkbox mt-0.5 w-5 h-5 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
-                            <div class="text-sm">
-                                <p class="font-bold text-purple-950">3. Góc nhìn qua cửa sổ (Context & Mini-script)</p>
-                                <p class="text-xs text-purple-600">Đọc/viết 1 đoạn Speaking Cue Card & 1 Topic Sentence Writing Task 2</p>
-                            </div>
-                        </label>
-                        <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 cursor-pointer transition">
-                            <input type="checkbox" data-step="3" onchange="toggleStep(3)" class="custom-checkbox mt-0.5 w-5 h-5 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
-                            <div class="text-sm">
-                                <p class="font-bold text-purple-950">4. Chìa khóa mở cửa (1-Min Speaking / Paraphrase Test)</p>
-                                <p class="text-xs text-purple-600">Tự ghi âm nói 1 phút hoặc viết lại 3 câu dùng ít nhất 5 từ vừa học</p>
-                            </div>
-                        </label>
+                    <div class="mt-4 pt-4 border-t border-purple-100">
+                        <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-2">Các buổi học của bạn</p>
+                        <p class="text-[11px] text-purple-500 mb-2">Thêm ngày học, rồi tick vào ô khi bạn hoàn thành buổi đó.</p>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="date" id="session-date"
+                                class="flex-1 rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                            <button onclick="addSession()" class="px-4 py-2 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-600 hover:to-fuchsia-600 shadow-sm transition">
+                                + Thêm buổi học
+                            </button>
+                        </div>
+                        <div id="sessions-list" class="mt-2.5 space-y-1.5"></div>
                     </div>
                 </section>
 
                 <!-- Notes -->
                 <section>
                     <label for="modal-notes" class="block text-sm font-bold text-purple-900 mb-1.5">
-                        📝 Ghi chú & từ vựng tâm đắc
+                        📝 Ghi chú chung cho chủ đề
                     </label>
-                    <textarea id="modal-notes" oninput="saveNotes()" rows="3" placeholder="Ví dụ: exacerbate environmental degradation, mitigate climate change..."
+                    <textarea id="modal-notes" oninput="saveNotes()" rows="4" placeholder="Ví dụ: từ vựng khó, ý tưởng Speaking, lỗi cần sửa, kế hoạch ôn tập..."
                         class="w-full rounded-2xl border border-purple-200 p-3 text-sm text-purple-950 placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-purple-50/30"></textarea>
-                </section>
-
-                <!-- Session tracking -->
-                <section>
-                    <div class="flex items-center justify-between gap-3 mb-2.5">
-                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
-                            <span>✅</span> Theo dõi buổi học
-                        </h3>
-                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 buổi</span>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-2">
-                        <input type="date" id="session-date"
-                            class="flex-1 rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                        <button onclick="addSession()" class="px-4 py-2 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-600 hover:to-fuchsia-600 shadow-sm transition">
-                            + Ghi nhận buổi học
-                        </button>
-                    </div>
-                    <div id="sessions-list" class="mt-2.5 space-y-1.5"></div>
                 </section>
             </div>
 
@@ -346,7 +371,8 @@
             { id: 30, code: "31", title: "History & Archeology", emoji: "🏺", sub: "Vocab; L (Archeology); R; S (History); W", file: null }
         ];
 
-        const STORAGE_KEY = 'ielts_windows_tracker_v2';
+        const STORAGE_KEY = 'ielts_windows_tracker_v3';
+        const LEGACY_STORAGE_KEY = 'ielts_windows_tracker_v2';
         const STATUS_META = {
             new: { label: 'Chưa học', pill: 'bg-purple-100 text-purple-700', card: 'bg-white/85 text-purple-600' },
             learning: { label: 'Đang học', pill: 'bg-amber-100 text-amber-700', card: 'bg-white/85 text-amber-600' },
@@ -357,25 +383,66 @@
         let currentFilter = 'all';
         let activeTopicId = null;
 
+        function normalizeSessions(sessions) {
+            if (!Array.isArray(sessions)) return [];
+            const seen = new Set();
+            return sessions.map(item => {
+                if (typeof item === 'string') return { date: item, done: true };
+                return { date: item && item.date ? item.date : '', done: Boolean(item && item.done) };
+            }).filter(item => {
+                if (!item.date || seen.has(item.date)) return false;
+                seen.add(item.date);
+                return true;
+            });
+        }
+
+        function normalizeState(raw) {
+            const source = raw || {};
+            const steps = Array.isArray(source.steps) ? source.steps.slice(0, 4) : [false, false, false, false];
+            const stepDates = Array.isArray(source.stepDates) ? source.stepDates.slice(0, 4) : ['', '', '', ''];
+            return {
+                completed: Boolean(source.completed),
+                steps: [0, 1, 2, 3].map(index => Boolean(steps[index])),
+                stepDates: [0, 1, 2, 3].map(index => stepDates[index] || ''),
+                notes: typeof source.notes === 'string' ? source.notes : '',
+                planStart: source.planStart || '',
+                planTarget: source.planTarget || '',
+                sessions: normalizeSessions(source.sessions)
+            };
+        }
+
         function loadProgress() {
             try {
-                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved) || {};
+                    const normalized = {};
+                    Object.keys(parsed).forEach(id => {
+                        normalized[id] = normalizeState(parsed[id]);
+                    });
+                    return normalized;
+                }
+
+                const legacy = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY) || '{}') || {};
+                const migrated = {};
+                Object.keys(legacy).forEach(id => {
+                    const raw = legacy[id] || {};
+                    const state = normalizeState(raw);
+                    if (!Array.isArray(raw.stepDates)) {
+                        state.steps.forEach((done, index) => {
+                            if (done) state.stepDates[index] = state.planStart || todayISO();
+                        });
+                    }
+                    migrated[id] = state;
+                });
+                return migrated;
             } catch (error) {
                 return {};
             }
         }
 
         function getState(id) {
-            if (!userData[id]) {
-                userData[id] = {
-                    completed: false,
-                    steps: [false, false, false, false],
-                    notes: "",
-                    planStart: "",
-                    planTarget: "",
-                    sessions: []
-                };
-            }
+            userData[id] = normalizeState(userData[id]);
             return userData[id];
         }
 
@@ -447,6 +514,7 @@
 
                 visible++;
                 const completedSteps = state.steps.filter(Boolean).length;
+                const doneSessions = state.sessions.filter(item => item.done).length;
                 const meta = STATUS_META[status];
                 const isCompleted = status === 'completed';
 
@@ -467,9 +535,9 @@
                             <h3 class="text-xs font-extrabold text-purple-950 line-clamp-2 leading-snug px-1">${topic.title}</h3>
                         </div>
                         <div class="w-full bg-white/80 rounded-full py-1 px-2 text-[10px] font-bold text-purple-700 flex items-center justify-center gap-1.5">
-                            <span>${completedSteps}/4 lớp</span>
+                            <span>${completedSteps}/4 mốc</span>
                             <span class="text-purple-300">•</span>
-                            <span>${state.sessions.length} buổi</span>
+                            <span>${doneSessions}/${state.sessions.length} buổi</span>
                             <span class="text-purple-300">•</span>
                             <span>${topic.file ? '📖' : '⏳'}</span>
                         </div>
@@ -558,8 +626,17 @@
             statusEl.className = `text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${meta.pill}`;
 
             document.querySelectorAll('#modal-checklist input[type="checkbox"]').forEach((checkbox, index) => {
-                checkbox.checked = Boolean(state.steps[index]);
+                const checked = Boolean(state.steps[index]);
+                checkbox.checked = checked;
+                const dateInput = document.getElementById(`step-date-${index}`);
+                if (dateInput) {
+                    dateInput.value = state.stepDates[index] || '';
+                    dateInput.disabled = !checked;
+                }
             });
+
+            const doneMilestones = state.steps.filter(Boolean).length;
+            document.getElementById('milestone-count').textContent = `${doneMilestones}/4 mốc`;
 
             const openBtn = document.getElementById('open-vocab-btn');
             if (topic.file) {
@@ -594,18 +671,23 @@
 
         function renderSessions(state) {
             const list = document.getElementById('sessions-list');
-            const sessions = [...state.sessions].sort((a, b) => b.localeCompare(a));
-            document.getElementById('session-count').textContent = `${sessions.length} buổi`;
+            const sessions = [...state.sessions].sort((a, b) => b.date.localeCompare(a.date));
+            const doneCount = sessions.filter(item => item.done).length;
+            document.getElementById('session-count').textContent = `${doneCount}/${sessions.length} buổi`;
 
             if (!sessions.length) {
-                list.innerHTML = '<p class="text-xs text-purple-400 italic px-1">Chưa có buổi học nào được ghi nhận.</p>';
+                list.innerHTML = '<p class="text-xs text-purple-400 italic px-1">Chưa có buổi học nào. Thêm ngày học ở trên nhé.</p>';
                 return;
             }
 
-            list.innerHTML = sessions.map(date => `
-                <div class="flex items-center justify-between gap-2 bg-white border border-purple-100 rounded-xl px-3 py-1.5">
-                    <span class="text-xs font-bold text-purple-800">📅 ${formatDate(date)}</span>
-                    <button onclick="removeSession('${date}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition">
+            list.innerHTML = sessions.map(item => `
+                <div class="flex items-center justify-between gap-2 bg-white border ${item.done ? 'border-emerald-100' : 'border-purple-100'} rounded-xl px-3 py-1.5">
+                    <label class="flex items-center gap-2.5 min-w-0 cursor-pointer">
+                        <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleSessionDone('${item.date}')" class="custom-checkbox w-4 h-4 shrink-0 rounded border-purple-300 text-purple-600 focus:ring-purple-500">
+                        <span class="text-xs font-bold ${item.done ? 'text-emerald-700' : 'text-purple-800'}">📅 ${formatDate(item.date)}</span>
+                        <span class="text-[10px] font-extrabold uppercase tracking-wider ${item.done ? 'text-emerald-600' : 'text-purple-400'}">${item.done ? 'Đã học' : 'Chưa học'}</span>
+                    </label>
+                    <button onclick="removeSession('${item.date}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition shrink-0">
                         Xóa
                     </button>
                 </div>
@@ -650,17 +732,33 @@
         function toggleStep(stepIndex) {
             if (!activeTopicId) return;
             const state = getState(activeTopicId);
-            state.steps[stepIndex] = !state.steps[stepIndex];
+            const checked = !state.steps[stepIndex];
+            state.steps[stepIndex] = checked;
+            state.stepDates[stepIndex] = checked ? (state.stepDates[stepIndex] || todayISO()) : '';
 
-            if (state.steps.every(Boolean) && !state.completed) {
+            const allDone = state.steps.every(Boolean);
+            if (allDone && !state.completed) {
                 state.completed = true;
+                state.steps.forEach((done, index) => {
+                    if (done && !state.stepDates[index]) state.stepDates[index] = todayISO();
+                });
                 triggerCelebration();
                 showToast('🎉 Tuyệt vời! Bạn đã hoàn thành ô cửa sổ này!');
+            } else if (!allDone && state.completed) {
+                state.completed = false;
             }
 
             saveProgress(false);
             updateStats();
             refreshModal();
+        }
+
+        function saveStepDate(stepIndex) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            const input = document.getElementById(`step-date-${stepIndex}`);
+            state.stepDates[stepIndex] = input ? input.value : '';
+            saveProgress(false);
         }
 
         function saveNotes() {
@@ -687,22 +785,33 @@
             const input = document.getElementById('session-date');
             const date = input.value || todayISO();
             const state = getState(activeTopicId);
-            if (!state.sessions.includes(date)) {
-                state.sessions.push(date);
+            if (!state.sessions.some(item => item.date === date)) {
+                state.sessions.push({ date, done: false });
                 saveProgress(false);
                 updateStats();
                 refreshModal();
-                showToast(`📅 Đã ghi nhận buổi học ${formatDate(date)}`);
+                showToast(`📅 Đã thêm buổi học ${formatDate(date)}`);
             } else {
-                showToast('📅 Buổi học này đã được ghi nhận rồi');
+                showToast('📅 Ngày này đã có trong danh sách');
             }
             input.value = todayISO();
+        }
+
+        function toggleSessionDone(date) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            const session = state.sessions.find(item => item.date === date);
+            if (!session) return;
+            session.done = !session.done;
+            saveProgress(false);
+            updateStats();
+            refreshModal();
         }
 
         function removeSession(date) {
             if (!activeTopicId) return;
             const state = getState(activeTopicId);
-            state.sessions = state.sessions.filter(item => item !== date);
+            state.sessions = state.sessions.filter(item => item.date !== date);
             saveProgress(false);
             updateStats();
             refreshModal();
@@ -711,13 +820,19 @@
         function toggleCompleted() {
             if (!activeTopicId) return;
             const state = getState(activeTopicId);
-            state.completed = !state.completed;
 
-            if (state.completed) {
+            if (!state.completed) {
+                state.completed = true;
                 state.steps = [true, true, true, true];
+                state.steps.forEach((done, index) => {
+                    if (done && !state.stepDates[index]) state.stepDates[index] = todayISO();
+                });
                 triggerCelebration();
                 showToast('✨ Đã đánh dấu hoàn thành!');
             } else {
+                state.completed = false;
+                state.steps[3] = false;
+                state.stepDates[3] = '';
                 showToast('↩️ Đã chuyển về trạng thái đang học');
             }
 
