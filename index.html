@@ -3,225 +3,760 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IELTS Vocabulary Learning Hub - Interactive Offline Study Platform</title>
-    <meta name="description" content="Tổng hợp từ vựng IELTS học thuật cao theo chủ đề, phù hợp mục tiêu Band 7.5+ đến 8.5+. Học offline, không cần internet.">
-    <meta name="keywords" content="IELTS, vocabulary, từ vựng, học tiếng Anh, offline">
+    <title>Windows of IELTS Vocab - 30 Ô Cửa Sổ Từ Vựng</title>
+    <meta name="description" content="30 ô cửa sổ từ vựng IELTS: mở tài liệu, ghi chú, lập kế hoạch và theo dõi tiến độ học theo ngày.">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #f6f0ff 0%, #ede4ff 50%, #fdf4ff 100%);
+            min-height: 100vh;
+            color: #4a3b69;
         }
+
+        h1, h2, h3, .font-display {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .window-container {
+            perspective: 1000px;
+        }
+
+        .window-shutter {
+            transform-origin: left center;
+            transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+            backface-visibility: hidden;
+        }
+
+        .window-card.is-completed .window-shutter {
+            transform: rotateY(-105deg);
+            pointer-events: none;
+        }
+
+        .window-grid-lines {
+            background-image:
+                linear-gradient(to right, rgba(255,255,255,0.45) 2px, transparent 2px),
+                linear-gradient(to bottom, rgba(255,255,255,0.45) 2px, transparent 2px);
+            background-size: 50% 50%;
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #f1f5f9;
+            background: #f3e8ff;
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
+            background: #c084fc;
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+            background: #a855f7;
         }
-        .vocab-card {
-            transition: all 0.3s ease;
+
+        .hover-float {
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
-        .vocab-card:hover {
+        .hover-float:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 24px -6px rgba(139, 92, 246, 0.22);
         }
-        .gradient-badge {
-            background: linear-gradient(135deg, var(--gradient-from), var(--gradient-to));
+
+        .custom-checkbox:checked {
+            background-color: #9333ea;
+            border-color: #9333ea;
+        }
+
+        .modal-scroll {
+            max-height: none;
+        }
+
+        @keyframes pop-in {
+            from { transform: scale(0.96); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-pop {
+            animation: pop-in 0.18s ease-out;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen">
+<body class="pb-16">
 
-    <div class="max-w-[1600px] mx-auto px-4 py-8 sm:px-6 lg:px-10">
-        
-        <!-- Header Section -->
-        <div class="bg-white rounded-3xl shadow-xs border border-slate-100 p-6 sm:p-8 mb-12 relative overflow-hidden">
-            <!-- Subtle decorative background gradient -->
-            <div class="absolute top-0 right-0 w-80 h-80 bg-indigo-50/50 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
+    <!-- Header -->
+    <header class="sticky top-0 z-30 backdrop-blur-md bg-white/80 border-b border-purple-200/70 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-400 to-fuchsia-400 flex items-center justify-center text-white text-2xl shadow-md shadow-purple-200">
+                    🪟
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold text-purple-900 tracking-tight">
+                        Windows of IELTS Vocab
+                    </h1>
+                    <p class="text-xs md:text-sm text-purple-600/80 font-medium">
+                        Mở từng ô cửa sổ, học từ vựng & theo dõi tiến độ của bạn ✨
+                    </p>
+                </div>
+            </div>
 
-            <div class="relative z-10">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600 mb-4 shadow-sm border border-indigo-100/30">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                    IELTS Vocabulary Hub
-                </span>
-                <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mt-4">
-                    Interactive IELTS Vocabulary Learning Platform
-                </h1>
-                <p class="text-slate-600 mt-4 text-sm sm:text-base leading-relaxed max-w-2xl">
-                    Bộ từ vựng IELTS học thuật cao được phân loại chi tiết theo chủ đề, phù hợp mục tiêu điểm số từ <span class="font-semibold text-indigo-600">Band 7.5+ đến 8.5+</span>. Học offline, không cần kết nối internet, và lưu giữ ghi chú cá nhân.
-                </p>
-                <div class="mt-6 flex flex-wrap gap-4 items-center">
-                    <div class="flex items-center gap-2 text-sm font-medium text-slate-600 bg-indigo-50/50 px-4 py-2 rounded-lg border border-indigo-100/30">
-                        <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        Học offline
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+                <div class="w-full sm:w-72 bg-purple-100/80 p-3 rounded-2xl border border-purple-200/80">
+                    <div class="flex justify-between items-center text-xs font-bold text-purple-800 mb-1.5">
+                        <span>Tiến độ hoàn thành</span>
+                        <span id="progress-text" class="bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">0 / 30 (0%)</span>
                     </div>
-                    <div class="flex items-center gap-2 text-sm font-medium text-slate-600 bg-emerald-50/50 px-4 py-2 rounded-lg border border-emerald-100/30">
-                        <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <span id="totalTopics">50+</span> nhóm từ vựng
+                    <div class="w-full bg-white rounded-full h-3 overflow-hidden p-0.5 shadow-inner">
+                        <div id="progress-bar" class="bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                     </div>
-                    <div class="flex items-center gap-2 text-sm font-medium text-slate-600 bg-amber-50/50 px-4 py-2 rounded-lg border border-amber-100/30">
-                        <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                        Ghi chú cá nhân
-                    </div>
-                    <a href="./ielts_study_dashboard.html" class="inline-flex items-center gap-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-full shadow-sm transition-all">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        IELTS Study Dashboard
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <a href="./library.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 bg-white/80 border border-purple-200 hover:bg-purple-50 px-3 py-2 rounded-xl transition">
+                        📚 Thư viện
+                    </a>
+                    <a href="./ielts_study_dashboard.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 bg-white/80 border border-purple-200 hover:bg-purple-50 px-3 py-2 rounded-xl transition">
+                        📊 Dashboard
                     </a>
                 </div>
             </div>
         </div>
+    </header>
 
-        <!-- Vocabulary Table -->
-        <div class="overflow-x-auto bg-white rounded-3xl shadow-xs border border-slate-100 mb-12" id="tableWrapper">
-            <table class="min-w-full divide-y divide-slate-200" id="cardsContainer">
-                <!-- Table rows will be rendered here via JavaScript -->
-            </table>
-        </div>
-
-        <!-- Empty State (will be hidden once table loads) -->
-        <div id="emptyState" class="bg-white rounded-2xl border border-slate-200 p-12 text-center">
-            <div class="text-slate-400 mb-4">
-                <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+    <main class="max-w-6xl mx-auto px-4 pt-6">
+        <!-- Toolbar -->
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-6 bg-white/70 p-3.5 rounded-2xl border border-purple-200/60 shadow-sm">
+            <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-center lg:justify-start">
+                <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-600 text-white shadow-sm">
+                    Tất cả (<span id="count-all">30</span>)
+                </button>
+                <button onclick="setFilter('new')" id="filter-new" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
+                    🌱 Chưa học (<span id="count-new">30</span>)
+                </button>
+                <button onclick="setFilter('learning')" id="filter-learning" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
+                    📖 Đang học (<span id="count-learning">0</span>)
+                </button>
+                <button onclick="setFilter('completed')" id="filter-completed" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
+                    ✨ Hoàn thành (<span id="count-completed">0</span>)
+                </button>
             </div>
-            <p class="text-slate-500">Đang tải dữ liệu...</p>
+
+            <div class="relative w-full lg:w-72">
+                <input type="text" id="search-input" oninput="renderWindows()" placeholder="Tìm chủ đề (vd: Travel, Art...)"
+                    class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-purple-200 text-sm text-purple-900 placeholder-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                <span class="absolute left-3 top-2.5 text-purple-400 text-sm">🔍</span>
+            </div>
         </div>
 
-        <!-- Footer Info -->
-        <div class="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl border border-indigo-100/30 p-6 sm:p-8 mt-12">
-            <h3 class="font-bold text-slate-900 mb-3">Cách sử dụng</h3>
-            <ul class="space-y-2 text-sm text-slate-700">
-                <li class="flex gap-3">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex-shrink-0">1</span>
-                    <span>Chọn chủ đề bạn muốn học từ danh sách dưới đây</span>
-                </li>
-                <li class="flex gap-3">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex-shrink-0">2</span>
-                    <span>Duyệt qua các nhóm từ vựng, xem IPA, ví dụ và ghi chú</span>
-                </li>
-                <li class="flex gap-3">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex-shrink-0">3</span>
-                    <span>Ghi chú cá nhân được lưu tự động, có thể copy markdown hoặc excel</span>
-                </li>
-                <li class="flex gap-3">
-                    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex-shrink-0">4</span>
-                    <span>Tìm kiếm nhanh bằng ô tìm kiếm để định vị từ vựng cần thiết</span>
-                </li>
-            </ul>
+        <!-- 30 windows -->
+        <div id="windows-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5"></div>
+        <div id="empty-state" class="hidden text-center py-16">
+            <div class="text-5xl mb-3">🪟</div>
+            <p class="font-bold text-purple-800">Không tìm thấy ô cửa sổ phù hợp</p>
+            <p class="text-sm text-purple-500 mt-1">Thử đổi bộ lọc hoặc từ khóa tìm kiếm nhé.</p>
         </div>
+    </main>
 
+    <!-- Study tracker modal -->
+    <div id="window-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-purple-950/45 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-2xl max-h-[92vh] flex flex-col rounded-3xl shadow-2xl border-2 border-purple-200 overflow-hidden modal-pop" id="modal-box">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-purple-200 via-fuchsia-100 to-indigo-100 px-5 sm:px-6 py-4 border-b border-purple-200 flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3 min-w-0">
+                    <span id="modal-emoji" class="text-3xl bg-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm shrink-0">🌍</span>
+                    <div class="min-w-0">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span id="modal-badge" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-purple-600 text-white">
+                                Window #01
+                            </span>
+                            <span id="modal-status" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700">
+                                Chưa học
+                            </span>
+                        </div>
+                        <h2 id="modal-title" class="text-lg sm:text-xl font-bold text-purple-950 mt-1 leading-snug">Environment, Climate, Weather</h2>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="w-9 h-9 rounded-full bg-white/80 hover:bg-white text-purple-700 font-bold flex items-center justify-center shadow-sm transition shrink-0" aria-label="Đóng">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-5 sm:p-6 modal-scroll flex-1 min-h-0 overflow-y-auto space-y-5">
+                <div class="bg-purple-50/80 border border-purple-200/80 rounded-2xl p-3.5 text-xs text-purple-800 flex items-start gap-2">
+                    <span class="shrink-0">📌</span>
+                    <div>
+                        <b>Tài liệu:</b>
+                        <span id="modal-subtopics" class="text-purple-600">Tài liệu tổng hợp theo buổi</span>
+                        <p id="modal-file-note" class="text-[11px] text-purple-500 mt-1 hidden"></p>
+                    </div>
+                </div>
+
+                <!-- Plan -->
+                <section>
+                    <h3 class="text-sm font-bold text-purple-900 mb-2.5 flex items-center gap-1.5">
+                        <span>🗓️</span> Kế hoạch học theo ngày
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="block">
+                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Bắt đầu</span>
+                            <input type="date" id="plan-start" onchange="savePlanDates()"
+                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        </label>
+                        <label class="block">
+                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Mục tiêu hoàn thành</span>
+                            <input type="date" id="plan-target" onchange="savePlanDates()"
+                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        </label>
+                    </div>
+                    <p id="plan-status" class="text-xs font-bold text-purple-600 mt-2">Chưa đặt kế hoạch</p>
+                </section>
+
+                <!-- 4 layers -->
+                <section>
+                    <h3 class="text-sm font-bold text-purple-900 mb-2.5 flex items-center gap-1.5">
+                        <span>🔑</span> Checklist 4 lớp
+                    </h3>
+                    <div class="space-y-2" id="modal-checklist">
+                        <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 cursor-pointer transition">
+                            <input type="checkbox" data-step="0" onchange="toggleStep(0)" class="custom-checkbox mt-0.5 w-5 h-5 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                            <div class="text-sm">
+                                <p class="font-bold text-purple-950">1. Khung cửa kính (Core Lexicon & Paraphrase)</p>
+                                <p class="text-xs text-purple-600">Nạp 15–20 từ vựng đắt giá & bảng nâng cấp từ vựng Band 5.5 → 7.5+</p>
+                            </div>
+                        </label>
+                        <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 cursor-pointer transition">
+                            <input type="checkbox" data-step="1" onchange="toggleStep(1)" class="custom-checkbox mt-0.5 w-5 h-5 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                            <div class="text-sm">
+                                <p class="font-bold text-purple-950">2. Chốt khóa (Collocations & Idioms)</p>
+                                <p class="text-xs text-purple-600">Nắm vững 5–7 cụm Collocations tự nhiên & 2–3 Idioms dùng cho Speaking</p>
+                            </div>
+                        </label>
+                        <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 cursor-pointer transition">
+                            <input type="checkbox" data-step="2" onchange="toggleStep(2)" class="custom-checkbox mt-0.5 w-5 h-5 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                            <div class="text-sm">
+                                <p class="font-bold text-purple-950">3. Góc nhìn qua cửa sổ (Context & Mini-script)</p>
+                                <p class="text-xs text-purple-600">Đọc/viết 1 đoạn Speaking Cue Card & 1 Topic Sentence Writing Task 2</p>
+                            </div>
+                        </label>
+                        <label class="flex items-start gap-3 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 cursor-pointer transition">
+                            <input type="checkbox" data-step="3" onchange="toggleStep(3)" class="custom-checkbox mt-0.5 w-5 h-5 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                            <div class="text-sm">
+                                <p class="font-bold text-purple-950">4. Chìa khóa mở cửa (1-Min Speaking / Paraphrase Test)</p>
+                                <p class="text-xs text-purple-600">Tự ghi âm nói 1 phút hoặc viết lại 3 câu dùng ít nhất 5 từ vừa học</p>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Notes -->
+                <section>
+                    <label for="modal-notes" class="block text-sm font-bold text-purple-900 mb-1.5">
+                        📝 Ghi chú & từ vựng tâm đắc
+                    </label>
+                    <textarea id="modal-notes" oninput="saveNotes()" rows="3" placeholder="Ví dụ: exacerbate environmental degradation, mitigate climate change..."
+                        class="w-full rounded-2xl border border-purple-200 p-3 text-sm text-purple-950 placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-purple-50/30"></textarea>
+                </section>
+
+                <!-- Session tracking -->
+                <section>
+                    <div class="flex items-center justify-between gap-3 mb-2.5">
+                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
+                            <span>✅</span> Theo dõi buổi học
+                        </h3>
+                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 buổi</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="date" id="session-date"
+                            class="flex-1 rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        <button onclick="addSession()" class="px-4 py-2 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-600 hover:to-fuchsia-600 shadow-sm transition">
+                            + Ghi nhận buổi học
+                        </button>
+                    </div>
+                    <div id="sessions-list" class="mt-2.5 space-y-1.5"></div>
+                </section>
+            </div>
+
+            <!-- Footer -->
+            <div class="px-5 sm:px-6 py-4 bg-purple-50/90 border-t border-purple-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                <button onclick="closeModal()" class="px-4 py-2.5 rounded-xl text-sm font-bold text-purple-600 hover:bg-purple-200/60 transition">
+                    Đóng lại
+                </button>
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <a id="open-vocab-btn" href="#" target="_blank" rel="noopener"
+                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 shadow-md shadow-indigo-200 transition">
+                        <span>📖</span> Mở trang từ vựng
+                    </a>
+                    <button id="complete-btn" onclick="toggleCompleted()"
+                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition">
+                        <span>✅</span> Đánh dấu hoàn thành
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-[60] transform translate-y-20 opacity-0 transition-all duration-300 bg-purple-900 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-bold flex items-center gap-2">
+        <span id="toast-icon">✨</span>
+        <span id="toast-msg">Đã lưu!</span>
     </div>
 
     <script>
-        // Load vocabularies data and render cards
-        async function loadVocabularies() {
-            const requestPath = new URL('data/vocabularies.json', window.location.href).href;
+        // 30 topics. `file` is the source HTML in this folder.
+        // Topics without a file yet will show "Sắp cập nhật" (add the filename later).
+        const topicsData = [
+            { id: 1, code: "01", title: "Environment, Climate, Weather", emoji: "🌿", sub: "Weather, climate, environment & natural disasters", file: "01 Weather.html" },
+            { id: 2, code: "02", title: "Travel", emoji: "✈️", sub: "Travel and tourism", file: "02 Travel.html" },
+            { id: 3, code: "03", title: "City", emoji: "🏙️", sub: "City vs. country", file: "03 City.html" },
+            { id: 4, code: "04", title: "Building", emoji: "🏛️", sub: "Accommodation, building & noise", file: "04 Building.html" },
+            { id: 5, code: "05", title: "Food", emoji: "🍰", sub: "Food and sustainable agriculture", file: "05 Food.html" },
+            { id: 6, code: "06", title: "Film", emoji: "🎬", sub: "Film and media", file: "06 Film.html" },
+            { id: 7, code: "07", title: "Book", emoji: "📚", sub: "Books and libraries in the digital age", file: "07 Book.html" },
+            { id: 8, code: "10", title: "Music", emoji: "🎵", sub: "Music", file: "08 Music.html" },
+            { id: 9, code: "11", title: "Sport", emoji: "🏅", sub: "Sport", file: "09 Sport.html" },
+            { id: 10, code: "12", title: "Health", emoji: "🩺", sub: "Health", file: "10 Health.html" },
+            { id: 11, code: "13", title: "Internet", emoji: "🌐", sub: "Internet", file: "11 Internet.html" },
+            { id: 12, code: "14", title: "Work", emoji: "💼", sub: "Work", file: "12 Work.html" },
+            { id: 13, code: "15", title: "Business", emoji: "📈", sub: "Business", file: "13 Business.html" },
+            { id: 14, code: "16", title: "Advertising", emoji: "📢", sub: "Advertising", file: "14 Advertising.html" },
+            { id: 15, code: "17", title: "Crime", emoji: "⚖️", sub: "Crime, law and social security", file: "15 Crime.docx" },
+            { id: 16, code: "18", title: "Famous", emoji: "🌟", sub: "Famous people", file: null },
+            { id: 17, code: "19", title: "Fashion", emoji: "👗", sub: "Fashion", file: null },
+            { id: 18, code: "20", title: "Person", emoji: "🧑", sub: "Person", file: null },
+            { id: 19, code: "21", title: "Festival", emoji: "🏮", sub: "Festival", file: null },
+            { id: 20, code: "22A", title: "Space", emoji: "🪐", sub: "Space", file: null },
+            { id: 21, code: "22B", title: "Education", emoji: "🎓", sub: "Vocab; L (University, Paper); R; S; W", file: null },
+            { id: 22, code: "23", title: "News", emoji: "📰", sub: "Listening (News); Speaking (News)", file: null },
+            { id: 23, code: "24", title: "Language", emoji: "🗣️", sub: "Vocab; R (Language); S (Foreign lang); W", file: null },
+            { id: 24, code: "25", title: "Play, Entertainment & Games", emoji: "🎮", sub: "Vocab; L; R; S (Free time, Toy, Game); W", file: null },
+            { id: 25, code: "26", title: "Hobby & Pastime", emoji: "🧶", sub: "Vocab; R (Hobby); S (Entertainment); W", file: null },
+            { id: 26, code: "27", title: "Family & Friends", emoji: "🏡", sub: "Vocab; S (Friends & Family); W (Family)", file: null },
+            { id: 27, code: "28", title: "Age & Generations", emoji: "⏳", sub: "Vocab; L (Children); R (Old); S; W (Teenager)", file: null },
+            { id: 28, code: "29", title: "Photography (Photo)", emoji: "📸", sub: "Vocab; Speaking (Photo)", file: null },
+            { id: 29, code: "30", title: "Art & Museum", emoji: "🎨", sub: "Vocab; L (Museum); R; S (Art); W (Art, Museum)", file: null },
+            { id: 30, code: "31", title: "History & Archeology", emoji: "🏺", sub: "Vocab; L (Archeology); R; S (History); W", file: null }
+        ];
 
+        const STORAGE_KEY = 'ielts_windows_tracker_v2';
+        const STATUS_META = {
+            new: { label: 'Chưa học', pill: 'bg-purple-100 text-purple-700', card: 'bg-white/85 text-purple-600' },
+            learning: { label: 'Đang học', pill: 'bg-amber-100 text-amber-700', card: 'bg-white/85 text-amber-600' },
+            completed: { label: 'Hoàn thành', pill: 'bg-emerald-100 text-emerald-700', card: 'bg-white/85 text-emerald-600' }
+        };
+
+        let userData = loadProgress();
+        let currentFilter = 'all';
+        let activeTopicId = null;
+
+        function loadProgress() {
             try {
-                const response = await fetch(requestPath);
-                if (!response.ok) {
-                    throw new Error(`Không tải được file: ${response.status} ${response.statusText}`);
-                }
-                const vocabularies = await response.json();
-                renderCards(vocabularies);
-                updateTotalTopics(vocabularies);
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
             } catch (error) {
-                console.warn('Fetch failed, attempting local JS fallback:', error);
-                if (window.location.protocol === 'file:') {
-                    try {
-                        const vocabularies = await loadLocalVocabulariesJs();
-                        renderCards(vocabularies);
-                        updateTotalTopics(vocabularies);
-                        return;
-                    } catch (fallbackError) {
-                        console.error('Local JS fallback failed:', fallbackError);
-                        error.message += `; Fallback error: ${fallbackError.message}`;
-                    }
-                }
-
-                document.getElementById('emptyState').innerHTML = `
-                    <div class="text-red-400 mb-4">
-                        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <p class="text-slate-500 mb-2">Không thể tải dữ liệu.</p>
-                    <p class="text-slate-500 text-sm">${error.message}</p>
-                    <p class="text-slate-500 text-sm mt-3">Nếu bạn mở file trực tiếp, hãy chạy một local server hoặc mở trang bằng GitHub Pages để đảm bảo dữ liệu được tải đúng cách.</p>
-                `;
+                return {};
             }
         }
 
-        function loadLocalVocabulariesJs() {
-            return new Promise((resolve, reject) => {
-                if (window.vocabularies && Array.isArray(window.vocabularies)) {
-                    resolve(window.vocabularies);
-                    return;
-                }
-
-                const script = document.createElement('script');
-                script.src = './data/vocabularies.js';
-                script.onload = () => {
-                    if (window.vocabularies && Array.isArray(window.vocabularies)) {
-                        resolve(window.vocabularies);
-                    } else {
-                        reject(new Error('Không tìm thấy window.vocabularies sau khi tải dữ liệu JS.'));
-                    }
+        function getState(id) {
+            if (!userData[id]) {
+                userData[id] = {
+                    completed: false,
+                    steps: [false, false, false, false],
+                    notes: "",
+                    planStart: "",
+                    planTarget: "",
+                    sessions: []
                 };
-                script.onerror = () => reject(new Error('Không thể tải data/vocabularies.js từ local.'));
-                document.body.appendChild(script);
+            }
+            return userData[id];
+        }
+
+        function saveProgress(updateView = true) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+            if (updateView) {
+                updateStats();
+                renderWindows();
+            }
+        }
+
+        function getStatus(id) {
+            const state = getState(id);
+            if (state.completed) return 'completed';
+            if (state.steps.some(Boolean) || state.sessions.length || state.notes.trim() || state.planStart || state.planTarget) {
+                return 'learning';
+            }
+            return 'new';
+        }
+
+        function todayISO() {
+            const now = new Date();
+            const offset = now.getTimezoneOffset();
+            return new Date(now.getTime() - offset * 60000).toISOString().slice(0, 10);
+        }
+
+        function updateStats() {
+            const counts = { all: topicsData.length, new: 0, learning: 0, completed: 0 };
+            topicsData.forEach(topic => {
+                counts[getStatus(topic.id)]++;
+            });
+
+            const percent = Math.round((counts.completed / counts.all) * 100);
+            document.getElementById('progress-text').textContent = `${counts.completed} / ${counts.all} (${percent}%)`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('count-all').textContent = counts.all;
+            document.getElementById('count-new').textContent = counts.new;
+            document.getElementById('count-learning').textContent = counts.learning;
+            document.getElementById('count-completed').textContent = counts.completed;
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-purple-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-purple-100', 'text-purple-700');
+            });
+            const activeBtn = document.getElementById(`filter-${filter}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-purple-100', 'text-purple-700');
+                activeBtn.classList.add('bg-purple-600', 'text-white', 'shadow-sm');
+            }
+            renderWindows();
+        }
+
+        function renderWindows() {
+            const grid = document.getElementById('windows-grid');
+            const emptyState = document.getElementById('empty-state');
+            const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
+            grid.innerHTML = '';
+            let visible = 0;
+
+            topicsData.forEach(topic => {
+                const state = getState(topic.id);
+                const status = getStatus(topic.id);
+
+                if (currentFilter !== 'all' && currentFilter !== status) return;
+                if (searchQuery && !topic.title.toLowerCase().includes(searchQuery) && !topic.code.toLowerCase().includes(searchQuery)) return;
+
+                visible++;
+                const completedSteps = state.steps.filter(Boolean).length;
+                const meta = STATUS_META[status];
+                const isCompleted = status === 'completed';
+
+                const card = document.createElement('article');
+                card.className = `window-card window-container hover-float cursor-pointer relative h-44 rounded-t-[2.2rem] rounded-b-2xl p-2 bg-white border-2 ${isCompleted ? 'is-completed border-emerald-300 shadow-md shadow-emerald-100/70' : status === 'learning' ? 'border-amber-200 shadow-sm' : 'border-purple-200/90 shadow-sm'}`;
+                card.dataset.id = topic.id;
+                card.setAttribute('role', 'button');
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-label', `${topic.title} - ${meta.label}`);
+                card.innerHTML = `
+                    <div class="w-full h-full rounded-t-[1.8rem] rounded-b-xl bg-gradient-to-b from-purple-100 via-fuchsia-50 to-amber-50/70 p-3 flex flex-col items-center justify-between text-center relative overflow-hidden border border-purple-100">
+                        <div class="w-full flex justify-between items-center text-[11px] font-extrabold">
+                            <span class="text-purple-500">#${String(topic.id).padStart(2, '0')}</span>
+                            <span class="${meta.card} px-2 py-0.5 rounded-full shadow-2xs">${meta.label}</span>
+                        </div>
+                        <div class="my-auto min-w-0 w-full">
+                            <div class="text-3xl mb-1">${topic.emoji}</div>
+                            <h3 class="text-xs font-extrabold text-purple-950 line-clamp-2 leading-snug px-1">${topic.title}</h3>
+                        </div>
+                        <div class="w-full bg-white/80 rounded-full py-1 px-2 text-[10px] font-bold text-purple-700 flex items-center justify-center gap-1.5">
+                            <span>${completedSteps}/4 lớp</span>
+                            <span class="text-purple-300">•</span>
+                            <span>${state.sessions.length} buổi</span>
+                            <span class="text-purple-300">•</span>
+                            <span>${topic.file ? '📖' : '⏳'}</span>
+                        </div>
+                    </div>
+
+                    <div class="window-shutter window-grid-lines absolute inset-2 rounded-t-[1.8rem] rounded-b-xl bg-gradient-to-br from-purple-300 via-violet-300 to-fuchsia-200 border-2 border-white/80 p-3 flex flex-col items-center justify-between text-center shadow-inner">
+                        <div class="w-full flex justify-between items-center">
+                            <span class="bg-white/85 text-purple-800 text-[11px] font-extrabold px-2 py-0.5 rounded-full shadow-2xs">
+                                #${String(topic.id).padStart(2, '0')}
+                            </span>
+                            <span class="w-6 h-6 rounded-full bg-white/85 flex items-center justify-center text-xs shadow-2xs">
+                                ${isCompleted ? '🔓' : status === 'learning' ? '📖' : '🔒'}
+                            </span>
+                        </div>
+                        <div class="bg-white/85 backdrop-blur-xs px-2.5 py-2 rounded-2xl shadow-xs w-full border border-white min-w-0">
+                            <div class="text-xl mb-0.5">${topic.emoji}</div>
+                            <h3 class="text-xs font-extrabold text-purple-950 line-clamp-2 leading-tight">${topic.title}</h3>
+                        </div>
+                        <div class="w-full flex items-center justify-center gap-1">
+                            ${[0,1,2,3].map(i => `<span class="h-1.5 flex-1 rounded-full ${state.steps[i] ? 'bg-purple-700' : 'bg-white/60'}"></span>`).join('')}
+                        </div>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => openModal(topic.id));
+                card.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openModal(topic.id);
+                    }
+                });
+
+                grid.appendChild(card);
+            });
+
+            emptyState.classList.toggle('hidden', visible !== 0);
+        }
+
+        function openModal(id) {
+            const topic = topicsData.find(item => item.id === id);
+            const state = getState(id);
+            if (!topic) return;
+
+            activeTopicId = id;
+            document.getElementById('modal-emoji').textContent = topic.emoji;
+            document.getElementById('modal-badge').textContent = `Window #${String(topic.id).padStart(2, '0')} • Mã gốc: ${topic.code}`;
+            document.getElementById('modal-title').textContent = topic.title;
+            document.getElementById('modal-subtopics').textContent = topic.sub;
+            document.getElementById('modal-notes').value = state.notes || "";
+            document.getElementById('plan-start').value = state.planStart || "";
+            document.getElementById('plan-target').value = state.planTarget || "";
+            document.getElementById('session-date').value = todayISO();
+
+            const fileNote = document.getElementById('modal-file-note');
+            if (!topic.file) {
+                fileNote.textContent = 'Tài liệu cho chủ đề này chưa được cập nhật. Bạn vẫn có thể ghi chú, lập kế hoạch và theo dõi tiến độ.';
+                fileNote.classList.remove('hidden');
+            } else {
+                fileNote.classList.add('hidden');
+            }
+
+            refreshModal();
+            const modal = document.getElementById('window-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('window-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            activeTopicId = null;
+            updateStats();
+            renderWindows();
+        }
+
+        function refreshModal() {
+            if (!activeTopicId) return;
+            const topic = topicsData.find(item => item.id === activeTopicId);
+            const state = getState(activeTopicId);
+            const status = getStatus(activeTopicId);
+            const meta = STATUS_META[status];
+
+            const statusEl = document.getElementById('modal-status');
+            statusEl.textContent = meta.label;
+            statusEl.className = `text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${meta.pill}`;
+
+            document.querySelectorAll('#modal-checklist input[type="checkbox"]').forEach((checkbox, index) => {
+                checkbox.checked = Boolean(state.steps[index]);
+            });
+
+            const openBtn = document.getElementById('open-vocab-btn');
+            if (topic.file) {
+                openBtn.href = encodeURI(topic.file);
+                openBtn.innerHTML = topic.file.toLowerCase().endsWith('.docx')
+                    ? '<span>📄</span> Tải tài liệu (.docx)'
+                    : '<span>📖</span> Mở trang từ vựng';
+                openBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
+                openBtn.target = '_blank';
+                openBtn.rel = 'noopener';
+                openBtn.setAttribute('download', '');
+                if (!topic.file.toLowerCase().endsWith('.docx')) openBtn.removeAttribute('download');
+            } else {
+                openBtn.href = '#';
+                openBtn.innerHTML = '<span>⏳</span> Tài liệu sắp cập nhật';
+                openBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
+                openBtn.removeAttribute('download');
+            }
+
+            const completeBtn = document.getElementById('complete-btn');
+            if (state.completed) {
+                completeBtn.innerHTML = '<span>↩️</span> Hủy hoàn thành';
+                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-purple-700 bg-purple-100 hover:bg-purple-200 border border-purple-200 transition';
+            } else {
+                completeBtn.innerHTML = '<span>✅</span> Đánh dấu hoàn thành';
+                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition';
+            }
+
+            renderSessions(state);
+            renderPlanStatus(state);
+        }
+
+        function renderSessions(state) {
+            const list = document.getElementById('sessions-list');
+            const sessions = [...state.sessions].sort((a, b) => b.localeCompare(a));
+            document.getElementById('session-count').textContent = `${sessions.length} buổi`;
+
+            if (!sessions.length) {
+                list.innerHTML = '<p class="text-xs text-purple-400 italic px-1">Chưa có buổi học nào được ghi nhận.</p>';
+                return;
+            }
+
+            list.innerHTML = sessions.map(date => `
+                <div class="flex items-center justify-between gap-2 bg-white border border-purple-100 rounded-xl px-3 py-1.5">
+                    <span class="text-xs font-bold text-purple-800">📅 ${formatDate(date)}</span>
+                    <button onclick="removeSession('${date}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition">
+                        Xóa
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function formatDate(isoDate) {
+            if (!isoDate) return '';
+            const [year, month, day] = isoDate.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+        function renderPlanStatus(state) {
+            const el = document.getElementById('plan-status');
+            if (state.completed) {
+                el.textContent = '🎉 Đã hoàn thành chủ đề này!';
+                el.className = 'text-xs font-bold text-emerald-600 mt-2';
+                return;
+            }
+            if (!state.planStart && !state.planTarget) {
+                el.textContent = 'Chưa đặt kế hoạch';
+                el.className = 'text-xs font-bold text-purple-500 mt-2';
+                return;
+            }
+
+            const parts = [];
+            if (state.planStart) parts.push(`Bắt đầu ${formatDate(state.planStart)}`);
+
+            if (state.planTarget) {
+                const target = new Date(`${state.planTarget}T00:00:00`);
+                const today = new Date(`${todayISO()}T00:00:00`);
+                const diff = Math.round((target - today) / 86400000);
+                if (diff > 0) parts.push(`còn ${diff} ngày`);
+                else if (diff === 0) parts.push('hạn hôm nay');
+                else parts.push(`trễ ${Math.abs(diff)} ngày`);
+            }
+
+            el.textContent = parts.join(' • ');
+            el.className = 'text-xs font-bold text-purple-600 mt-2';
+        }
+
+        function toggleStep(stepIndex) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            state.steps[stepIndex] = !state.steps[stepIndex];
+
+            if (state.steps.every(Boolean) && !state.completed) {
+                state.completed = true;
+                triggerCelebration();
+                showToast('🎉 Tuyệt vời! Bạn đã hoàn thành ô cửa sổ này!');
+            }
+
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+        }
+
+        function saveNotes() {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            state.notes = document.getElementById('modal-notes').value;
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+        }
+
+        function savePlanDates() {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            state.planStart = document.getElementById('plan-start').value;
+            state.planTarget = document.getElementById('plan-target').value;
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+        }
+
+        function addSession() {
+            if (!activeTopicId) return;
+            const input = document.getElementById('session-date');
+            const date = input.value || todayISO();
+            const state = getState(activeTopicId);
+            if (!state.sessions.includes(date)) {
+                state.sessions.push(date);
+                saveProgress(false);
+                updateStats();
+                refreshModal();
+                showToast(`📅 Đã ghi nhận buổi học ${formatDate(date)}`);
+            } else {
+                showToast('📅 Buổi học này đã được ghi nhận rồi');
+            }
+            input.value = todayISO();
+        }
+
+        function removeSession(date) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            state.sessions = state.sessions.filter(item => item !== date);
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+        }
+
+        function toggleCompleted() {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            state.completed = !state.completed;
+
+            if (state.completed) {
+                state.steps = [true, true, true, true];
+                triggerCelebration();
+                showToast('✨ Đã đánh dấu hoàn thành!');
+            } else {
+                showToast('↩️ Đã chuyển về trạng thái đang học');
+            }
+
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+        }
+
+        function triggerCelebration() {
+            if (typeof confetti !== 'function') return;
+            confetti({
+                particleCount: 65,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#c084fc', '#e879f9', '#818cf8', '#f472b6', '#fde047']
             });
         }
 
-        function renderCards(vocabularies) {
-            const container = document.getElementById('cardsContainer');
-            const emptyState = document.getElementById('emptyState');
-
-            container.innerHTML = `
-                <thead class="bg-slate-50">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Mã</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Chủ đề</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Số nhóm</th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Hành động</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-200 bg-white">
-                    ${vocabularies.map(vocab => `
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="px-6 py-4 align-top text-sm font-semibold text-slate-900">${vocab.id}</td>
-                            <td class="px-6 py-4 align-top text-sm text-slate-700 max-w-xl">
-                                <div class="font-semibold text-slate-900">${vocab.title}</div>
-                                <div class="text-xs text-slate-500 mt-1 line-clamp-2">${vocab.description}</div>
-                            </td>
-                            <td class="px-6 py-4 align-top text-sm text-slate-700">${vocab.topics} nhóm</td>
-                            <td class="px-6 py-4 align-top text-sm">
-                                <a href="./${encodeURIComponent(vocab.filename)}" class="inline-flex items-center justify-center gap-2 rounded-full bg-indigo-600 px-4 py-2 text-white font-semibold transition hover:bg-indigo-700">
-                                    Mở bài học
-                                </a>
-                            </td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            `;
-
-            emptyState.classList.add('hidden');
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
         }
 
-        function updateTotalTopics(vocabularies) {
-            const total = vocabularies.reduce((sum, vocab) => sum + vocab.topics, 0);
-            document.getElementById('totalTopics').textContent = total;
-        }
+        document.getElementById('window-modal').addEventListener('click', event => {
+            if (event.target === event.currentTarget) closeModal();
+        });
 
-        // Load on page load
-        window.addEventListener('load', loadVocabularies);
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && activeTopicId) closeModal();
+        });
+
+        updateStats();
+        renderWindows();
     </script>
-
 </body>
 </html>
