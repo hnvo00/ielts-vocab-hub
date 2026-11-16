@@ -191,6 +191,29 @@
 
             <!-- Body -->
             <div class="p-5 sm:p-6 modal-scroll flex-1 min-h-0 overflow-y-auto space-y-5">
+                <!-- Notes -->
+                <section>
+                    <div class="flex items-center justify-between gap-3 mb-2.5">
+                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
+                            <span>📝</span> Ghi chú của bạn
+                        </h3>
+                        <span id="notes-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 ghi chú</span>
+                    </div>
+                    <div class="rounded-2xl border border-purple-100 bg-purple-50/30 p-3">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày ghi chú</span>
+                            <input type="date" id="note-date" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        </div>
+                        <textarea id="note-text" rows="4" onkeydown="if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') { event.preventDefault(); saveNote(); }" placeholder="Ghi lại suy nghĩ, từ vựng khó, ý tưởng Speaking, lỗi cần sửa..."
+                            class="w-full rounded-xl border border-purple-200 p-3 text-sm text-purple-950 placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"></textarea>
+                        <div class="flex justify-end mt-2">
+                            <button onclick="saveNote()" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-600 hover:to-fuchsia-600 shadow-sm transition">
+                                💾 Lưu ghi chú
+                            </button>
+                        </div>
+                    </div>
+                    <div id="notes-list" class="mt-3 space-y-3"></div>
+                </section>
                 <div class="bg-purple-50/80 border border-purple-200/80 rounded-2xl p-3.5 text-xs text-purple-800 flex items-start gap-2">
                     <span class="shrink-0">📌</span>
                     <div>
@@ -270,7 +293,7 @@
                         <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
                             <span>🗓️</span> Kế hoạch & theo dõi buổi học
                         </h3>
-                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0/0 buổi</span>
+                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 buổi</span>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <label class="block">
@@ -288,26 +311,22 @@
 
                     <div class="mt-4 pt-4 border-t border-purple-100">
                         <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-2">Các buổi học của bạn</p>
-                        <p class="text-[11px] text-purple-500 mb-2">Thêm ngày học, rồi tick vào ô khi bạn hoàn thành buổi đó.</p>
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <input type="date" id="session-date"
-                                class="flex-1 rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                            <button onclick="addSession()" class="px-4 py-2 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-600 hover:to-fuchsia-600 shadow-sm transition">
-                                + Thêm buổi học
-                            </button>
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <button onclick="shiftWeek(-7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần trước">‹</button>
+                            <div class="text-center min-w-0">
+                                <p id="week-label" class="text-xs font-extrabold text-purple-800">Tuần này</p>
+                                <p id="week-summary" class="text-[10px] font-bold text-purple-500">0/7 ngày</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="goCurrentWeek()" class="px-2.5 py-1.5 rounded-lg bg-white border border-purple-200 text-[10px] font-extrabold text-purple-700 hover:bg-purple-50 transition">Tuần này</button>
+                                <button onclick="shiftWeek(7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần sau">›</button>
+                            </div>
                         </div>
-                        <div id="sessions-list" class="mt-2.5 space-y-1.5"></div>
+                        <div id="week-strip" class="grid grid-cols-7 gap-0.5 overflow-hidden"></div>
+                        <p class="text-[10px] text-purple-400 mt-2">Tick vào ngày bạn đã học. Mỗi hàng là một tuần.</p>
                     </div>
                 </section>
 
-                <!-- Notes -->
-                <section>
-                    <label for="modal-notes" class="block text-sm font-bold text-purple-900 mb-1.5">
-                        📝 Ghi chú chung cho chủ đề
-                    </label>
-                    <textarea id="modal-notes" oninput="saveNotes()" rows="4" placeholder="Ví dụ: từ vựng khó, ý tưởng Speaking, lỗi cần sửa, kế hoạch ôn tập..."
-                        class="w-full rounded-2xl border border-purple-200 p-3 text-sm text-purple-950 placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-purple-50/30"></textarea>
-                </section>
             </div>
 
             <!-- Footer -->
@@ -330,7 +349,7 @@
     </div>
 
     <!-- Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 z-[60] transform translate-y-20 opacity-0 transition-all duration-300 bg-purple-900 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-bold flex items-center gap-2">
+    <div id="toast" class="fixed bottom-24 right-5 sm:bottom-5 z-[60] transform translate-y-20 opacity-0 transition-all duration-300 bg-purple-900 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-bold flex items-center gap-2">
         <span id="toast-icon">✨</span>
         <span id="toast-msg">Đã lưu!</span>
     </div>
@@ -382,6 +401,7 @@
         let userData = loadProgress();
         let currentFilter = 'all';
         let activeTopicId = null;
+        let weekAnchor = null;
 
         function normalizeSessions(sessions) {
             if (!Array.isArray(sessions)) return [];
@@ -396,15 +416,44 @@
             });
         }
 
+        function normalizeNotes(notes, fallbackDate) {
+            if (!Array.isArray(notes)) return [];
+            return notes.map((item, index) => {
+                if (typeof item === 'string') {
+                    return {
+                        id: `note-${index}-${fallbackDate || todayISO()}`,
+                        date: fallbackDate || todayISO(),
+                        text: item,
+                        createdAt: 0
+                    };
+                }
+                return {
+                    id: item.id || `note-${index}-${item.date || fallbackDate || todayISO()}`,
+                    date: item.date || fallbackDate || todayISO(),
+                    text: typeof item.text === 'string' ? item.text : '',
+                    createdAt: Number(item.createdAt) || 0
+                };
+            }).filter(item => item.text.trim());
+        }
+
         function normalizeState(raw) {
             const source = raw || {};
             const steps = Array.isArray(source.steps) ? source.steps.slice(0, 4) : [false, false, false, false];
             const stepDates = Array.isArray(source.stepDates) ? source.stepDates.slice(0, 4) : ['', '', '', ''];
+            const notesLog = normalizeNotes(source.notesLog, source.planStart || '');
+            if (!notesLog.length && typeof source.notes === 'string' && source.notes.trim()) {
+                notesLog.push({
+                    id: 'legacy-note',
+                    date: source.planStart || todayISO(),
+                    text: source.notes,
+                    createdAt: 0
+                });
+            }
             return {
                 completed: Boolean(source.completed),
                 steps: [0, 1, 2, 3].map(index => Boolean(steps[index])),
                 stepDates: [0, 1, 2, 3].map(index => stepDates[index] || ''),
-                notes: typeof source.notes === 'string' ? source.notes : '',
+                notesLog,
                 planStart: source.planStart || '',
                 planTarget: source.planTarget || '',
                 sessions: normalizeSessions(source.sessions)
@@ -457,7 +506,7 @@
         function getStatus(id) {
             const state = getState(id);
             if (state.completed) return 'completed';
-            if (state.steps.some(Boolean) || state.sessions.length || state.notes.trim() || state.planStart || state.planTarget) {
+            if (state.steps.some(Boolean) || state.sessions.length || state.notesLog.length || state.planStart || state.planTarget) {
                 return 'learning';
             }
             return 'new';
@@ -537,7 +586,7 @@
                         <div class="w-full bg-white/80 rounded-full py-1 px-2 text-[10px] font-bold text-purple-700 flex items-center justify-center gap-1.5">
                             <span>${completedSteps}/4 mốc</span>
                             <span class="text-purple-300">•</span>
-                            <span>${doneSessions}/${state.sessions.length} buổi</span>
+                            <span>${doneSessions} buổi</span>
                             <span class="text-purple-300">•</span>
                             <span>${topic.file ? '📖' : '⏳'}</span>
                         </div>
@@ -586,10 +635,11 @@
             document.getElementById('modal-badge').textContent = `Window #${String(topic.id).padStart(2, '0')} • Mã gốc: ${topic.code}`;
             document.getElementById('modal-title').textContent = topic.title;
             document.getElementById('modal-subtopics').textContent = topic.sub;
-            document.getElementById('modal-notes').value = state.notes || "";
+            document.getElementById('note-date').value = todayISO();
+            document.getElementById('note-text').value = '';
             document.getElementById('plan-start').value = state.planStart || "";
             document.getElementById('plan-target').value = state.planTarget || "";
-            document.getElementById('session-date').value = todayISO();
+            weekAnchor = getWeekStart(state.planStart || todayISO());
 
             const fileNote = document.getElementById('modal-file-note');
             if (!topic.file) {
@@ -665,33 +715,90 @@
                 completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition';
             }
 
-            renderSessions(state);
+            renderWeek(state);
+            renderNotes(state);
             renderPlanStatus(state);
         }
 
-        function renderSessions(state) {
-            const list = document.getElementById('sessions-list');
-            const sessions = [...state.sessions].sort((a, b) => b.date.localeCompare(a.date));
-            const doneCount = sessions.filter(item => item.done).length;
-            document.getElementById('session-count').textContent = `${doneCount}/${sessions.length} buổi`;
+        function localISO(date) {
+            const offset = date.getTimezoneOffset();
+            return new Date(date.getTime() - offset * 60000).toISOString().slice(0, 10);
+        }
 
-            if (!sessions.length) {
-                list.innerHTML = '<p class="text-xs text-purple-400 italic px-1">Chưa có buổi học nào. Thêm ngày học ở trên nhé.</p>';
-                return;
-            }
+        function getWeekStart(dateString) {
+            const date = new Date(`${dateString}T00:00:00`);
+            if (Number.isNaN(date.getTime())) return getWeekStart(todayISO());
+            const day = date.getDay();
+            const diff = day === 0 ? -6 : 1 - day;
+            date.setDate(date.getDate() + diff);
+            return localISO(date);
+        }
 
-            list.innerHTML = sessions.map(item => `
-                <div class="flex items-center justify-between gap-2 bg-white border ${item.done ? 'border-emerald-100' : 'border-purple-100'} rounded-xl px-3 py-1.5">
-                    <label class="flex items-center gap-2.5 min-w-0 cursor-pointer">
-                        <input type="checkbox" ${item.done ? 'checked' : ''} onchange="toggleSessionDone('${item.date}')" class="custom-checkbox w-4 h-4 shrink-0 rounded border-purple-300 text-purple-600 focus:ring-purple-500">
-                        <span class="text-xs font-bold ${item.done ? 'text-emerald-700' : 'text-purple-800'}">📅 ${formatDate(item.date)}</span>
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider ${item.done ? 'text-emerald-600' : 'text-purple-400'}">${item.done ? 'Đã học' : 'Chưa học'}</span>
+        function addDays(dateString, days) {
+            const date = new Date(`${dateString}T00:00:00`);
+            date.setDate(date.getDate() + days);
+            return localISO(date);
+        }
+
+        function weekdayShort(dateString) {
+            const date = new Date(`${dateString}T00:00:00`);
+            return ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'][date.getDay()];
+        }
+
+        function formatShortDate(dateString) {
+            const [, month, day] = dateString.split('-');
+            return `${day}/${month}`;
+        }
+
+        function renderWeek(state) {
+            if (!weekAnchor) weekAnchor = getWeekStart(todayISO());
+            const days = Array.from({ length: 7 }, (_, index) => addDays(weekAnchor, index));
+            const today = todayISO();
+            const doneCount = state.sessions.filter(item => item.done).length;
+            const doneThisWeek = days.filter(date => state.sessions.some(item => item.date === date && item.done)).length;
+
+            document.getElementById('week-label').textContent = `${formatDate(days[0])} - ${formatDate(days[6])}`;
+            document.getElementById('week-summary').textContent = `${doneThisWeek}/7 ngày tuần này`;
+            document.getElementById('session-count').textContent = `${doneCount} buổi`;
+
+            document.getElementById('week-strip').innerHTML = days.map(date => {
+                const done = state.sessions.some(item => item.date === date && item.done);
+                const isToday = date === today;
+                return `
+                    <label class="flex flex-col items-center justify-between gap-1 min-w-0 rounded-xl border px-0.5 py-1.5 cursor-pointer transition ${done ? 'border-emerald-300 bg-emerald-50' : 'border-purple-100 bg-white hover:bg-purple-50'} ${isToday ? 'ring-2 ring-inset ring-purple-300' : ''}">
+                        <span class="text-[9px] font-extrabold uppercase tracking-wide ${done ? 'text-emerald-600' : 'text-purple-400'}">${weekdayShort(date)}</span>
+                        <span class="text-[10px] font-extrabold ${done ? 'text-emerald-700' : 'text-purple-800'}">${formatShortDate(date)}</span>
+                        <input type="checkbox" ${done ? 'checked' : ''} onchange="toggleWeekDay('${date}')" class="custom-checkbox w-4 h-4 rounded border-purple-300 text-purple-600 focus:ring-purple-500">
                     </label>
-                    <button onclick="removeSession('${item.date}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition shrink-0">
-                        Xóa
-                    </button>
-                </div>
-            `).join('');
+                `;
+            }).join('');
+        }
+
+        function shiftWeek(days) {
+            if (!weekAnchor) weekAnchor = getWeekStart(todayISO());
+            weekAnchor = addDays(weekAnchor, days);
+            if (activeTopicId) renderWeek(getState(activeTopicId));
+        }
+
+        function goCurrentWeek() {
+            weekAnchor = getWeekStart(todayISO());
+            if (activeTopicId) renderWeek(getState(activeTopicId));
+        }
+
+        function toggleWeekDay(date) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            const session = state.sessions.find(item => item.date === date);
+            if (session && session.done) {
+                state.sessions = state.sessions.filter(item => item.date !== date);
+            } else if (session) {
+                session.done = true;
+            } else {
+                state.sessions.push({ date, done: true });
+            }
+            saveProgress(false);
+            updateStats();
+            refreshModal();
         }
 
         function formatDate(isoDate) {
@@ -761,13 +868,77 @@
             saveProgress(false);
         }
 
-        function saveNotes() {
+        function makeNoteId() {
+            return `note-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        }
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, char => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
+        }
+
+        function saveNote() {
+            if (!activeTopicId) return;
+            const text = document.getElementById('note-text').value.trim();
+            const date = document.getElementById('note-date').value || todayISO();
+            if (!text) {
+                showToast('✍️ Hãy nhập nội dung ghi chú trước');
+                return;
+            }
+            const state = getState(activeTopicId);
+            state.notesLog.push({ id: makeNoteId(), date, text, createdAt: Date.now() });
+            saveProgress(false);
+            updateStats();
+            document.getElementById('note-text').value = '';
+            document.getElementById('note-date').value = todayISO();
+            refreshModal();
+            showToast('💾 Đã lưu ghi chú');
+        }
+
+        function deleteNote(id) {
             if (!activeTopicId) return;
             const state = getState(activeTopicId);
-            state.notes = document.getElementById('modal-notes').value;
+            state.notesLog = state.notesLog.filter(note => note.id !== id);
             saveProgress(false);
             updateStats();
             refreshModal();
+            showToast('🗑️ Đã xóa ghi chú');
+        }
+
+        function renderNotes(state) {
+            const list = document.getElementById('notes-list');
+            const notes = [...state.notesLog].sort((a, b) => (b.date.localeCompare(a.date)) || (b.createdAt - a.createdAt));
+            document.getElementById('notes-count').textContent = `${notes.length} ghi chú`;
+
+            if (!notes.length) {
+                list.innerHTML = '<p class="text-xs text-purple-400 italic px-1">Chưa có ghi chú nào. Viết suy nghĩ của bạn ở trên nhé.</p>';
+                return;
+            }
+
+            const groups = {};
+            notes.forEach(note => {
+                if (!groups[note.date]) groups[note.date] = [];
+                groups[note.date].push(note);
+            });
+
+            list.innerHTML = Object.keys(groups).sort((a, b) => b.localeCompare(a)).map(date => `
+                <div>
+                    <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1.5">📅 ${formatDate(date)}</p>
+                    <div class="space-y-1.5">
+                        ${groups[date].map(note => `
+                            <div class="flex items-start justify-between gap-2 bg-white border border-purple-100 rounded-xl px-3 py-2">
+                                <p class="text-sm text-purple-900 whitespace-pre-wrap break-words min-w-0">${escapeHtml(note.text)}</p>
+                                <button onclick="deleteNote('${note.id}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition shrink-0">Xóa</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
         }
 
         function savePlanDates() {
@@ -775,43 +946,6 @@
             const state = getState(activeTopicId);
             state.planStart = document.getElementById('plan-start').value;
             state.planTarget = document.getElementById('plan-target').value;
-            saveProgress(false);
-            updateStats();
-            refreshModal();
-        }
-
-        function addSession() {
-            if (!activeTopicId) return;
-            const input = document.getElementById('session-date');
-            const date = input.value || todayISO();
-            const state = getState(activeTopicId);
-            if (!state.sessions.some(item => item.date === date)) {
-                state.sessions.push({ date, done: false });
-                saveProgress(false);
-                updateStats();
-                refreshModal();
-                showToast(`📅 Đã thêm buổi học ${formatDate(date)}`);
-            } else {
-                showToast('📅 Ngày này đã có trong danh sách');
-            }
-            input.value = todayISO();
-        }
-
-        function toggleSessionDone(date) {
-            if (!activeTopicId) return;
-            const state = getState(activeTopicId);
-            const session = state.sessions.find(item => item.date === date);
-            if (!session) return;
-            session.done = !session.done;
-            saveProgress(false);
-            updateStats();
-            refreshModal();
-        }
-
-        function removeSession(date) {
-            if (!activeTopicId) return;
-            const state = getState(activeTopicId);
-            state.sessions = state.sessions.filter(item => item.date !== date);
             saveProgress(false);
             updateStats();
             refreshModal();
