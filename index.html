@@ -104,6 +104,13 @@
       text-decoration: line-through;
       color: #94A3B8;
     }
+
+    #sync-sheet-btn.syncing svg {
+      animation: sheet-sync-spin 1s linear infinite;
+    }
+    @keyframes sheet-sync-spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -126,7 +133,7 @@
               1 Topic / Week
             </span>
           </div>
-          <p class="text-xs text-slate-500 truncate">Target: Overall 7.0–7.5 · W &amp; S 7.0 · Exam: July 2027</p>
+          <p id="header-target" class="text-xs text-slate-500 truncate" title="Target: Overall 7.0–7.5 (Writing &amp; Speaking 7.0) · Exam: July 2027">Target: Overall 7.0–7.5 · W &amp; S 7.0 · Exam: July 2027</p>
         </div>
       </div>
 
@@ -152,6 +159,9 @@
 
         <!-- Export / Import Backup -->
         <div class="flex items-center gap-1.5 pl-2 border-l border-slate-200">
+          <button onclick="syncFromSheets(true)" id="sync-sheet-btn" title="Đồng bộ từ Google Sheet" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+          </button>
           <button onclick="exportData()" title="Export JSON Backup" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
             <i data-lucide="download" class="w-4 h-4"></i>
           </button>
@@ -562,6 +572,20 @@
       <div id="matrix-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- Populated by JS -->
       </div>
+
+      <!-- Phase 2 from the Master Timeline sheet -->
+      <div id="phase2-banner" class="hidden bg-white rounded-2xl p-4 border border-amber-200/80 shadow-apple flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <span class="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
+            <i data-lucide="flag" class="w-4 h-4"></i>
+          </span>
+          <div class="min-w-0">
+            <p class="text-xs font-bold text-slate-900"><span id="phase2-title">Full Mock Exam Calibration</span> <span class="text-slate-400 font-normal">·</span> <span id="phase2-dates" class="font-normal text-slate-500"></span></p>
+            <p class="text-[11px] text-slate-500">After the 30 topic weeks, move into full mock exams and error calibration.</p>
+          </div>
+        </div>
+        <span id="phase2-phase" class="text-[11px] font-semibold text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-lg shrink-0">Phase 2</span>
+      </div>
     </div>
 
     <!-- ===================================================================== -->
@@ -931,6 +955,8 @@
         return {
           weekNumber: idx + 1,
           title,
+          customTitle: false,
+          phase: 'Topic Sprint Phase',
           dateRange,
           days: buildDefaultDaysForWeek(idx),
           vocab: starterVocab,
@@ -996,6 +1022,313 @@
         }
       } catch (e) {
         showToast('Warning: Could not save to browser storage.', 'error');
+      }
+    }
+
+    // =========================================================================
+    // 2B. GOOGLE SHEET SYNC (Master Timeline + 30-Topic Detailed Schedule)
+    // =========================================================================
+    const SHEET_ID = '191oY3oh2eqdy5WbaAUCiKhtQN7vGrLLO';
+    const SHEET_GID_MASTER = '1045481230';
+    const SHEET_GID_DETAIL = '1914463206';
+    const SHEET_CSV_BASE = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=`;
+    const SHEET_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    let sheetSyncInFlight = false;
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let field = '';
+      let inQuotes = false;
+      for (let i = 0; i < text.length; i += 1) {
+        const char = text[i];
+        if (inQuotes) {
+          if (char === '"') {
+            if (text[i + 1] === '"') {
+              field += '"';
+              i += 1;
+            } else {
+              inQuotes = false;
+            }
+          } else {
+            field += char;
+          }
+        } else if (char === '"') {
+          inQuotes = true;
+        } else if (char === ',') {
+          row.push(field);
+          field = '';
+        } else if (char === '\n') {
+          row.push(field);
+          rows.push(row);
+          row = [];
+          field = '';
+        } else if (char !== '\r') {
+          field += char;
+        }
+      }
+      if (field.length || row.length) {
+        row.push(field);
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    async function fetchSheetCSV(gid) {
+      const url = `${SHEET_CSV_BASE}${gid}&_=${Date.now()}`;
+      const response = await fetch(url, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Google Sheet HTTP ${response.status}`);
+      return response.text();
+    }
+
+    function parseMasterSheet(csvText) {
+      const rows = parseCSV(csvText.replace(/^\uFEFF/, ''));
+      const meta = {};
+
+      // gviz may collapse the metadata block into the table header row, so find
+      // the first real data row and treat the row above it as the header.
+      let firstDataIndex = -1;
+      for (let i = 0; i < rows.length; i += 1) {
+        const first = (rows[i][0] || '').trim();
+        if (/^\d+$/.test(first) && Number(first) > 0) {
+          firstDataIndex = i;
+          break;
+        }
+      }
+      if (firstDataIndex === -1) throw new Error('Master Timeline data not found');
+      const headerIndex = firstDataIndex - 1;
+
+      // Normal sheets: metadata sits in label/value rows above the header.
+      for (let i = 0; i < headerIndex; i += 1) {
+        const label = (rows[i][0] || '').trim();
+        const value = (rows[i][1] || '').trim();
+        if (label && value) meta[label] = value;
+      }
+
+      // This sheet: all labels/values are concatenated inside the header row.
+      const headerRow = rows[headerIndex] || [];
+      const labelText = (headerRow[0] || '').trim();
+      const valueText = (headerRow[1] || '').trim().replace(/\s*TOPIC TITLE\s*$/i, '').trim();
+      if (labelText || valueText) {
+        const targetMatch = valueText.match(/Overall\s+[\d.]+(?:\s*[–-]\s*[\d.]+)?(?:\s*\([^)]*\))?/);
+        const examMatch = valueText.match(/(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{4}\s*\([^)]*\)/);
+        const weeklyMatch = valueText.match(/\d+\s*Hours Total Available\s*\([^)]*\)/);
+        const perDayMatches = Array.from(valueText.matchAll(/\d+\s*Hours? per day(?:\s*\([^)]*\))?/g), match => match[0]);
+        const vocabMatch = valueText.match(/\d+\s*words per topic[\s\S]*?(?:recall\.|$)/);
+        if (!meta['Target Score:'] && targetMatch) meta['Target Score:'] = targetMatch[0].trim();
+        if (!meta['Target Exam Date:'] && examMatch) meta['Target Exam Date:'] = examMatch[0].trim();
+        if (!meta['Weekly Commitment:'] && weeklyMatch) meta['Weekly Commitment:'] = weeklyMatch[0].trim();
+        if (!meta['Weekday Schedule (Mon–Fri):'] && perDayMatches[0]) meta['Weekday Schedule (Mon–Fri):'] = perDayMatches[0].trim();
+        if (!meta['Weekend Schedule (Sat–Sun):'] && perDayMatches[1]) meta['Weekend Schedule (Sat–Sun):'] = perDayMatches[1].trim();
+        if (!meta['Vocabulary & Spaced Repetition:'] && vocabMatch) meta['Vocabulary & Spaced Repetition:'] = vocabMatch[0].trim();
+        meta['_rawLabels'] = labelText;
+        meta['_rawValues'] = valueText;
+      }
+
+      const topics = [];
+      let phase2 = null;
+      for (let i = firstDataIndex; i < rows.length; i += 1) {
+        const cells = rows[i];
+        const week = Number((cells[0] || '').trim());
+        const title = (cells[1] || '').trim();
+        const dates = (cells[2] || '').trim();
+        const phase = (cells[3] || '').trim();
+        if (!week || !title) continue;
+        const entry = { week, title, dates, phase };
+        if (week <= 30) topics.push(entry);
+        else if (!phase2) phase2 = entry;
+      }
+      return { meta, topics, phase2 };
+    }
+
+    function parseGateNums(badge) {
+      const prefix = String(badge).split(':')[0];
+      const matches = Array.from(prefix.matchAll(/\b([1-5])[AB]?\b/g), match => Number(match[1]));
+      return [...new Set(matches)];
+    }
+
+    function parseDetailedSheet(csvText) {
+      const rows = parseCSV(csvText.replace(/^\uFEFF/, ''));
+      const headerIndex = rows.findIndex(row => (row[0] || '').trim().toLowerCase() === 'week number');
+      if (headerIndex === -1) throw new Error('Detailed Schedule header not found');
+      const header = rows[headerIndex].map(cell => cell.trim().toLowerCase());
+      const idxWeek = header.indexOf('week number');
+      const idxDay = header.indexOf('day');
+      const idxGate = header.indexOf('gate badge');
+      const idxTasks = header.findIndex(cell => cell.includes('daily study'));
+      if (idxWeek === -1 || idxDay === -1 || idxTasks === -1) {
+        throw new Error('Detailed Schedule columns not recognised');
+      }
+      const weeks = {};
+      for (let i = headerIndex + 1; i < rows.length; i += 1) {
+        const cells = rows[i];
+        const week = Number((cells[idxWeek] || '').trim());
+        const dayName = (cells[idxDay] || '').trim();
+        if (!week || !dayName) continue;
+        const gateBadge = idxGate === -1 ? '' : (cells[idxGate] || '').trim();
+        const rawTasks = (cells[idxTasks] || '').replace(/\r/g, '').trim();
+        const dayIndex = SHEET_DAYS.findIndex(name => name.toLowerCase() === dayName.toLowerCase());
+        const tasks = rawTasks
+          .split('\n')
+          .map(line => line.trim())
+          .filter(Boolean)
+          .map(line => line.replace(/^\d+[\).]\s*/, '').trim())
+          .filter(Boolean);
+        const gateNums = parseGateNums(gateBadge);
+        if (!weeks[week]) weeks[week] = [];
+        weeks[week].push({
+          dayIndex: dayIndex === -1 ? weeks[week].length : dayIndex,
+          dayName,
+          gateBadge,
+          gateNums: gateNums.length ? gateNums : [1],
+          tasks
+        });
+      }
+      Object.values(weeks).forEach(days => days.sort((a, b) => a.dayIndex - b.dayIndex));
+      return weeks;
+    }
+
+    function buildSheetWeeks(master, detail) {
+      const oldWeeks = Array.isArray(appState.weeks) ? appState.weeks : [];
+      const topics = master.topics.length
+        ? master.topics
+        : DEFAULT_TOPICS.map((title, idx) => ({ week: idx + 1, title, dates: '', phase: 'Topic Sprint Phase' }));
+      return topics.slice(0, 30).map((topic, idx) => {
+        const prev = oldWeeks[idx] || {};
+        const prevDays = Array.isArray(prev.days) ? prev.days : [];
+        const sheetDays = detail[topic.week] || [];
+        const days = SHEET_DAYS.map((dayName, dIdx) => {
+          const prevDay = prevDays[dIdx] || {};
+          const sheetDay = sheetDays.find(day => day.dayIndex === dIdx) || sheetDays[dIdx] || {};
+          const fallback = DAY_BLUEPRINT[dIdx] || {};
+          const sheetTasks = Array.isArray(sheetDay.tasks) && sheetDay.tasks.length
+            ? sheetDay.tasks
+            : (fallback.tasks || []).map(task => task.title);
+          const oldSheetTasks = (prevDay.tasks || []).filter(task => !task.isCustom);
+          const customTasks = (prevDay.tasks || []).filter(task => task.isCustom);
+          const gateNums = sheetDay.gateNums && sheetDay.gateNums.length
+            ? sheetDay.gateNums
+            : (fallback.gateNums || [1]);
+          const usedOldIndexes = new Set();
+          const tasks = sheetTasks.map((title, tIdx) => {
+            let oldIndex = oldSheetTasks.findIndex((task, idx2) => !usedOldIndexes.has(idx2) && task.title === title);
+            if (oldIndex === -1 && tIdx < oldSheetTasks.length && !usedOldIndexes.has(tIdx)) oldIndex = tIdx;
+            if (oldIndex !== -1) usedOldIndexes.add(oldIndex);
+            const oldTask = oldIndex !== -1 ? oldSheetTasks[oldIndex] : {};
+            return {
+              id: `w${idx + 1}-d${dIdx}-t${tIdx}`,
+              title,
+              gate: gateNums[Math.min(tIdx, gateNums.length - 1)],
+              placeholder: oldTask.placeholder || 'Log specific material or result...',
+              done: Boolean(oldTask.done),
+              note: oldTask.note || '',
+              isCustom: false
+            };
+          });
+          return {
+            ...prevDay,
+            dayIndex: dIdx,
+            dayName: sheetDay.dayName || dayName,
+            hoursLabel: prevDay.hoursLabel || fallback.hoursLabel || '2h study / 2h avail',
+            gateBadge: sheetDay.gateBadge || fallback.gateBadge || '',
+            gateNums,
+            accent: gateNums.some(num => num === 1 || num === 4 || num === 5) ? 'emerald' : 'lavender',
+            tasks: [...tasks, ...customTasks]
+          };
+        });
+        const oldDefault = DEFAULT_TOPICS[idx] || '';
+        const isCustomTitle = prev.customTitle === true || (prev.title && prev.title !== oldDefault && prev.title !== topic.title);
+        return {
+          ...prev,
+          weekNumber: idx + 1,
+          title: isCustomTitle ? prev.title : topic.title,
+          customTitle: isCustomTitle,
+          dateRange: topic.dates || prev.dateRange || '',
+          phase: topic.phase || 'Topic Sprint Phase',
+          days
+        };
+      });
+    }
+
+    function applySheetMeta(meta) {
+      const target = meta['Target Score:'] || '';
+      const exam = meta['Target Exam Date:'] || '';
+      const headerTarget = document.getElementById('header-target');
+      if (!headerTarget || (!target && !exam)) return;
+      const shortTarget = target
+        .replace(/Writing\s*&\s*Speaking/gi, 'W & S')
+        .replace(/Writing\s+and\s+Speaking/gi, 'W & S');
+      const examShortMatch = exam.match(/^[A-Za-z]+\s+\d{4}/);
+      const examShort = examShortMatch ? examShortMatch[0] : exam;
+      headerTarget.textContent = `Target: ${shortTarget || 'Overall 7.0–7.5'} · Exam: ${examShort || 'July 2027'}`;
+      headerTarget.title = [target && `Target: ${target}`, exam && `Exam: ${exam}`].filter(Boolean).join('\n');
+    }
+
+    function applyPhase2(phase2) {
+      const banner = document.getElementById('phase2-banner');
+      if (!banner) return;
+      if (!phase2) {
+        banner.classList.add('hidden');
+        return;
+      }
+      const titleEl = document.getElementById('phase2-title');
+      const datesEl = document.getElementById('phase2-dates');
+      const phaseEl = document.getElementById('phase2-phase');
+      if (titleEl) titleEl.textContent = phase2.title;
+      if (datesEl) datesEl.textContent = phase2.dates;
+      if (phaseEl) phaseEl.textContent = phase2.phase;
+      banner.classList.remove('hidden');
+    }
+
+    async function syncFromSheets(manual = false) {
+      if (sheetSyncInFlight) return;
+      if (location.protocol === 'file:') {
+        if (manual) showToast('Đồng bộ Google Sheet cần chạy qua http(s), không mở trực tiếp file.', 'error');
+        return;
+      }
+      sheetSyncInFlight = true;
+      const btn = document.getElementById('sync-sheet-btn');
+      if (btn) {
+        btn.disabled = true;
+        btn.classList.add('syncing');
+      }
+      try {
+        const [masterCsv, detailCsv] = await Promise.all([
+          fetchSheetCSV(SHEET_GID_MASTER),
+          fetchSheetCSV(SHEET_GID_DETAIL)
+        ]);
+        const master = parseMasterSheet(masterCsv);
+        const detail = parseDetailedSheet(detailCsv);
+        if (!master.topics.length) throw new Error('Master Timeline has no topics');
+        appState.weeks = buildSheetWeeks(master, detail);
+        appState.sheetMeta = {
+          targetScore: master.meta['Target Score:'] || '',
+          targetExamDate: master.meta['Target Exam Date:'] || '',
+          weeklyCommitment: master.meta['Weekly Commitment:'] || '',
+          weekdaySchedule: master.meta['Weekday Schedule (Mon–Fri):'] || '',
+          weekendSchedule: master.meta['Weekend Schedule (Sat–Sun):'] || '',
+          vocabularyPlan: master.meta['Vocabulary & Spaced Repetition:'] || '',
+          phase2: master.phase2
+        };
+        applySheetMeta(master.meta);
+        applyPhase2(master.phase2);
+        saveState(false);
+        renderAll();
+        if (btn) {
+          const now = new Date();
+          const time = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+          btn.title = `Đồng bộ từ Google Sheet (lần cuối: ${time})`;
+        }
+        if (manual) showToast('Đã đồng bộ nội dung từ Google Sheet');
+      } catch (error) {
+        console.error('Google Sheet sync failed:', error);
+        if (manual) showToast('Không đồng bộ được Google Sheet. Kiểm tra quyền chia sẻ.', 'error');
+      } finally {
+        sheetSyncInFlight = false;
+        if (btn) {
+          btn.disabled = false;
+          btn.classList.remove('syncing');
+        }
       }
     }
 
@@ -1515,6 +1848,7 @@
       const trimmed = newTitle.trim();
       if (!trimmed) return;
       appState.weeks[appState.activeWeek - 1].title = trimmed;
+      appState.weeks[appState.activeWeek - 1].customTitle = true;
       saveState();
       renderWeekSelector();
       renderMatrix();
@@ -1850,7 +2184,16 @@
     window.onload = function() {
       loadState();
       renderAll();
+      syncFromSheets(false);
     };
+
+    // Keep the page in step with the shared sheet when the user returns to it.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) return;
+      const active = document.activeElement;
+      if (active && active.matches('input, textarea, select')) return;
+      syncFromSheets(false);
+    });
   </script>
 </body>
 </html>
