@@ -78,5 +78,37 @@ window.vocabularies = [
     "description": "Bộ từ vựng thuộc chủ đề Health & Sports đạt mức độ học thuật C1/C2 (Band 7.5+ - 8.5 IELTS), bao hàm đầy đủ các thuật ngữ chuyên sâu về bệnh học, y tế cộng đồng, phục hồi chức năng và thể thao học. Đây",
     "topics": 1,
     "color": "from-emerald-400 to-teal-500"
+  },
+  {
+    "id": "11",
+    "filename": "11 Internet.html",
+    "title": "CHỦ ĐỀ: TECHNOLOGY AND ITS MULTIFACETED IMPACTS",
+    "description": "Bảng từ vựng tổng hợp nâng cao đạt chuẩn Band 7.5+ (C1/C2) tập trung khai thác các khía cạnh học thuật của chủ đề Công nghệ (Technology) và các tác động đa chiều lên Thị trường việc làm (Job Market), ",
+    "topics": 1,
+    "color": "from-orange-400 to-rose-500"
+  },
+  {
+    "id": "12",
+    "filename": "12 Work.html",
+    "title": "CHỦ ĐỀ: BUSINESS MANAGEMENT AND STRATEGIC SUCCESS",
+    "description": "Tài liệu tập hợp các thuật ngữ học thuật cực kỳ đắt giá (C1/C2) thuộc chủ đề Business & Enterprise, cực kỳ phù hợp để nâng cấp từ vựng trong bài thi IELTS Writing Task 2 (các chủ đề về kinh tế toàn cầ",
+    "topics": 1,
+    "color": "from-purple-400 to-pink-500"
+  },
+  {
+    "id": "13",
+    "filename": "13 Business.html",
+    "title": "CHỦ ĐỀ: BUSINESS & ENTERPRISE SUCCESS",
+    "description": "Bộ từ vựng cao cấp (C1/C2 - Band 7.5+) cung cấp các thuật ngữ và collocations học thuật đắt giá xoay quanh quản trị doanh nghiệp, đạo đức kinh doanh, vận hành tài chính và các chiến lược cạnh tranh. Đ",
+    "topics": 1,
+    "color": "from-indigo-400 to-blue-500"
+  },
+  {
+    "id": "14",
+    "filename": "14 Advertising.html",
+    "title": "CHỦ ĐỀ: ADVERTISING AND CONSUMERISM",
+    "description": "Bảng từ vựng tích hợp hệ thống thuật ngữ học thuật nâng cao về chủ đề Quảng cáo & Tiêu dùng (Band 7.5+). Tài liệu tập trung sâu vào các khía cạnh tâm lý học hành vi tiêu dùng, chiến thuật tiếp thị của",
+    "topics": 1,
+    "color": "from-cyan-400 to-emerald-500"
   }
 ];
