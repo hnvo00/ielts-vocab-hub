@@ -191,6 +191,46 @@
 
             <!-- Body -->
             <div class="p-5 sm:p-6 modal-scroll flex-1 min-h-0 overflow-y-auto space-y-5">
+                <!-- Plan + sessions -->
+                <section>
+                    <div class="flex items-center justify-between gap-3 mb-2.5">
+                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
+                            <span>🗓️</span> Kế hoạch & theo dõi buổi học
+                        </h3>
+                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 buổi</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="block">
+                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Bắt đầu</span>
+                            <input type="date" id="plan-start" onchange="savePlanDates()"
+                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        </label>
+                        <label class="block">
+                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Mục tiêu hoàn thành</span>
+                            <input type="date" id="plan-target" onchange="savePlanDates()"
+                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                        </label>
+                    </div>
+                    <p id="plan-status" class="text-xs font-bold text-purple-600 mt-2">Chưa đặt kế hoạch</p>
+
+                    <div class="mt-4 pt-4 border-t border-purple-100">
+                        <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-2">Các buổi học của bạn</p>
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <button onclick="shiftWeek(-7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần trước">‹</button>
+                            <div class="text-center min-w-0">
+                                <p id="week-label" class="text-xs font-extrabold text-purple-800">Tuần này</p>
+                                <p id="week-summary" class="text-[10px] font-bold text-purple-500">0/7 ngày</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="goCurrentWeek()" class="px-2.5 py-1.5 rounded-lg bg-white border border-purple-200 text-[10px] font-extrabold text-purple-700 hover:bg-purple-50 transition">Tuần này</button>
+                                <button onclick="shiftWeek(7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần sau">›</button>
+                            </div>
+                        </div>
+                        <div id="week-strip" class="grid grid-cols-7 gap-0.5 overflow-hidden"></div>
+                        <p class="text-[10px] text-purple-400 mt-2">Tick ngày bạn đã học, rồi ghi chú cho ngày đó ở bên dưới.</p>
+                    </div>
+                </section>
+
                 <!-- Notes -->
                 <section>
                     <div class="flex items-center justify-between gap-3 mb-2.5">
@@ -284,46 +324,6 @@
                                 <input type="date" id="step-date-3" onchange="saveStepDate(3)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
                             </label>
                         </div>
-                    </div>
-                </section>
-
-                <!-- Plan + sessions -->
-                <section>
-                    <div class="flex items-center justify-between gap-3 mb-2.5">
-                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
-                            <span>🗓️</span> Kế hoạch & theo dõi buổi học
-                        </h3>
-                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 buổi</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <label class="block">
-                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Bắt đầu</span>
-                            <input type="date" id="plan-start" onchange="savePlanDates()"
-                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                        </label>
-                        <label class="block">
-                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Mục tiêu hoàn thành</span>
-                            <input type="date" id="plan-target" onchange="savePlanDates()"
-                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                        </label>
-                    </div>
-                    <p id="plan-status" class="text-xs font-bold text-purple-600 mt-2">Chưa đặt kế hoạch</p>
-
-                    <div class="mt-4 pt-4 border-t border-purple-100">
-                        <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-2">Các buổi học của bạn</p>
-                        <div class="flex items-center justify-between gap-2 mb-2">
-                            <button onclick="shiftWeek(-7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần trước">‹</button>
-                            <div class="text-center min-w-0">
-                                <p id="week-label" class="text-xs font-extrabold text-purple-800">Tuần này</p>
-                                <p id="week-summary" class="text-[10px] font-bold text-purple-500">0/7 ngày</p>
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                <button onclick="goCurrentWeek()" class="px-2.5 py-1.5 rounded-lg bg-white border border-purple-200 text-[10px] font-extrabold text-purple-700 hover:bg-purple-50 transition">Tuần này</button>
-                                <button onclick="shiftWeek(7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần sau">›</button>
-                            </div>
-                        </div>
-                        <div id="week-strip" class="grid grid-cols-7 gap-0.5 overflow-hidden"></div>
-                        <p class="text-[10px] text-purple-400 mt-2">Tick vào ngày bạn đã học. Mỗi hàng là một tuần.</p>
                     </div>
                 </section>
 
@@ -789,15 +789,21 @@
             if (!activeTopicId) return;
             const state = getState(activeTopicId);
             const session = state.sessions.find(item => item.date === date);
+            let markedDone = false;
             if (session && session.done) {
                 state.sessions = state.sessions.filter(item => item.date !== date);
             } else if (session) {
                 session.done = true;
+                markedDone = true;
             } else {
                 state.sessions.push({ date, done: true });
+                markedDone = true;
             }
             saveProgress(false);
             updateStats();
+            if (markedDone) {
+                document.getElementById('note-date').value = date;
+            }
             refreshModal();
         }
 
@@ -895,7 +901,9 @@
             saveProgress(false);
             updateStats();
             document.getElementById('note-text').value = '';
-            document.getElementById('note-date').value = todayISO();
+            if (!document.getElementById('note-date').value) {
+                document.getElementById('note-date').value = todayISO();
+            }
             refreshModal();
             showToast('💾 Đã lưu ghi chú');
         }
@@ -944,8 +952,12 @@
         function savePlanDates() {
             if (!activeTopicId) return;
             const state = getState(activeTopicId);
+            const previousStart = state.planStart;
             state.planStart = document.getElementById('plan-start').value;
             state.planTarget = document.getElementById('plan-target').value;
+            if (state.planStart !== previousStart) {
+                weekAnchor = getWeekStart(state.planStart || todayISO());
+            }
             saveProgress(false);
             updateStats();
             refreshModal();
