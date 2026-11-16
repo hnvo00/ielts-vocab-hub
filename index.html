@@ -1,1023 +1,1856 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows of IELTS Vocab - 30 Ô Cửa Sổ Từ Vựng</title>
-    <meta name="description" content="30 ô cửa sổ từ vựng IELTS: mở tài liệu, ghi chú, lập kế hoạch và theo dõi tiến độ học theo ngày.">
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
-    <!-- Canvas Confetti -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IELTS 7.5 Mastery Pipeline — 30-Week Tracker</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #f6f0ff 0%, #ede4ff 50%, #fdf4ff 100%);
-            min-height: 100vh;
-            color: #4a3b69;
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            emerald: {
+              50: '#ECFDF5',
+              100: '#D1FAE5',
+              200: '#A7F3D0',
+              500: '#10B981',
+              600: '#059669',
+              700: '#047857',
+              900: '#064E3B',
+            },
+            lavender: {
+              50: '#F5F3FF',
+              100: '#EDE9FE',
+              200: '#DDD6FE',
+              500: '#8B5CF6',
+              600: '#7C3AED',
+              700: '#6D28D9',
+            },
+            slate: {
+              50: '#F9FAFB',
+              100: '#F1F5F9',
+              200: '#E5E7EB',
+              300: '#CBD5E1',
+              400: '#94A3B8',
+              500: '#64748B',
+              600: '#475569',
+              700: '#334155',
+              800: '#1E293B',
+              900: '#0F172A',
+            }
+          },
+          boxShadow: {
+            'apple': '0 1px 3px rgba(15, 23, 42, 0.04), 0 6px 16px rgba(15, 23, 42, 0.03)',
+            'apple-hover': '0 4px 12px rgba(15, 23, 42, 0.06), 0 12px 24px rgba(15, 23, 42, 0.04)',
+          }
         }
+      }
+    };
+  </script>
 
-        h1, h2, h3, .font-display {
-            font-family: 'Quicksand', sans-serif;
-        }
+  <style>
+    body {
+      background-color: #F9FAFB;
+      color: #0F172A;
+      -webkit-font-smoothing: antialiased;
+    }
 
-        .window-container {
-            perspective: 1000px;
-        }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
 
-        .window-shutter {
-            transform-origin: left center;
-            transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
-            backface-visibility: hidden;
-        }
+    /* Flashcard 3D flip effect */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
 
-        .window-card.is-completed .window-shutter {
-            transform: rotateY(-105deg);
-            pointer-events: none;
-        }
-
-        .window-grid-lines {
-            background-image:
-                linear-gradient(to right, rgba(255,255,255,0.45) 2px, transparent 2px),
-                linear-gradient(to bottom, rgba(255,255,255,0.45) 2px, transparent 2px);
-            background-size: 50% 50%;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f3e8ff;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #c084fc;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a855f7;
-        }
-
-        .hover-float {
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .hover-float:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -6px rgba(139, 92, 246, 0.22);
-        }
-
-        .custom-checkbox:checked {
-            background-color: #9333ea;
-            border-color: #9333ea;
-        }
-
-        .modal-scroll {
-            max-height: none;
-        }
-
-        @keyframes pop-in {
-            from { transform: scale(0.96); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .modal-pop {
-            animation: pop-in 0.18s ease-out;
-        }
-    </style>
+    /* Smooth checkbox transition */
+    .gate-checkbox:checked + .gate-label {
+      text-decoration: line-through;
+      color: #94A3B8;
+    }
+  </style>
 </head>
-<body class="pb-16">
+<body class="min-h-screen flex flex-col">
 
-    <!-- Header -->
-    <header class="sticky top-0 z-30 backdrop-blur-md bg-white/80 border-b border-purple-200/70 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-400 to-fuchsia-400 flex items-center justify-center text-white text-2xl shadow-md shadow-purple-200">
-                    🪟
+  <!-- Toast Notification Container (Replaces alert()) -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-30 bg-white/85 backdrop-blur-md border-b border-slate-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Brand & Target Badge -->
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-sm shrink-0">
+          <i data-lucide="compass" class="w-5 h-5"></i>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h1 class="text-base sm:text-lg font-semibold tracking-tight text-slate-900 truncate">IELTS 7.5 Mastery Pipeline</h1>
+            <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/70">
+              1 Topic / Week
+            </span>
+          </div>
+          <p class="text-xs text-slate-500 truncate">Target: Overall 7.0–7.5 · W &amp; S 7.0 · Exam: July 2027</p>
+        </div>
+      </div>
+
+      <!-- Primary View Navigation + Backup Actions -->
+      <div class="flex items-center gap-2">
+        <nav class="hidden sm:flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/60">
+          <button onclick="switchMainView('command')" id="nav-command" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-white text-slate-900 shadow-sm">
+            Command Center
+          </button>
+          <button onclick="switchMainView('matrix')" id="nav-matrix" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-900">
+            30-Topic Matrix
+          </button>
+          <button onclick="switchMainView('redlist')" id="nav-redlist" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+            Red List
+            <span id="nav-redlist-badge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-100 text-rose-700 font-semibold">0</span>
+          </button>
+        </nav>
+
+        <a href="./vocabulary.html" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition">
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          30 Vocabulary Topics
+        </a>
+
+        <!-- Export / Import Backup -->
+        <div class="flex items-center gap-1.5 pl-2 border-l border-slate-200">
+          <button onclick="exportData()" title="Export JSON Backup" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+            <i data-lucide="download" class="w-4 h-4"></i>
+          </button>
+          <label title="Import JSON Backup" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer">
+            <i data-lucide="upload" class="w-4 h-4"></i>
+            <input type="file" id="import-file" accept=".json" class="hidden" onchange="importData(event)" />
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Bar -->
+    <div class="sm:hidden flex border-t border-slate-200/80 bg-white px-4 py-1.5 gap-1">
+      <button onclick="switchMainView('command')" id="mnav-command" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-emerald-50 text-emerald-700">
+        Active Week
+      </button>
+      <button onclick="switchMainView('matrix')" id="mnav-matrix" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-slate-600">
+        30 Topics
+      </button>
+      <button onclick="switchMainView('redlist')" id="mnav-redlist" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-slate-600">
+        Red List (<span id="mnav-redlist-badge">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- Vocabulary Topics CTA -->
+    <section>
+      <a href="./vocabulary.html" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 rounded-2xl bg-white border border-emerald-200/80 shadow-apple px-4 sm:px-5 py-4 hover:border-emerald-300 hover:shadow-apple-hover transition">
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
+            <i data-lucide="book-open" class="w-5 h-5"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="text-sm font-semibold text-slate-900">30 Vocabulary Topics</p>
+            <p class="text-xs text-slate-500">Mở thư viện 30 chủ đề, ghi chú và theo dõi tiến độ từng chủ đề.</p>
+          </div>
+        </div>
+        <span class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 group-hover:bg-emerald-700 transition shrink-0">
+          Mở 30 chủ đề
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </span>
+      </a>
+    </section>
+
+    <!-- KPI Summary Row -->
+    <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+      <!-- KPI 1: Topics Mastered -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-apple">
+        <div class="flex items-center justify-between text-slate-500 mb-1.5">
+          <span class="text-xs font-medium">Topics Mastered</span>
+          <i data-lucide="award" class="w-4 h-4 text-emerald-600"></i>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span id="kpi-mastered" class="text-2xl font-bold tracking-tight text-slate-900">0</span>
+          <span class="text-xs font-medium text-slate-400">/ 30</span>
+        </div>
+        <div class="mt-2 w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+          <div id="kpi-mastered-bar" class="bg-emerald-600 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- KPI 2: Weekly Consistency Score -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-apple">
+        <div class="flex items-center justify-between text-slate-500 mb-1.5">
+          <span class="text-xs font-medium">Week Consistency</span>
+          <i data-lucide="activity" class="w-4 h-4 text-emerald-600"></i>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span id="kpi-consistency" class="text-2xl font-bold tracking-tight text-slate-900">0%</span>
+          <span id="kpi-consistency-tag" class="text-[11px] font-medium px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600">Goal ≥90%</span>
+        </div>
+        <p class="mt-1.5 text-[11px] text-slate-400">Active week gate completion</p>
+      </div>
+
+      <!-- KPI 3: Essays Written -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-apple">
+        <div class="flex items-center justify-between text-slate-500 mb-1.5">
+          <span class="text-xs font-medium">Task 2 Essays</span>
+          <i data-lucide="pen-tool" class="w-4 h-4 text-emerald-600"></i>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span id="kpi-essays" class="text-2xl font-bold tracking-tight text-slate-900">0</span>
+          <span class="text-xs font-medium text-slate-400">logged</span>
+        </div>
+        <p class="mt-1.5 text-[11px] text-slate-400">Gate 4 timed essays completed</p>
+      </div>
+
+      <!-- KPI 4: Speaking Sets -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-apple">
+        <div class="flex items-center justify-between text-slate-500 mb-1.5">
+          <span class="text-xs font-medium">Speaking Sets</span>
+          <i data-lucide="mic" class="w-4 h-4 text-emerald-600"></i>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span id="kpi-speaking" class="text-2xl font-bold tracking-tight text-slate-900">0</span>
+          <span class="text-xs font-medium text-slate-400">recorded</span>
+        </div>
+        <p class="mt-1.5 text-[11px] text-slate-400">Part 1/2/3 topic recordings</p>
+      </div>
+
+      <!-- KPI 5: Spaced Reviews Due -->
+      <div onclick="switchMainView('matrix', 'review')" class="col-span-2 lg:col-span-1 bg-white rounded-2xl p-4 border border-slate-200/80 shadow-apple cursor-pointer hover:border-emerald-300 transition-colors">
+        <div class="flex items-center justify-between text-slate-500 mb-1.5">
+          <span class="text-xs font-medium">Spaced Reviews Due</span>
+          <i data-lucide="repeat" class="w-4 h-4 text-amber-500"></i>
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span id="kpi-reviews" class="text-2xl font-bold tracking-tight text-slate-900">0</span>
+          <span id="kpi-reviews-sub" class="text-xs font-medium text-emerald-600">All caught up</span>
+        </div>
+        <p class="mt-1.5 text-[11px] text-slate-400">+1w / +3w / +6w retention queue</p>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 1: ACTIVE WEEK COMMAND CENTER                                    -->
+    <!-- ===================================================================== -->
+    <div id="view-command" class="space-y-6">
+
+      <!-- Active Week Hero Banner -->
+      <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-apple">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
+          <div class="space-y-1.5 flex-1 min-w-0">
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="active-week-pill" class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white">
+                WEEK 1 OF 30
+              </span>
+              <span id="active-week-dates" class="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">
+                Nov 16 – Nov 22, 2026
+              </span>
+              <span id="active-week-status-badge" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200/70">
+                In Progress
+              </span>
+            </div>
+
+            <!-- Inline Editable Topic Title -->
+            <div class="flex items-center gap-2 group pt-1">
+              <input
+                type="text"
+                id="active-topic-title"
+                onchange="updateTopicTitle(this.value)"
+                aria-label="Edit Topic Name"
+                class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-emerald-600 focus:outline-none w-full max-w-xl transition-colors"
+              />
+              <i data-lucide="pencil" class="w-4 h-4 text-slate-400 shrink-0 opacity-60 group-hover:opacity-100"></i>
+            </div>
+            <p class="text-xs text-slate-500">Click the topic title above anytime to customize it to match your 30-topic list.</p>
+          </div>
+
+          <!-- Week Switcher Controls -->
+          <div class="flex items-center gap-2 self-start md:self-center shrink-0">
+            <button onclick="navigateWeek(-1)" id="btn-prev-week" class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 disabled:opacity-40 transition-colors" title="Previous Week">
+              <i data-lucide="chevron-left" class="w-4 h-4"></i>
+            </button>
+            <select id="week-selector" onchange="selectWeek(Number(this.value))" class="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-800 focus:outline-none focus:border-emerald-600">
+              <!-- Populated by JS -->
+            </select>
+            <button onclick="navigateWeek(1)" id="btn-next-week" class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 disabled:opacity-40 transition-colors" title="Next Week">
+              <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Overall Week Gate Progress Bar + Live 5-Gate Summary Pills -->
+        <div class="pt-4 space-y-3">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-medium text-slate-700">Weekly Execution Progress (~12.25h Core + 5.75h Buffer)</span>
+            <span id="week-progress-text" class="font-semibold text-emerald-700">0 / 14 Tasks (0%)</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+            <div id="week-progress-bar" class="h-full bg-emerald-600 rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <!-- Auto-computed Gate 1–5 Status Pills -->
+          <div id="gate-summary-pills" class="flex flex-wrap items-center gap-2 pt-1">
+            <!-- Populated dynamically by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Day-by-Day Weekly Execution Schedule (Monday – Sunday) -->
+      <section class="space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+            <i data-lucide="calendar-days" class="w-4 h-4 text-emerald-600"></i>
+            Monday – Sunday Execution Schedule (Aligned with 5 Mastery Gates)
+          </h2>
+          <span class="text-xs text-slate-500">Type your exact material (e.g., Cambridge 21 R3) anytime — auto-saves without checking done</span>
+        </div>
+
+        <div id="days-container" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <!-- 7 Day Cards rendered dynamically by JS -->
+        </div>
+      </section>
+
+      <!-- Secondary Topic Workspace Tabs (Scratchpad | Paper & Pen Vocab Bank) -->
+      <section class="bg-white rounded-2xl border border-slate-200/80 shadow-apple overflow-hidden">
+        <!-- Workspace Tab Header -->
+        <div class="border-b border-slate-200/80 px-4 sm:px-6 bg-slate-50/60 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-1 sm:gap-2 overflow-x-auto py-2">
+            <button onclick="switchWorkspaceTab('scratchpad')" id="wtab-scratchpad" class="px-3.5 py-2 rounded-xl text-xs font-semibold transition-all bg-white text-emerald-700 shadow-sm border border-slate-200/70 flex items-center gap-1.5 whitespace-nowrap">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              Writing &amp; Speaking Scratchpad
+            </button>
+            <button onclick="switchWorkspaceTab('vocab')" id="wtab-vocab" class="px-3.5 py-2 rounded-xl text-xs font-medium transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5 whitespace-nowrap">
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+              Vocab &amp; Random Recall Bank
+              <span id="vocab-count-pill" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-lavender-100 text-lavender-700">0</span>
+            </button>
+          </div>
+
+          <span id="autosave-indicator" class="text-[11px] text-slate-400 flex items-center gap-1 py-2">
+            <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-500"></i>
+            Saved locally
+          </span>
+        </div>
+
+        <!-- TAB A: WRITING & SPEAKING SCRATCHPAD -->
+        <div id="workspace-scratchpad" class="p-4 sm:p-6 space-y-5">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <!-- Writing Task 2 Area -->
+            <div class="space-y-2 flex flex-col">
+              <div class="flex items-center justify-between">
+                <label class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
+                  <i data-lucide="pen-tool" class="w-3.5 h-3.5 text-emerald-600"></i>
+                  Saturday Gate 4: Writing Task 2 Prompt &amp; Essay (250+ Words)
+                </label>
+                <span id="essay-word-count" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600">0 words</span>
+              </div>
+              <input
+                type="text"
+                id="sp-essay-prompt"
+                oninput="saveScratchpad()"
+                placeholder="Paste your Saturday Task 2 essay question here..."
+                class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-medium text-slate-800 bg-slate-50/70 focus:bg-white focus:outline-none focus:border-emerald-600"
+              />
+              <textarea
+                id="sp-essay-body"
+                oninput="saveScratchpad()"
+                rows="12"
+                placeholder="Write your timed 40-minute essay here, then highlight/upgrade 6–8 target collocations from your paper notebook..."
+                class="w-full p-3.5 rounded-xl border border-slate-200 text-xs sm:text-sm leading-relaxed text-slate-800 focus:outline-none focus:border-emerald-600 resize-y"
+              ></textarea>
+            </div>
+
+            <!-- Speaking Part 1/2/3 & Reading/Listening Notes -->
+            <div class="space-y-4 flex flex-col">
+              <div class="space-y-2">
+                <label class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
+                  <i data-lucide="mic" class="w-3.5 h-3.5 text-lavender-600"></i>
+                  Thursday–Friday Gate 3: Speaking Cue Card &amp; Self-Audit Notes
+                </label>
+                <textarea
+                  id="sp-speaking-notes"
+                  oninput="saveScratchpad()"
+                  rows="7"
+                  placeholder="Cue Card Topic: Describe a...&#10;• Point 1 (Target collocation: ...)&#10;• Point 2 (Target collocation: ...)&#10;• Friday Re-record & Pronunciation Audit..."
+                  class="w-full p-3.5 rounded-xl border border-slate-200 text-xs sm:text-sm leading-relaxed text-slate-800 focus:outline-none focus:border-emerald-600 resize-y"
+                ></textarea>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
+                  <i data-lucide="headphones" class="w-3.5 h-3.5 text-emerald-600"></i>
+                  Monday–Tuesday Gate 1: Reading &amp; Listening Paraphrase Notes
+                </label>
+                <textarea
+                  id="sp-input-notes"
+                  oninput="saveScratchpad()"
+                  rows="4"
+                  placeholder="Key paraphrases or tricky question types from your Reading/Listening passages..."
+                  class="w-full p-3.5 rounded-xl border border-slate-200 text-xs leading-relaxed text-slate-800 focus:outline-none focus:border-emerald-600 resize-y"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB B: VOCABULARY & RANDOM RECALL BANK -->
+        <div id="workspace-vocab" class="hidden p-4 sm:p-6 space-y-6">
+          <!-- Top Bar: Add Word Form + Mode Toggle -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-lavender-50/70 p-4 rounded-xl border border-lavender-200/70">
+            <div>
+              <h3 class="text-sm font-semibold text-slate-900">Topic Vocabulary &amp; Collocation Bank (Companion to Paper Notebook)</h3>
+              <p class="text-xs text-slate-600">Log key words from your paper study here whenever you want quick random recall quizzes.</p>
+            </div>
+            <div class="flex items-center gap-2 self-start lg:self-center">
+              <button onclick="toggleFlashcardMode(false)" id="btn-list-mode" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm border border-slate-200">
+                Word List
+              </button>
+              <button onclick="toggleFlashcardMode(true)" id="btn-flashcard-mode" class="px-3 py-1.5 rounded-lg text-xs font-semibold text-lavender-700 bg-white hover:bg-lavender-50 border border-lavender-200 flex items-center gap-1.5 transition-colors">
+                <i data-lucide="shuffle" class="w-3.5 h-3.5"></i>
+                Random Recall Flashcards
+              </button>
+            </div>
+          </div>
+
+          <!-- List Mode Container -->
+          <div id="vocab-list-view" class="space-y-5">
+            <!-- Add New Word Form -->
+            <form onsubmit="addVocabWord(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-3 bg-white p-4 rounded-xl border border-slate-200/90">
+              <div class="sm:col-span-3">
+                <label class="block text-[11px] font-medium text-slate-500 mb-1">Word / Phrase *</label>
+                <input type="text" id="v-word" required placeholder="e.g., mitigate" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:outline-none focus:border-emerald-600" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-[11px] font-medium text-slate-500 mb-1">IPA / POS</label>
+                <input type="text" id="v-ipa" placeholder="/ˈmɪt.ɪ.ɡeɪt/ (v)" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs font-mono focus:outline-none focus:border-emerald-600" />
+              </div>
+              <div class="sm:col-span-3">
+                <label class="block text-[11px] font-medium text-slate-500 mb-1">Key Collocation *</label>
+                <input type="text" id="v-collocation" required placeholder="mitigate the adverse impact of" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:outline-none focus:border-emerald-600" />
+              </div>
+              <div class="sm:col-span-4 flex flex-col sm:flex-row gap-2">
+                <div class="flex-1">
+                  <label class="block text-[11px] font-medium text-slate-500 mb-1">Band 7.5 Example Sentence *</label>
+                  <input type="text" id="v-example" required placeholder="Strict carbon taxes can mitigate the adverse impact of industrial emissions." class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:outline-none focus:border-emerald-600" />
                 </div>
-                <div>
-                    <h1 class="text-xl md:text-2xl font-bold text-purple-900 tracking-tight">
-                        Windows of IELTS Vocab
-                    </h1>
-                    <p class="text-xs md:text-sm text-purple-600/80 font-medium">
-                        Mở từng ô cửa sổ, học từ vựng & theo dõi tiến độ của bạn ✨
+                <div class="self-end">
+                  <button type="submit" class="w-full sm:w-auto px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors flex items-center justify-center gap-1">
+                    <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+                    Add
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Words Table / Cards -->
+            <div id="vocab-items-container" class="divide-y divide-slate-100 border border-slate-200/80 rounded-xl overflow-hidden bg-white">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Flashcard Active Recall Mode -->
+          <div id="vocab-flashcard-view" class="hidden py-4">
+            <div class="max-w-xl mx-auto space-y-4">
+              <div class="flex items-center justify-between text-xs text-slate-500">
+                <span id="fc-counter">Card 1 of 1</span>
+                <span>Click card to flip · Test collocation &amp; meaning</span>
+              </div>
+
+              <!-- 3D Flip Card -->
+              <div onclick="flipFlashcard()" class="perspective-1000 cursor-pointer select-none h-64">
+                <div id="fc-inner" class="relative w-full h-full transform-style-3d">
+                  <!-- Front -->
+                  <div class="absolute inset-0 backface-hidden bg-white border-2 border-slate-200 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-apple">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-lavender-600 mb-2">Target Lexical Item</span>
+                    <h4 id="fc-front-word" class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">mitigate</h4>
+                    <p id="fc-front-ipa" class="text-sm font-mono text-slate-400">/ˈmɪt.ɪ.ɡeɪt/ (v)</p>
+                    <span class="mt-6 text-[11px] text-slate-400 flex items-center gap-1">
+                      <i data-lucide="rotate-cw" class="w-3 h-3"></i> Tap to reveal collocation &amp; context
+                    </span>
+                  </div>
+
+                  <!-- Back -->
+                  <div class="absolute inset-0 backface-hidden rotate-y-180 bg-emerald-900 text-white rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-apple">
+                    <span class="text-[11px] font-semibold uppercase tracking-wider text-emerald-300 mb-1">High-Scoring Collocation</span>
+                    <p id="fc-back-collocation" class="text-lg sm:text-xl font-semibold text-white mb-4">mitigate the adverse impact of</p>
+                    <div class="w-12 h-px bg-emerald-700 mb-4"></div>
+                    <p id="fc-back-example" class="text-xs sm:text-sm text-emerald-100 italic leading-relaxed">
+                      "Strict carbon taxes can mitigate the adverse impact of industrial emissions."
                     </p>
+                  </div>
                 </div>
-            </div>
+              </div>
 
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
-                <div class="w-full sm:w-72 bg-purple-100/80 p-3 rounded-2xl border border-purple-200/80">
-                    <div class="flex justify-between items-center text-xs font-bold text-purple-800 mb-1.5">
-                        <span>Tiến độ hoàn thành</span>
-                        <span id="progress-text" class="bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">0 / 30 (0%)</span>
-                    </div>
-                    <div class="w-full bg-white rounded-full h-3 overflow-hidden p-0.5 shadow-inner">
-                        <div id="progress-bar" class="bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-                <div class="flex items-center justify-center gap-2">
-                    <a href="./library.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 bg-white/80 border border-purple-200 hover:bg-purple-50 px-3 py-2 rounded-xl transition">
-                        📚 Thư viện
-                    </a>
-                    <a href="./ielts_study_dashboard.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 bg-white/80 border border-purple-200 hover:bg-purple-50 px-3 py-2 rounded-xl transition">
-                        📊 Dashboard
-                    </a>
-                </div>
+              <!-- Flashcard Controls -->
+              <div class="flex items-center justify-between gap-3 pt-2">
+                <button onclick="prevFlashcard()" class="px-4 py-2 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-1">
+                  <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Previous
+                </button>
+                <button onclick="randomFlashcard()" class="px-4 py-2 rounded-xl bg-lavender-100 text-xs font-semibold text-lavender-700 hover:bg-lavender-200 flex items-center gap-1.5">
+                  <i data-lucide="shuffle" class="w-3.5 h-3.5"></i> Random Card
+                </button>
+                <button onclick="nextFlashcard()" class="px-4 py-2 rounded-xl bg-emerald-600 text-xs font-semibold text-white hover:bg-emerald-700 flex items-center gap-1">
+                  Next Card <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
             </div>
+          </div>
         </div>
-    </header>
-
-    <main class="max-w-6xl mx-auto px-4 pt-6">
-        <!-- Toolbar -->
-        <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-6 bg-white/70 p-3.5 rounded-2xl border border-purple-200/60 shadow-sm">
-            <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-center lg:justify-start">
-                <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-600 text-white shadow-sm">
-                    Tất cả (<span id="count-all">30</span>)
-                </button>
-                <button onclick="setFilter('new')" id="filter-new" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
-                    🌱 Chưa học (<span id="count-new">30</span>)
-                </button>
-                <button onclick="setFilter('learning')" id="filter-learning" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
-                    📖 Đang học (<span id="count-learning">0</span>)
-                </button>
-                <button onclick="setFilter('completed')" id="filter-completed" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
-                    ✨ Hoàn thành (<span id="count-completed">0</span>)
-                </button>
-            </div>
-
-            <div class="relative w-full lg:w-72">
-                <input type="text" id="search-input" oninput="renderWindows()" placeholder="Tìm chủ đề (vd: Travel, Art...)"
-                    class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-purple-200 text-sm text-purple-900 placeholder-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                <span class="absolute left-3 top-2.5 text-purple-400 text-sm">🔍</span>
-            </div>
-        </div>
-
-        <!-- 30 windows -->
-        <div id="windows-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5"></div>
-        <div id="empty-state" class="hidden text-center py-16">
-            <div class="text-5xl mb-3">🪟</div>
-            <p class="font-bold text-purple-800">Không tìm thấy ô cửa sổ phù hợp</p>
-            <p class="text-sm text-purple-500 mt-1">Thử đổi bộ lọc hoặc từ khóa tìm kiếm nhé.</p>
-        </div>
-    </main>
-
-    <!-- Study tracker modal -->
-    <div id="window-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-purple-950/45 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-2xl max-h-[92vh] flex flex-col rounded-3xl shadow-2xl border-2 border-purple-200 overflow-hidden modal-pop" id="modal-box">
-            <!-- Header -->
-            <div class="bg-gradient-to-r from-purple-200 via-fuchsia-100 to-indigo-100 px-5 sm:px-6 py-4 border-b border-purple-200 flex items-start justify-between gap-3">
-                <div class="flex items-start gap-3 min-w-0">
-                    <span id="modal-emoji" class="text-3xl bg-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm shrink-0">🌍</span>
-                    <div class="min-w-0">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span id="modal-badge" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-purple-600 text-white">
-                                Window #01
-                            </span>
-                            <span id="modal-status" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700">
-                                Chưa học
-                            </span>
-                        </div>
-                        <h2 id="modal-title" class="text-lg sm:text-xl font-bold text-purple-950 mt-1 leading-snug">Environment, Climate, Weather</h2>
-                    </div>
-                </div>
-                <button onclick="closeModal()" class="w-9 h-9 rounded-full bg-white/80 hover:bg-white text-purple-700 font-bold flex items-center justify-center shadow-sm transition shrink-0" aria-label="Đóng">
-                    ✕
-                </button>
-            </div>
-
-            <!-- Body -->
-            <div class="p-5 sm:p-6 modal-scroll flex-1 min-h-0 overflow-y-auto space-y-5">
-                <!-- Plan + sessions -->
-                <section>
-                    <div class="flex items-center justify-between gap-3 mb-2.5">
-                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
-                            <span>🗓️</span> Kế hoạch & theo dõi buổi học
-                        </h3>
-                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 buổi</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <label class="block">
-                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Bắt đầu</span>
-                            <input type="date" id="plan-start" onchange="savePlanDates()"
-                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                        </label>
-                        <label class="block">
-                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Mục tiêu hoàn thành</span>
-                            <input type="date" id="plan-target" onchange="savePlanDates()"
-                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                        </label>
-                    </div>
-                    <p id="plan-status" class="text-xs font-bold text-purple-600 mt-2">Chưa đặt kế hoạch</p>
-
-                    <div class="mt-4 pt-4 border-t border-purple-100">
-                        <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-2">Các buổi học của bạn</p>
-                        <div class="flex items-center justify-between gap-2 mb-2">
-                            <button onclick="shiftWeek(-7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần trước">‹</button>
-                            <div class="text-center min-w-0">
-                                <p id="week-label" class="text-xs font-extrabold text-purple-800">Tuần này</p>
-                                <p id="week-summary" class="text-[10px] font-bold text-purple-500">0/7 ngày</p>
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                <button onclick="goCurrentWeek()" class="px-2.5 py-1.5 rounded-lg bg-white border border-purple-200 text-[10px] font-extrabold text-purple-700 hover:bg-purple-50 transition">Tuần này</button>
-                                <button onclick="shiftWeek(7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần sau">›</button>
-                            </div>
-                        </div>
-                        <div id="week-strip" class="grid grid-cols-7 gap-0.5 overflow-hidden"></div>
-                        <p class="text-[10px] text-purple-400 mt-2">Tick ngày bạn đã học, rồi ghi chú cho ngày đó ở bên dưới.</p>
-                    </div>
-                </section>
-
-                <!-- Notes -->
-                <section>
-                    <div class="flex items-center justify-between gap-3 mb-2.5">
-                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
-                            <span>📝</span> Ghi chú của bạn
-                        </h3>
-                        <span id="notes-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 ghi chú</span>
-                    </div>
-                    <div class="rounded-2xl border border-purple-100 bg-purple-50/30 p-3">
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày ghi chú</span>
-                            <input type="date" id="note-date" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                        </div>
-                        <textarea id="note-text" rows="4" onkeydown="if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') { event.preventDefault(); saveNote(); }" placeholder="Ghi lại suy nghĩ, từ vựng khó, ý tưởng Speaking, lỗi cần sửa..."
-                            class="w-full rounded-xl border border-purple-200 p-3 text-sm text-purple-950 placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"></textarea>
-                        <div class="flex justify-end mt-2">
-                            <button onclick="saveNote()" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-600 hover:to-fuchsia-600 shadow-sm transition">
-                                💾 Lưu ghi chú
-                            </button>
-                        </div>
-                    </div>
-                    <div id="notes-list" class="mt-3 space-y-3"></div>
-                </section>
-                <div class="bg-purple-50/80 border border-purple-200/80 rounded-2xl p-3.5 text-xs text-purple-800 flex items-start gap-2">
-                    <span class="shrink-0">📌</span>
-                    <div>
-                        <b>Tài liệu:</b>
-                        <span id="modal-subtopics" class="text-purple-600">Tài liệu tổng hợp theo buổi</span>
-                        <p id="modal-file-note" class="text-[11px] text-purple-500 mt-1 hidden"></p>
-                    </div>
-                </div>
-
-                <!-- Milestones -->
-                <section>
-                    <div class="flex items-center justify-between gap-3 mb-2.5">
-                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
-                            <span>🎯</span> Tiến độ học & ôn tập
-                        </h3>
-                        <span id="milestone-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0/4 mốc</span>
-                    </div>
-                    <div class="space-y-2" id="modal-checklist">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
-                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
-                                <input type="checkbox" data-step="0" onchange="toggleStep(0)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
-                                <span class="text-sm min-w-0">
-                                    <span class="block font-bold text-purple-950">Học từ vựng</span>
-                                    <span class="block text-xs text-purple-600">Hoàn thành danh sách từ vựng của chủ đề</span>
-                                </span>
-                            </label>
-                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
-                                <input type="date" id="step-date-0" onchange="saveStepDate(0)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
-                            </label>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
-                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
-                                <input type="checkbox" data-step="1" onchange="toggleStep(1)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
-                                <span class="text-sm min-w-0">
-                                    <span class="block font-bold text-purple-950">Ôn tập lần 1</span>
-                                    <span class="block text-xs text-purple-600">Ôn lại sau buổi học đầu tiên</span>
-                                </span>
-                            </label>
-                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
-                                <input type="date" id="step-date-1" onchange="saveStepDate(1)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
-                            </label>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
-                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
-                                <input type="checkbox" data-step="2" onchange="toggleStep(2)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
-                                <span class="text-sm min-w-0">
-                                    <span class="block font-bold text-purple-950">Ôn tập lần 2</span>
-                                    <span class="block text-xs text-purple-600">Củng cố từ vựng & collocations</span>
-                                </span>
-                            </label>
-                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
-                                <input type="date" id="step-date-2" onchange="saveStepDate(2)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
-                            </label>
-                        </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
-                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
-                                <input type="checkbox" data-step="3" onchange="toggleStep(3)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
-                                <span class="text-sm min-w-0">
-                                    <span class="block font-bold text-purple-950">Ôn tập lần 3</span>
-                                    <span class="block text-xs text-purple-600">Ôn tập cuối trước khi hoàn thành chủ đề</span>
-                                </span>
-                            </label>
-                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
-                                <input type="date" id="step-date-3" onchange="saveStepDate(3)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
-                            </label>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-
-            <!-- Footer -->
-            <div class="px-5 sm:px-6 py-4 bg-purple-50/90 border-t border-purple-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-                <button onclick="closeModal()" class="px-4 py-2.5 rounded-xl text-sm font-bold text-purple-600 hover:bg-purple-200/60 transition">
-                    Đóng lại
-                </button>
-                <div class="flex flex-col sm:flex-row gap-2">
-                    <a id="open-vocab-btn" href="#" target="_blank" rel="noopener"
-                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 shadow-md shadow-indigo-200 transition">
-                        <span>📖</span> Mở trang từ vựng
-                    </a>
-                    <button id="complete-btn" onclick="toggleCompleted()"
-                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition">
-                        <span>✅</span> Đánh dấu hoàn thành
-                    </button>
-                </div>
-            </div>
-        </div>
+      </section>
     </div>
 
-    <!-- Toast -->
-    <div id="toast" class="fixed bottom-24 right-5 sm:bottom-5 z-[60] transform translate-y-20 opacity-0 transition-all duration-300 bg-purple-900 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-bold flex items-center gap-2">
-        <span id="toast-icon">✨</span>
-        <span id="toast-msg">Đã lưu!</span>
+    <!-- ===================================================================== -->
+    <!-- VIEW 2: 30-TOPIC MASTER MATRIX & SPACED REVIEW QUEUE                  -->
+    <!-- ===================================================================== -->
+    <div id="view-matrix" class="hidden space-y-5">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-apple flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">30-Topic Master Matrix &amp; Spaced Retention Queue</h2>
+          <p class="text-xs text-slate-500">Click any week card to open its Command Center. Completed topics automatically trigger +1w, +3w, and +6w reviews.</p>
+        </div>
+
+        <!-- Filter Pills -->
+        <div class="flex flex-wrap items-center gap-1.5">
+          <button onclick="setMatrixFilter('all')" id="mfilter-all" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white">All (30)</button>
+          <button onclick="setMatrixFilter('active')" id="mfilter-active" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">In Progress</button>
+          <button onclick="setMatrixFilter('review')" id="mfilter-review" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Review Due</button>
+          <button onclick="setMatrixFilter('mastered')" id="mfilter-mastered" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Mastered</button>
+          <button onclick="setMatrixFilter('upcoming')" id="mfilter-upcoming" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Upcoming</button>
+        </div>
+      </div>
+
+      <!-- 30-Topic Grid -->
+      <div id="matrix-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Populated by JS -->
+      </div>
     </div>
 
-    <script>
-        // 30 topics. `file` is the source HTML in this folder.
-        // Topics without a file yet will show "Sắp cập nhật" (add the filename later).
-        const topicsData = [
-            { id: 1, code: "01", title: "Environment, Climate, Weather", emoji: "🌿", sub: "Weather, climate, environment & natural disasters", file: "01 Weather.html" },
-            { id: 2, code: "02", title: "Travel", emoji: "✈️", sub: "Travel and tourism", file: "02 Travel.html" },
-            { id: 3, code: "03", title: "City", emoji: "🏙️", sub: "City vs. country", file: "03 City.html" },
-            { id: 4, code: "04", title: "Building", emoji: "🏛️", sub: "Accommodation, building & noise", file: "04 Building.html" },
-            { id: 5, code: "05", title: "Food", emoji: "🍰", sub: "Food and sustainable agriculture", file: "05 Food.html" },
-            { id: 6, code: "06", title: "Film", emoji: "🎬", sub: "Film and media", file: "06 Film.html" },
-            { id: 7, code: "07", title: "Book", emoji: "📚", sub: "Books and libraries in the digital age", file: "07 Book.html" },
-            { id: 8, code: "10", title: "Music", emoji: "🎵", sub: "Music", file: "08 Music.html" },
-            { id: 9, code: "11", title: "Sport", emoji: "🏅", sub: "Sport", file: "09 Sport.html" },
-            { id: 10, code: "12", title: "Health", emoji: "🩺", sub: "Health", file: "10 Health.html" },
-            { id: 11, code: "13", title: "Internet", emoji: "🌐", sub: "Internet", file: "11 Internet.html" },
-            { id: 12, code: "14", title: "Work", emoji: "💼", sub: "Work", file: "12 Work.html" },
-            { id: 13, code: "15", title: "Business", emoji: "📈", sub: "Business", file: "13 Business.html" },
-            { id: 14, code: "16", title: "Advertising", emoji: "📢", sub: "Advertising", file: "14 Advertising.html" },
-            { id: 15, code: "17", title: "Crime", emoji: "⚖️", sub: "Crime, law and social security", file: "15 Crime.docx" },
-            { id: 16, code: "18", title: "Famous", emoji: "🌟", sub: "Famous people", file: null },
-            { id: 17, code: "19", title: "Fashion", emoji: "👗", sub: "Fashion", file: null },
-            { id: 18, code: "20", title: "Person", emoji: "🧑", sub: "Person", file: null },
-            { id: 19, code: "21", title: "Festival", emoji: "🏮", sub: "Festival", file: null },
-            { id: 20, code: "22A", title: "Space", emoji: "🪐", sub: "Space", file: null },
-            { id: 21, code: "22B", title: "Education", emoji: "🎓", sub: "Vocab; L (University, Paper); R; S; W", file: null },
-            { id: 22, code: "23", title: "News", emoji: "📰", sub: "Listening (News); Speaking (News)", file: null },
-            { id: 23, code: "24", title: "Language", emoji: "🗣️", sub: "Vocab; R (Language); S (Foreign lang); W", file: null },
-            { id: 24, code: "25", title: "Play, Entertainment & Games", emoji: "🎮", sub: "Vocab; L; R; S (Free time, Toy, Game); W", file: null },
-            { id: 25, code: "26", title: "Hobby & Pastime", emoji: "🧶", sub: "Vocab; R (Hobby); S (Entertainment); W", file: null },
-            { id: 26, code: "27", title: "Family & Friends", emoji: "🏡", sub: "Vocab; S (Friends & Family); W (Family)", file: null },
-            { id: 27, code: "28", title: "Age & Generations", emoji: "⏳", sub: "Vocab; L (Children); R (Old); S; W (Teenager)", file: null },
-            { id: 28, code: "29", title: "Photography (Photo)", emoji: "📸", sub: "Vocab; Speaking (Photo)", file: null },
-            { id: 29, code: "30", title: "Art & Museum", emoji: "🎨", sub: "Vocab; L (Museum); R; S (Art); W (Art, Museum)", file: null },
-            { id: 30, code: "31", title: "History & Archeology", emoji: "🏺", sub: "Vocab; L (Archeology); R; S (History); W", file: null }
-        ];
+    <!-- ===================================================================== -->
+    <!-- VIEW 3: PERSONAL ERROR LOG ("RED LIST")                               -->
+    <!-- ===================================================================== -->
+    <div id="view-redlist" class="hidden space-y-5">
+      <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-apple space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+              Personal Error Log ("Red List")
+            </h2>
+            <p class="text-xs text-slate-500">Capture awkward Writing sentences, grammar slips, or mispronounced Speaking phrases and upgrade them to Band 7.5+.</p>
+          </div>
 
-        const STORAGE_KEY = 'ielts_windows_tracker_v3';
-        const LEGACY_STORAGE_KEY = 'ielts_windows_tracker_v2';
-        const STATUS_META = {
-            new: { label: 'Chưa học', pill: 'bg-purple-100 text-purple-700', card: 'bg-white/85 text-purple-600' },
-            learning: { label: 'Đang học', pill: 'bg-amber-100 text-amber-700', card: 'bg-white/85 text-amber-600' },
-            completed: { label: 'Hoàn thành', pill: 'bg-emerald-100 text-emerald-700', card: 'bg-white/85 text-emerald-600' }
+          <!-- Skill Filter -->
+          <div class="flex flex-wrap items-center gap-1.5">
+            <button onclick="setRedListFilter('All')" id="rfilter-All" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white">All Skills</button>
+            <button onclick="setRedListFilter('Writing')" id="rfilter-Writing" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Writing</button>
+            <button onclick="setRedListFilter('Speaking')" id="rfilter-Speaking" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Speaking</button>
+            <button onclick="setRedListFilter('Grammar')" id="rfilter-Grammar" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Grammar</button>
+            <button onclick="setRedListFilter('Collocation')" id="rfilter-Collocation" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200">Collocation</button>
+          </div>
+        </div>
+
+        <!-- Add Mistake Form -->
+        <form onsubmit="addRedListItem(event)" class="grid grid-cols-1 md:grid-cols-12 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200/70">
+          <div class="md:col-span-2">
+            <label class="block text-[11px] font-medium text-slate-500 mb-1">Topic Week</label>
+            <select id="rl-week" class="w-full px-2.5 py-2 rounded-lg border border-slate-200 bg-white text-xs focus:outline-none focus:border-emerald-600">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-[11px] font-medium text-slate-500 mb-1">Skill / Category</label>
+            <select id="rl-skill" class="w-full px-2.5 py-2 rounded-lg border border-slate-200 bg-white text-xs focus:outline-none focus:border-emerald-600">
+              <option value="Writing">Writing</option>
+              <option value="Speaking">Speaking</option>
+              <option value="Grammar">Grammar</option>
+              <option value="Collocation">Collocation</option>
+            </select>
+          </div>
+          <div class="md:col-span-3">
+            <label class="block text-[11px] font-medium text-slate-500 mb-1">Original Sentence / Slip *</label>
+            <input type="text" id="rl-original" required placeholder="e.g., Government should solve traffic jam..." class="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs focus:outline-none focus:border-emerald-600" />
+          </div>
+          <div class="md:col-span-3">
+            <label class="block text-[11px] font-medium text-slate-500 mb-1">Upgraded Band 7.5+ Version *</label>
+            <input type="text" id="rl-upgraded" required placeholder="e.g., Authorities ought to alleviate traffic congestion..." class="w-full px-3 py-2 rounded-lg border border-slate-200 bg-white text-xs focus:outline-none focus:border-emerald-600" />
+          </div>
+          <div class="md:col-span-2 flex flex-col justify-end">
+            <button type="submit" class="w-full px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition-colors flex items-center justify-center gap-1">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Log Mistake
+            </button>
+          </div>
+          <div class="md:col-span-12">
+            <input type="text" id="rl-note" placeholder="Optional rule/pronunciation note (e.g., 'traffic' is uncountable; use 'alleviate' instead of 'solve')" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-xs focus:outline-none focus:border-emerald-600" />
+          </div>
+        </form>
+
+        <!-- Error List Entries -->
+        <div id="redlist-container" class="space-y-3">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Minimal Footer -->
+  <footer class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 border-t border-slate-200/60 mt-8">
+    <p>30-Week Sprint (Nov 2026 – Jun 2027) → 4-Week Mock Exam Calibration → July 2027 Target</p>
+    <button onclick="resetDemoPrompt()" class="mt-2 sm:mt-0 text-slate-400 hover:text-rose-600 underline transition-colors">
+      Reset All Tracker Data
+    </button>
+  </footer>
+
+  <!-- Custom Reset Confirmation Modal (No confirm() used) -->
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-200 space-y-4">
+      <div class="flex items-center gap-3 text-rose-600">
+        <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center shrink-0">
+          <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+        </div>
+        <h3 class="text-base font-bold text-slate-900">Reset All Progress?</h3>
+      </div>
+      <p class="text-xs text-slate-600 leading-relaxed">
+        This will erase all checked gates, custom topic names, vocabulary flashcards, essays, and Red List entries stored in your browser. Export a JSON backup first if you want to keep your records.
+      </p>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button onclick="closeResetModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancel</button>
+        <button onclick="confirmResetAll()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white">Yes, Reset Everything</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. DEFAULT DATA & DAY-BY-DAY CURRICULUM ARCHITECTURE (30 IELTS TOPICS)
+    // =========================================================================
+    const DEFAULT_TOPICS = [
+      "Environment & Climate Change",
+      "Education & Lifelong Learning",
+      "Work, Career & Workplace Culture",
+      "Technology & Digital Transformation",
+      "Health, Fitness & Public Healthcare",
+      "Urbanization & City Infrastructure",
+      "Family, Parenting & Generational Gaps",
+      "Media, Journalism & Social Networks",
+      "Transport & Sustainable Mobility",
+      "Tourism & Cultural Exchange",
+      "Food, Agriculture & Nutrition",
+      "Consumerism, Advertising & Spending",
+      "Arts, Culture & Heritage Preservation",
+      "Crime, Law & Juvenile Justice",
+      "Globalization & International Trade",
+      "Government Spending & Public Policy",
+      "Housing, Architecture & Living Spaces",
+      "Science, Space & Innovation",
+      "Language, Communication & Multilingualism",
+      "Sports, Competition & National Pride",
+      "Gender Equality & Social Roles",
+      "Aging Population & Demographics",
+      "Energy Resources & Renewable Tech",
+      "Biodiversity & Wildlife Conservation",
+      "Artificial Intelligence & Automation",
+      "Psychology, Happiness & Mental Wellbeing",
+      "Charity, Volunteering & Social Responsibility",
+      "History, Tradition & Modernity",
+      "Business, Entrepreneurship & Economy",
+      "Ethics, Moral Dilemmas & Future Society"
+    ];
+
+    const GATE_META = {
+      1: { short: 'Gate 1: Input', color: 'emerald' },
+      2: { short: 'Gate 2: Encoding', color: 'lavender' },
+      3: { short: 'Gate 3: Speaking', color: 'lavender' },
+      4: { short: 'Gate 4: Writing', color: 'emerald' },
+      5: { short: 'Gate 5: Closure', color: 'emerald' }
+    };
+
+    const DAY_BLUEPRINT = [
+      {
+        dayIndex: 0,
+        dayName: 'Monday',
+        hoursLabel: '1.5h study / 2h avail',
+        gateBadge: 'Gate 1: Input',
+        gateNums: [1],
+        accent: 'emerald',
+        tasks: [
+          {
+            title: '1 Topic Reading Passage (20m timed + 40m deep review)',
+            gate: 1,
+            placeholder: 'e.g., Cambridge 21 Test 1 Passage 3 (Score: 11/13)'
+          },
+          {
+            title: 'Extract collocations & paraphrasing patterns (30m)',
+            gate: 1,
+            placeholder: 'e.g., 12 paraphrases logged in notebook p.4'
+          }
+        ]
+      },
+      {
+        dayIndex: 1,
+        dayName: 'Tuesday',
+        hoursLabel: '1.75h study / 2h avail',
+        gateBadge: 'Gate 1 & 2: Listening + Encoding',
+        gateNums: [1, 2],
+        accent: 'emerald',
+        tasks: [
+          {
+            title: '1 Topic Listening Section (Part 3 or 4 + transcript check, 45m)',
+            gate: 1,
+            placeholder: 'e.g., Cambridge 20 Test 2 Part 4 (9/10)'
+          },
+          {
+            title: 'Curate & encode 20–30 target words/collocations on paper (1h)',
+            gate: 2,
+            placeholder: 'e.g., 25 words encoded on Notebook pp. 5–7'
+          }
+        ]
+      },
+      {
+        dayIndex: 2,
+        dayName: 'Wednesday',
+        hoursLabel: '1.5h study / 2h avail',
+        gateBadge: 'Gate 2: Active Encoding',
+        gateNums: [2],
+        accent: 'lavender',
+        tasks: [
+          {
+            title: 'Finish paper encoding & collocation example sentences (1h)',
+            gate: 2,
+            placeholder: 'e.g., Completed 2 example sentences per word'
+          },
+          {
+            title: 'First active recall check on paper / flashcards (30m)',
+            gate: 2,
+            placeholder: 'e.g., Covered meanings & recalled 22/25 collocations'
+          }
+        ]
+      },
+      {
+        dayIndex: 3,
+        dayName: 'Thursday',
+        hoursLabel: '1.5h study / 2h avail',
+        gateBadge: 'Gate 3: Speaking Output',
+        gateNums: [3],
+        accent: 'lavender',
+        tasks: [
+          {
+            title: 'Outline Part 2 Cue Card ideas with 5–8 target collocations (30m)',
+            gate: 3,
+            placeholder: 'e.g., Cue Card: Describe an environmental problem in your city'
+          },
+          {
+            title: 'Record full Speaking Part 1, 2 & 3 set out loud (1h)',
+            gate: 3,
+            placeholder: 'e.g., Voice memo #12 recorded (Part 2: 2m05s, 4 Part 3 Qs)'
+          }
+        ]
+      },
+      {
+        dayIndex: 4,
+        dayName: 'Friday',
+        hoursLabel: '1h study / 2h avail (Flex)',
+        gateBadge: 'Gate 3 & Flex Buffer',
+        gateNums: [3],
+        accent: 'lavender',
+        tasks: [
+          {
+            title: 'Listen back to Speaking recording & re-record weakest answer (30m)',
+            gate: 3,
+            placeholder: 'e.g., Re-recorded Part 3 Q2 fixing article & tense slips'
+          },
+          {
+            title: '20-min recall review OR catch-up buffer for Mon–Thu tasks (30m)',
+            gate: 2,
+            placeholder: 'e.g., Quick paper recall pass on 10 tricky collocations'
+          }
+        ]
+      },
+      {
+        dayIndex: 5,
+        dayName: 'Saturday',
+        hoursLabel: '2.5h study / 4h avail',
+        gateBadge: 'Gate 4: Writing Output',
+        gateNums: [4],
+        accent: 'emerald',
+        tasks: [
+          {
+            title: 'Timed Task 2 Essay (250+ words, 40m) + 60m self-edit & upgrade',
+            gate: 4,
+            placeholder: 'e.g., Carbon tax vs renewable subsidies essay (285 words)'
+          },
+          {
+            title: 'Writing Task 1 practice (chart / map / process, 45m)',
+            gate: 4,
+            placeholder: 'e.g., Cambridge 19 Test 3 Task 1 Line Graph (172 words)'
+          }
+        ]
+      },
+      {
+        dayIndex: 6,
+        dayName: 'Sunday',
+        hoursLabel: '2h study / 4h avail',
+        gateBadge: 'Gate 5: Verification & Closure',
+        gateNums: [5],
+        accent: 'emerald',
+        tasks: [
+          {
+            title: 'Cumulative spaced recall check (current + past topics, 45m)',
+            gate: 5,
+            placeholder: 'e.g., Reviewed Week 1 paper list + random flashcard quiz'
+          },
+          {
+            title: 'Weekly Error Log audit + 1 extra Reading/Listening set (1h 15m)',
+            gate: 5,
+            placeholder: 'e.g., Logged 3 essay sentences to Red List + Cam 21 R1'
+          }
+        ]
+      }
+    ];
+
+    const STORAGE_KEY = 'ielts_mastery_pipeline_v2';
+
+    // =========================================================================
+    // 2. APPLICATION STATE & LOCALSTORAGE PERSISTENCE
+    // =========================================================================
+    let appState = {
+      activeWeek: 1,
+      mainView: 'command',
+      workspaceTab: 'scratchpad',
+      matrixFilter: 'all',
+      redListFilter: 'All',
+      weeks: [],
+      redList: []
+    };
+
+    let flashcardIndex = 0;
+    let isCardFlipped = false;
+
+    function buildDefaultDaysForWeek(weekIndex) {
+      return DAY_BLUEPRINT.map((bp, dIdx) => ({
+        dayIndex: bp.dayIndex,
+        dayName: bp.dayName,
+        hoursLabel: bp.hoursLabel,
+        gateBadge: bp.gateBadge,
+        accent: bp.accent,
+        tasks: bp.tasks.map((t, tIdx) => {
+          // Pre-populate Week 1 Monday Task 1 with an example material note
+          let sampleNote = '';
+          if (weekIndex === 0 && dIdx === 0 && tIdx === 0) {
+            sampleNote = 'Cambridge 21 Test 1 Reading Passage 3 — "Carbon Capture & Urban Forestry"';
+          }
+          return {
+            id: `w${weekIndex + 1}-d${dIdx}-t${tIdx}`,
+            title: t.title,
+            gate: t.gate,
+            placeholder: t.placeholder,
+            done: false,
+            note: sampleNote,
+            isCustom: false
+          };
+        })
+      }));
+    }
+
+    function createInitialState() {
+      // Anchor Week 1 to Monday, Nov 16, 2026
+      const startDate = new Date(2026, 10, 16);
+
+      const weeks = DEFAULT_TOPICS.map((title, idx) => {
+        const wStart = new Date(startDate);
+        wStart.setDate(startDate.getDate() + idx * 7);
+        const wEnd = new Date(wStart);
+        wEnd.setDate(wStart.getDate() + 6);
+
+        const formatOpt = { month: 'short', day: 'numeric' };
+        const dateRange = `${wStart.toLocaleDateString('en-US', formatOpt)} – ${wEnd.toLocaleDateString('en-US', formatOpt)}, ${wEnd.getFullYear()}`;
+
+        const starterVocab = idx === 0 ? [
+          {
+            id: 'v-init-1',
+            word: 'mitigate',
+            ipa: '/ˈmɪt.ɪ.ɡeɪt/ (v)',
+            collocation: 'mitigate the adverse impact of',
+            example: 'Strict carbon taxes can mitigate the adverse impact of industrial emissions on urban air quality.'
+          },
+          {
+            id: 'v-init-2',
+            word: 'renewable energy',
+            ipa: '/rɪˈnjuː.ə.bəl ˈen.ə.dʒi/',
+            collocation: 'transition toward renewable energy sources',
+            example: 'Developing nations require international subsidies to transition toward renewable energy sources.'
+          },
+          {
+            id: 'v-init-3',
+            word: 'ecological footprint',
+            ipa: '/ˌiː.kəˈlɒdʒ.ɪ.kəl ˈfʊt.prɪnt/',
+            collocation: 'curb their ecological footprint',
+            example: 'Multinational corporations must adopt sustainable supply chains to curb their ecological footprint.'
+          }
+        ] : [];
+
+        return {
+          weekNumber: idx + 1,
+          title,
+          dateRange,
+          days: buildDefaultDaysForWeek(idx),
+          vocab: starterVocab,
+          scratchpad: {
+            essayPrompt: idx === 0 ? 'Some people believe that environmental problems are too big for individuals to solve, while others think individuals can make a meaningful impact. Discuss both views and give your own opinion.' : '',
+            essayBody: '',
+            speakingNotes: '',
+            inputNotes: ''
+          },
+          completedAtWeek: null,
+          reviewsDone: { w1: false, w3: false, w6: false }
         };
+      });
 
-        let userData = loadProgress();
-        let currentFilter = 'all';
-        let activeTopicId = null;
-        let weekAnchor = null;
-
-        function normalizeSessions(sessions) {
-            if (!Array.isArray(sessions)) return [];
-            const seen = new Set();
-            return sessions.map(item => {
-                if (typeof item === 'string') return { date: item, done: true };
-                return { date: item && item.date ? item.date : '', done: Boolean(item && item.done) };
-            }).filter(item => {
-                if (!item.date || seen.has(item.date)) return false;
-                seen.add(item.date);
-                return true;
-            });
+      const starterRedList = [
+        {
+          id: 'rl-init-1',
+          weekNumber: 1,
+          skill: 'Collocation',
+          original: 'Governments should make strict laws to stop pollution.',
+          upgraded: 'Authorities ought to enact stringent environmental regulations to curb industrial pollution.',
+          note: 'Replace "make strict laws" with "enact stringent regulations" for Band 7.5+ Lexical Resource.'
         }
+      ];
 
-        function normalizeNotes(notes, fallbackDate) {
-            if (!Array.isArray(notes)) return [];
-            return notes.map((item, index) => {
-                if (typeof item === 'string') {
-                    return {
-                        id: `note-${index}-${fallbackDate || todayISO()}`,
-                        date: fallbackDate || todayISO(),
-                        text: item,
-                        createdAt: 0
-                    };
-                }
-                return {
-                    id: item.id || `note-${index}-${item.date || fallbackDate || todayISO()}`,
-                    date: item.date || fallbackDate || todayISO(),
-                    text: typeof item.text === 'string' ? item.text : '',
-                    createdAt: Number(item.createdAt) || 0
-                };
-            }).filter(item => item.text.trim());
+      return {
+        activeWeek: 1,
+        mainView: 'command',
+        workspaceTab: 'scratchpad',
+        matrixFilter: 'all',
+        redListFilter: 'All',
+        weeks,
+        redList: starterRedList
+      };
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length === 30) {
+            appState = parsed;
+            return;
+          }
         }
+      } catch (e) {
+        console.error('Failed to load state from localStorage:', e);
+      }
+      appState = createInitialState();
+      saveState(false);
+    }
 
-        function normalizeState(raw) {
-            const source = raw || {};
-            const steps = Array.isArray(source.steps) ? source.steps.slice(0, 4) : [false, false, false, false];
-            const stepDates = Array.isArray(source.stepDates) ? source.stepDates.slice(0, 4) : ['', '', '', ''];
-            const notesLog = normalizeNotes(source.notesLog, source.planStart || '');
-            if (!notesLog.length && typeof source.notes === 'string' && source.notes.trim()) {
-                notesLog.push({
-                    id: 'legacy-note',
-                    date: source.planStart || todayISO(),
-                    text: source.notes,
-                    createdAt: 0
-                });
-            }
-            return {
-                completed: Boolean(source.completed),
-                steps: [0, 1, 2, 3].map(index => Boolean(steps[index])),
-                stepDates: [0, 1, 2, 3].map(index => stepDates[index] || ''),
-                notesLog,
-                planStart: source.planStart || '',
-                planTarget: source.planTarget || '',
-                sessions: normalizeSessions(source.sessions)
-            };
+    function saveState(showPulse = true) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        if (showPulse) {
+          const el = document.getElementById('autosave-indicator');
+          if (el) {
+            el.innerHTML = `<i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-600"></i> Saved just now`;
+            lucide.createIcons();
+          }
         }
+      } catch (e) {
+        showToast('Warning: Could not save to browser storage.', 'error');
+      }
+    }
 
-        function loadProgress() {
-            try {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (saved) {
-                    const parsed = JSON.parse(saved) || {};
-                    const normalized = {};
-                    Object.keys(parsed).forEach(id => {
-                        normalized[id] = normalizeState(parsed[id]);
-                    });
-                    return normalized;
-                }
+    // =========================================================================
+    // 3. HELPER CALCULATIONS (DAY TASKS -> 5 GATES & CONSISTENCY)
+    // =========================================================================
+    function getWeekCompletionStats(week) {
+      let checked = 0;
+      let total = 0;
+      const gateStats = {
+        1: { done: 0, total: 0 },
+        2: { done: 0, total: 0 },
+        3: { done: 0, total: 0 },
+        4: { done: 0, total: 0 },
+        5: { done: 0, total: 0 }
+      };
 
-                const legacy = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY) || '{}') || {};
-                const migrated = {};
-                Object.keys(legacy).forEach(id => {
-                    const raw = legacy[id] || {};
-                    const state = normalizeState(raw);
-                    if (!Array.isArray(raw.stepDates)) {
-                        state.steps.forEach((done, index) => {
-                            if (done) state.stepDates[index] = state.planStart || todayISO();
-                        });
-                    }
-                    migrated[id] = state;
-                });
-                return migrated;
-            } catch (error) {
-                return {};
-            }
-        }
+      week.days.forEach(d => {
+        d.tasks.forEach(t => {
+          total++;
+          if (t.done) checked++;
+          const g = t.gate || 1;
+          if (gateStats[g]) {
+            gateStats[g].total++;
+            if (t.done) gateStats[g].done++;
+          }
+        });
+      });
 
-        function getState(id) {
-            userData[id] = normalizeState(userData[id]);
-            return userData[id];
-        }
+      const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+      // Consider topic mastered when >= 90% of weekly tasks are completed (or Sunday Gate 5 tasks done)
+      const g5Complete = gateStats[5].total > 0 && gateStats[5].done === gateStats[5].total;
+      const isMastered = (total > 0 && checked === total) || (pct >= 90 && g5Complete);
 
-        function saveProgress(updateView = true) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
-            if (updateView) {
-                updateStats();
-                renderWindows();
-            }
-        }
+      return { checked, total, pct, isMastered, gateStats };
+    }
 
-        function getStatus(id) {
-            const state = getState(id);
-            if (state.completed) return 'completed';
-            if (state.steps.some(Boolean) || state.sessions.length || state.notesLog.length || state.planStart || state.planTarget) {
-                return 'learning';
-            }
-            return 'new';
-        }
+    function getDueSpacedReviews(week) {
+      if (!week.completedAtWeek) return [];
+      const elapsed = appState.activeWeek - week.completedAtWeek;
+      const due = [];
+      if (elapsed >= 1 && !week.reviewsDone.w1) due.push({ key: 'w1', label: '+1w Review' });
+      if (elapsed >= 3 && !week.reviewsDone.w3) due.push({ key: 'w3', label: '+3w Review' });
+      if (elapsed >= 6 && !week.reviewsDone.w6) due.push({ key: 'w6', label: '+6w Review' });
+      return due;
+    }
 
-        function todayISO() {
-            const now = new Date();
-            const offset = now.getTimezoneOffset();
-            return new Date(now.getTime() - offset * 60000).toISOString().slice(0, 10);
-        }
+    // =========================================================================
+    // 4. RENDERING FUNCTIONS
+    // =========================================================================
+    function renderAll() {
+      renderKPIs();
+      renderWeekSelector();
+      renderCommandCenter();
+      renderMatrix();
+      renderRedList();
+      updateNavStyles();
+      lucide.createIcons();
+    }
 
-        function updateStats() {
-            const counts = { all: topicsData.length, new: 0, learning: 0, completed: 0 };
-            topicsData.forEach(topic => {
-                counts[getStatus(topic.id)]++;
-            });
+    function renderKPIs() {
+      let masteredCount = 0;
+      let essaysCount = 0;
+      let speakingCount = 0;
+      let totalDueReviews = 0;
 
-            const percent = Math.round((counts.completed / counts.all) * 100);
-            document.getElementById('progress-text').textContent = `${counts.completed} / ${counts.all} (${percent}%)`;
-            document.getElementById('progress-bar').style.width = `${percent}%`;
-            document.getElementById('count-all').textContent = counts.all;
-            document.getElementById('count-new').textContent = counts.new;
-            document.getElementById('count-learning').textContent = counts.learning;
-            document.getElementById('count-completed').textContent = counts.completed;
-        }
+      appState.weeks.forEach(w => {
+        const stats = getWeekCompletionStats(w);
+        if (stats.isMastered) masteredCount++;
+        // Saturday task 0 is Task 2 Essay; Thursday task 1 is Speaking recording
+        if (w.days[5]?.tasks[0]?.done) essaysCount++;
+        if (w.days[3]?.tasks[1]?.done) speakingCount++;
+        totalDueReviews += getDueSpacedReviews(w).length;
+      });
 
-        function setFilter(filter) {
-            currentFilter = filter;
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-purple-600', 'text-white', 'shadow-sm');
-                btn.classList.add('bg-purple-100', 'text-purple-700');
-            });
-            const activeBtn = document.getElementById(`filter-${filter}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-purple-100', 'text-purple-700');
-                activeBtn.classList.add('bg-purple-600', 'text-white', 'shadow-sm');
-            }
-            renderWindows();
-        }
+      const currentWeek = appState.weeks[appState.activeWeek - 1];
+      const activeStats = getWeekCompletionStats(currentWeek);
 
-        function renderWindows() {
-            const grid = document.getElementById('windows-grid');
-            const emptyState = document.getElementById('empty-state');
-            const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
-            grid.innerHTML = '';
-            let visible = 0;
+      document.getElementById('kpi-mastered').textContent = masteredCount;
+      document.getElementById('kpi-mastered-bar').style.width = `${Math.round((masteredCount / 30) * 100)}%`;
 
-            topicsData.forEach(topic => {
-                const state = getState(topic.id);
-                const status = getStatus(topic.id);
+      document.getElementById('kpi-consistency').textContent = `${activeStats.pct}%`;
+      const consTag = document.getElementById('kpi-consistency-tag');
+      if (activeStats.pct >= 90) {
+        consTag.textContent = 'Target Met ✓';
+        consTag.className = 'text-[11px] font-semibold px-1.5 py-0.5 rounded-md bg-emerald-100 text-emerald-800';
+      } else {
+        consTag.textContent = 'Goal ≥90%';
+        consTag.className = 'text-[11px] font-medium px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600';
+      }
 
-                if (currentFilter !== 'all' && currentFilter !== status) return;
-                if (searchQuery && !topic.title.toLowerCase().includes(searchQuery) && !topic.code.toLowerCase().includes(searchQuery)) return;
+      document.getElementById('kpi-essays').textContent = essaysCount;
+      document.getElementById('kpi-speaking').textContent = speakingCount;
 
-                visible++;
-                const completedSteps = state.steps.filter(Boolean).length;
-                const doneSessions = state.sessions.filter(item => item.done).length;
-                const meta = STATUS_META[status];
-                const isCompleted = status === 'completed';
+      document.getElementById('kpi-reviews').textContent = totalDueReviews;
+      const revSub = document.getElementById('kpi-reviews-sub');
+      if (totalDueReviews > 0) {
+        revSub.textContent = `${totalDueReviews} due now`;
+        revSub.className = 'text-xs font-semibold text-amber-600';
+      } else {
+        revSub.textContent = 'All caught up';
+        revSub.className = 'text-xs font-medium text-emerald-600';
+      }
 
-                const card = document.createElement('article');
-                card.className = `window-card window-container hover-float cursor-pointer relative h-44 rounded-t-[2.2rem] rounded-b-2xl p-2 bg-white border-2 ${isCompleted ? 'is-completed border-emerald-300 shadow-md shadow-emerald-100/70' : status === 'learning' ? 'border-amber-200 shadow-sm' : 'border-purple-200/90 shadow-sm'}`;
-                card.dataset.id = topic.id;
-                card.setAttribute('role', 'button');
-                card.setAttribute('tabindex', '0');
-                card.setAttribute('aria-label', `${topic.title} - ${meta.label}`);
-                card.innerHTML = `
-                    <div class="w-full h-full rounded-t-[1.8rem] rounded-b-xl bg-gradient-to-b from-purple-100 via-fuchsia-50 to-amber-50/70 p-3 flex flex-col items-center justify-between text-center relative overflow-hidden border border-purple-100">
-                        <div class="w-full flex justify-between items-center text-[11px] font-extrabold">
-                            <span class="text-purple-500">#${String(topic.id).padStart(2, '0')}</span>
-                            <span class="${meta.card} px-2 py-0.5 rounded-full shadow-2xs">${meta.label}</span>
-                        </div>
-                        <div class="my-auto min-w-0 w-full">
-                            <div class="text-3xl mb-1">${topic.emoji}</div>
-                            <h3 class="text-xs font-extrabold text-purple-950 line-clamp-2 leading-snug px-1">${topic.title}</h3>
-                        </div>
-                        <div class="w-full bg-white/80 rounded-full py-1 px-2 text-[10px] font-bold text-purple-700 flex items-center justify-center gap-1.5">
-                            <span>${completedSteps}/4 mốc</span>
-                            <span class="text-purple-300">•</span>
-                            <span>${doneSessions} buổi</span>
-                            <span class="text-purple-300">•</span>
-                            <span>${topic.file ? '📖' : '⏳'}</span>
-                        </div>
-                    </div>
+      document.getElementById('nav-redlist-badge').textContent = appState.redList.length;
+      document.getElementById('mnav-redlist-badge').textContent = appState.redList.length;
+    }
 
-                    <div class="window-shutter window-grid-lines absolute inset-2 rounded-t-[1.8rem] rounded-b-xl bg-gradient-to-br from-purple-300 via-violet-300 to-fuchsia-200 border-2 border-white/80 p-3 flex flex-col items-center justify-between text-center shadow-inner">
-                        <div class="w-full flex justify-between items-center">
-                            <span class="bg-white/85 text-purple-800 text-[11px] font-extrabold px-2 py-0.5 rounded-full shadow-2xs">
-                                #${String(topic.id).padStart(2, '0')}
-                            </span>
-                            <span class="w-6 h-6 rounded-full bg-white/85 flex items-center justify-center text-xs shadow-2xs">
-                                ${isCompleted ? '🔓' : status === 'learning' ? '📖' : '🔒'}
-                            </span>
-                        </div>
-                        <div class="bg-white/85 backdrop-blur-xs px-2.5 py-2 rounded-2xl shadow-xs w-full border border-white min-w-0">
-                            <div class="text-xl mb-0.5">${topic.emoji}</div>
-                            <h3 class="text-xs font-extrabold text-purple-950 line-clamp-2 leading-tight">${topic.title}</h3>
-                        </div>
-                        <div class="w-full flex items-center justify-center gap-1">
-                            ${[0,1,2,3].map(i => `<span class="h-1.5 flex-1 rounded-full ${state.steps[i] ? 'bg-purple-700' : 'bg-white/60'}"></span>`).join('')}
-                        </div>
-                    </div>
-                `;
+    function renderWeekSelector() {
+      const sel = document.getElementById('week-selector');
+      sel.innerHTML = appState.weeks.map(w => {
+        const stats = getWeekCompletionStats(w);
+        const mark = stats.isMastered ? '✓ ' : '';
+        return `<option value="${w.weekNumber}" ${w.weekNumber === appState.activeWeek ? 'selected' : ''}>
+          Week ${w.weekNumber}: ${mark}${w.title.slice(0, 26)}${w.title.length > 26 ? '…' : ''}
+        </option>`;
+      }).join('');
 
-                card.addEventListener('click', () => openModal(topic.id));
-                card.addEventListener('keydown', event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                        event.preventDefault();
-                        openModal(topic.id);
-                    }
-                });
+      document.getElementById('btn-prev-week').disabled = appState.activeWeek <= 1;
+      document.getElementById('btn-next-week').disabled = appState.activeWeek >= 30;
+    }
 
-                grid.appendChild(card);
-            });
+    function renderCommandCenter() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      const stats = getWeekCompletionStats(week);
 
-            emptyState.classList.toggle('hidden', visible !== 0);
-        }
+      document.getElementById('active-week-pill').textContent = `WEEK ${week.weekNumber} OF 30`;
+      document.getElementById('active-week-dates').textContent = week.dateRange;
+      document.getElementById('active-topic-title').value = week.title;
 
-        function openModal(id) {
-            const topic = topicsData.find(item => item.id === id);
-            const state = getState(id);
-            if (!topic) return;
+      const statusBadge = document.getElementById('active-week-status-badge');
+      if (stats.isMastered) {
+        statusBadge.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200';
+        statusBadge.innerHTML = `<i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Mastered`;
+      } else if (stats.checked > 0) {
+        statusBadge.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200/70';
+        statusBadge.innerHTML = `<i data-lucide="clock" class="w-3.5 h-3.5"></i> In Progress (${stats.pct}%)`;
+      } else {
+        statusBadge.className = 'inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-600';
+        statusBadge.innerHTML = `Not Started`;
+      }
 
-            activeTopicId = id;
-            document.getElementById('modal-emoji').textContent = topic.emoji;
-            document.getElementById('modal-badge').textContent = `Window #${String(topic.id).padStart(2, '0')} • Mã gốc: ${topic.code}`;
-            document.getElementById('modal-title').textContent = topic.title;
-            document.getElementById('modal-subtopics').textContent = topic.sub;
-            document.getElementById('note-date').value = todayISO();
-            document.getElementById('note-text').value = '';
-            document.getElementById('plan-start').value = state.planStart || "";
-            document.getElementById('plan-target').value = state.planTarget || "";
-            weekAnchor = getWeekStart(state.planStart || todayISO());
+      document.getElementById('week-progress-text').textContent = `${stats.checked} / ${stats.total} Tasks (${stats.pct}%)`;
+      document.getElementById('week-progress-bar').style.width = `${stats.pct}%`;
 
-            const fileNote = document.getElementById('modal-file-note');
-            if (!topic.file) {
-                fileNote.textContent = 'Tài liệu cho chủ đề này chưa được cập nhật. Bạn vẫn có thể ghi chú, lập kế hoạch và theo dõi tiến độ.';
-                fileNote.classList.remove('hidden');
-            } else {
-                fileNote.classList.add('hidden');
-            }
+      // Render Live Gate 1–5 Summary Pills
+      const pillsEl = document.getElementById('gate-summary-pills');
+      pillsEl.innerHTML = [1, 2, 3, 4, 5].map(gNum => {
+        const gs = stats.gateStats[gNum];
+        const isDone = gs.total > 0 && gs.done === gs.total;
+        const hasProgress = gs.done > 0;
+        const badgeStyle = isDone
+          ? 'bg-emerald-50 text-emerald-700 border-emerald-200 font-semibold'
+          : hasProgress
+            ? 'bg-lavender-50 text-lavender-700 border-lavender-200 font-medium'
+            : 'bg-slate-50 text-slate-500 border-slate-200/80';
+        return `
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] border ${badgeStyle}">
+            <span>${GATE_META[gNum].short}</span>
+            <span class="font-mono text-[10px]">${gs.done}/${gs.total}</span>
+            ${isDone ? '<i data-lucide="check" class="w-3 h-3 text-emerald-600"></i>' : ''}
+          </span>
+        `;
+      }).join('');
 
-            refreshModal();
-            const modal = document.getElementById('window-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
+      // Render Monday – Sunday Day-by-Day Cards
+      const daysContainer = document.getElementById('days-container');
+      daysContainer.innerHTML = week.days.map((dayObj, dIdx) => {
+        const dayDoneCount = dayObj.tasks.filter(t => t.done).length;
+        const dayAllDone = dayObj.tasks.length > 0 && dayDoneCount === dayObj.tasks.length;
+        const isWeekend = dIdx >= 5;
 
-        function closeModal() {
-            const modal = document.getElementById('window-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            activeTopicId = null;
-            updateStats();
-            renderWindows();
-        }
+        const gatePillStyle = dayObj.accent === 'lavender'
+          ? 'bg-lavender-50 text-lavender-700 border-lavender-200/80'
+          : 'bg-emerald-50 text-emerald-700 border-emerald-200/80';
 
-        function refreshModal() {
-            if (!activeTopicId) return;
-            const topic = topicsData.find(item => item.id === activeTopicId);
-            const state = getState(activeTopicId);
-            const status = getStatus(activeTopicId);
-            const meta = STATUS_META[status];
-
-            const statusEl = document.getElementById('modal-status');
-            statusEl.textContent = meta.label;
-            statusEl.className = `text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full ${meta.pill}`;
-
-            document.querySelectorAll('#modal-checklist input[type="checkbox"]').forEach((checkbox, index) => {
-                const checked = Boolean(state.steps[index]);
-                checkbox.checked = checked;
-                const dateInput = document.getElementById(`step-date-${index}`);
-                if (dateInput) {
-                    dateInput.value = state.stepDates[index] || '';
-                    dateInput.disabled = !checked;
-                }
-            });
-
-            const doneMilestones = state.steps.filter(Boolean).length;
-            document.getElementById('milestone-count').textContent = `${doneMilestones}/4 mốc`;
-
-            const openBtn = document.getElementById('open-vocab-btn');
-            if (topic.file) {
-                openBtn.href = encodeURI(topic.file);
-                openBtn.innerHTML = topic.file.toLowerCase().endsWith('.docx')
-                    ? '<span>📄</span> Tải tài liệu (.docx)'
-                    : '<span>📖</span> Mở trang từ vựng';
-                openBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
-                openBtn.target = '_blank';
-                openBtn.rel = 'noopener';
-                openBtn.setAttribute('download', '');
-                if (!topic.file.toLowerCase().endsWith('.docx')) openBtn.removeAttribute('download');
-            } else {
-                openBtn.href = '#';
-                openBtn.innerHTML = '<span>⏳</span> Tài liệu sắp cập nhật';
-                openBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
-                openBtn.removeAttribute('download');
-            }
-
-            const completeBtn = document.getElementById('complete-btn');
-            if (state.completed) {
-                completeBtn.innerHTML = '<span>↩️</span> Hủy hoàn thành';
-                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-purple-700 bg-purple-100 hover:bg-purple-200 border border-purple-200 transition';
-            } else {
-                completeBtn.innerHTML = '<span>✅</span> Đánh dấu hoàn thành';
-                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition';
-            }
-
-            renderWeek(state);
-            renderNotes(state);
-            renderPlanStatus(state);
-        }
-
-        function localISO(date) {
-            const offset = date.getTimezoneOffset();
-            return new Date(date.getTime() - offset * 60000).toISOString().slice(0, 10);
-        }
-
-        function getWeekStart(dateString) {
-            const date = new Date(`${dateString}T00:00:00`);
-            if (Number.isNaN(date.getTime())) return getWeekStart(todayISO());
-            const day = date.getDay();
-            const diff = day === 0 ? -6 : 1 - day;
-            date.setDate(date.getDate() + diff);
-            return localISO(date);
-        }
-
-        function addDays(dateString, days) {
-            const date = new Date(`${dateString}T00:00:00`);
-            date.setDate(date.getDate() + days);
-            return localISO(date);
-        }
-
-        function weekdayShort(dateString) {
-            const date = new Date(`${dateString}T00:00:00`);
-            return ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'][date.getDay()];
-        }
-
-        function formatShortDate(dateString) {
-            const [, month, day] = dateString.split('-');
-            return `${day}/${month}`;
-        }
-
-        function renderWeek(state) {
-            if (!weekAnchor) weekAnchor = getWeekStart(todayISO());
-            const days = Array.from({ length: 7 }, (_, index) => addDays(weekAnchor, index));
-            const today = todayISO();
-            const doneCount = state.sessions.filter(item => item.done).length;
-            const doneThisWeek = days.filter(date => state.sessions.some(item => item.date === date && item.done)).length;
-
-            document.getElementById('week-label').textContent = `${formatDate(days[0])} - ${formatDate(days[6])}`;
-            document.getElementById('week-summary').textContent = `${doneThisWeek}/7 ngày tuần này`;
-            document.getElementById('session-count').textContent = `${doneCount} buổi`;
-
-            document.getElementById('week-strip').innerHTML = days.map(date => {
-                const done = state.sessions.some(item => item.date === date && item.done);
-                const isToday = date === today;
-                return `
-                    <label class="flex flex-col items-center justify-between gap-1 min-w-0 rounded-xl border px-0.5 py-1.5 cursor-pointer transition ${done ? 'border-emerald-300 bg-emerald-50' : 'border-purple-100 bg-white hover:bg-purple-50'} ${isToday ? 'ring-2 ring-inset ring-purple-300' : ''}">
-                        <span class="text-[9px] font-extrabold uppercase tracking-wide ${done ? 'text-emerald-600' : 'text-purple-400'}">${weekdayShort(date)}</span>
-                        <span class="text-[10px] font-extrabold ${done ? 'text-emerald-700' : 'text-purple-800'}">${formatShortDate(date)}</span>
-                        <input type="checkbox" ${done ? 'checked' : ''} onchange="toggleWeekDay('${date}')" class="custom-checkbox w-4 h-4 rounded border-purple-300 text-purple-600 focus:ring-purple-500">
-                    </label>
-                `;
-            }).join('');
-        }
-
-        function shiftWeek(days) {
-            if (!weekAnchor) weekAnchor = getWeekStart(todayISO());
-            weekAnchor = addDays(weekAnchor, days);
-            if (activeTopicId) renderWeek(getState(activeTopicId));
-        }
-
-        function goCurrentWeek() {
-            weekAnchor = getWeekStart(todayISO());
-            if (activeTopicId) renderWeek(getState(activeTopicId));
-        }
-
-        function toggleWeekDay(date) {
-            if (!activeTopicId) return;
-            const state = getState(activeTopicId);
-            const session = state.sessions.find(item => item.date === date);
-            let markedDone = false;
-            if (session && session.done) {
-                state.sessions = state.sessions.filter(item => item.date !== date);
-            } else if (session) {
-                session.done = true;
-                markedDone = true;
-            } else {
-                state.sessions.push({ date, done: true });
-                markedDone = true;
-            }
-            saveProgress(false);
-            updateStats();
-            if (markedDone) {
-                document.getElementById('note-date').value = date;
-            }
-            refreshModal();
-        }
-
-        function formatDate(isoDate) {
-            if (!isoDate) return '';
-            const [year, month, day] = isoDate.split('-');
-            return `${day}/${month}/${year}`;
-        }
-
-        function renderPlanStatus(state) {
-            const el = document.getElementById('plan-status');
-            if (state.completed) {
-                el.textContent = '🎉 Đã hoàn thành chủ đề này!';
-                el.className = 'text-xs font-bold text-emerald-600 mt-2';
-                return;
-            }
-            if (!state.planStart && !state.planTarget) {
-                el.textContent = 'Chưa đặt kế hoạch';
-                el.className = 'text-xs font-bold text-purple-500 mt-2';
-                return;
-            }
-
-            const parts = [];
-            if (state.planStart) parts.push(`Bắt đầu ${formatDate(state.planStart)}`);
-
-            if (state.planTarget) {
-                const target = new Date(`${state.planTarget}T00:00:00`);
-                const today = new Date(`${todayISO()}T00:00:00`);
-                const diff = Math.round((target - today) / 86400000);
-                if (diff > 0) parts.push(`còn ${diff} ngày`);
-                else if (diff === 0) parts.push('hạn hôm nay');
-                else parts.push(`trễ ${Math.abs(diff)} ngày`);
-            }
-
-            el.textContent = parts.join(' • ');
-            el.className = 'text-xs font-bold text-purple-600 mt-2';
-        }
-
-        function toggleStep(stepIndex) {
-            if (!activeTopicId) return;
-            const state = getState(activeTopicId);
-            const checked = !state.steps[stepIndex];
-            state.steps[stepIndex] = checked;
-            state.stepDates[stepIndex] = checked ? (state.stepDates[stepIndex] || todayISO()) : '';
-
-            const allDone = state.steps.every(Boolean);
-            if (allDone && !state.completed) {
-                state.completed = true;
-                state.steps.forEach((done, index) => {
-                    if (done && !state.stepDates[index]) state.stepDates[index] = todayISO();
-                });
-                triggerCelebration();
-                showToast('🎉 Tuyệt vời! Bạn đã hoàn thành ô cửa sổ này!');
-            } else if (!allDone && state.completed) {
-                state.completed = false;
-            }
-
-            saveProgress(false);
-            updateStats();
-            refreshModal();
-        }
-
-        function saveStepDate(stepIndex) {
-            if (!activeTopicId) return;
-            const state = getState(activeTopicId);
-            const input = document.getElementById(`step-date-${stepIndex}`);
-            state.stepDates[stepIndex] = input ? input.value : '';
-            saveProgress(false);
-        }
-
-        function makeNoteId() {
-            return `note-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-        }
-
-        function escapeHtml(value) {
-            return String(value).replace(/[&<>"']/g, char => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            }[char]));
-        }
-
-        function saveNote() {
-            if (!activeTopicId) return;
-            const text = document.getElementById('note-text').value.trim();
-            const date = document.getElementById('note-date').value || todayISO();
-            if (!text) {
-                showToast('✍️ Hãy nhập nội dung ghi chú trước');
-                return;
-            }
-            const state = getState(activeTopicId);
-            state.notesLog.push({ id: makeNoteId(), date, text, createdAt: Date.now() });
-            saveProgress(false);
-            updateStats();
-            document.getElementById('note-text').value = '';
-            if (!document.getElementById('note-date').value) {
-                document.getElementById('note-date').value = todayISO();
-            }
-            refreshModal();
-            showToast('💾 Đã lưu ghi chú');
-        }
-
-        function deleteNote(id) {
-            if (!activeTopicId) return;
-            const state = getState(activeTopicId);
-            state.notesLog = state.notesLog.filter(note => note.id !== id);
-            saveProgress(false);
-            updateStats();
-            refreshModal();
-            showToast('🗑️ Đã xóa ghi chú');
-        }
-
-        function renderNotes(state) {
-            const list = document.getElementById('notes-list');
-            const notes = [...state.notesLog].sort((a, b) => (b.date.localeCompare(a.date)) || (b.createdAt - a.createdAt));
-            document.getElementById('notes-count').textContent = `${notes.length} ghi chú`;
-
-            if (!notes.length) {
-                list.innerHTML = '<p class="text-xs text-purple-400 italic px-1">Chưa có ghi chú nào. Viết suy nghĩ của bạn ở trên nhé.</p>';
-                return;
-            }
-
-            const groups = {};
-            notes.forEach(note => {
-                if (!groups[note.date]) groups[note.date] = [];
-                groups[note.date].push(note);
-            });
-
-            list.innerHTML = Object.keys(groups).sort((a, b) => b.localeCompare(a)).map(date => `
-                <div>
-                    <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1.5">📅 ${formatDate(date)}</p>
-                    <div class="space-y-1.5">
-                        ${groups[date].map(note => `
-                            <div class="flex items-start justify-between gap-2 bg-white border border-purple-100 rounded-xl px-3 py-2">
-                                <p class="text-sm text-purple-900 whitespace-pre-wrap break-words min-w-0">${escapeHtml(note.text)}</p>
-                                <button onclick="deleteNote('${note.id}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition shrink-0">Xóa</button>
-                            </div>
-                        `).join('')}
-                    </div>
+        return `
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border ${dayAllDone ? 'border-emerald-300 bg-emerald-50/15' : 'border-slate-200/80'} shadow-apple flex flex-col justify-between transition-all ${dIdx === 6 ? 'lg:col-span-2' : ''}">
+            <div class="space-y-3.5">
+              <!-- Day Card Header -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-bold text-slate-900">${dayObj.dayName}</span>
+                  <span class="text-[11px] font-mono px-2 py-0.5 rounded-md ${isWeekend ? 'bg-amber-50 text-amber-800 border border-amber-200/60' : 'bg-slate-100 text-slate-600'}">
+                    ${dayObj.hoursLabel}
+                  </span>
                 </div>
-            `).join('');
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[11px] font-medium px-2 py-0.5 rounded-md border ${gatePillStyle}">
+                    ${dayObj.gateBadge}
+                  </span>
+                  ${dayAllDone ? '<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-600 text-white">DONE</span>' : ''}
+                </div>
+              </div>
+
+              <!-- Day Tasks with Checkbox + Inline Editable Material Text Input -->
+              <div class="space-y-3">
+                ${dayObj.tasks.map((task, tIdx) => {
+                  const chkId = `daytask-${week.weekNumber}-${dIdx}-${tIdx}`;
+                  return `
+                    <div class="p-3 rounded-xl bg-slate-50/80 border border-slate-200/70 space-y-2 transition-colors hover:border-slate-300/90">
+                      <div class="flex items-start justify-between gap-2">
+                        <label for="${chkId}" class="flex items-start gap-2.5 cursor-pointer select-none flex-1">
+                          <input
+                            type="checkbox"
+                            id="${chkId}"
+                            ${task.done ? 'checked' : ''}
+                            onchange="toggleDayTask(${dIdx}, ${tIdx})"
+                            class="gate-checkbox mt-0.5 w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer accent-emerald-600 shrink-0"
+                          />
+                          <span class="gate-label text-xs font-medium text-slate-800 leading-snug">
+                            ${escapeHTML(task.title)}
+                          </span>
+                        </label>
+                        ${task.isCustom ? `
+                          <button onclick="deleteCustomDayTask(${dIdx}, ${tIdx})" title="Remove custom task" class="text-slate-400 hover:text-rose-600 p-0.5">
+                            <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                          </button>
+                        ` : ''}
+                      </div>
+
+                      <!-- Always-Accessible Inline Material Input (No need to mark task done) -->
+                      <div class="pl-6">
+                        <div class="relative flex items-center">
+                          <i data-lucide="edit-3" class="w-3 h-3 text-slate-400 absolute left-2.5 pointer-events-none"></i>
+                          <input
+                            type="text"
+                            value="${escapeHTML(task.note || '')}"
+                            oninput="updateDayTaskNote(${dIdx}, ${tIdx}, this.value)"
+                            placeholder="${escapeHTML(task.placeholder || 'Log specific material or note...')}"
+                            class="w-full pl-7 pr-2.5 py-1.5 rounded-lg bg-white border border-slate-200/90 text-xs text-slate-700 placeholder:text-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/10 transition-all"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- Add Custom Task Footer -->
+            <div class="pt-3 mt-3 border-t border-slate-100 flex items-center justify-between">
+              <button onclick="openAddTaskPrompt(${dIdx})" class="text-[11px] font-medium text-slate-500 hover:text-emerald-700 flex items-center gap-1 transition-colors">
+                <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+                Add custom task to ${dayObj.dayName}
+              </button>
+              <span class="text-[11px] font-mono text-slate-400">${dayDoneCount}/${dayObj.tasks.length}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render Vocab List & Count
+      document.getElementById('vocab-count-pill').textContent = week.vocab.length;
+      renderVocabList(week);
+
+      // Populate Scratchpad
+      document.getElementById('sp-essay-prompt').value = week.scratchpad.essayPrompt || '';
+      document.getElementById('sp-essay-body').value = week.scratchpad.essayBody || '';
+      document.getElementById('sp-speaking-notes').value = week.scratchpad.speakingNotes || '';
+      document.getElementById('sp-input-notes').value = week.scratchpad.inputNotes || '';
+      updateEssayWordCount();
+    }
+
+    function renderVocabList(week) {
+      const container = document.getElementById('vocab-items-container');
+      if (week.vocab.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-slate-400 space-y-1">
+            <p class="text-xs font-medium text-slate-500">No vocabulary encoded for Week ${week.weekNumber} yet.</p>
+            <p class="text-[11px]">Add 20–30 high-utility words above with exact collocations to unlock Flashcard Recall mode.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = week.vocab.map((item, idx) => `
+        <div class="p-3.5 sm:px-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/80 transition-colors">
+          <div class="space-y-1 flex-1 min-w-0">
+            <div class="flex flex-wrap items-baseline gap-2">
+              <span class="text-xs font-mono text-slate-400">#${idx + 1}</span>
+              <span class="text-sm font-bold text-slate-900">${escapeHTML(item.word)}</span>
+              ${item.ipa ? `<span class="text-xs font-mono text-slate-400">${escapeHTML(item.ipa)}</span>` : ''}
+              <span class="text-xs font-medium px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200/60">
+                ${escapeHTML(item.collocation)}
+              </span>
+            </div>
+            <p class="text-xs text-slate-600 italic">"${escapeHTML(item.example)}"</p>
+          </div>
+          <button onclick="deleteVocabWord('${item.id}')" title="Remove word" class="self-end sm:self-center p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function renderMatrix() {
+      const grid = document.getElementById('matrix-grid');
+      const filtered = appState.weeks.filter(w => {
+        const stats = getWeekCompletionStats(w);
+        const due = getDueSpacedReviews(w);
+        if (appState.matrixFilter === 'active') return !stats.isMastered && (stats.checked > 0 || w.weekNumber === appState.activeWeek);
+        if (appState.matrixFilter === 'mastered') return stats.isMastered;
+        if (appState.matrixFilter === 'review') return due.length > 0;
+        if (appState.matrixFilter === 'upcoming') return !stats.isMastered && stats.checked === 0 && w.weekNumber !== appState.activeWeek;
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full bg-white rounded-2xl p-10 text-center border border-slate-200/80">
+            <p class="text-sm font-medium text-slate-600">No topics match this filter right now.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(w => {
+        const stats = getWeekCompletionStats(w);
+        const dueReviews = getDueSpacedReviews(w);
+        const isCurrent = w.weekNumber === appState.activeWeek;
+
+        let statusPill = `<span class="px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 text-slate-600">Upcoming</span>`;
+        if (stats.isMastered) {
+          statusPill = `<span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-100 text-emerald-800">Mastered ✓</span>`;
+        } else if (isCurrent || stats.checked > 0) {
+          statusPill = `<span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-100 text-amber-800">Active (${stats.pct}%)</span>`;
         }
 
-        function savePlanDates() {
-            if (!activeTopicId) return;
-            const state = getState(activeTopicId);
-            const previousStart = state.planStart;
-            state.planStart = document.getElementById('plan-start').value;
-            state.planTarget = document.getElementById('plan-target').value;
-            if (state.planStart !== previousStart) {
-                weekAnchor = getWeekStart(state.planStart || todayISO());
-            }
-            saveProgress(false);
-            updateStats();
-            refreshModal();
+        const essayDone = w.days[5]?.tasks[0]?.done;
+        const speakingDone = w.days[3]?.tasks[1]?.done;
+
+        return `
+          <div onclick="openWeekFromMatrix(${w.weekNumber})" class="cursor-pointer bg-white rounded-2xl p-4 border ${isCurrent ? 'border-emerald-500 ring-2 ring-emerald-500/15' : 'border-slate-200/80 hover:border-emerald-300'} shadow-apple hover:shadow-apple-hover transition-all flex flex-col justify-between gap-3">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs font-bold text-emerald-700">WEEK ${w.weekNumber}</span>
+                ${statusPill}
+              </div>
+              <h3 class="text-sm font-bold text-slate-900 line-clamp-1 mb-1">${escapeHTML(w.title)}</h3>
+              <p class="text-[11px] text-slate-400">${w.dateRange}</p>
+            </div>
+
+            <div class="space-y-2.5 pt-2 border-t border-slate-100">
+              <!-- Artifact Micro-Counters -->
+              <div class="flex items-center justify-between text-[11px] text-slate-500">
+                <span>${stats.checked}/${stats.total} tasks</span>
+                <span>${essayDone ? 'Essay ✓' : 'No essay'}</span>
+                <span>${speakingDone ? 'Speaking ✓' : 'No audio'}</span>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-full bg-emerald-600 rounded-full" style="width: ${stats.pct}%"></div>
+              </div>
+
+              <!-- Spaced Review Action if Due -->
+              ${dueReviews.length > 0 ? `
+                <div onclick="event.stopPropagation()" class="pt-1 flex flex-wrap items-center justify-between gap-1.5 bg-amber-50 px-2.5 py-1.5 rounded-lg border border-amber-200/80">
+                  <span class="text-[11px] font-semibold text-amber-800">${dueReviews[0].label} Due</span>
+                  <button onclick="completeSpacedReview(${w.weekNumber}, '${dueReviews[0].key}')" class="px-2 py-0.5 rounded bg-amber-600 hover:bg-amber-700 text-white text-[10px] font-semibold">
+                    Complete 10m Review
+                  </button>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderRedList() {
+      // Populate week dropdown inside Red List form
+      const rlWeekSel = document.getElementById('rl-week');
+      if (rlWeekSel) {
+        rlWeekSel.innerHTML = appState.weeks.map(w =>
+          `<option value="${w.weekNumber}" ${w.weekNumber === appState.activeWeek ? 'selected' : ''}>W${w.weekNumber}: ${escapeHTML(w.title.slice(0, 18))}</option>`
+        ).join('');
+      }
+
+      const container = document.getElementById('redlist-container');
+      const items = appState.redList.filter(item =>
+        appState.redListFilter === 'All' || item.skill === appState.redListFilter
+      );
+
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center border border-dashed border-slate-200 rounded-xl text-slate-400">
+            <p class="text-xs font-medium text-slate-500">No logged mistakes in this category.</p>
+            <p class="text-[11px] mt-1">Log awkward sentences from your Saturday essays or Thursday Speaking recordings to build Band 7.5+ accuracy.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(item => {
+        const weekObj = appState.weeks[item.weekNumber - 1];
+        const topicLabel = weekObj ? `Week ${item.weekNumber} · ${weekObj.title}` : `Week ${item.weekNumber}`;
+        return `
+          <div class="p-4 rounded-xl border border-slate-200/80 bg-white flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+            <div class="space-y-2 flex-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-rose-50 text-rose-700 border border-rose-200/70">
+                  ${escapeHTML(item.skill)}
+                </span>
+                <span class="text-[11px] font-medium text-slate-500">${escapeHTML(topicLabel)}</span>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1">
+                <div class="p-2.5 rounded-lg bg-rose-50/50 border border-rose-100 text-xs text-slate-700">
+                  <span class="block text-[10px] font-bold uppercase tracking-wider text-rose-600 mb-0.5">Original Slip</span>
+                  ${escapeHTML(item.original)}
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50/60 border border-emerald-200/70 text-xs text-slate-900 font-medium">
+                  <span class="block text-[10px] font-bold uppercase tracking-wider text-emerald-700 mb-0.5">Band 7.5+ Upgrade</span>
+                  ${escapeHTML(item.upgraded)}
+                </div>
+              </div>
+
+              ${item.note ? `<p class="text-[11px] text-slate-500 flex items-center gap-1.5"><i data-lucide="info" class="w-3.5 h-3.5 text-slate-400"></i> ${escapeHTML(item.note)}</p>` : ''}
+            </div>
+
+            <button onclick="deleteRedListItem('${item.id}')" title="Delete entry" class="self-end sm:self-start p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-colors">
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // =========================================================================
+    // 5. INTERACTIVE ACTIONS & EVENT HANDLERS
+    // =========================================================================
+    function switchMainView(view, optionalFilter = null) {
+      appState.mainView = view;
+      if (view === 'matrix' && optionalFilter) {
+        appState.matrixFilter = optionalFilter;
+      }
+      saveState(false);
+
+      document.getElementById('view-command').classList.toggle('hidden', view !== 'command');
+      document.getElementById('view-matrix').classList.toggle('hidden', view !== 'matrix');
+      document.getElementById('view-redlist').classList.toggle('hidden', view !== 'redlist');
+
+      updateNavStyles();
+      if (view === 'matrix') renderMatrix();
+      if (view === 'redlist') renderRedList();
+      lucide.createIcons();
+    }
+
+    function updateNavStyles() {
+      const views = ['command', 'matrix', 'redlist'];
+      views.forEach(v => {
+        const btn = document.getElementById(`nav-${v}`);
+        const mbtn = document.getElementById(`mnav-${v}`);
+        if (v === appState.mainView) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-white text-slate-900 shadow-sm flex items-center gap-1.5';
+          mbtn.className = 'flex-1 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 text-emerald-700';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5';
+          mbtn.className = 'flex-1 py-1.5 rounded-lg text-xs font-medium text-slate-600';
         }
+      });
 
-        function toggleCompleted() {
-            if (!activeTopicId) return;
-            const state = getState(activeTopicId);
+      // Matrix filter pills
+      ['all', 'active', 'review', 'mastered', 'upcoming'].forEach(f => {
+        const el = document.getElementById(`mfilter-${f}`);
+        if (!el) return;
+        el.className = f === appState.matrixFilter
+          ? 'px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white'
+          : 'px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200';
+      });
 
-            if (!state.completed) {
-                state.completed = true;
-                state.steps = [true, true, true, true];
-                state.steps.forEach((done, index) => {
-                    if (done && !state.stepDates[index]) state.stepDates[index] = todayISO();
-                });
-                triggerCelebration();
-                showToast('✨ Đã đánh dấu hoàn thành!');
-            } else {
-                state.completed = false;
-                state.steps[3] = false;
-                state.stepDates[3] = '';
-                showToast('↩️ Đã chuyển về trạng thái đang học');
-            }
+      // Red List filter pills
+      ['All', 'Writing', 'Speaking', 'Grammar', 'Collocation'].forEach(rf => {
+        const el = document.getElementById(`rfilter-${rf}`);
+        if (!el) return;
+        el.className = rf === appState.redListFilter
+          ? 'px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-900 text-white'
+          : 'px-3 py-1.5 rounded-xl text-xs font-medium bg-slate-100 text-slate-600 hover:bg-slate-200';
+      });
+    }
 
-            saveProgress(false);
-            updateStats();
-            refreshModal();
+    function switchWorkspaceTab(tab) {
+      appState.workspaceTab = tab;
+      ['scratchpad', 'vocab'].forEach(t => {
+        document.getElementById(`workspace-${t}`).classList.toggle('hidden', t !== tab);
+        const btn = document.getElementById(`wtab-${t}`);
+        if (t === tab) {
+          btn.className = 'px-3.5 py-2 rounded-xl text-xs font-semibold transition-all bg-white text-emerald-700 shadow-sm border border-slate-200/70 flex items-center gap-1.5 whitespace-nowrap';
+        } else {
+          btn.className = 'px-3.5 py-2 rounded-xl text-xs font-medium transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5 whitespace-nowrap';
         }
+      });
+      lucide.createIcons();
+    }
 
-        function triggerCelebration() {
-            if (typeof confetti !== 'function') return;
-            confetti({
-                particleCount: 65,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#c084fc', '#e879f9', '#818cf8', '#f472b6', '#fde047']
-            });
+    function selectWeek(weekNum) {
+      if (weekNum < 1 || weekNum > 30) return;
+      appState.activeWeek = weekNum;
+      flashcardIndex = 0;
+      isCardFlipped = false;
+      saveState(false);
+      renderAll();
+    }
+
+    function navigateWeek(delta) {
+      selectWeek(appState.activeWeek + delta);
+    }
+
+    function openWeekFromMatrix(weekNum) {
+      selectWeek(weekNum);
+      switchMainView('command');
+    }
+
+    function updateTopicTitle(newTitle) {
+      const trimmed = newTitle.trim();
+      if (!trimmed) return;
+      appState.weeks[appState.activeWeek - 1].title = trimmed;
+      saveState();
+      renderWeekSelector();
+      renderMatrix();
+      showToast('Topic title updated');
+    }
+
+    function toggleDayTask(dayIdx, taskIdx) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      const task = week.days[dayIdx].tasks[taskIdx];
+      task.done = !task.done;
+
+      const stats = getWeekCompletionStats(week);
+      if (stats.isMastered && !week.completedAtWeek) {
+        week.completedAtWeek = appState.activeWeek;
+        showToast(`Week ${week.weekNumber} Mastered (≥90%)! Spaced reviews scheduled (+1w, +3w, +6w).`);
+      } else if (!stats.isMastered) {
+        week.completedAtWeek = null;
+      }
+
+      saveState();
+      renderAll();
+    }
+
+    function updateDayTaskNote(dayIdx, taskIdx, value) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      week.days[dayIdx].tasks[taskIdx].note = value;
+      saveState();
+    }
+
+    function openAddTaskPrompt(dayIdx) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      const dayObj = week.days[dayIdx];
+      const defaultGate = dayObj.gateNums ? dayObj.gateNums[0] : (dayIdx < 2 ? 1 : dayIdx < 3 ? 2 : dayIdx < 5 ? 3 : dayIdx === 5 ? 4 : 5);
+      dayObj.tasks.push({
+        id: `custom-${Date.now()}`,
+        title: `Extra ${dayObj.dayName} Study Block (30m)`,
+        gate: defaultGate,
+        placeholder: 'Specify material or focus (e.g., Cambridge 21 Listening Part 3)...',
+        done: false,
+        note: '',
+        isCustom: true
+      });
+      saveState();
+      renderAll();
+      showToast(`Added custom task to ${dayObj.dayName}`);
+    }
+
+    function deleteCustomDayTask(dayIdx, taskIdx) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      week.days[dayIdx].tasks.splice(taskIdx, 1);
+      saveState();
+      renderAll();
+    }
+
+    // Vocabulary & Flashcard Functions
+    function addVocabWord(e) {
+      e.preventDefault();
+      const word = document.getElementById('v-word').value.trim();
+      const ipa = document.getElementById('v-ipa').value.trim();
+      const collocation = document.getElementById('v-collocation').value.trim();
+      const example = document.getElementById('v-example').value.trim();
+      if (!word || !collocation || !example) return;
+
+      const week = appState.weeks[appState.activeWeek - 1];
+      week.vocab.unshift({
+        id: 'v-' + Date.now(),
+        word,
+        ipa,
+        collocation,
+        example
+      });
+
+      document.getElementById('v-word').value = '';
+      document.getElementById('v-ipa').value = '';
+      document.getElementById('v-collocation').value = '';
+      document.getElementById('v-example').value = '';
+
+      saveState();
+      renderAll();
+      showToast(`Added "${word}" to Week ${week.weekNumber}`);
+    }
+
+    function deleteVocabWord(id) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      week.vocab = week.vocab.filter(v => v.id !== id);
+      saveState();
+      renderAll();
+    }
+
+    function toggleFlashcardMode(enable) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (enable && week.vocab.length === 0) {
+        showToast('Add at least 1 vocabulary word first to practice flashcards.', 'error');
+        return;
+      }
+
+      document.getElementById('vocab-list-view').classList.toggle('hidden', enable);
+      document.getElementById('vocab-flashcard-view').classList.toggle('hidden', !enable);
+
+      const listBtn = document.getElementById('btn-list-mode');
+      const fcBtn = document.getElementById('btn-flashcard-mode');
+      if (enable) {
+        fcBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 text-white shadow-sm flex items-center gap-1.5';
+        listBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900';
+        flashcardIndex = 0;
+        isCardFlipped = false;
+        renderFlashcard();
+      } else {
+        listBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-900 shadow-sm border border-slate-200';
+        fcBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 flex items-center gap-1.5';
+      }
+      lucide.createIcons();
+    }
+
+    function renderFlashcard() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (!week.vocab.length) return;
+      if (flashcardIndex >= week.vocab.length) flashcardIndex = 0;
+      if (flashcardIndex < 0) flashcardIndex = week.vocab.length - 1;
+
+      const card = week.vocab[flashcardIndex];
+      document.getElementById('fc-counter').textContent = `Card ${flashcardIndex + 1} of ${week.vocab.length}`;
+      document.getElementById('fc-front-word').textContent = card.word;
+      document.getElementById('fc-front-ipa').textContent = card.ipa || '';
+      document.getElementById('fc-back-collocation').textContent = card.collocation;
+      document.getElementById('fc-back-example').textContent = `"${card.example}"`;
+
+      const inner = document.getElementById('fc-inner');
+      inner.classList.toggle('rotate-y-180', isCardFlipped);
+    }
+
+    function flipFlashcard() {
+      isCardFlipped = !isCardFlipped;
+      renderFlashcard();
+    }
+
+    function nextFlashcard() {
+      isCardFlipped = false;
+      flashcardIndex++;
+      renderFlashcard();
+    }
+
+    function prevFlashcard() {
+      isCardFlipped = false;
+      flashcardIndex--;
+      renderFlashcard();
+    }
+
+    function randomFlashcard() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (week.vocab.length <= 1) {
+        flipFlashcard();
+        return;
+      }
+      isCardFlipped = false;
+      let nextIdx = flashcardIndex;
+      while (nextIdx === flashcardIndex) {
+        nextIdx = Math.floor(Math.random() * week.vocab.length);
+      }
+      flashcardIndex = nextIdx;
+      renderFlashcard();
+    }
+
+    // Scratchpad Autosave
+    function saveScratchpad() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      week.scratchpad.essayPrompt = document.getElementById('sp-essay-prompt').value;
+      week.scratchpad.essayBody = document.getElementById('sp-essay-body').value;
+      week.scratchpad.speakingNotes = document.getElementById('sp-speaking-notes').value;
+      week.scratchpad.inputNotes = document.getElementById('sp-input-notes').value;
+      updateEssayWordCount();
+      saveState();
+    }
+
+    function updateEssayWordCount() {
+      const text = document.getElementById('sp-essay-body').value.trim();
+      const count = text ? text.split(/\s+/).length : 0;
+      const badge = document.getElementById('essay-word-count');
+      badge.textContent = `${count} words`;
+      badge.className = count >= 250
+        ? 'text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold'
+        : 'text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600';
+    }
+
+    // Matrix & Spaced Reviews
+    function setMatrixFilter(filter) {
+      appState.matrixFilter = filter;
+      updateNavStyles();
+      renderMatrix();
+      lucide.createIcons();
+    }
+
+    function completeSpacedReview(weekNum, reviewKey) {
+      const week = appState.weeks[weekNum - 1];
+      week.reviewsDone[reviewKey] = true;
+      saveState();
+      renderAll();
+      showToast(`Completed ${reviewKey.toUpperCase()} spaced review for Week ${weekNum}!`);
+    }
+
+    // Red List Functions
+    function setRedListFilter(skill) {
+      appState.redListFilter = skill;
+      updateNavStyles();
+      renderRedList();
+      lucide.createIcons();
+    }
+
+    function addRedListItem(e) {
+      e.preventDefault();
+      const weekNumber = Number(document.getElementById('rl-week').value);
+      const skill = document.getElementById('rl-skill').value;
+      const original = document.getElementById('rl-original').value.trim();
+      const upgraded = document.getElementById('rl-upgraded').value.trim();
+      const note = document.getElementById('rl-note').value.trim();
+
+      if (!original || !upgraded) return;
+
+      appState.redList.unshift({
+        id: 'rl-' + Date.now(),
+        weekNumber,
+        skill,
+        original,
+        upgraded,
+        note
+      });
+
+      document.getElementById('rl-original').value = '';
+      document.getElementById('rl-upgraded').value = '';
+      document.getElementById('rl-note').value = '';
+
+      saveState();
+      renderAll();
+      showToast('Mistake logged to Red List');
+    }
+
+    function deleteRedListItem(id) {
+      appState.redList = appState.redList.filter(item => item.id !== id);
+      saveState();
+      renderAll();
+    }
+
+    // =========================================================================
+    // 6. BACKUP (EXPORT / IMPORT JSON) & RESET MODAL
+    // =========================================================================
+    function exportData() {
+      const dataStr = JSON.stringify(appState, null, 2);
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ielts-7.5-pipeline-backup-${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('Backup JSON exported');
+    }
+
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length === 30) {
+            appState = parsed;
+            saveState();
+            renderAll();
+            showToast('Backup restored successfully!');
+          } else {
+            showToast('Invalid backup file structure.', 'error');
+          }
+        } catch (err) {
+          showToast('Could not parse JSON file.', 'error');
         }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
 
-        let toastTimeout;
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').textContent = message;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
+    function resetDemoPrompt() {
+      document.getElementById('reset-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
 
-        document.getElementById('window-modal').addEventListener('click', event => {
-            if (event.target === event.currentTarget) closeModal();
-        });
+    function closeResetModal() {
+      document.getElementById('reset-modal').classList.add('hidden');
+    }
 
-        document.addEventListener('keydown', event => {
-            if (event.key === 'Escape' && activeTopicId) closeModal();
-        });
+    function confirmResetAll() {
+      appState = createInitialState();
+      saveState();
+      closeResetModal();
+      renderAll();
+      showToast('Tracker reset to Week 1 defaults');
+    }
 
-        updateStats();
-        renderWindows();
-    </script>
+    // =========================================================================
+    // 7. UTILITIES (TOASTS & XSS ESCAPING)
+    // =========================================================================
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const bg = type === 'error' ? 'bg-rose-600' : 'bg-slate-900';
+      toast.className = `${bg} text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 transition-all duration-300 opacity-0 translate-y-2`;
+      toast.innerHTML = `<i data-lucide="${type === 'error' ? 'alert-circle' : 'check'}" class="w-3.5 h-3.5 text-emerald-400"></i> <span>${escapeHTML(message)}</span>`;
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0', 'translate-y-2');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2800);
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Initialize on Window Load
+    window.onload = function() {
+      loadState();
+      renderAll();
+    };
+  </script>
 </body>
 </html>
