@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHỦ ĐỀ: FOOD AND SUSTAINABLE AGRICULTURE (Interactive IELTS Vocabulary Hub)</title>
+    <title>Food — Vocabulary | IELTS 7.5 Mastery Pipeline</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./assets/theme.js"></script>
+    <link rel="stylesheet" href="./assets/theme.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body {
@@ -40,73 +43,97 @@
             transition: background-color 0.15s;
         }
         .resizer:hover, .resizing {
-            background-color: rgba(99, 102, 241, 0.4);
-            border-right: 2px solid rgb(79, 70, 229);
+            background-color: rgba(5, 150, 105, 0.35);
+            border-right: 2px solid rgb(4, 120, 87);
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen">
+<body class="bg-slate-50 text-slate-800 min-h-screen" data-storage-key="CHỦ ĐỀ: FOOD AND SUSTAINABLE AGRICULTURE">
 
-    <div class="max-w-[1600px] mx-auto px-4 py-8 sm:px-6 lg:px-10">
+    <!-- Shared site header -->
+    <header class="sticky top-0 z-30 backdrop-blur-md bg-white/80 border-b border-slate-200/80">
+        <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-10 py-3 flex items-center justify-between gap-3">
+            <a href="./index.html" class="flex items-center gap-3 min-w-0">
+                <span class="w-10 h-10 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-sm shrink-0">
+                    <i data-lucide="compass" class="w-5 h-5 text-white"></i>
+                </span>
+                <span class="min-w-0">
+                    <span class="block text-[15px] sm:text-lg font-bold text-slate-900 tracking-tight truncate">IELTS 7.5 Mastery Pipeline</span>
+                    <span class="hidden sm:block text-[11px] text-slate-500 font-medium truncate">Topic lesson · vocabulary bank</span>
+                </span>
+            </a>
+            <div class="flex items-center gap-1.5">
+                <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Home</span>
+                </a>
+                <a href="./library.html" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white shadow-sm">
+                    <i data-lucide="library" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Library</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-[1600px] mx-auto px-4 py-6 sm:px-6 lg:px-10">
         
-        <!-- Header Section -->
-        <div class="bg-white rounded-3xl shadow-xs border border-slate-100 p-6 sm:p-8 mb-8 relative overflow-hidden">
-            <!-- Subtle decorative background gradient -->
-            <div class="absolute top-0 right-0 w-80 h-80 bg-indigo-50/50 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
-
-            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-8 relative z-10">
-                <div class="flex-1 min-w-0">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600 mb-4 shadow-sm border border-indigo-100/30">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                        IELTS Vocabulary Generator Hub (Học Offline)
-                    </span>
-                    <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight whitespace-pre-line" id="mainTitle">CHỦ ĐỀ: FOOD AND SUSTAINABLE AGRICULTURE</h1>
-                    <div class="mt-4 p-4.5 sm:p-5 bg-gradient-to-br from-slate-50 to-indigo-50/30 border border-slate-200/70 rounded-2xl transition-all hover:bg-slate-50/90 group relative shadow-2xs">
-                        <div class="flex items-center gap-2 mb-1.5 text-indigo-600 font-bold text-[12px] uppercase tracking-wider">
-                            <svg class="w-4 h-4 text-indigo-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                            <span>Đánh giá học thuật từ chuyên gia (IELTS Academic Review)</span>
-                        </div>
-                        <p class="text-slate-600 text-xs sm:text-[13px] leading-relaxed font-semibold tracking-wide" id="complexitySummarySection">Tài liệu tổng hợp vốn từ vựng học thuật vượt trội (Band 7.5+ - C1/C2) liên quan mật thiết tới hai chủ đề thường xuyên xuất hiện nhất trong IELTS: Food & Nutrition và Agriculture. Các từ vựng được liên kết chặt chẽ theo tư duy hệ thống giúp thí sinh dễ dàng nâng cấp điểm Lexical Resource trong cả 4 kỹ năng.</p>
+        <!-- Topic hero -->
+        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-apple p-5 sm:p-6 mb-5">
+            <div class="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
+                <div class="min-w-0">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/70">
+                            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                            Topic 05
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-600 border border-slate-200/70">
+                            <i data-lucide="target" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            Band 7.5+ vocabulary
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-50 text-slate-600 border border-slate-200/70">
+                            <i data-lucide="volume-2" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            IPA audio
+                        </span>
                     </div>
+                    <h1 id="mainTitle" class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-2.5">Food</h1>
+                    <p class="text-sm text-slate-500 mt-1.5 max-w-2xl">Food and sustainable agriculture · Advanced collocations, IPA and IELTS examples.</p>
                 </div>
-                
-                <div class="flex flex-wrap gap-2.5 lg:pt-2">
-                    <button onclick="copyFullTable('md')" class="inline-flex items-center gap-1.5 bg-slate-900 border border-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95 cursor-pointer">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+
+                <div class="flex flex-wrap gap-2 shrink-0">
+                    <button onclick="copyFullTable('md')" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95 cursor-pointer">
+                        <i data-lucide="clipboard-copy" class="w-4 h-4"></i>
                         Copy Markdown
                     </button>
-                    <button onclick="copyFullTable('excel')" class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/50 hover:bg-emerald-100 text-emerald-700 px-4 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95 cursor-pointer">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        Copy sang Excel / Sheets
+                    <button onclick="copyFullTable('excel')" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3.5 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95 cursor-pointer">
+                        <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-600"></i>
+                        Copy for Excel
                     </button>
-                    <a href="./vocabulary.html" class="inline-flex items-center gap-2 bg-slate-100 border border-slate-200 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                        Trở về 30 chủ đề
+                    <a href="./library.html" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-600 px-3.5 py-2 rounded-xl font-semibold text-xs transition-all active:scale-95">
+                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                        Back to library
                     </a>
                 </div>
             </div>
-            
-            <!-- Filters -->
-            <div class="mt-6 pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
+
+            <!-- Search + counter -->
+            <div class="mt-5 pt-5 border-t border-slate-100 flex flex-col sm:flex-row gap-3 items-center justify-between">
                 <div class="relative w-full sm:max-w-md">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <i data-lucide="search" class="w-4 h-4"></i>
                     </span>
-                    <input type="text" id="searchInput" oninput="filterData()" placeholder="Tra nhanh từ vựng, giải thích, từ mẫu hoặc note ghi nhớ..." class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 focus:bg-white transition-all text-slate-700">
+                    <input type="text" id="searchInput" oninput="filterData()" placeholder="Search vocabulary, meanings, collocations or notes..."
+                        class="w-full pl-9 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 focus:bg-white transition-all text-slate-700">
                 </div>
-                
-                <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
-                    <div class="flex items-center gap-1.5 text-xs font-semibold text-slate-500 bg-slate-50 border border-slate-200/50 px-3 py-1.5 rounded-lg">
-                        <span>Đang học:</span>
-                        <span id="counter" class="text-indigo-600 font-bold">0 / 0</span>
-                        <span>nhóm</span>
-                    </div>
+                <div class="flex items-center gap-1.5 text-xs font-semibold text-slate-500 bg-slate-50 border border-slate-200/70 px-3 py-1.5 rounded-lg">
+                    <span>Showing</span>
+                    <span id="counter" class="text-emerald-700 font-bold">0 / 0</span>
+                    <span>entries</span>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Desktop View Table -->
-        <div class="bg-white rounded-2xl shadow-xs border border-slate-100 overflow-hidden hidden lg:block">
+        <div class="bg-white rounded-2xl shadow-apple border border-slate-100 overflow-hidden hidden lg:block">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse" style="table-layout: fixed;">
                     <thead>
@@ -116,23 +143,23 @@
                                 <div class="resizer"></div>
                             </th>
                             <th class="py-3 px-5 select-none" style="width: 200px;">
-                                Từ Vựng & IPA
+                                Vocabulary & IPA
                                 <div class="resizer"></div>
                             </th>
                             <th class="py-3 px-6 select-none" style="width: 325px;">
-                                Meaning & Bản Dịch
+                                Meaning & Translation
                                 <div class="resizer"></div>
                             </th>
                             <th class="py-3 px-6 select-none" style="width: 180px;">
-                                Collocations (Học Cụm)
+                                Collocations
                                 <div class="resizer"></div>
                             </th>
                             <th class="py-3 px-6 select-none" style="width: 300px;">
-                                Ví Dụ Minh Họa
+                                Examples
                                 <div class="resizer"></div>
                             </th>
                             <th class="py-3 px-5 select-none" style="width: 160px;">
-                                Đồng / Trái Nghĩa
+                                Synonyms / Antonyms
                                 <div class="resizer"></div>
                             </th>
                             <th class="py-3 px-5 select-none" style="width: 180px;">
@@ -156,9 +183,9 @@
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-indigo-500/20 text-white px-5 py-3 rounded-2xl text-sm font-medium shadow-2xl translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5">
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 border border-emerald-600/20 text-white px-5 py-3 rounded-2xl text-sm font-medium shadow-2xl translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2.5">
         <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></svg>
-        <span id="toastMessage">Đã sao chép!</span>
+        <span id="toastMessage">Copied!</span>
     </div>
 
     <!-- Safe JSON Storage for Offline Learning -->
@@ -166,7 +193,7 @@
 
     <script>
         const titleEl = document.getElementById('mainTitle');
-        const storageKey = "vocabList_" + encodeURIComponent(titleEl ? titleEl.innerText : "Offline_IELTS");
+        const storageKey = "vocabList_" + encodeURIComponent(document.body.dataset.storageKey || (titleEl ? titleEl.innerText : "Offline_IELTS"));
         
         // Load notes from localstorage of the downloaded offline file to make it fully state persistent
         const savedLocal = localStorage.getItem(storageKey);
@@ -296,7 +323,7 @@
         }
 
         function generateMarkdown(data) {
-            let md = "| **No.** | **Từ vựng** | **IPA** | **Nghĩa tiếng Anh** | **Nghĩa tiếng Việt** | **Collocation** | **Example 1** | **Example 2** | **Synonyms** | **Antonyms** | **Note** |\n";
+            let md = "| **No.** | **Vocabulary** | **IPA** | **English meaning** | **Vietnamese meaning** | **Collocation** | **Example 1** | **Example 2** | **Synonyms** | **Antonyms** | **Note** |\n";
             md += "| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |\n";
             data.forEach(item => {
                 const clean = (str) => (str || "").replace(/\|/g, '\\|').replace(/\n/g, '<br>');
@@ -306,7 +333,7 @@
         }
 
         function generateTSV(data) {
-            let tsv = ["No.", "Từ vựng", "IPA", "Nghĩa tiếng Anh", "Nghĩa tiếng Việt", "Collocation", "Example 1", "Example 2", "Synonyms", "Antonyms", "Note"].join("\t") + "\n";
+            let tsv = ["No.", "Vocabulary", "IPA", "English meaning", "Vietnamese meaning", "Collocation", "Example 1", "Example 2", "Synonyms", "Antonyms", "Note"].join("\t") + "\n";
             data.forEach(item => {
                 const clean = (str) => (str || "").replace(/\r?\n/g, " ").replace(/\t/g, " ");
                 tsv += [item.no, clean(item.vocab), clean(item.ipa), clean(item.engMean), clean(item.viMean), clean(item.collocation), clean(item.example1), clean(item.example2), clean(item.synonyms), clean(item.antonyms), clean(item.note)].join("\t") + "\n";
@@ -317,7 +344,7 @@
         function copyFullTable(format) {
             if (filteredItems.length === 0) return;
             const text = format === 'md' ? generateMarkdown(filteredItems) : generateTSV(filteredItems);
-            const msg = format === 'md' ? "Đã sao chép bảng Markdown!" : "Đã sao chép sang dạng Excel! Hãy dán (Ctrl+V) vào Excel/Sheets.";
+            const msg = format === 'md' ? "Markdown table copied!" : "Copied for Excel — paste with Ctrl+V into Excel or Sheets.";
             executeCopy(text, msg);
         }
 
@@ -335,16 +362,16 @@
                 var vocabWords = (item.vocab || "").split(', ');
                 var highlightedVocabHtml = "";
                 vocabWords.forEach(function(word) {
-                    highlightedVocabHtml += '<div onclick="speakWord(this)" title="Nghe phát âm chuẩn: ' + word + '" class="inline-flex items-center gap-1.5 bg-slate-50/50 hover:bg-indigo-50/30 border border-slate-200/50 hover:border-indigo-200/60 px-2.5 py-1 rounded-lg text-[12.5px] text-slate-800 font-bold tracking-tight cursor-pointer select-none transition-all duration-200 shadow-2xs">' +
+                    highlightedVocabHtml += '<div onclick="speakWord(this)" title="Play pronunciation: ' + word + '" class="inline-flex items-center gap-1.5 bg-slate-50/50 hover:bg-emerald-50/30 border border-slate-200/50 hover:border-emerald-200/60 px-2.5 py-1 rounded-lg text-[12.5px] text-slate-800 font-bold tracking-tight cursor-pointer select-none transition-all duration-200 shadow-apple">' +
                                                '<span class="leading-none">' + word + '</span>' +
-                                               '<svg class="w-3.5 h-3.5 text-slate-400 shrink-0 hover:text-indigo-600 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M12 18.75V5.25L7.5 9H4.5v6h3L12 18.75z"></path></svg>' +
+                                               '<svg class="w-3.5 h-3.5 text-slate-400 shrink-0 hover:text-emerald-700 transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072M12 18.75V5.25L7.5 9H4.5v6h3L12 18.75z"></path></svg>' +
                                            '</div> ';
                 });
 
                 // Generate meanings chips
                 var meaningChipsHtml = "";
                 splitMeanings(item.viMean).forEach(function(mean) {
-                    meaningChipsHtml += '<div class="inline-flex items-center gap-1.5 bg-slate-50/50 hover:bg-indigo-50/30 border border-slate-200/50 hover:border-indigo-200/60 px-2.5 py-1 rounded-lg text-[12.5px] text-slate-800 font-bold tracking-tight select-none transition-all duration-200 shadow-2xs w-fit">' + mean + '</div> ';
+                    meaningChipsHtml += '<div class="inline-flex items-center gap-1.5 bg-slate-50/50 hover:bg-emerald-50/30 border border-slate-200/50 hover:border-emerald-200/60 px-2.5 py-1 rounded-lg text-[12.5px] text-slate-800 font-bold tracking-tight select-none transition-all duration-200 shadow-apple w-fit">' + mean + '</div> ';
                 });
 
                 // Example 1 split
@@ -368,7 +395,7 @@
                     var cols = item.collocation.split(', ');
                     cols.forEach(function(col) {
                         if (col.trim()) {
-                            colListHtml += '<div class="flex items-start gap-1"><span class="text-indigo-500 font-extrabold">•</span><span>' + col + '</span></div>';
+                            colListHtml += '<div class="flex items-start gap-1"><span class="text-emerald-600 font-extrabold">•</span><span>' + col + '</span></div>';
                         }
                     });
                 }
@@ -394,7 +421,7 @@
                     '</td>' +
                     '<td class="py-3.5 px-6 text-slate-600 leading-relaxed">' +
                         '<div class="space-y-2.5">' +
-                            '<div class="text-[12px] border-l-2 border-indigo-500 pl-2.5">' +
+                            '<div class="text-[12px] border-l-2 border-emerald-600 pl-2.5">' +
                                 '<p class="text-slate-900 font-medium">' + ex1Eng + '</p>' +
                                 '<p class="text-slate-400 italic mt-0.5">' + ex1Vi + '</p>' +
                             '</div>' +
@@ -404,23 +431,23 @@
                     '<td class="py-3.5 px-5 text-[12px]">' +
                         '<div class="space-y-2">' +
                             '<div>' +
-                                '<span class="block font-bold text-slate-400 text-[10.5px] uppercase tracking-wider mb-0.5">ĐỒNG NGHĨA</span>' +
-                                '<span class="text-slate-700 font-medium bg-indigo-50/50 text-indigo-700 px-1.5 py-0.5 rounded text-[11px] block w-full whitespace-normal">' + (item.synonyms || 'N/A') + '</span>' +
+                                '<span class="block font-bold text-slate-400 text-[10.5px] uppercase tracking-wider mb-0.5">SYNONYMS</span>' +
+                                '<span class="text-slate-700 font-medium bg-emerald-50/50 text-emerald-700 px-1.5 py-0.5 rounded text-[11px] block w-full whitespace-normal">' + (item.synonyms || 'N/A') + '</span>' +
                             '</div>' +
                             '<div>' +
-                                '<span class="block font-bold text-slate-400 text-[10.5px] uppercase tracking-wider mb-0.5">TRÁI NGHĨA</span>' +
+                                '<span class="block font-bold text-slate-400 text-[10.5px] uppercase tracking-wider mb-0.5">ANTONYMS</span>' +
                                 '<span class="text-slate-700 font-medium bg-rose-50/50 text-rose-700 px-1.5 py-0.5 rounded text-[11px] block w-full whitespace-normal">' + (item.antonyms || 'N/A') + '</span>' +
                             '</div>' +
                         '</div>' +
                     '</td>' +
                     '<td class="py-3.5 px-5 text-[12px] align-top">' +
-                        '<textarea rows="4" oninput="resizeTextarea(this); updateNote(' + item.no + ', this.value)" placeholder="Nhập ghi chú..." class="w-full min-h-[96px] text-[12px] p-3 border border-slate-200 rounded-3xl focus:outline-none focus:ring-1 focus:ring-indigo-500 resize-none overflow-hidden">' + escapeHtml(item.note || '') + '</textarea>' +
+                        '<textarea rows="4" oninput="resizeTextarea(this); updateNote(' + item.no + ', this.value)" placeholder="Add a note..." class="w-full min-h-[96px] text-[12px] p-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-600 resize-none overflow-hidden">' + escapeHtml(item.note || '') + '</textarea>' +
                     '</td>';
                 tbody.appendChild(tr);
 
                 // 2. Mobile Card
                 var card = document.createElement('div');
-                card.className = "bg-white rounded-2xl shadow-xs border border-slate-100 p-4 space-y-3.5 hover:border-indigo-100 transition-all";
+                card.className = "bg-white rounded-2xl shadow-apple border border-slate-100 p-4 space-y-3.5 hover:border-emerald-100 transition-all";
                 
                 var cardEx2Html = "";
                 if (item.example2) {
@@ -444,30 +471,30 @@
                         '<p class="text-[12.5px] text-slate-600 bg-slate-50 p-2 rounded-xl border border-slate-100 leading-relaxed mt-1">' + formatText(item.engMean, true) + '</p>' +
                     '</div>' +
                     '<div class="space-y-1">' +
-                        '<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Cụm Từ (Collocations)</span>' +
+                        '<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Collocations</span>' +
                         '<div class="text-[12.5px] text-slate-600 space-y-1 bg-slate-50/50 p-2 rounded-xl border border-slate-100/50">' + colListHtml + '</div>' +
                     '</div>' +
                     '<div class="space-y-1.5 pt-0.5">' +
-                        '<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Ví dụ IELTS</span>' +
-                        '<div class="text-[12px] space-y-0.5 border-l-2 border-indigo-500 pl-2.5">' +
+                        '<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">IELTS examples</span>' +
+                        '<div class="text-[12px] space-y-0.5 border-l-2 border-emerald-600 pl-2.5">' +
                             '<p class="text-slate-900 font-medium">' + ex1Eng + '</p>' +
                             '<p class="text-slate-400 italic">' + ex1Vi + '</p>' +
                         '</div>' +
                         cardEx2Html +
                     '</div>' +
-                    '<div class="grid grid-cols-2 gap-2 border-t border-slate-150 pt-2.5 text-[12px]">' +
+                    '<div class="grid grid-cols-2 gap-2 border-t border-slate-100 pt-2.5 text-[12px]">' +
                         '<div>' +
-                            '<span class="font-bold text-slate-400 block mb-0.5 text-[10.5px] uppercase tracking-wider">Đồng nghĩa</span>' +
+                            '<span class="font-bold text-slate-400 block mb-0.5 text-[10.5px] uppercase tracking-wider">Synonyms</span>' +
                             '<span class="text-slate-700 font-medium text-[11px]">' + (item.synonyms || 'N/A') + '</span>' +
                         '</div>' +
                         '<div>' +
-                            '<span class="font-bold text-slate-400 block mb-0.5 text-[10.5px] uppercase tracking-wider">Trái nghĩa</span>' +
+                            '<span class="font-bold text-slate-400 block mb-0.5 text-[10.5px] uppercase tracking-wider">Antonyms</span>' +
                             '<span class="text-slate-700 font-medium text-[11px]">' + (item.antonyms || 'N/A') + '</span>' +
                         '</div>' +
                     '</div>' +
-                    '<div class="border-t border-slate-150 pt-2.5">' +
-                        '<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Ghi Chú Cá Nhân (Note)</span>' +
-                        '<textarea oninput="updateNote(' + item.no + ', this.value)" placeholder="Nhập ghi chú học tập..." class="w-full text-[12.5px] p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-indigo-500">' + (item.note || "") + '</textarea>' +
+                    '<div class="border-t border-slate-100 pt-2.5">' +
+                        '<span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Personal note</span>' +
+                        '<textarea oninput="updateNote(' + item.no + ', this.value)" placeholder="Add a study note..." class="w-full text-[12.5px] p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-600">' + (item.note || "") + '</textarea>' +
                     '</div>';
                 
                 mobileCards.appendChild(card);
@@ -539,6 +566,7 @@
         // Render dynamic table instantly with zero network delay (even if completely offline)
         filterData();
         initResizers();
+        if (window.lucide) lucide.createIcons();
     </script>
 </body>
 </html>

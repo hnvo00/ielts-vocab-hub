@@ -120,7 +120,7 @@
 
   <!-- Top Navigation Header -->
   <header class="sticky top-0 z-30 bg-white/85 backdrop-blur-md border-b border-slate-200/80">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
       <!-- Brand & Target Badge -->
       <div class="flex items-center gap-3 min-w-0">
         <div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-sm shrink-0">
@@ -138,7 +138,7 @@
       </div>
 
       <!-- Primary View Navigation + Backup Actions -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-1 sm:gap-2">
         <nav class="hidden sm:flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/60">
           <button onclick="switchMainView('command')" id="nav-command" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all bg-white text-slate-900 shadow-sm">
             Command Center
@@ -152,6 +152,12 @@
           </button>
         </nav>
 
+        <!-- Vocabulary Library -->
+        <a href="./library.html" title="Vocabulary Library" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition-colors">
+          <i data-lucide="book-open" class="w-4 h-4"></i>
+          <span class="hidden md:inline">Vocabulary Library</span>
+        </a>
+
         <!-- Export Excel progress report -->
         <button onclick="exportExcel()" id="export-excel-btn" title="Export a formatted Excel progress report" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/80 hover:bg-emerald-100 transition-colors">
           <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
@@ -159,7 +165,7 @@
         </button>
 
         <!-- Export / Import Backup -->
-        <div class="flex items-center gap-1.5 pl-2 border-l border-slate-200">
+        <div class="hidden sm:flex items-center gap-1.5 pl-2 border-l border-slate-200">
           <button onclick="syncFromSheets(true)" id="sync-sheet-btn" title="Sync from Google Sheet" class="p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
             <i data-lucide="refresh-cw" class="w-4 h-4"></i>
           </button>
@@ -190,25 +196,6 @@
 
   <!-- Main Content Container -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-
-    <!-- Vocabulary Topics CTA -->
-    <section>
-      <a href="./vocabulary.html" class="group flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 rounded-2xl bg-white border border-emerald-200/80 shadow-apple px-4 sm:px-5 py-4 hover:border-emerald-300 hover:shadow-apple-hover transition">
-        <div class="flex items-center gap-3 min-w-0">
-          <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
-            <i data-lucide="book-open" class="w-5 h-5"></i>
-          </div>
-          <div class="min-w-0">
-            <p class="text-sm font-semibold text-slate-900">Vocabulary Topics</p>
-            <p class="text-xs text-slate-500">Open the topic library, take notes and track progress for each topic.</p>
-          </div>
-        </div>
-        <span class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 group-hover:bg-emerald-700 transition shrink-0">
-          Open topics
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </span>
-      </a>
-    </section>
 
     <!-- KPI Summary Row -->
     <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">

@@ -4,19 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vocabulary Library — IELTS 7.5 Mastery Pipeline</title>
-    <meta name="description" content="Advanced IELTS vocabulary organised by topic. Band 7.5+ word lists with IPA, collocations, examples and personal notes.">
-    <meta name="keywords" content="IELTS, vocabulary, topic vocabulary, band 7.5, IPA, collocations">
+    <meta name="description" content="All 31 IELTS vocabulary topics in one library: open lessons, plan 9 study sessions, take notes and track progress.">
+    <meta name="keywords" content="IELTS, vocabulary, topic vocabulary, band 7.5, IPA, collocations, study tracker">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="./assets/theme.js"></script>
     <link rel="stylesheet" href="./assets/theme.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         .vocab-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
         .vocab-card:hover {
             transform: translateY(-3px);
+        }
+        .vocab-card:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.22);
+        }
+        .modal-scroll {
+            max-height: none;
+        }
+        .custom-checkbox:checked {
+            background-color: #059669;
+            border-color: #059669;
+        }
+        @keyframes pop-in {
+            from { transform: scale(0.96); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-pop {
+            animation: pop-in 0.18s ease-out;
         }
     </style>
 </head>
@@ -31,7 +50,7 @@
                 </span>
                 <span class="min-w-0">
                     <span class="block text-[15px] sm:text-lg font-bold text-slate-900 tracking-tight truncate">IELTS 7.5 Mastery Pipeline</span>
-                    <span class="hidden sm:block text-[11px] text-slate-500 font-medium truncate">Vocabulary library · topic lessons</span>
+                    <span class="hidden sm:block text-[11px] text-slate-500 font-medium truncate">Vocabulary library · 31 topic windows</span>
                 </span>
             </a>
 
@@ -44,10 +63,6 @@
                     <i data-lucide="library" class="w-4 h-4"></i>
                     <span class="hidden sm:inline">Library</span>
                 </span>
-                <a href="./vocabulary.html" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
-                    <i data-lucide="book-open" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">Vocabulary Topics</span>
-                </a>
             </div>
         </div>
     </header>
@@ -56,65 +71,100 @@
 
         <!-- Hero -->
         <section class="bg-white rounded-2xl border border-slate-200/80 shadow-apple p-5 sm:p-6 mb-5">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/70">
-                <i data-lucide="book-marked" class="w-3.5 h-3.5"></i>
-                IELTS Vocabulary Hub
-            </span>
-            <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-2.5">Vocabulary Library</h1>
-            <p class="text-sm text-slate-500 mt-1.5 max-w-2xl leading-relaxed">
-                Advanced IELTS vocabulary organised by topic — Band 7.5+ word lists with IPA, collocations, examples and space for your own notes.
-            </p>
-            <div class="mt-4 flex flex-wrap items-center gap-2">
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200/70">
-                    <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-600"></i>
-                    <span id="totalTopics">14</span> topic sets
-                </span>
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200/70">
-                    <i data-lucide="target" class="w-3.5 h-3.5 text-emerald-600"></i>
-                    Band 7.5+ target
-                </span>
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200/70">
-                    <i data-lucide="volume-2" class="w-3.5 h-3.5 text-emerald-600"></i>
-                    IPA &amp; examples
-                </span>
-                <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200/70">
-                    <i data-lucide="notebook-pen" class="w-3.5 h-3.5 text-emerald-600"></i>
-                    Personal notes
-                </span>
-            </div>
-            <div class="mt-4 flex flex-wrap gap-2">
-                <a href="./index.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition-colors">
-                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                    Back to home
-                </a>
-                <a href="./vocabulary.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition-colors">
-                    <i data-lucide="layout-grid" class="w-4 h-4"></i>
-                    Open topic windows
-                </a>
+            <div class="flex flex-col md:flex-row md:items-start justify-between gap-5">
+                <div class="min-w-0">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/70">
+                        <i data-lucide="book-marked" class="w-3.5 h-3.5"></i>
+                        IELTS Vocabulary Hub
+                    </span>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight mt-2.5">Vocabulary Library</h1>
+                    <p class="text-sm text-slate-500 mt-1.5 max-w-2xl leading-relaxed">
+                        All 31 IELTS topic windows in one place. Click a card to open its study tracker, or jump straight to a lesson when materials are ready.
+                    </p>
+                    <div class="mt-4 flex flex-wrap items-center gap-2">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200/70">
+                            <i data-lucide="layers" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            <span id="totalTopics">31</span> topics
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200/70">
+                            <i data-lucide="book-open" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            <span id="lessonCount">15</span> materials ready
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200/70">
+                            <i data-lucide="target" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            Band 7.5+ target
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 bg-slate-50 border border-slate-200/70">
+                            <i data-lucide="volume-2" class="w-3.5 h-3.5 text-emerald-600"></i>
+                            IPA &amp; examples
+                        </span>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                            Back to home
+                        </a>
+                        <button onclick="openNextTopic()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm transition-colors">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                            Continue studying
+                        </button>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-80 shrink-0 bg-slate-50 border border-slate-200/70 rounded-xl p-3.5">
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700 mb-2">
+                        <span>Topic completion</span>
+                        <span id="progress-text" class="bg-white text-emerald-700 border border-emerald-200/70 px-2 py-0.5 rounded-full">0 / 31 (0%)</span>
+                    </div>
+                    <div class="w-full bg-white rounded-full h-2.5 overflow-hidden border border-slate-200/70">
+                        <div id="progress-bar" class="bg-emerald-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-2">Sessions, notes and milestones are saved in this browser.</p>
+                </div>
             </div>
         </section>
 
         <!-- Toolbar -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
-            <div class="relative w-full sm:w-80">
-                <input type="text" id="searchInput" oninput="applySearch()" placeholder="Search topics (e.g., Travel, 04...)"
-                    class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500">
-                <span class="absolute left-3 top-2.5 text-slate-400 text-sm">🔍</span>
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-5 bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-apple">
+            <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-center lg:justify-start">
+                <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-emerald-600 text-white shadow-sm">
+                    All (<span id="count-all">31</span>)
+                </button>
+                <button onclick="setFilter('new')" id="filter-new" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Not started (<span id="count-new">31</span>)
+                </button>
+                <button onclick="setFilter('learning')" id="filter-learning" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Learning (<span id="count-learning">0</span>)
+                </button>
+                <button onclick="setFilter('completed')" id="filter-completed" class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-semibold transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    Completed (<span id="count-completed">0</span>)
+                </button>
             </div>
-            <p class="text-xs font-medium text-slate-500">
-                Showing <span id="visibleCount">0</span> of <span id="totalCount">0</span> topics
-            </p>
+
+            <div class="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+                <div class="relative w-full sm:w-72">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 pointer-events-none">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </span>
+                    <input type="text" id="searchInput" oninput="renderCards()" placeholder="Search topics (e.g., Travel, 04...)"
+                        class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500">
+                </div>
+                <p class="text-xs font-medium text-slate-500 whitespace-nowrap">
+                    Showing <span id="visibleCount">31</span> of <span id="totalCount">31</span>
+                </p>
+            </div>
         </div>
 
         <!-- Topic card grid -->
         <div id="cardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
-        <!-- Loading / empty state -->
-        <div id="emptyState" class="bg-white rounded-2xl border border-slate-200/80 p-12 text-center shadow-apple">
+        <!-- Empty state -->
+        <div id="emptyState" class="hidden bg-white rounded-2xl border border-slate-200/80 p-12 text-center shadow-apple">
             <div class="text-slate-300 mb-3">
                 <i data-lucide="library" class="w-12 h-12 mx-auto"></i>
             </div>
-            <p class="text-sm font-medium text-slate-500">Loading the vocabulary library...</p>
+            <p class="text-sm font-semibold text-slate-800">No matching topics</p>
+            <p class="text-xs text-slate-500 mt-1">Try another filter or a different search term.</p>
         </div>
 
         <!-- How to use -->
@@ -126,239 +176,941 @@
             <ol class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-sm text-slate-600">
                 <li class="flex gap-3">
                     <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold shrink-0">1</span>
-                    <span>Open a topic card to jump straight into its vocabulary lesson.</span>
+                    <span>Click any card to open its study tracker: plan, sessions, notes and milestones.</span>
                 </li>
                 <li class="flex gap-3">
                     <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold shrink-0">2</span>
-                    <span>Browse word groups with IPA, collocations, examples and personal notes.</span>
+                    <span>Use <b>Open topic</b> on a card to jump straight into that topic's vocabulary lesson.</span>
                 </li>
                 <li class="flex gap-3">
                     <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold shrink-0">3</span>
-                    <span>Track sessions and milestones from the Vocabulary Topics page — progress appears here.</span>
+                    <span>Tick studied days and milestones — progress updates on the cards automatically.</span>
                 </li>
                 <li class="flex gap-3">
                     <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-600 text-white text-xs font-bold shrink-0">4</span>
-                    <span>Search by topic name or code to find a lesson in seconds.</span>
+                    <span>Filter by status or search by topic name and code to find a lesson fast.</span>
                 </li>
             </ol>
         </section>
 
     </main>
 
+    <!-- Study tracker modal -->
+    <div id="window-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/40 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-2xl max-h-[92vh] flex flex-col rounded-2xl shadow-apple border border-slate-200 overflow-hidden modal-pop" id="modal-box">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-emerald-50 via-white to-slate-50 px-5 sm:px-6 py-4 border-b border-slate-200 flex items-start justify-between gap-3">
+                <div class="flex items-start gap-3 min-w-0">
+                    <span id="modal-emoji" class="text-3xl bg-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm shrink-0">🌍</span>
+                    <div class="min-w-0">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span id="modal-badge" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-600 text-white">
+                                Topic 01
+                            </span>
+                            <span id="modal-status" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 text-emerald-700">
+                                Not started
+                            </span>
+                        </div>
+                        <h2 id="modal-title" class="text-lg sm:text-xl font-bold text-slate-900 mt-1 leading-snug">Environment, Climate &amp; Weather</h2>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="w-9 h-9 rounded-full bg-white/80 hover:bg-white text-emerald-700 font-bold flex items-center justify-center shadow-sm transition shrink-0" aria-label="Close">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-5 sm:p-6 modal-scroll flex-1 min-h-0 overflow-y-auto space-y-5">
+                <!-- Plan + sessions -->
+                <section>
+                    <div class="flex items-center justify-between gap-3 mb-2.5">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                            <i data-lucide="calendar-days" class="w-4 h-4 text-emerald-600"></i> Study plan &amp; session tracking
+                        </h3>
+                        <span id="session-count" class="text-[11px] font-extrabold text-emerald-600 bg-slate-100 px-2 py-0.5 rounded-full">0 sessions</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="block">
+                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Start</span>
+                            <input type="date" id="plan-start" onchange="savePlanDates()"
+                                class="w-full rounded-xl border border-slate-200 bg-slate-50/30 px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </label>
+                        <label class="block">
+                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Target completion</span>
+                            <input type="date" id="plan-target" onchange="savePlanDates()"
+                                class="w-full rounded-xl border border-slate-200 bg-slate-50/30 px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </label>
+                    </div>
+                    <p id="plan-status" class="text-xs font-bold text-emerald-600 mt-2">No plan set</p>
+
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <p class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-2">Your study sessions</p>
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <button onclick="shiftWeek(-7)" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-emerald-700 font-extrabold transition" aria-label="Previous week">‹</button>
+                            <div class="text-center min-w-0">
+                                <p id="week-label" class="text-xs font-extrabold text-emerald-800">This week</p>
+                                <p id="week-summary" class="text-[10px] font-bold text-slate-500">0/7 days</p>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="goCurrentWeek()" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[10px] font-extrabold text-emerald-700 hover:bg-slate-50 transition">This week</button>
+                                <button onclick="shiftWeek(7)" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-emerald-700 font-extrabold transition" aria-label="Next week">›</button>
+                            </div>
+                        </div>
+                        <div id="week-strip" class="grid grid-cols-7 gap-0.5 overflow-hidden"></div>
+                        <p class="text-[10px] text-slate-400 mt-2">Tick the days you studied, then add a note for that day below.</p>
+                    </div>
+                </section>
+
+                <!-- Notes -->
+                <section>
+                    <div class="flex items-center justify-between gap-3 mb-2.5">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                            <i data-lucide="notebook-pen" class="w-4 h-4 text-emerald-600"></i> Your notes
+                        </h3>
+                        <span id="notes-count" class="text-[11px] font-extrabold text-emerald-600 bg-slate-100 px-2 py-0.5 rounded-full">0 notes</span>
+                    </div>
+                    <div class="rounded-2xl border border-slate-100 bg-slate-50/30 p-3">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Note date</span>
+                            <input type="date" id="note-date" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </div>
+                        <textarea id="note-text" rows="4" onkeydown="if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') { event.preventDefault(); saveNote(); }" placeholder="Capture ideas, tricky words, Speaking angles and mistakes to fix..."
+                            class="w-full rounded-xl border border-slate-200 p-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"></textarea>
+                        <div class="flex justify-end mt-2">
+                            <button onclick="saveNote()" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition">
+                                <i data-lucide="save" class="w-4 h-4"></i> Save note
+                            </button>
+                        </div>
+                    </div>
+                    <div id="notes-list" class="mt-3 space-y-3"></div>
+                </section>
+
+                <div class="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-3.5 text-xs text-emerald-800 flex items-start gap-2">
+                    <i data-lucide="pin" class="w-4 h-4 shrink-0 text-emerald-600"></i>
+                    <div>
+                        <b>Materials:</b>
+                        <span id="modal-subtopics" class="text-emerald-600">Materials grouped by session</span>
+                        <p id="modal-file-note" class="text-[11px] text-slate-500 mt-1 hidden"></p>
+                    </div>
+                </div>
+
+                <!-- Milestones -->
+                <section>
+                    <div class="flex items-center justify-between gap-3 mb-2.5">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                            <i data-lucide="target" class="w-4 h-4 text-emerald-600"></i> Study &amp; review progress
+                        </h3>
+                        <span id="milestone-count" class="text-[11px] font-extrabold text-emerald-600 bg-slate-100 px-2 py-0.5 rounded-full">0/4 milestones</span>
+                    </div>
+                    <div class="space-y-2" id="modal-checklist">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-slate-50 transition">
+                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
+                                <input type="checkbox" data-step="0" onchange="toggleStep(0)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-emerald-300 text-emerald-600 focus:ring-emerald-600">
+                                <span class="text-sm min-w-0">
+                                    <span class="block font-bold text-slate-900">Learn vocabulary</span>
+                                    <span class="block text-xs text-emerald-600">Finish the topic vocabulary list</span>
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Date</span>
+                                <input type="date" id="step-date-0" onchange="saveStepDate(0)" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-40 disabled:bg-slate-50">
+                            </label>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-slate-50 transition">
+                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
+                                <input type="checkbox" data-step="1" onchange="toggleStep(1)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-emerald-300 text-emerald-600 focus:ring-emerald-600">
+                                <span class="text-sm min-w-0">
+                                    <span class="block font-bold text-slate-900">Review 1</span>
+                                    <span class="block text-xs text-emerald-600">Revisit after the first study session</span>
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Date</span>
+                                <input type="date" id="step-date-1" onchange="saveStepDate(1)" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-40 disabled:bg-slate-50">
+                            </label>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-slate-50 transition">
+                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
+                                <input type="checkbox" data-step="2" onchange="toggleStep(2)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-emerald-300 text-emerald-600 focus:ring-emerald-600">
+                                <span class="text-sm min-w-0">
+                                    <span class="block font-bold text-slate-900">Review 2</span>
+                                    <span class="block text-xs text-emerald-600">Reinforce vocabulary and collocations</span>
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Date</span>
+                                <input type="date" id="step-date-2" onchange="saveStepDate(2)" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-40 disabled:bg-slate-50">
+                            </label>
+                        </div>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-slate-50 transition">
+                            <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
+                                <input type="checkbox" data-step="3" onchange="toggleStep(3)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-emerald-300 text-emerald-600 focus:ring-emerald-600">
+                                <span class="text-sm min-w-0">
+                                    <span class="block font-bold text-slate-900">Review 3</span>
+                                    <span class="block text-xs text-emerald-600">Final review before completing the topic</span>
+                                </span>
+                            </label>
+                            <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Date</span>
+                                <input type="date" id="step-date-3" onchange="saveStepDate(3)" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-40 disabled:bg-slate-50">
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Footer -->
+            <div class="px-5 sm:px-6 py-4 bg-slate-50/90 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                <button onclick="closeModal()" class="px-4 py-2.5 rounded-xl text-sm font-bold text-emerald-600 hover:bg-slate-200/60 transition">
+                    Close
+                </button>
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <a id="open-vocab-btn" href="./library.html"
+                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition">
+                        <i data-lucide="book-open" class="w-4 h-4"></i> Open topic
+                    </a>
+                    <button id="complete-btn" onclick="toggleCompleted()"
+                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition">
+                        <i data-lucide="check" class="w-4 h-4"></i> Mark complete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-24 right-5 sm:bottom-5 z-[60] transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-bold flex items-center gap-2">
+        <span id="toast-icon">✨</span>
+        <span id="toast-msg">Saved!</span>
+    </div>
+
     <script>
-        // Short, English display copy for the 14 topic lessons.
-        const TOPIC_COPY = {
-            '01': { title: 'Environment, Climate & Weather', sub: 'Weather, climate, environment & natural disasters' },
-            '02': { title: 'Travel', sub: 'Travel and tourism' },
-            '03': { title: 'City', sub: 'City vs. country' },
-            '04': { title: 'Building', sub: 'Accommodation, building & noise' },
-            '05': { title: 'Food', sub: 'Food and sustainable agriculture' },
-            '06': { title: 'Film', sub: 'Film and media' },
-            '07': { title: 'Book', sub: 'Books and libraries in the digital age' },
-            '08': { title: 'Music', sub: 'Music and live performance' },
-            '09': { title: 'Sport', sub: 'Sport and physical health' },
-            '10': { title: 'Health', sub: 'Health and sports science' },
-            '11': { title: 'Internet', sub: 'Technology and its multifaceted impacts' },
-            '12': { title: 'Work', sub: 'Business management and strategic success' },
-            '13': { title: 'Business', sub: 'Business & enterprise success' },
-            '14': { title: 'Advertising', sub: 'Advertising and consumerism' }
-        };
+        // 31 topics. `file` points to the lesson or download in this folder.
+        // Topics without a file show "Coming soon" and can still be tracked.
+        const topicsData = [
+            { id: 1, code: "01", title: "Environment, Climate & Weather", emoji: "🌿", sub: "Weather, climate, environment & natural disasters", file: "01 Weather.html" },
+            { id: 2, code: "02", title: "Travel", emoji: "✈️", sub: "Travel and tourism", file: "02 Travel.html" },
+            { id: 3, code: "03", title: "City", emoji: "🏙️", sub: "City vs. country", file: "03 City.html" },
+            { id: 4, code: "04", title: "Building", emoji: "🏛️", sub: "Accommodation, building & noise", file: "04 Building.html" },
+            { id: 5, code: "05", title: "Food", emoji: "🍰", sub: "Food and sustainable agriculture", file: "05 Food.html" },
+            { id: 6, code: "06", title: "Film", emoji: "🎬", sub: "Film and media", file: "06 Film.html" },
+            { id: 7, code: "07", title: "Book", emoji: "📚", sub: "Books and libraries in the digital age", file: "07 Book.html" },
+            { id: 8, code: "08", title: "Music", emoji: "🎵", sub: "Music and live performance", file: "08 Music.html" },
+            { id: 9, code: "09", title: "Sport", emoji: "🏅", sub: "Sport and physical health", file: "09 Sport.html" },
+            { id: 10, code: "10", title: "Health", emoji: "🩺", sub: "Health and sports science", file: "10 Health.html" },
+            { id: 11, code: "11", title: "Internet", emoji: "🌐", sub: "Technology and its multifaceted impacts", file: "11 Internet.html" },
+            { id: 12, code: "12", title: "Work", emoji: "💼", sub: "Business management and strategic success", file: "12 Work.html" },
+            { id: 13, code: "13", title: "Business", emoji: "📈", sub: "Business & enterprise success", file: "13 Business.html" },
+            { id: 14, code: "14", title: "Advertising", emoji: "📢", sub: "Advertising and consumerism", file: "14 Advertising.html" },
+            { id: 15, code: "15", title: "Crime", emoji: "⚖️", sub: "Crime, law and social security", file: "15 Crime.docx" },
+            { id: 16, code: "16", title: "Famous", emoji: "🌟", sub: "Famous people", file: null },
+            { id: 17, code: "17", title: "Fashion", emoji: "👗", sub: "Fashion", file: null },
+            { id: 18, code: "18", title: "Person", emoji: "🧑", sub: "Appearance and personality", file: null },
+            { id: 19, code: "19", title: "Festival", emoji: "🏮", sub: "Festivals and celebrations", file: null },
+            { id: 20, code: "20", title: "Space", emoji: "🪐", sub: "Space exploration", file: null },
+            { id: 21, code: "21", title: "Science", emoji: "🔬", sub: "Science and scientific research", file: null },
+            { id: 22, code: "22", title: "Education", emoji: "🎓", sub: "University, papers, listening, reading & writing", file: null },
+            { id: 23, code: "23", title: "News", emoji: "📰", sub: "Listening and speaking about the news", file: null },
+            { id: 24, code: "24", title: "Language", emoji: "🗣️", sub: "Language learning, reading, speaking & writing", file: null },
+            { id: 25, code: "25", title: "Play, Entertainment & Games", emoji: "🎮", sub: "Free time, toys and games", file: null },
+            { id: 26, code: "26", title: "Hobby & Pastime", emoji: "🧶", sub: "Hobbies, reading and entertainment", file: null },
+            { id: 27, code: "27", title: "Family & Friends", emoji: "🏡", sub: "Friends, family and relationships", file: null },
+            { id: 28, code: "28", title: "Age & Generations", emoji: "⏳", sub: "Children, the elderly and teenagers", file: null },
+            { id: 29, code: "29", title: "Photography (Photo)", emoji: "📸", sub: "Photography and speaking about photos", file: null },
+            { id: 30, code: "30", title: "Art & Museum", emoji: "🎨", sub: "Art and museums", file: null },
+            { id: 31, code: "31", title: "History & Archeology", emoji: "🏺", sub: "History and archeology", file: null }
+        ];
 
         const STORAGE_KEY = 'ielts_windows_tracker_v3';
+        const LEGACY_STORAGE_KEY = 'ielts_windows_tracker_v2';
         const STATUS_META = {
             new: { label: 'Not started', pill: 'bg-slate-100 text-slate-600 border-slate-200/70' },
-            learning: { label: 'Active', pill: 'bg-amber-50 text-amber-700 border-amber-200/70' },
+            learning: { label: 'Learning', pill: 'bg-amber-50 text-amber-700 border-amber-200/70' },
             completed: { label: 'Completed', pill: 'bg-emerald-50 text-emerald-700 border-emerald-200/70' }
         };
 
-        let allVocabularies = [];
+        let userData = loadProgress();
+        let currentFilter = 'all';
+        let activeTopicId = null;
+        let weekAnchor = null;
 
-        function cleanTitle(rawTitle, id) {
-            const custom = TOPIC_COPY[id];
-            if (custom) return custom.title;
-            return String(rawTitle || 'Topic')
-                .replace(/^CHỦ ĐỀ:\s*/i, '')
-                .toLowerCase()
-                .replace(/\b\w/g, char => char.toUpperCase());
+        function normalizeSessions(sessions) {
+            if (!Array.isArray(sessions)) return [];
+            const seen = new Set();
+            return sessions.map(item => {
+                if (typeof item === 'string') return { date: item, done: true };
+                return { date: item && item.date ? item.date : '', done: Boolean(item && item.done) };
+            }).filter(item => {
+                if (!item.date || seen.has(item.date)) return false;
+                seen.add(item.date);
+                return true;
+            });
         }
 
-        function cleanSubtitle(rawDescription, id) {
-            const custom = TOPIC_COPY[id];
-            if (custom) return custom.sub;
-            return String(rawDescription || '').split('. ')[0].slice(0, 90);
+        function normalizeNotes(notes, fallbackDate) {
+            if (!Array.isArray(notes)) return [];
+            return notes.map((item, index) => {
+                if (typeof item === 'string') {
+                    return {
+                        id: `note-${index}-${fallbackDate || todayISO()}`,
+                        date: fallbackDate || todayISO(),
+                        text: item,
+                        createdAt: 0
+                    };
+                }
+                return {
+                    id: item.id || `note-${index}-${item.date || fallbackDate || todayISO()}`,
+                    date: item.date || fallbackDate || todayISO(),
+                    text: typeof item.text === 'string' ? item.text : '',
+                    createdAt: Number(item.createdAt) || 0
+                };
+            }).filter(item => item.text.trim());
         }
 
-        function getProgress() {
+        function normalizeState(raw) {
+            const source = raw || {};
+            const steps = Array.isArray(source.steps) ? source.steps.slice(0, 4) : [false, false, false, false];
+            const stepDates = Array.isArray(source.stepDates) ? source.stepDates.slice(0, 4) : ['', '', '', ''];
+            const notesLog = normalizeNotes(source.notesLog, source.planStart || '');
+            if (!notesLog.length && typeof source.notes === 'string' && source.notes.trim()) {
+                notesLog.push({
+                    id: 'legacy-note',
+                    date: source.planStart || todayISO(),
+                    text: source.notes,
+                    createdAt: 0
+                });
+            }
+            return {
+                completed: Boolean(source.completed),
+                steps: [0, 1, 2, 3].map(index => Boolean(steps[index])),
+                stepDates: [0, 1, 2, 3].map(index => stepDates[index] || ''),
+                notesLog,
+                planStart: source.planStart || '',
+                planTarget: source.planTarget || '',
+                sessions: normalizeSessions(source.sessions)
+            };
+        }
+
+        function loadProgress() {
             try {
-                return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {};
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    const parsed = JSON.parse(saved) || {};
+                    const normalized = {};
+                    Object.keys(parsed).forEach(id => {
+                        normalized[id] = normalizeState(parsed[id]);
+                    });
+                    return normalized;
+                }
+
+                const legacy = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY) || '{}') || {};
+                const migrated = {};
+                Object.keys(legacy).forEach(id => {
+                    const raw = legacy[id] || {};
+                    const state = normalizeState(raw);
+                    if (!Array.isArray(raw.stepDates)) {
+                        state.steps.forEach((done, index) => {
+                            if (done) state.stepDates[index] = state.planStart || todayISO();
+                        });
+                    }
+                    migrated[id] = state;
+                });
+                return migrated;
             } catch (error) {
                 return {};
             }
         }
 
-        function getTopicState(progress, id) {
-            const state = progress[String(Number(id))] || {};
-            const steps = Array.isArray(state.steps) ? state.steps : [];
-            const milestones = steps.filter(Boolean).length;
-            const sessions = Array.isArray(state.sessions) ? state.sessions.filter(item => item && item.done).length : 0;
-            const hasNotes = Array.isArray(state.notesLog) && state.notesLog.length > 0;
-            const completed = Boolean(state.completed);
-            const started = milestones > 0 || sessions > 0 || hasNotes || Boolean(state.planStart) || Boolean(state.planTarget);
-            const status = completed ? 'completed' : started ? 'learning' : 'new';
-            const pct = completed ? 100 : Math.min(100, Math.round((milestones / 4) * 100));
-            return { milestones, sessions, completed, status, pct };
+        function getState(id) {
+            userData[id] = normalizeState(userData[id]);
+            return userData[id];
         }
 
-        function cardMarkup(vocab, state) {
-            const meta = STATUS_META[state.status];
-            const title = cleanTitle(vocab.title, vocab.id);
-            const sub = cleanSubtitle(vocab.description, vocab.id);
-            const statusLabel = state.status === 'learning' ? `Active (${state.pct}%)` : meta.label;
-            const sessionLabel = `${state.sessions} session${state.sessions === 1 ? '' : 's'}`;
-            const groupLabel = `${vocab.topics} group${vocab.topics === 1 ? '' : 's'}`;
-            const borderClass = state.status === 'new' ? 'border-slate-200/80' : 'border-emerald-300';
-            const barClass = state.pct === 0 ? 'bg-slate-200' : 'bg-emerald-600';
-            const linkClass = state.status === 'new'
-                ? 'text-slate-400 group-hover:text-emerald-700'
-                : 'text-emerald-700';
+        function saveProgress(updateView = true) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
+            if (updateView) {
+                updateStats();
+                renderCards();
+            }
+        }
+
+        function getStatus(id) {
+            const state = getState(id);
+            if (state.completed) return 'completed';
+            if (state.steps.some(Boolean) || state.sessions.length || state.notesLog.length || state.planStart || state.planTarget) {
+                return 'learning';
+            }
+            return 'new';
+        }
+
+        function todayISO() {
+            const now = new Date();
+            const offset = now.getTimezoneOffset();
+            return new Date(now.getTime() - offset * 60000).toISOString().slice(0, 10);
+        }
+
+        function updateStats() {
+            const counts = { all: topicsData.length, new: 0, learning: 0, completed: 0 };
+            topicsData.forEach(topic => {
+                counts[getStatus(topic.id)]++;
+            });
+
+            const percent = Math.round((counts.completed / counts.all) * 100);
+            document.getElementById('progress-text').textContent = `${counts.completed} / ${counts.all} (${percent}%)`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+            document.getElementById('count-all').textContent = counts.all;
+            document.getElementById('count-new').textContent = counts.new;
+            document.getElementById('count-learning').textContent = counts.learning;
+            document.getElementById('count-completed').textContent = counts.completed;
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-slate-100', 'text-slate-600');
+            });
+            const activeBtn = document.getElementById(`filter-${filter}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'text-slate-600');
+                activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
+            }
+            renderCards();
+        }
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, char => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            }[char]));
+        }
+
+        function cardMarkup(topic, state, status, milestones, sessions) {
+            const meta = STATUS_META[status];
+            const pct = state.completed ? 100 : Math.min(100, Math.round((milestones / 4) * 100));
+            const statusLabel = status === 'completed'
+                ? 'Completed'
+                : status === 'learning'
+                    ? (pct > 0 ? `Active (${pct}%)` : 'Active')
+                    : 'Not started';
+            const borderClass = status === 'completed'
+                ? 'border-emerald-300'
+                : status === 'learning'
+                    ? 'border-amber-200'
+                    : 'border-slate-200/80';
+            const barClass = status === 'completed'
+                ? 'bg-emerald-600'
+                : status === 'learning'
+                    ? 'bg-amber-400'
+                    : 'bg-slate-200';
+            const isDocx = Boolean(topic.file && topic.file.toLowerCase().endsWith('.docx'));
+            const material = topic.file ? (isDocx ? 'Download' : 'Lesson ready') : 'Coming soon';
+            const materialClass = topic.file ? 'text-emerald-700' : 'text-slate-400';
+            const openHref = topic.file ? `./${encodeURI(topic.file)}` : '#';
+            const openAction = topic.file
+                ? `<a data-open-topic href="${openHref}" ${isDocx ? 'download' : ''} onclick="event.stopPropagation()"
+                        class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 hover:text-emerald-800 transition-colors">
+                        ${isDocx ? 'Open material' : 'Open topic'}
+                        <i data-lucide="${isDocx ? 'download' : 'arrow-right'}" class="w-3.5 h-3.5"></i>
+                   </a>`
+                : `<span class="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-400">
+                        Coming soon
+                        <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                   </span>`;
 
             return `
-                <a href="./${encodeURIComponent(vocab.filename)}"
-                   class="vocab-card group flex flex-col bg-white rounded-2xl border ${borderClass} p-4 sm:p-5 shadow-apple hover:shadow-apple-hover"
-                   aria-label="Open ${title}">
+                <article data-topic-id="${topic.id}" tabindex="0" role="button"
+                    aria-label="Open study tracker for ${escapeHtml(topic.title)}"
+                    class="vocab-card cursor-pointer group flex flex-col bg-white rounded-2xl border ${borderClass} p-4 sm:p-5 shadow-apple hover:shadow-apple-hover hover:border-emerald-300">
                     <div class="flex items-center justify-between gap-2">
-                        <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700">Topic ${vocab.id}</span>
+                        <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700">Topic ${topic.code}</span>
                         <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md border ${meta.pill}">${statusLabel}</span>
                     </div>
 
-                    <h3 class="mt-2.5 text-base font-bold text-slate-900 leading-snug line-clamp-2">${title}</h3>
-                    <p class="mt-1 text-xs text-slate-500 line-clamp-1">${sub}</p>
+                    <div class="mt-3 flex items-start gap-2.5 min-w-0">
+                        <span class="w-9 h-9 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-lg shrink-0">${topic.emoji}</span>
+                        <div class="min-w-0">
+                            <h3 class="text-base font-bold text-slate-900 leading-snug line-clamp-2">${escapeHtml(topic.title)}</h3>
+                            <p class="mt-0.5 text-xs text-slate-500 line-clamp-2">${escapeHtml(topic.sub)}</p>
+                        </div>
+                    </div>
 
                     <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2 text-[11px] font-medium text-slate-500">
-                        <span>${state.milestones}/4 milestones</span>
-                        <span>${sessionLabel}</span>
-                        <span>${groupLabel}</span>
+                        <span>${milestones}/4 milestones</span>
+                        <span class="text-slate-300">•</span>
+                        <span>${sessions} session${sessions === 1 ? '' : 's'}</span>
+                        <span class="text-slate-300">•</span>
+                        <span class="${materialClass}">${material}</span>
                     </div>
 
                     <div class="mt-3 h-1.5 w-full rounded-full bg-slate-100 overflow-hidden">
-                        <div class="h-full ${barClass} rounded-full transition-all duration-500" style="width: ${state.pct}%"></div>
+                        <div class="h-full ${barClass} rounded-full transition-all duration-500" style="width: ${pct}%"></div>
                     </div>
 
-                    <div class="mt-2.5 flex items-center justify-between gap-2 text-[11px]">
-                        <span class="text-slate-400">Band 7.5+ · IPA &amp; examples</span>
-                        <span class="inline-flex items-center gap-1 font-semibold ${linkClass}">
-                            Open lesson
-                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                        </span>
+                    <div class="mt-2.5 flex items-center justify-between gap-2">
+                        <span class="text-[11px] text-slate-400">Band 7.5+ · IPA</span>
+                        ${openAction}
                     </div>
-                </a>
+                </article>
             `;
         }
 
-        function renderCards(vocabularies) {
-            allVocabularies = vocabularies;
-            applySearch();
-            document.getElementById('emptyState').classList.add('hidden');
-            document.getElementById('totalCount').textContent = vocabularies.length;
-            document.getElementById('totalTopics').textContent = vocabularies.length;
-        }
-
-        function applySearch() {
-            const container = document.getElementById('cardsContainer');
-            const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
-            const progress = getProgress();
-
-            const visible = allVocabularies.filter(vocab => {
-                const title = cleanTitle(vocab.title, vocab.id).toLowerCase();
-                const sub = cleanSubtitle(vocab.description, vocab.id).toLowerCase();
-                return !query || title.includes(query) || sub.includes(query) || String(vocab.id).toLowerCase().includes(query);
-            });
-
-            container.innerHTML = visible.map(vocab => cardMarkup(vocab, getTopicState(progress, vocab.id))).join('');
-            document.getElementById('visibleCount').textContent = visible.length;
-            document.getElementById('totalCount').textContent = allVocabularies.length;
-            if (window.lucide) lucide.createIcons();
-
+        function renderCards() {
+            const grid = document.getElementById('cardsContainer');
             const emptyState = document.getElementById('emptyState');
-            if (allVocabularies.length > 0 && visible.length === 0) {
-                emptyState.classList.remove('hidden');
-                emptyState.innerHTML = `
-                    <div class="text-slate-300 mb-3">🔍</div>
-                    <p class="text-sm font-semibold text-slate-800">No matching topics</p>
-                    <p class="text-xs text-slate-500 mt-1">Try a different topic name or code.</p>
-                `;
-            } else if (allVocabularies.length > 0) {
-                emptyState.classList.add('hidden');
-            }
+            const searchQuery = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+            let visible = 0;
+
+            grid.innerHTML = topicsData.map(topic => {
+                const status = getStatus(topic.id);
+                if (currentFilter !== 'all' && currentFilter !== status) return '';
+                if (searchQuery && !topic.title.toLowerCase().includes(searchQuery) && !topic.sub.toLowerCase().includes(searchQuery) && !topic.code.toLowerCase().includes(searchQuery)) return '';
+
+                visible++;
+                const state = getState(topic.id);
+                const milestones = state.steps.filter(Boolean).length;
+                const sessions = state.sessions.filter(item => item.done).length;
+                return cardMarkup(topic, state, status, milestones, sessions);
+            }).join('');
+
+            grid.querySelectorAll('[data-topic-id]').forEach(card => {
+                card.addEventListener('click', event => {
+                    if (event.target.closest('[data-open-topic]')) return;
+                    openModal(Number(card.dataset.topicId));
+                });
+                card.addEventListener('keydown', event => {
+                    if (event.target !== card) return;
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        openModal(Number(card.dataset.topicId));
+                    }
+                });
+            });
+
+            document.getElementById('visibleCount').textContent = visible;
+            document.getElementById('totalCount').textContent = topicsData.length;
+            document.getElementById('totalTopics').textContent = topicsData.length;
+            document.getElementById('lessonCount').textContent = topicsData.filter(topic => topic.file).length;
+
+            emptyState.classList.toggle('hidden', visible !== 0);
+            if (window.lucide) lucide.createIcons();
         }
 
-        async function loadVocabularies() {
-            const requestPath = new URL('data/vocabularies.json', window.location.href).href;
+        function openNextTopic() {
+            const candidates = topicsData.filter(topic => topic.file && getStatus(topic.id) !== 'completed');
+            const next = candidates.find(topic => getStatus(topic.id) === 'learning') || candidates[0];
+            if (!next) {
+                showToast('🎉 Every available topic is complete!');
+                return;
+            }
+            openModal(next.id);
+        }
 
-            try {
-                const response = await fetch(requestPath);
-                if (!response.ok) {
-                    throw new Error(`Could not load data (${response.status} ${response.statusText})`);
-                }
-                const vocabularies = await response.json();
-                renderCards(vocabularies);
-            } catch (error) {
-                console.warn('Fetch failed, attempting local JS fallback:', error);
-                if (window.location.protocol === 'file:') {
-                    try {
-                        const vocabularies = await loadLocalVocabulariesJs();
-                        renderCards(vocabularies);
-                        return;
-                    } catch (fallbackError) {
-                        console.error('Local JS fallback failed:', fallbackError);
-                        error.message += `; fallback: ${fallbackError.message}`;
-                    }
-                }
+        function openModal(id) {
+            const topic = topicsData.find(item => item.id === id);
+            const state = getState(id);
+            if (!topic) return;
 
-                const emptyState = document.getElementById('emptyState');
-                emptyState.classList.remove('hidden');
-                emptyState.innerHTML = `
-                    <div class="text-rose-400 mb-3">
-                        <i data-lucide="alert-circle" class="w-12 h-12 mx-auto"></i>
+            activeTopicId = id;
+            document.getElementById('modal-emoji').textContent = topic.emoji;
+            document.getElementById('modal-badge').textContent = `Topic ${topic.code}`;
+            document.getElementById('modal-title').textContent = topic.title;
+            document.getElementById('modal-subtopics').textContent = topic.sub;
+            document.getElementById('note-date').value = todayISO();
+            document.getElementById('note-text').value = '';
+            document.getElementById('plan-start').value = state.planStart || '';
+            document.getElementById('plan-target').value = state.planTarget || '';
+            weekAnchor = getWeekStart(state.planStart || todayISO());
+
+            const fileNote = document.getElementById('modal-file-note');
+            if (!topic.file) {
+                fileNote.textContent = 'Materials for this topic have not been added yet. You can still take notes, plan sessions and track progress.';
+                fileNote.classList.remove('hidden');
+            } else if (topic.file.toLowerCase().endsWith('.docx')) {
+                fileNote.textContent = 'This topic is a downloadable .docx material.';
+                fileNote.classList.remove('hidden');
+            } else {
+                fileNote.classList.add('hidden');
+            }
+
+            refreshModal();
+            const modal = document.getElementById('window-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('window-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            activeTopicId = null;
+            updateStats();
+            renderCards();
+        }
+
+        function refreshModal() {
+            if (!activeTopicId) return;
+            const topic = topicsData.find(item => item.id === activeTopicId);
+            const state = getState(activeTopicId);
+            const status = getStatus(activeTopicId);
+            const meta = STATUS_META[status];
+
+            const statusEl = document.getElementById('modal-status');
+            statusEl.textContent = meta.label;
+            statusEl.className = `text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${meta.pill}`;
+
+            document.querySelectorAll('#modal-checklist input[type="checkbox"]').forEach((checkbox, index) => {
+                const checked = Boolean(state.steps[index]);
+                checkbox.checked = checked;
+                const dateInput = document.getElementById(`step-date-${index}`);
+                if (dateInput) {
+                    dateInput.value = state.stepDates[index] || '';
+                    dateInput.disabled = !checked;
+                }
+            });
+
+            const doneMilestones = state.steps.filter(Boolean).length;
+            document.getElementById('milestone-count').textContent = `${doneMilestones}/4 milestones`;
+
+            const openBtn = document.getElementById('open-vocab-btn');
+            if (topic.file) {
+                openBtn.href = encodeURI(topic.file);
+                openBtn.innerHTML = topic.file.toLowerCase().endsWith('.docx')
+                    ? '<i data-lucide="download" class="w-4 h-4"></i> Download material'
+                    : '<i data-lucide="book-open" class="w-4 h-4"></i> Open topic';
+                openBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
+                openBtn.setAttribute('download', '');
+                if (!topic.file.toLowerCase().endsWith('.docx')) openBtn.removeAttribute('download');
+            } else {
+                openBtn.href = '#';
+                openBtn.innerHTML = '<i data-lucide="clock" class="w-4 h-4"></i> Materials coming soon';
+                openBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
+                openBtn.removeAttribute('download');
+            }
+
+            const completeBtn = document.getElementById('complete-btn');
+            if (state.completed) {
+                completeBtn.innerHTML = '<i data-lucide="rotate-ccw" class="w-4 h-4"></i> Mark as in progress';
+                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition';
+            } else {
+                completeBtn.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i> Mark complete';
+                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition';
+            }
+
+            renderWeek(state);
+            renderNotes(state);
+            renderPlanStatus(state);
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function localISO(date) {
+            const offset = date.getTimezoneOffset();
+            return new Date(date.getTime() - offset * 60000).toISOString().slice(0, 10);
+        }
+
+        function getWeekStart(dateString) {
+            const date = new Date(`${dateString}T00:00:00`);
+            if (Number.isNaN(date.getTime())) return getWeekStart(todayISO());
+            const day = date.getDay();
+            const diff = day === 0 ? -6 : 1 - day;
+            date.setDate(date.getDate() + diff);
+            return localISO(date);
+        }
+
+        function addDays(dateString, days) {
+            const date = new Date(`${dateString}T00:00:00`);
+            date.setDate(date.getDate() + days);
+            return localISO(date);
+        }
+
+        function weekdayShort(dateString) {
+            const date = new Date(`${dateString}T00:00:00`);
+            return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()];
+        }
+
+        function formatShortDate(dateString) {
+            const date = new Date(`${dateString}T00:00:00`);
+            if (Number.isNaN(date.getTime())) return dateString;
+            return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+        }
+
+        function renderWeek(state) {
+            if (!weekAnchor) weekAnchor = getWeekStart(todayISO());
+            const days = Array.from({ length: 7 }, (_, index) => addDays(weekAnchor, index));
+            const today = todayISO();
+            const doneCount = state.sessions.filter(item => item.done).length;
+            const doneThisWeek = days.filter(date => state.sessions.some(item => item.date === date && item.done)).length;
+
+            document.getElementById('week-label').textContent = `${formatDate(days[0])} - ${formatDate(days[6])}`;
+            document.getElementById('week-summary').textContent = `${doneThisWeek}/7 days this week`;
+            document.getElementById('session-count').textContent = `${doneCount} session${doneCount === 1 ? '' : 's'}`;
+
+            document.getElementById('week-strip').innerHTML = days.map(date => {
+                const done = state.sessions.some(item => item.date === date && item.done);
+                const isToday = date === today;
+                return `
+                    <label class="flex flex-col items-center justify-between gap-1 min-w-0 rounded-xl border px-0.5 py-1.5 cursor-pointer transition ${done ? 'border-emerald-300 bg-emerald-50' : 'border-slate-100 bg-white hover:bg-slate-50'} ${isToday ? 'ring-2 ring-inset ring-emerald-300' : ''}">
+                        <span class="text-[9px] font-extrabold uppercase tracking-wide ${done ? 'text-emerald-600' : 'text-slate-400'}">${weekdayShort(date)}</span>
+                        <span class="text-[10px] font-extrabold ${done ? 'text-emerald-700' : 'text-emerald-800'}">${formatShortDate(date)}</span>
+                        <input type="checkbox" ${done ? 'checked' : ''} onchange="toggleWeekDay('${date}')" class="custom-checkbox w-4 h-4 rounded border-emerald-300 text-emerald-600 focus:ring-emerald-600">
+                    </label>
+                `;
+            }).join('');
+        }
+
+        function shiftWeek(days) {
+            if (!weekAnchor) weekAnchor = getWeekStart(todayISO());
+            weekAnchor = addDays(weekAnchor, days);
+            if (activeTopicId) renderWeek(getState(activeTopicId));
+        }
+
+        function goCurrentWeek() {
+            weekAnchor = getWeekStart(todayISO());
+            if (activeTopicId) renderWeek(getState(activeTopicId));
+        }
+
+        function toggleWeekDay(date) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            const session = state.sessions.find(item => item.date === date);
+            let markedDone = false;
+            if (session && session.done) {
+                state.sessions = state.sessions.filter(item => item.date !== date);
+            } else if (session) {
+                session.done = true;
+                markedDone = true;
+            } else {
+                state.sessions.push({ date, done: true });
+                markedDone = true;
+            }
+            saveProgress(false);
+            updateStats();
+            if (markedDone) {
+                document.getElementById('note-date').value = date;
+            }
+            refreshModal();
+        }
+
+        function formatDate(isoDate) {
+            if (!isoDate) return '';
+            const date = new Date(`${isoDate}T00:00:00`);
+            if (Number.isNaN(date.getTime())) return isoDate;
+            return date.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        function renderPlanStatus(state) {
+            const el = document.getElementById('plan-status');
+            if (state.completed) {
+                el.textContent = '🎉 Topic completed!';
+                el.className = 'text-xs font-bold text-emerald-600 mt-2';
+                return;
+            }
+            if (!state.planStart && !state.planTarget) {
+                el.textContent = 'No plan set';
+                el.className = 'text-xs font-bold text-slate-500 mt-2';
+                return;
+            }
+
+            const parts = [];
+            if (state.planStart) parts.push(`Start ${formatDate(state.planStart)}`);
+
+            if (state.planTarget) {
+                const target = new Date(`${state.planTarget}T00:00:00`);
+                const today = new Date(`${todayISO()}T00:00:00`);
+                const diff = Math.round((target - today) / 86400000);
+                if (diff > 0) parts.push(`${diff} days left`);
+                else if (diff === 0) parts.push('Due today');
+                else parts.push(`${Math.abs(diff)} days overdue`);
+            }
+
+            el.textContent = parts.join(' • ');
+            el.className = 'text-xs font-bold text-emerald-600 mt-2';
+        }
+
+        function toggleStep(stepIndex) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            const checked = !state.steps[stepIndex];
+            state.steps[stepIndex] = checked;
+            state.stepDates[stepIndex] = checked ? (state.stepDates[stepIndex] || todayISO()) : '';
+
+            const allDone = state.steps.every(Boolean);
+            if (allDone && !state.completed) {
+                state.completed = true;
+                state.steps.forEach((done, index) => {
+                    if (done && !state.stepDates[index]) state.stepDates[index] = todayISO();
+                });
+                triggerCelebration();
+                showToast('🎉 Topic complete — well done!');
+            } else if (!allDone && state.completed) {
+                state.completed = false;
+            }
+
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+        }
+
+        function saveStepDate(stepIndex) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            const input = document.getElementById(`step-date-${stepIndex}`);
+            state.stepDates[stepIndex] = input ? input.value : '';
+            saveProgress(false);
+        }
+
+        function makeNoteId() {
+            return `note-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        }
+
+        function saveNote() {
+            if (!activeTopicId) return;
+            const text = document.getElementById('note-text').value.trim();
+            const date = document.getElementById('note-date').value || todayISO();
+            if (!text) {
+                showToast('✍️ Write a note first');
+                return;
+            }
+            const state = getState(activeTopicId);
+            state.notesLog.push({ id: makeNoteId(), date, text, createdAt: Date.now() });
+            saveProgress(false);
+            updateStats();
+            document.getElementById('note-text').value = '';
+            if (!document.getElementById('note-date').value) {
+                document.getElementById('note-date').value = todayISO();
+            }
+            refreshModal();
+            showToast('💾 Note saved');
+        }
+
+        function deleteNote(id) {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            state.notesLog = state.notesLog.filter(note => note.id !== id);
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+            showToast('🗑️ Note deleted');
+        }
+
+        function renderNotes(state) {
+            const list = document.getElementById('notes-list');
+            const notes = [...state.notesLog].sort((a, b) => (b.date.localeCompare(a.date)) || (b.createdAt - a.createdAt));
+            document.getElementById('notes-count').textContent = `${notes.length} note${notes.length === 1 ? '' : 's'}`;
+
+            if (!notes.length) {
+                list.innerHTML = '<p class="text-xs text-slate-400 italic px-1">No notes yet. Write your thoughts above.</p>';
+                return;
+            }
+
+            const groups = {};
+            notes.forEach(note => {
+                if (!groups[note.date]) groups[note.date] = [];
+                groups[note.date].push(note);
+            });
+
+            list.innerHTML = Object.keys(groups).sort((a, b) => b.localeCompare(a)).map(date => `
+                <div>
+                    <p class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">📅 ${formatDate(date)}</p>
+                    <div class="space-y-1.5">
+                        ${groups[date].map(note => `
+                            <div class="flex items-start justify-between gap-2 bg-white border border-slate-100 rounded-xl px-3 py-2">
+                                <p class="text-sm text-slate-800 whitespace-pre-wrap break-words min-w-0">${escapeHtml(note.text)}</p>
+                                <button onclick="deleteNote('${note.id}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition shrink-0">Delete</button>
+                            </div>
+                        `).join('')}
                     </div>
-                    <p class="text-sm font-semibold text-slate-800">Could not load the library.</p>
-                    <p class="text-xs text-slate-500 mt-1">${error.message}</p>
-                    <p class="text-xs text-slate-500 mt-3">If you opened the file directly, run a local server or use the GitHub Pages site.</p>
-                `;
-                if (window.lucide) lucide.createIcons();
-            }
+                </div>
+            `).join('');
         }
 
-        function loadLocalVocabulariesJs() {
-            return new Promise((resolve, reject) => {
-                if (window.vocabularies && Array.isArray(window.vocabularies)) {
-                    resolve(window.vocabularies);
-                    return;
-                }
+        function savePlanDates() {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+            const previousStart = state.planStart;
+            state.planStart = document.getElementById('plan-start').value;
+            state.planTarget = document.getElementById('plan-target').value;
+            if (state.planStart !== previousStart) {
+                weekAnchor = getWeekStart(state.planStart || todayISO());
+            }
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+        }
 
-                const script = document.createElement('script');
-                script.src = './data/vocabularies.js';
-                script.onload = () => {
-                    if (window.vocabularies && Array.isArray(window.vocabularies)) {
-                        resolve(window.vocabularies);
-                    } else {
-                        reject(new Error('window.vocabularies was not found after loading the fallback file.'));
-                    }
-                };
-                script.onerror = () => reject(new Error('Could not load data/vocabularies.js.'));
-                document.body.appendChild(script);
+        function toggleCompleted() {
+            if (!activeTopicId) return;
+            const state = getState(activeTopicId);
+
+            if (!state.completed) {
+                state.completed = true;
+                state.steps = [true, true, true, true];
+                state.steps.forEach((done, index) => {
+                    if (done && !state.stepDates[index]) state.stepDates[index] = todayISO();
+                });
+                triggerCelebration();
+                showToast('✨ Marked as complete!');
+            } else {
+                state.completed = false;
+                state.steps[3] = false;
+                state.stepDates[3] = '';
+                showToast('↩️ Moved back to learning');
+            }
+
+            saveProgress(false);
+            updateStats();
+            refreshModal();
+        }
+
+        function triggerCelebration() {
+            if (typeof confetti !== 'function') return;
+            confetti({
+                particleCount: 65,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#059669', '#10b981', '#34d399', '#0ea5e9', '#fbbf24']
             });
         }
 
-        // Re-render when progress changes in another tab or when the page regains focus.
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        document.getElementById('window-modal').addEventListener('click', event => {
+            if (event.target === event.currentTarget) closeModal();
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && activeTopicId) closeModal();
+        });
+
         window.addEventListener('storage', event => {
-            if (event.key === STORAGE_KEY) applySearch();
+            if (event.key === STORAGE_KEY) {
+                userData = loadProgress();
+                updateStats();
+                renderCards();
+            }
         });
         document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) applySearch();
+            if (!document.hidden) {
+                userData = loadProgress();
+                updateStats();
+                renderCards();
+            }
         });
 
-        window.addEventListener('load', loadVocabularies);
+        updateStats();
+        renderCards();
         if (window.lucide) lucide.createIcons();
     </script>
 
