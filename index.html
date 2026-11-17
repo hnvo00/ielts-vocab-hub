@@ -152,10 +152,11 @@
           </button>
         </nav>
 
-        <a href="./vocabulary.html" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition">
-          <i data-lucide="book-open" class="w-4 h-4"></i>
-          Vocabulary Topics
-        </a>
+        <!-- Export Excel progress report -->
+        <button onclick="exportExcel()" id="export-excel-btn" title="Export a formatted Excel progress report" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/80 hover:bg-emerald-100 transition-colors">
+          <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Export Excel</span>
+        </button>
 
         <!-- Export / Import Backup -->
         <div class="flex items-center gap-1.5 pl-2 border-l border-slate-200">
@@ -2308,6 +2309,410 @@
     // =========================================================================
     // 6. BACKUP (EXPORT / IMPORT JSON) & RESET MODAL
     // =========================================================================
+    // ==== EXCEL PROGRESS REPORT (ExcelJS, lazily loaded) =========================
+    const EXCELJS_CDN = 'https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js';
+    const XL = {
+      emerald: 'FF059669',
+      emeraldDark: 'FF047857',
+      emeraldSoft: 'FFECFDF5',
+      emeraldBand: 'FFF6FEF9',
+      slate900: 'FF0F172A',
+      slate500: 'FF64748B',
+      slate200: 'FFE5E7EB',
+      slate100: 'FFF1F5F9',
+      amber: 'FFB45309',
+      amberSoft: 'FFFFFBEB',
+      white: 'FFFFFFFF'
+    };
+
+    function loadExcelJS() {
+      if (window.ExcelJS) return Promise.resolve(window.ExcelJS);
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = EXCELJS_CDN;
+        script.onload = () => resolve(window.ExcelJS);
+        script.onerror = () => reject(new Error('Could not load the Excel library'));
+        document.head.appendChild(script);
+      });
+    }
+
+    function getScheduleSummary() {
+      const list = getOrderedSessions();
+      const today = todayISO();
+      let sessionsDone = 0;
+      let sessionsOverdue = 0;
+      let tasksDone = 0;
+      let tasksTotal = 0;
+      list.forEach(item => {
+        const total = item.day.tasks.length;
+        const done = item.day.tasks.filter(task => task.done).length;
+        tasksTotal += total;
+        tasksDone += done;
+        if (sessionIsDone(item.day)) sessionsDone += 1;
+        else if (item.day.date && daysBetweenISO(item.day.date, today) > 0) sessionsOverdue += 1;
+      });
+      const mastered = (appState.weeks || []).filter(week => getWeekCompletionStats(week).isMastered).length;
+      const finish = getProjectedFinishDate();
+      const daysLeft = Math.max(daysBetweenISO(today, EXAM_TARGET_ISO), 1);
+      const remaining = list.filter(item => !sessionIsDone(item.day)).length;
+      return {
+        sessionsDone,
+        sessionsTotal: list.length,
+        sessionsOverdue,
+        tasksDone,
+        tasksTotal,
+        mastered,
+        topicsTotal: (appState.weeks || []).length,
+        finish,
+        sessionsPerWeek: Math.ceil(remaining / Math.max(daysLeft / 7, 1)),
+        onTrack: finish ? daysBetweenISO(EXAM_TARGET_ISO, finish) <= 0 : true
+      };
+    }
+
+    function excelDate(iso) {
+      if (!iso) return '';
+      const [year, month, day] = String(iso).split('-').map(Number);
+      if (!year || !month || !day) return '';
+      return new Date(Date.UTC(year, month - 1, day));
+    }
+
+    function sessionStatus(day) {
+      if (sessionIsDone(day)) return 'Done';
+      if (day.date && daysBetweenISO(day.date, todayISO()) > 0) return 'Overdue';
+      return 'Upcoming';
+    }
+
+    function styleHeaderRow(row) {
+      row.height = 22;
+      row.eachCell(cell => {
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: XL.emerald } };
+        cell.font = { name: 'Calibri', bold: true, color: { argb: XL.white }, size: 10 };
+        cell.alignment = { vertical: 'middle', horizontal: 'left' };
+        cell.border = { bottom: { style: 'thin', color: { argb: XL.emeraldDark } } };
+      });
+    }
+
+    function styleDataRows(ws, firstRow, lastRow, columnCount, bandKey) {
+      for (let r = firstRow; r <= lastRow; r += 1) {
+        const row = ws.getRow(r);
+        const band = bandKey ? (bandKey(row) % 2 === 0) : false;
+        for (let c = 1; c <= columnCount; c += 1) {
+          const cell = row.getCell(c);
+          cell.border = {
+            bottom: { style: 'hair', color: { argb: XL.slate200 } },
+            right: { style: 'hair', color: { argb: XL.slate100 } }
+          };
+          cell.alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+          cell.font = { name: 'Calibri', size: 10, color: { argb: XL.slate900 } };
+          if (band) cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: XL.emeraldBand } };
+        }
+      }
+    }
+
+    function statusFill(cell, status) {
+      if (status === 'Done') {
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: XL.emeraldSoft } };
+        cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: XL.emeraldDark } };
+      } else if (status === 'Overdue') {
+        cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: XL.amberSoft } };
+        cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: XL.amber } };
+      } else {
+        cell.font = { name: 'Calibri', size: 10, color: { argb: XL.slate500 } };
+      }
+    }
+
+    function decorateSheet(ws, tabColor) {
+      ws.properties.tabColor = { argb: tabColor || XL.emerald };
+      ws.pageSetup = {
+        orientation: 'landscape',
+        fitToPage: true,
+        fitToWidth: 1,
+        fitToHeight: 0,
+        margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 }
+      };
+      ws.headerFooter = {
+        oddFooter: '&L&8IELTS 7.5 Mastery Pipeline&C&8Page &P of &N&R&8Generated ' + todayISO()
+      };
+    }
+
+    function addSheetTitle(ws, title, subtitle, lastColumn) {
+      ws.mergeCells(1, 1, 1, lastColumn);
+      ws.mergeCells(2, 1, 2, lastColumn);
+      const titleCell = ws.getCell(1, 1);
+      titleCell.value = title;
+      titleCell.font = { name: 'Calibri', size: 16, bold: true, color: { argb: XL.slate900 } };
+      titleCell.alignment = { vertical: 'middle' };
+      ws.getRow(1).height = 26;
+      const subCell = ws.getCell(2, 1);
+      subCell.value = subtitle;
+      subCell.font = { name: 'Calibri', size: 10, color: { argb: XL.slate500 } };
+      ws.getRow(2).height = 16;
+    }
+
+    async function exportExcel() {
+      const btn = document.getElementById('export-excel-btn');
+      if (btn) btn.disabled = true;
+      showToast('Building your Excel progress report...');
+      try {
+        await loadExcelJS();
+        const wb = new ExcelJS.Workbook();
+        wb.creator = 'IELTS 7.5 Mastery Pipeline';
+        wb.created = new Date();
+        const stats = getScheduleSummary();
+        const generated = formatFullDate(todayISO());
+
+        // ---------- Overview ----------
+        const ov = wb.addWorksheet('Overview', { views: [{ showGridLines: false }] });
+        decorateSheet(ov);
+        ov.columns = [
+          { width: 22 }, { width: 42 }, { width: 12 }, { width: 28 }, { width: 46 }, { width: 22 }
+        ];
+        addSheetTitle(ov, 'IELTS 7.5 Mastery Pipeline — Progress Report', `Generated ${generated} · ${stats.topicsTotal} topics · 9 sessions × 2h per topic`, 6);
+
+        ov.getCell('A4').value = 'Schedule status';
+        ov.getCell('A4').font = { name: 'Calibri', size: 10, bold: true, color: { argb: XL.slate500 } };
+        ov.mergeCells('B4:F4');
+        const statusCell = ov.getCell('B4');
+        statusCell.value = stats.onTrack
+          ? `On track · projected finish ${formatFullDate(stats.finish)}`
+          : `Behind target · projected finish ${formatFullDate(stats.finish)} · ${stats.sessionsPerWeek} sessions/week needed for Jul 2027`;
+        statusFill(statusCell, stats.onTrack ? 'Done' : 'Overdue');
+
+        const metrics = [
+          ['Topics mastered', `${stats.mastered} / ${stats.topicsTotal}`],
+          ['Sessions completed', `${stats.sessionsDone} / ${stats.sessionsTotal}`],
+          ['Tasks completed', `${stats.tasksDone} / ${stats.tasksTotal}`],
+          ['Sessions overdue', String(stats.sessionsOverdue)],
+          ['Projected finish', stats.finish ? formatFullDate(stats.finish) : '—'],
+          ['Exam target', formatFullDate(EXAM_TARGET_ISO)],
+          ['Pace needed', `${stats.sessionsPerWeek} sessions / week`],
+          ['Backup note', 'Browser storage only — export JSON for a full backup.']
+        ];
+        ov.getCell('A6').value = 'At a glance';
+        ov.getCell('A6').font = { name: 'Calibri', size: 12, bold: true, color: { argb: XL.emeraldDark } };
+        metrics.forEach((pair, idx) => {
+          const row = 7 + idx;
+          const label = ov.getCell(row, 1);
+          const value = ov.getCell(row, 2);
+          label.value = pair[0];
+          label.font = { name: 'Calibri', size: 10, bold: true, color: { argb: XL.slate900 } };
+          value.value = pair[1];
+          value.font = { name: 'Calibri', size: 10, color: { argb: XL.slate500 } };
+          [label, value].forEach(cell => {
+            cell.border = { bottom: { style: 'hair', color: { argb: XL.slate200 } } };
+          });
+        });
+
+        const nextStart = 16;
+        ov.getCell(`A${nextStart}`).value = 'Next 7 days';
+        ov.getCell(`A${nextStart}`).font = { name: 'Calibri', size: 12, bold: true, color: { argb: XL.emeraldDark } };
+        const nextHeader = nextStart + 1;
+        ['Date', 'Topic', 'Session', 'Gate', 'Tasks'].forEach((label, idx) => {
+          ov.getCell(nextHeader, idx + 1).value = label;
+        });
+        styleHeaderRow(ov.getRow(nextHeader));
+        const today = todayISO();
+        const weekAhead = getOrderedSessions()
+          .filter(item => item.day.date && daysBetweenISO(today, item.day.date) >= 0 && daysBetweenISO(today, item.day.date) < 7)
+          .slice(0, 20);
+        let r = nextHeader + 1;
+        weekAhead.forEach(item => {
+          ov.getCell(r, 1).value = excelDate(item.day.date);
+          ov.getCell(r, 1).numFmt = 'ddd dd mmm';
+          ov.getCell(r, 2).value = item.week.title;
+          ov.getCell(r, 3).value = item.day.dayName;
+          ov.getCell(r, 4).value = item.day.gateBadge;
+          ov.mergeCells(r, 5, r, 6);
+          ov.getCell(r, 5).value = item.day.tasks.map(task => task.title).join(' · ');
+          r += 1;
+        });
+        if (weekAhead.length) {
+          styleDataRows(ov, nextHeader + 1, r - 1, 6, row => row.number);
+        } else {
+          ov.getCell(r, 1).value = 'No sessions scheduled in the next 7 days.';
+          ov.getCell(r, 1).font = { name: 'Calibri', size: 10, italic: true, color: { argb: XL.slate500 } };
+        }
+
+        // ---------- Timeline ----------
+        const tl = wb.addWorksheet('Timeline', { views: [{ state: 'frozen', ySplit: 4, showGridLines: false }] });
+        decorateSheet(tl, 'FF0D9488');
+        tl.columns = [
+          { width: 8 }, { width: 32 }, { width: 9 }, { width: 14 }, { width: 11 },
+          { width: 7 }, { width: 30 }, { width: 11 }, { width: 11 }, { width: 44 }, { width: 40 }
+        ];
+        addSheetTitle(tl, 'Session Timeline', 'Every D1–D9 session for every topic. Use the filters to inspect what is coming next.', 11);
+        const tlHead = ['Topic #', 'Topic', 'Session', 'Date', 'Day', 'Hours', 'Gate', 'Tasks done', 'Status', 'Task 1', 'Task 2'];
+        tlHead.forEach((label, idx) => { tl.getCell(4, idx + 1).value = label; });
+        styleHeaderRow(tl.getRow(4));
+        let tlRow = 5;
+        getOrderedSessions().forEach(item => {
+          const day = item.day;
+          const done = day.tasks.filter(task => task.done).length;
+          const status = sessionStatus(day);
+          const values = [
+            item.weekNumber, item.week.title, day.dayName,
+            day.date ? excelDate(day.date) : '', day.date ? excelDate(day.date) : '',
+            SESSION_HOURS, day.gateBadge, `${done}/${day.tasks.length}`, status,
+            day.tasks[0] ? day.tasks[0].title : '', day.tasks[1] ? day.tasks[1].title : ''
+          ];
+          values.forEach((value, idx) => { tl.getCell(tlRow, idx + 1).value = value; });
+          tl.getCell(tlRow, 4).numFmt = 'dd mmm yyyy';
+          tl.getCell(tlRow, 5).numFmt = 'ddd';
+          tlRow += 1;
+        });
+        styleDataRows(tl, 5, tlRow - 1, 11, row => row.getCell(3).value === 'D1' ? 0 : 1);
+        for (let row = 5; row < tlRow; row += 1) {
+          statusFill(tl.getCell(row, 9), tl.getCell(row, 9).value);
+        }
+        tl.autoFilter = { from: { row: 4, column: 1 }, to: { row: tlRow - 1, column: 11 } };
+        tl.getColumn(4).numFmt = 'dd mmm yyyy';
+
+        // ---------- Topics ----------
+        const tp = wb.addWorksheet('Topics', { views: [{ state: 'frozen', ySplit: 4, showGridLines: false }] });
+        decorateSheet(tp, 'FF047857');
+        tp.columns = [
+          { width: 8 }, { width: 34 }, { width: 14 }, { width: 14 }, { width: 10 },
+          { width: 10 }, { width: 11 }, { width: 12 }, { width: 10 }, { width: 10 }, { width: 16 }
+        ];
+        addSheetTitle(tp, 'Topic Summary', 'One row per topic: dates, completion, writing/speaking artifacts and reviews.', 11);
+        ['#', 'Topic', 'Starts', 'Ends', 'Sessions', 'Tasks', 'Progress', 'Status', 'Essay', 'Speaking', 'Reviews due'].forEach((label, idx) => {
+          tp.getCell(4, idx + 1).value = label;
+        });
+        styleHeaderRow(tp.getRow(4));
+        let tpRow = 5;
+        (appState.weeks || []).forEach(week => {
+          const st = getWeekCompletionStats(week);
+          const doneSessions = (week.days || []).filter(day => sessionIsDone(day)).length;
+          const first = week.days && week.days[0] ? week.days[0].date : '';
+          const last = week.days && week.days[week.days.length - 1] ? week.days[week.days.length - 1].date : '';
+          const reviews = getDueSpacedReviews(week).map(item => item.label).join(', ');
+          const values = [
+            week.weekNumber, week.title,
+            first ? excelDate(first) : '', last ? excelDate(last) : '',
+            `${doneSessions}/${(week.days || []).length}`,
+            `${st.checked}/${st.total}`, st.pct / 100,
+            st.isMastered ? 'Mastered' : st.checked > 0 ? 'In progress' : 'Not started',
+            week.days && week.days[5] && week.days[5].tasks[0] && week.days[5].tasks[0].done ? '✓' : '—',
+            week.days && week.days[3] && week.days[3].tasks[1] && week.days[3].tasks[1].done ? '✓' : '—',
+            reviews || '—'
+          ];
+          values.forEach((value, idx) => { tp.getCell(tpRow, idx + 1).value = value; });
+          tp.getCell(tpRow, 3).numFmt = 'dd mmm yyyy';
+          tp.getCell(tpRow, 4).numFmt = 'dd mmm yyyy';
+          tp.getCell(tpRow, 7).numFmt = '0%';
+          tpRow += 1;
+        });
+        styleDataRows(tp, 5, tpRow - 1, 11, row => row.number);
+        for (let row = 5; row < tpRow; row += 1) {
+          const statusGlyph = tp.getCell(row, 8).value;
+          statusFill(tp.getCell(row, 8), statusGlyph === 'Mastered' ? 'Done' : statusGlyph === 'In progress' ? 'Overdue' : 'Upcoming');
+        }
+        tp.autoFilter = { from: { row: 4, column: 1 }, to: { row: tpRow - 1, column: 11 } };
+
+        // ---------- Tasks ----------
+        const tk = wb.addWorksheet('Tasks', { views: [{ state: 'frozen', ySplit: 4, showGridLines: false }] });
+        decorateSheet(tk, 'FF475569');
+        tk.columns = [
+          { width: 8 }, { width: 32 }, { width: 9 }, { width: 14 }, { width: 30 },
+          { width: 62 }, { width: 9 }, { width: 46 }
+        ];
+        addSheetTitle(tk, 'Task Checklist', 'Every task inside every session, with the material you logged and completion status.', 8);
+        ['Topic #', 'Topic', 'Session', 'Date', 'Gate', 'Task', 'Done', 'Material / note'].forEach((label, idx) => {
+          tk.getCell(4, idx + 1).value = label;
+        });
+        styleHeaderRow(tk.getRow(4));
+        let tkRow = 5;
+        getOrderedSessions().forEach(item => {
+          item.day.tasks.forEach(task => {
+            const values = [
+              item.weekNumber, item.week.title, item.day.dayName,
+              item.day.date ? excelDate(item.day.date) : '',
+              item.day.gateBadge, task.title, task.done ? '✓' : '—', task.note || ''
+            ];
+            values.forEach((value, idx) => { tk.getCell(tkRow, idx + 1).value = value; });
+            tk.getCell(tkRow, 4).numFmt = 'dd mmm yyyy';
+            tkRow += 1;
+          });
+        });
+        styleDataRows(tk, 5, tkRow - 1, 8, row => row.getCell(3).value === 'D1' ? 0 : 1);
+        for (let row = 5; row < tkRow; row += 1) {
+          if (tk.getCell(row, 7).value === '✓') {
+            tk.getCell(row, 7).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: XL.emeraldSoft } };
+            tk.getCell(row, 7).font = { name: 'Calibri', size: 10, bold: true, color: { argb: XL.emeraldDark } };
+          }
+        }
+        tk.autoFilter = { from: { row: 4, column: 1 }, to: { row: tkRow - 1, column: 8 } };
+
+        // ---------- Red List ----------
+        const rl = wb.addWorksheet('Red List', { views: [{ state: 'frozen', ySplit: 4, showGridLines: false }] });
+        decorateSheet(rl, 'FFB45309');
+        rl.columns = [{ width: 8 }, { width: 12 }, { width: 34 }, { width: 48 }, { width: 58 }, { width: 42 }];
+        addSheetTitle(rl, 'Red List — Mistakes & Upgrades', 'Sentences you logged for Band 7.5+ accuracy upgrades.', 6);
+        ['Topic', 'Skill', 'Original slip', 'Band 7.5+ upgrade', 'Note', 'Date'].forEach((label, idx) => {
+          rl.getCell(4, idx + 1).value = label;
+        });
+        styleHeaderRow(rl.getRow(4));
+        let rlRow = 5;
+        (appState.redList || []).forEach(item => {
+          const week = appState.weeks[item.weekNumber - 1];
+          const values = [
+            week ? `T${item.weekNumber} · ${week.title}` : `T${item.weekNumber}`,
+            item.skill, item.original, item.upgraded, item.note || '',
+            item.createdAt ? excelDate(new Date(item.createdAt).toLocaleDateString('en-CA')) : ''
+          ];
+          values.forEach((value, idx) => { rl.getCell(rlRow, idx + 1).value = value; });
+          if (item.createdAt) rl.getCell(rlRow, 6).numFmt = 'dd mmm yyyy';
+          rlRow += 1;
+        });
+        if (rlRow === 5) {
+          rl.getCell(5, 1).value = 'No mistakes logged yet.';
+          rl.getCell(5, 1).font = { name: 'Calibri', size: 10, italic: true, color: { argb: XL.slate500 } };
+        } else {
+          styleDataRows(rl, 5, rlRow - 1, 6, row => row.number);
+        }
+
+        // ---------- Vocabulary Bank ----------
+        const vocabRows = [];
+        (appState.weeks || []).forEach(week => {
+          (week.vocab || []).forEach(word => vocabRows.push({ week, word }));
+        });
+        if (vocabRows.length) {
+          const vb = wb.addWorksheet('Vocabulary', { views: [{ state: 'frozen', ySplit: 4, showGridLines: false }] });
+        decorateSheet(vb, 'FF0EA5E9');
+          vb.columns = [{ width: 8 }, { width: 32 }, { width: 22 }, { width: 20 }, { width: 40 }, { width: 62 }];
+          addSheetTitle(vb, 'Vocabulary Bank', 'Words and collocations you added to each topic workspace.', 6);
+          ['Topic #', 'Topic', 'Word', 'IPA', 'Collocation', 'Example'].forEach((label, idx) => {
+            vb.getCell(4, idx + 1).value = label;
+          });
+          styleHeaderRow(vb.getRow(4));
+          let vbRow = 5;
+          vocabRows.forEach(({ week, word }) => {
+            const values = [week.weekNumber, week.title, word.word, word.ipa || '', word.collocation || '', word.example || ''];
+            values.forEach((value, idx) => { vb.getCell(vbRow, idx + 1).value = value; });
+            vbRow += 1;
+          });
+          styleDataRows(vb, 5, vbRow - 1, 6, row => row.number);
+        }
+
+        const buffer = await wb.xlsx.writeBuffer();
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `ielts-progress-${todayISO()}.xlsx`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast('Excel progress report downloaded');
+      } catch (error) {
+        console.error('Excel export failed:', error);
+        showToast('Could not build the Excel file. Check your connection and try again.', 'error');
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
     function exportData() {
       const dataStr = JSON.stringify(appState, null, 2);
       const blob = new Blob([dataStr], { type: 'application/json' });

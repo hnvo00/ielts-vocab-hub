@@ -1,31 +1,17 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Windows of IELTS Vocab — 31 Topic Windows</title>
-    <meta name="description" content="31 IELTS vocabulary windows: open materials, take notes, plan sessions and track daily study progress.">
-    <!-- Tailwind CSS -->
+    <title>Vocabulary Topics — IELTS 7.5 Mastery Pipeline</title>
+    <meta name="description" content="31 IELTS vocabulary topic windows: open materials, take notes, plan sessions and track daily study progress.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
-    <!-- Canvas Confetti -->
+    <script src="./assets/theme.js"></script>
+    <link rel="stylesheet" href="./assets/theme.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #f6f0ff 0%, #ede4ff 50%, #fdf4ff 100%);
-            min-height: 100vh;
-            color: #4a3b69;
-        }
-
-        h1, h2, h3, .font-display {
-            font-family: 'Quicksand', sans-serif;
-        }
-
         .window-container {
             perspective: 1000px;
         }
@@ -43,25 +29,9 @@
 
         .window-grid-lines {
             background-image:
-                linear-gradient(to right, rgba(255,255,255,0.45) 2px, transparent 2px),
-                linear-gradient(to bottom, rgba(255,255,255,0.45) 2px, transparent 2px);
+                linear-gradient(to right, rgba(255,255,255,0.5) 2px, transparent 2px),
+                linear-gradient(to bottom, rgba(255,255,255,0.5) 2px, transparent 2px);
             background-size: 50% 50%;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f3e8ff;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #c084fc;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a855f7;
         }
 
         .hover-float {
@@ -69,12 +39,12 @@
         }
         .hover-float:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px -6px rgba(139, 92, 246, 0.22);
+            box-shadow: 0 12px 24px -6px rgba(5, 150, 105, 0.18);
         }
 
         .custom-checkbox:checked {
-            background-color: #9333ea;
-            border-color: #9333ea;
+            background-color: #059669;
+            border-color: #059669;
         }
 
         .modal-scroll {
@@ -93,98 +63,112 @@
 <body class="pb-16">
 
     <!-- Header -->
-    <header class="sticky top-0 z-30 backdrop-blur-md bg-white/80 border-b border-purple-200/70 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-400 to-fuchsia-400 flex items-center justify-center text-white text-2xl shadow-md shadow-purple-200">
-                    🪟
-                </div>
-                <div>
-                    <h1 class="text-xl md:text-2xl font-bold text-purple-900 tracking-tight">
-                        Windows of IELTS Vocab
-                    </h1>
-                    <p class="text-xs md:text-sm text-purple-600/80 font-medium">
-                        Mở từng ô cửa sổ, học từ vựng & theo dõi tiến độ của bạn ✨
-                    </p>
-                </div>
-            </div>
+    <header class="sticky top-0 z-30 backdrop-blur-md bg-white/80 border-b border-slate-200/80">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+            <a href="./index.html" class="flex items-center gap-3 min-w-0">
+                <span class="w-10 h-10 rounded-2xl bg-emerald-600 flex items-center justify-center shadow-sm shrink-0">
+                    <i data-lucide="compass" class="w-5 h-5 text-white"></i>
+                </span>
+                <span class="min-w-0">
+                    <span class="block text-[15px] sm:text-lg font-bold text-slate-900 tracking-tight truncate">IELTS 7.5 Mastery Pipeline</span>
+                    <span class="hidden sm:block text-[11px] text-slate-500 font-medium truncate">Vocabulary topics · 31 topic windows</span>
+                </span>
+            </a>
 
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
-                <div class="w-full sm:w-72 bg-purple-100/80 p-3 rounded-2xl border border-purple-200/80">
-                    <div class="flex justify-between items-center text-xs font-bold text-purple-800 mb-1.5">
-                        <span>Tiến độ hoàn thành</span>
-                        <span id="progress-text" class="bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">0 / 31 (0%)</span>
-                    </div>
-                    <div class="w-full bg-white rounded-full h-3 overflow-hidden p-0.5 shadow-inner">
-                        <div id="progress-bar" class="bg-gradient-to-r from-violet-400 via-purple-500 to-fuchsia-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-                <div class="flex flex-wrap items-center justify-center gap-2">
-                    <a href="./index.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 bg-white/80 border border-purple-200 hover:bg-purple-50 px-3 py-2 rounded-xl transition">
-                        🏠 Trang chủ
-                    </a>
-                    <a href="./library.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 bg-white/80 border border-purple-200 hover:bg-purple-50 px-3 py-2 rounded-xl transition">
-                        📚 Thư viện
-                    </a>
-                </div>
+            <div class="flex items-center gap-1.5">
+                <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Home</span>
+                </a>
+                <a href="./library.html" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+                    <i data-lucide="library" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Library</span>
+                </a>
+                <span class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white shadow-sm">
+                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Vocabulary Topics</span>
+                </span>
             </div>
         </div>
     </header>
 
     <main class="max-w-6xl mx-auto px-4 pt-6">
+        <!-- Hero -->
+        <section class="bg-white rounded-2xl border border-slate-200/80 shadow-apple p-5 sm:p-6 mb-5">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-5">
+                <div class="min-w-0">
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/70">
+                        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+                        31 topic windows
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-2.5">Vocabulary Topics</h2>
+                    <p class="text-sm text-slate-500 mt-1 max-w-xl">Open a window to review materials, plan study sessions and log notes for each topic.</p>
+                </div>
+                <div class="w-full md:w-80 shrink-0 bg-slate-50 border border-slate-200/70 rounded-xl p-3.5">
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700 mb-2">
+                        <span>Completion progress</span>
+                        <span id="progress-text" class="bg-white text-emerald-700 border border-emerald-200/70 px-2 py-0.5 rounded-full">0 / 31 (0%)</span>
+                    </div>
+                    <div class="w-full bg-white rounded-full h-2.5 overflow-hidden border border-slate-200/70">
+                        <div id="progress-bar" class="bg-emerald-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Toolbar -->
-        <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-6 bg-white/70 p-3.5 rounded-2xl border border-purple-200/60 shadow-sm">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-3 mb-5 bg-white p-3.5 rounded-2xl border border-slate-200/80 shadow-apple">
             <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto justify-center lg:justify-start">
-                <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-600 text-white shadow-sm">
-                    Tất cả (<span id="count-all">31</span>)
+                <button onclick="setFilter('all')" id="filter-all" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-semibold transition bg-emerald-600 text-white shadow-sm">
+                    All (<span id="count-all">31</span>)
                 </button>
-                <button onclick="setFilter('new')" id="filter-new" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
-                    🌱 Chưa học (<span id="count-new">31</span>)
+                <button onclick="setFilter('new')" id="filter-new" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-semibold transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    🌱 Not started (<span id="count-new">31</span>)
                 </button>
-                <button onclick="setFilter('learning')" id="filter-learning" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
-                    📖 Đang học (<span id="count-learning">0</span>)
+                <button onclick="setFilter('learning')" id="filter-learning" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-semibold transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    📖 Learning (<span id="count-learning">0</span>)
                 </button>
-                <button onclick="setFilter('completed')" id="filter-completed" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-bold transition bg-purple-100 text-purple-700 hover:bg-purple-200">
-                    ✨ Hoàn thành (<span id="count-completed">0</span>)
+                <button onclick="setFilter('completed')" id="filter-completed" class="filter-btn px-4 py-1.5 rounded-xl text-sm font-semibold transition bg-slate-100 text-slate-600 hover:bg-slate-200">
+                    ✨ Completed (<span id="count-completed">0</span>)
                 </button>
             </div>
 
             <div class="relative w-full lg:w-72">
-                <input type="text" id="search-input" oninput="renderWindows()" placeholder="Tìm chủ đề (vd: Travel, Art...)"
-                    class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-purple-200 text-sm text-purple-900 placeholder-purple-400 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                <span class="absolute left-3 top-2.5 text-purple-400 text-sm">🔍</span>
+                <input type="text" id="search-input" oninput="renderWindows()" placeholder="Search topics (e.g., Travel, Art...)"
+                    class="w-full pl-9 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/30 focus:border-emerald-500">
+                <span class="absolute left-3 top-2.5 text-slate-400 text-sm">🔍</span>
             </div>
         </div>
 
-        <!-- 30 windows -->
+        <!-- Topic windows -->
         <div id="windows-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-5"></div>
         <div id="empty-state" class="hidden text-center py-16">
             <div class="text-5xl mb-3">🪟</div>
-            <p class="font-bold text-purple-800">Không tìm thấy ô cửa sổ phù hợp</p>
-            <p class="text-sm text-purple-500 mt-1">Thử đổi bộ lọc hoặc từ khóa tìm kiếm nhé.</p>
+            <p class="font-semibold text-slate-800">No matching windows found</p>
+            <p class="text-sm text-slate-500 mt-1">Try another filter or a different search term.</p>
         </div>
     </main>
 
     <!-- Study tracker modal -->
-    <div id="window-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-purple-950/45 backdrop-blur-sm">
-        <div class="bg-white w-full max-w-2xl max-h-[92vh] flex flex-col rounded-3xl shadow-2xl border-2 border-purple-200 overflow-hidden modal-pop" id="modal-box">
+    <div id="window-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-slate-900/40 backdrop-blur-sm">
+        <div class="bg-white w-full max-w-2xl max-h-[92vh] flex flex-col rounded-2xl shadow-apple border border-slate-200 overflow-hidden modal-pop" id="modal-box">
             <!-- Header -->
-            <div class="bg-gradient-to-r from-purple-200 via-fuchsia-100 to-indigo-100 px-5 sm:px-6 py-4 border-b border-purple-200 flex items-start justify-between gap-3">
+            <div class="bg-gradient-to-r from-emerald-50 via-white to-slate-50 px-5 sm:px-6 py-4 border-b border-slate-200 flex items-start justify-between gap-3">
                 <div class="flex items-start gap-3 min-w-0">
                     <span id="modal-emoji" class="text-3xl bg-white w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm shrink-0">🌍</span>
                     <div class="min-w-0">
                         <div class="flex flex-wrap items-center gap-2">
-                            <span id="modal-badge" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-purple-600 text-white">
+                            <span id="modal-badge" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-emerald-600 text-white">
                                 Window #01
                             </span>
-                            <span id="modal-status" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-700">
-                                Chưa học
+                            <span id="modal-status" class="text-[11px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-100 text-emerald-700">
+                                Not started
                             </span>
                         </div>
-                        <h2 id="modal-title" class="text-lg sm:text-xl font-bold text-purple-950 mt-1 leading-snug">Environment, Climate, Weather</h2>
+                        <h2 id="modal-title" class="text-lg sm:text-xl font-bold text-slate-900 mt-1 leading-snug">Environment, Climate, Weather</h2>
                     </div>
                 </div>
-                <button onclick="closeModal()" class="w-9 h-9 rounded-full bg-white/80 hover:bg-white text-purple-700 font-bold flex items-center justify-center shadow-sm transition shrink-0" aria-label="Đóng">
+                <button onclick="closeModal()" class="w-9 h-9 rounded-full bg-white/80 hover:bg-white text-emerald-700 font-bold flex items-center justify-center shadow-sm transition shrink-0" aria-label="Close">
                     ✕
                 </button>
             </div>
@@ -194,134 +178,134 @@
                 <!-- Plan + sessions -->
                 <section>
                     <div class="flex items-center justify-between gap-3 mb-2.5">
-                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
-                            <span>🗓️</span> Kế hoạch & theo dõi buổi học
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                            <span>🗓️</span> Study plan & session tracking
                         </h3>
-                        <span id="session-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 buổi</span>
+                        <span id="session-count" class="text-[11px] font-extrabold text-emerald-600 bg-slate-100 px-2 py-0.5 rounded-full">0 sessions</span>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <label class="block">
-                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Bắt đầu</span>
+                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Start</span>
                             <input type="date" id="plan-start" onchange="savePlanDates()"
-                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                                class="w-full rounded-xl border border-slate-200 bg-slate-50/30 px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
                         </label>
                         <label class="block">
-                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1">Mục tiêu hoàn thành</span>
+                            <span class="block text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1">Target completion</span>
                             <input type="date" id="plan-target" onchange="savePlanDates()"
-                                class="w-full rounded-xl border border-purple-200 bg-purple-50/30 px-3 py-2 text-sm text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                                class="w-full rounded-xl border border-slate-200 bg-slate-50/30 px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
                         </label>
                     </div>
-                    <p id="plan-status" class="text-xs font-bold text-purple-600 mt-2">Chưa đặt kế hoạch</p>
+                    <p id="plan-status" class="text-xs font-bold text-emerald-600 mt-2">No plan set</p>
 
-                    <div class="mt-4 pt-4 border-t border-purple-100">
-                        <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-2">Các buổi học của bạn</p>
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <p class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-2">Your study sessions</p>
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <button onclick="shiftWeek(-7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần trước">‹</button>
+                            <button onclick="shiftWeek(-7)" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-emerald-700 font-extrabold transition" aria-label="Previous week">‹</button>
                             <div class="text-center min-w-0">
-                                <p id="week-label" class="text-xs font-extrabold text-purple-800">Tuần này</p>
-                                <p id="week-summary" class="text-[10px] font-bold text-purple-500">0/7 ngày</p>
+                                <p id="week-label" class="text-xs font-extrabold text-emerald-800">This week</p>
+                                <p id="week-summary" class="text-[10px] font-bold text-slate-500">0/7 days</p>
                             </div>
                             <div class="flex items-center gap-1.5">
-                                <button onclick="goCurrentWeek()" class="px-2.5 py-1.5 rounded-lg bg-white border border-purple-200 text-[10px] font-extrabold text-purple-700 hover:bg-purple-50 transition">Tuần này</button>
-                                <button onclick="shiftWeek(7)" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 font-extrabold transition" aria-label="Tuần sau">›</button>
+                                <button onclick="goCurrentWeek()" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-[10px] font-extrabold text-emerald-700 hover:bg-slate-50 transition">This week</button>
+                                <button onclick="shiftWeek(7)" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-emerald-700 font-extrabold transition" aria-label="Next week">›</button>
                             </div>
                         </div>
                         <div id="week-strip" class="grid grid-cols-7 gap-0.5 overflow-hidden"></div>
-                        <p class="text-[10px] text-purple-400 mt-2">Tick ngày bạn đã học, rồi ghi chú cho ngày đó ở bên dưới.</p>
+                        <p class="text-[10px] text-slate-400 mt-2">Tick the days you studied, then add a note for that day below.</p>
                     </div>
                 </section>
 
                 <!-- Notes -->
                 <section>
                     <div class="flex items-center justify-between gap-3 mb-2.5">
-                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
-                            <span>📝</span> Ghi chú của bạn
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                            <span>📝</span> Your notes
                         </h3>
-                        <span id="notes-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0 ghi chú</span>
+                        <span id="notes-count" class="text-[11px] font-extrabold text-emerald-600 bg-slate-100 px-2 py-0.5 rounded-full">0 notes</span>
                     </div>
-                    <div class="rounded-2xl border border-purple-100 bg-purple-50/30 p-3">
+                    <div class="rounded-2xl border border-slate-100 bg-slate-50/30 p-3">
                         <div class="flex items-center gap-2 mb-2">
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày ghi chú</span>
-                            <input type="date" id="note-date" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Note date</span>
+                            <input type="date" id="note-date" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
                         </div>
-                        <textarea id="note-text" rows="4" onkeydown="if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') { event.preventDefault(); saveNote(); }" placeholder="Ghi lại suy nghĩ, từ vựng khó, ý tưởng Speaking, lỗi cần sửa..."
-                            class="w-full rounded-xl border border-purple-200 p-3 text-sm text-purple-950 placeholder-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-400 bg-white"></textarea>
+                        <textarea id="note-text" rows="4" onkeydown="if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') { event.preventDefault(); saveNote(); }" placeholder="Capture ideas, tricky words, Speaking angles and mistakes to fix..."
+                            class="w-full rounded-xl border border-slate-200 p-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-white"></textarea>
                         <div class="flex justify-end mt-2">
-                            <button onclick="saveNote()" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-purple-500 to-fuchsia-500 hover:from-purple-600 hover:to-fuchsia-600 shadow-sm transition">
-                                💾 Lưu ghi chú
+                            <button onclick="saveNote()" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition">
+                                💾 Save note
                             </button>
                         </div>
                     </div>
                     <div id="notes-list" class="mt-3 space-y-3"></div>
                 </section>
-                <div class="bg-purple-50/80 border border-purple-200/80 rounded-2xl p-3.5 text-xs text-purple-800 flex items-start gap-2">
+                <div class="bg-slate-50/80 border border-slate-200/80 rounded-2xl p-3.5 text-xs text-emerald-800 flex items-start gap-2">
                     <span class="shrink-0">📌</span>
                     <div>
-                        <b>Tài liệu:</b>
-                        <span id="modal-subtopics" class="text-purple-600">Tài liệu tổng hợp theo buổi</span>
-                        <p id="modal-file-note" class="text-[11px] text-purple-500 mt-1 hidden"></p>
+                        <b>Materials:</b>
+                        <span id="modal-subtopics" class="text-emerald-600">Materials grouped by session</span>
+                        <p id="modal-file-note" class="text-[11px] text-slate-500 mt-1 hidden"></p>
                     </div>
                 </div>
 
                 <!-- Milestones -->
                 <section>
                     <div class="flex items-center justify-between gap-3 mb-2.5">
-                        <h3 class="text-sm font-bold text-purple-900 flex items-center gap-1.5">
-                            <span>🎯</span> Tiến độ học & ôn tập
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                            <span>🎯</span> Study & review progress
                         </h3>
-                        <span id="milestone-count" class="text-[11px] font-extrabold text-purple-600 bg-purple-100 px-2 py-0.5 rounded-full">0/4 mốc</span>
+                        <span id="milestone-count" class="text-[11px] font-extrabold text-emerald-600 bg-slate-100 px-2 py-0.5 rounded-full">0/4 milestones</span>
                     </div>
                     <div class="space-y-2" id="modal-checklist">
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-slate-50 transition">
                             <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
-                                <input type="checkbox" data-step="0" onchange="toggleStep(0)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                                <input type="checkbox" data-step="0" onchange="toggleStep(0)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-emerald-300 text-emerald-600 focus:ring-emerald-600">
                                 <span class="text-sm min-w-0">
-                                    <span class="block font-bold text-purple-950">Học từ vựng</span>
-                                    <span class="block text-xs text-purple-600">Hoàn thành danh sách từ vựng của chủ đề</span>
+                                    <span class="block font-bold text-slate-900">Learn vocabulary</span>
+                                    <span class="block text-xs text-emerald-600">Finish the topic vocabulary list</span>
                                 </span>
                             </label>
                             <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
-                                <input type="date" id="step-date-0" onchange="saveStepDate(0)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Date</span>
+                                <input type="date" id="step-date-0" onchange="saveStepDate(0)" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-40 disabled:bg-slate-50">
                             </label>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-slate-50 transition">
                             <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
-                                <input type="checkbox" data-step="1" onchange="toggleStep(1)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                                <input type="checkbox" data-step="1" onchange="toggleStep(1)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-emerald-300 text-emerald-600 focus:ring-emerald-600">
                                 <span class="text-sm min-w-0">
-                                    <span class="block font-bold text-purple-950">Ôn tập lần 1</span>
-                                    <span class="block text-xs text-purple-600">Ôn lại sau buổi học đầu tiên</span>
+                                    <span class="block font-bold text-slate-900">Review 1</span>
+                                    <span class="block text-xs text-emerald-600">Revisit after the first study session</span>
                                 </span>
                             </label>
                             <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
-                                <input type="date" id="step-date-1" onchange="saveStepDate(1)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Date</span>
+                                <input type="date" id="step-date-1" onchange="saveStepDate(1)" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-40 disabled:bg-slate-50">
                             </label>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-slate-50 transition">
                             <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
-                                <input type="checkbox" data-step="2" onchange="toggleStep(2)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                                <input type="checkbox" data-step="2" onchange="toggleStep(2)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-emerald-300 text-emerald-600 focus:ring-emerald-600">
                                 <span class="text-sm min-w-0">
-                                    <span class="block font-bold text-purple-950">Ôn tập lần 2</span>
-                                    <span class="block text-xs text-purple-600">Củng cố từ vựng & collocations</span>
+                                    <span class="block font-bold text-slate-900">Review 2</span>
+                                    <span class="block text-xs text-emerald-600">Reinforce vocabulary and collocations</span>
                                 </span>
                             </label>
                             <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
-                                <input type="date" id="step-date-2" onchange="saveStepDate(2)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Date</span>
+                                <input type="date" id="step-date-2" onchange="saveStepDate(2)" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-40 disabled:bg-slate-50">
                             </label>
                         </div>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-purple-100 bg-purple-50/40 hover:bg-purple-50 transition">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-2 p-2.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-slate-50 transition">
                             <label class="flex items-start gap-3 flex-1 min-w-0 cursor-pointer">
-                                <input type="checkbox" data-step="3" onchange="toggleStep(3)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-purple-300 text-purple-600 focus:ring-purple-500">
+                                <input type="checkbox" data-step="3" onchange="toggleStep(3)" class="custom-checkbox mt-0.5 w-5 h-5 shrink-0 rounded-md border-emerald-300 text-emerald-600 focus:ring-emerald-600">
                                 <span class="text-sm min-w-0">
-                                    <span class="block font-bold text-purple-950">Ôn tập lần 3</span>
-                                    <span class="block text-xs text-purple-600">Ôn tập cuối trước khi hoàn thành chủ đề</span>
+                                    <span class="block font-bold text-slate-900">Review 3</span>
+                                    <span class="block text-xs text-emerald-600">Final review before completing the topic</span>
                                 </span>
                             </label>
                             <label class="flex items-center gap-1.5 shrink-0 pl-8 sm:pl-0">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-purple-500">Ngày</span>
-                                <input type="date" id="step-date-3" onchange="saveStepDate(3)" class="rounded-lg border border-purple-200 bg-white px-2 py-1 text-xs text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-400 disabled:opacity-40 disabled:bg-purple-50">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Date</span>
+                                <input type="date" id="step-date-3" onchange="saveStepDate(3)" class="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 disabled:opacity-40 disabled:bg-slate-50">
                             </label>
                         </div>
                     </div>
@@ -330,18 +314,18 @@
             </div>
 
             <!-- Footer -->
-            <div class="px-5 sm:px-6 py-4 bg-purple-50/90 border-t border-purple-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-                <button onclick="closeModal()" class="px-4 py-2.5 rounded-xl text-sm font-bold text-purple-600 hover:bg-purple-200/60 transition">
-                    Đóng lại
+            <div class="px-5 sm:px-6 py-4 bg-slate-50/90 border-t border-slate-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                <button onclick="closeModal()" class="px-4 py-2.5 rounded-xl text-sm font-bold text-emerald-600 hover:bg-slate-200/60 transition">
+                    Close
                 </button>
                 <div class="flex flex-col sm:flex-row gap-2">
                     <a id="open-vocab-btn" href="#" target="_blank" rel="noopener"
-                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-white bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 shadow-md shadow-indigo-200 transition">
-                        <span>📖</span> Mở trang từ vựng
+                        class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm transition">
+                        <span>📖</span> Open vocabulary page
                     </a>
                     <button id="complete-btn" onclick="toggleCompleted()"
                         class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition">
-                        <span>✅</span> Đánh dấu hoàn thành
+                        <span>✅</span> Mark complete
                     </button>
                 </div>
             </div>
@@ -349,14 +333,14 @@
     </div>
 
     <!-- Toast -->
-    <div id="toast" class="fixed bottom-24 right-5 sm:bottom-5 z-[60] transform translate-y-20 opacity-0 transition-all duration-300 bg-purple-900 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-bold flex items-center gap-2">
+    <div id="toast" class="fixed bottom-24 right-5 sm:bottom-5 z-[60] transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl text-sm font-bold flex items-center gap-2">
         <span id="toast-icon">✨</span>
-        <span id="toast-msg">Đã lưu!</span>
+        <span id="toast-msg">Saved!</span>
     </div>
 
     <script>
-        // 30 topics. `file` is the source HTML in this folder.
-        // Topics without a file yet will show "Sắp cập nhật" (add the filename later).
+        // 31 topics. `file` is the source HTML in this folder.
+        // Topics without a file yet will show "Materials coming soon" (add the filename later).
         const topicsData = [
             { id: 1, code: "01", title: "Environment, Climate & Weather", emoji: "🌿", sub: "Weather, climate, environment & natural disasters", file: "01 Weather.html" },
             { id: 2, code: "02", title: "Travel", emoji: "✈️", sub: "Travel and tourism", file: "02 Travel.html" },
@@ -394,9 +378,9 @@
         const STORAGE_KEY = 'ielts_windows_tracker_v3';
         const LEGACY_STORAGE_KEY = 'ielts_windows_tracker_v2';
         const STATUS_META = {
-            new: { label: 'Chưa học', pill: 'bg-purple-100 text-purple-700', card: 'bg-white/85 text-purple-600' },
-            learning: { label: 'Đang học', pill: 'bg-amber-100 text-amber-700', card: 'bg-white/85 text-amber-600' },
-            completed: { label: 'Hoàn thành', pill: 'bg-emerald-100 text-emerald-700', card: 'bg-white/85 text-emerald-600' }
+            new: { label: 'Not started', pill: 'bg-slate-100 text-slate-600', card: 'bg-white/90 text-slate-500' },
+            learning: { label: 'Learning', pill: 'bg-amber-100 text-amber-700', card: 'bg-white/90 text-amber-600' },
+            completed: { label: 'Completed', pill: 'bg-emerald-100 text-emerald-700', card: 'bg-white/90 text-emerald-600' }
         };
 
         let userData = loadProgress();
@@ -537,13 +521,13 @@
         function setFilter(filter) {
             currentFilter = filter;
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('bg-purple-600', 'text-white', 'shadow-sm');
-                btn.classList.add('bg-purple-100', 'text-purple-700');
+                btn.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm');
+                btn.classList.add('bg-slate-100', 'text-slate-600');
             });
             const activeBtn = document.getElementById(`filter-${filter}`);
             if (activeBtn) {
-                activeBtn.classList.remove('bg-purple-100', 'text-purple-700');
-                activeBtn.classList.add('bg-purple-600', 'text-white', 'shadow-sm');
+                activeBtn.classList.remove('bg-slate-100', 'text-slate-600');
+                activeBtn.classList.add('bg-emerald-600', 'text-white', 'shadow-sm');
             }
             renderWindows();
         }
@@ -569,33 +553,33 @@
                 const isCompleted = status === 'completed';
 
                 const card = document.createElement('article');
-                card.className = `window-card window-container hover-float cursor-pointer relative h-44 rounded-t-[2.2rem] rounded-b-2xl p-2 bg-white border-2 ${isCompleted ? 'is-completed border-emerald-300 shadow-md shadow-emerald-100/70' : status === 'learning' ? 'border-amber-200 shadow-sm' : 'border-purple-200/90 shadow-sm'}`;
+                card.className = `window-card window-container hover-float cursor-pointer relative h-44 rounded-t-[2.2rem] rounded-b-2xl p-2 bg-white border-2 ${isCompleted ? 'is-completed border-emerald-300 shadow-md shadow-emerald-100/70' : status === 'learning' ? 'border-amber-200 shadow-sm' : 'border-slate-200/90 shadow-sm'}`;
                 card.dataset.id = topic.id;
                 card.setAttribute('role', 'button');
                 card.setAttribute('tabindex', '0');
                 card.setAttribute('aria-label', `${topic.title} - ${meta.label}`);
                 card.innerHTML = `
-                    <div class="w-full h-full rounded-t-[1.8rem] rounded-b-xl bg-gradient-to-b from-purple-100 via-fuchsia-50 to-amber-50/70 p-3 flex flex-col items-center justify-between text-center relative overflow-hidden border border-purple-100">
+                    <div class="w-full h-full rounded-t-[1.8rem] rounded-b-xl bg-gradient-to-b from-emerald-50 via-white to-slate-50 p-3 flex flex-col items-center justify-between text-center relative overflow-hidden border border-emerald-100/70">
                         <div class="w-full flex justify-between items-center text-[11px] font-extrabold">
-                            <span class="text-purple-500">#${String(topic.id).padStart(2, '0')}</span>
+                            <span class="text-slate-500">#${String(topic.id).padStart(2, '0')}</span>
                             <span class="${meta.card} px-2 py-0.5 rounded-full shadow-2xs">${meta.label}</span>
                         </div>
                         <div class="my-auto min-w-0 w-full">
                             <div class="text-3xl mb-1">${topic.emoji}</div>
-                            <h3 class="text-xs font-extrabold text-purple-950 line-clamp-2 leading-snug px-1">${topic.title}</h3>
+                            <h3 class="text-xs font-extrabold text-slate-900 line-clamp-2 leading-snug px-1">${topic.title}</h3>
                         </div>
-                        <div class="w-full bg-white/80 rounded-full py-1 px-2 text-[10px] font-bold text-purple-700 flex items-center justify-center gap-1.5">
-                            <span>${completedSteps}/4 mốc</span>
-                            <span class="text-purple-300">•</span>
-                            <span>${doneSessions} buổi</span>
-                            <span class="text-purple-300">•</span>
+                        <div class="w-full bg-white/80 rounded-full py-1 px-2 text-[10px] font-bold text-emerald-700 flex items-center justify-center gap-1.5">
+                            <span>${completedSteps}/4 milestones</span>
+                            <span class="text-slate-300">•</span>
+                            <span>${doneSessions} session${doneSessions === 1 ? '' : 's'}</span>
+                            <span class="text-slate-300">•</span>
                             <span>${topic.file ? '📖' : '⏳'}</span>
                         </div>
                     </div>
 
-                    <div class="window-shutter window-grid-lines absolute inset-2 rounded-t-[1.8rem] rounded-b-xl bg-gradient-to-br from-purple-300 via-violet-300 to-fuchsia-200 border-2 border-white/80 p-3 flex flex-col items-center justify-between text-center shadow-inner">
+                    <div class="window-shutter window-grid-lines absolute inset-2 rounded-t-[1.8rem] rounded-b-xl bg-gradient-to-br from-emerald-300 via-emerald-200 to-teal-100 border-2 border-white/80 p-3 flex flex-col items-center justify-between text-center shadow-inner">
                         <div class="w-full flex justify-between items-center">
-                            <span class="bg-white/85 text-purple-800 text-[11px] font-extrabold px-2 py-0.5 rounded-full shadow-2xs">
+                            <span class="bg-white/85 text-emerald-800 text-[11px] font-extrabold px-2 py-0.5 rounded-full shadow-2xs">
                                 #${String(topic.id).padStart(2, '0')}
                             </span>
                             <span class="w-6 h-6 rounded-full bg-white/85 flex items-center justify-center text-xs shadow-2xs">
@@ -604,10 +588,10 @@
                         </div>
                         <div class="bg-white/85 backdrop-blur-xs px-2.5 py-2 rounded-2xl shadow-xs w-full border border-white min-w-0">
                             <div class="text-xl mb-0.5">${topic.emoji}</div>
-                            <h3 class="text-xs font-extrabold text-purple-950 line-clamp-2 leading-tight">${topic.title}</h3>
+                            <h3 class="text-xs font-extrabold text-slate-900 line-clamp-2 leading-tight">${topic.title}</h3>
                         </div>
                         <div class="w-full flex items-center justify-center gap-1">
-                            ${[0,1,2,3].map(i => `<span class="h-1.5 flex-1 rounded-full ${state.steps[i] ? 'bg-purple-700' : 'bg-white/60'}"></span>`).join('')}
+                            ${[0,1,2,3].map(i => `<span class="h-1.5 flex-1 rounded-full ${state.steps[i] ? 'bg-emerald-700' : 'bg-white/60'}"></span>`).join('')}
                         </div>
                     </div>
                 `;
@@ -633,7 +617,7 @@
 
             activeTopicId = id;
             document.getElementById('modal-emoji').textContent = topic.emoji;
-            document.getElementById('modal-badge').textContent = `Window #${String(topic.id).padStart(2, '0')} • Mã gốc: ${topic.code}`;
+            document.getElementById('modal-badge').textContent = `Window #${String(topic.id).padStart(2, '0')} • Source: ${topic.code}`;
             document.getElementById('modal-title').textContent = topic.title;
             document.getElementById('modal-subtopics').textContent = topic.sub;
             document.getElementById('note-date').value = todayISO();
@@ -644,7 +628,7 @@
 
             const fileNote = document.getElementById('modal-file-note');
             if (!topic.file) {
-                fileNote.textContent = 'Tài liệu cho chủ đề này chưa được cập nhật. Bạn vẫn có thể ghi chú, lập kế hoạch và theo dõi tiến độ.';
+                fileNote.textContent = 'Materials for this topic have not been added yet. You can still take notes, plan sessions and track progress.';
                 fileNote.classList.remove('hidden');
             } else {
                 fileNote.classList.add('hidden');
@@ -687,14 +671,14 @@
             });
 
             const doneMilestones = state.steps.filter(Boolean).length;
-            document.getElementById('milestone-count').textContent = `${doneMilestones}/4 mốc`;
+            document.getElementById('milestone-count').textContent = `${doneMilestones}/4 milestones`;
 
             const openBtn = document.getElementById('open-vocab-btn');
             if (topic.file) {
                 openBtn.href = encodeURI(topic.file);
                 openBtn.innerHTML = topic.file.toLowerCase().endsWith('.docx')
-                    ? '<span>📄</span> Tải tài liệu (.docx)'
-                    : '<span>📖</span> Mở trang từ vựng';
+                    ? '<span>📄</span> Download material (.docx)'
+                    : '<span>📖</span> Open vocabulary page';
                 openBtn.classList.remove('opacity-40', 'pointer-events-none', 'grayscale');
                 openBtn.target = '_blank';
                 openBtn.rel = 'noopener';
@@ -702,18 +686,18 @@
                 if (!topic.file.toLowerCase().endsWith('.docx')) openBtn.removeAttribute('download');
             } else {
                 openBtn.href = '#';
-                openBtn.innerHTML = '<span>⏳</span> Tài liệu sắp cập nhật';
+                openBtn.innerHTML = '<span>⏳</span> Materials coming soon';
                 openBtn.classList.add('opacity-40', 'pointer-events-none', 'grayscale');
                 openBtn.removeAttribute('download');
             }
 
             const completeBtn = document.getElementById('complete-btn');
             if (state.completed) {
-                completeBtn.innerHTML = '<span>↩️</span> Hủy hoàn thành';
-                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-purple-700 bg-purple-100 hover:bg-purple-200 border border-purple-200 transition';
+                completeBtn.innerHTML = '<span>↩️</span> Mark as in progress';
+                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition';
             } else {
-                completeBtn.innerHTML = '<span>✅</span> Đánh dấu hoàn thành';
-                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-extrabold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition';
+                completeBtn.innerHTML = '<span>✅</span> Mark complete';
+                completeBtn.className = 'inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-emerald-700 bg-emerald-100 hover:bg-emerald-200 border border-emerald-200 transition';
             }
 
             renderWeek(state);
@@ -743,12 +727,13 @@
 
         function weekdayShort(dateString) {
             const date = new Date(`${dateString}T00:00:00`);
-            return ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'][date.getDay()];
+            return ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][date.getDay()];
         }
 
         function formatShortDate(dateString) {
-            const [, month, day] = dateString.split('-');
-            return `${day}/${month}`;
+            const date = new Date(`${dateString}T00:00:00`);
+            if (Number.isNaN(date.getTime())) return dateString;
+            return date.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
         }
 
         function renderWeek(state) {
@@ -759,17 +744,17 @@
             const doneThisWeek = days.filter(date => state.sessions.some(item => item.date === date && item.done)).length;
 
             document.getElementById('week-label').textContent = `${formatDate(days[0])} - ${formatDate(days[6])}`;
-            document.getElementById('week-summary').textContent = `${doneThisWeek}/7 ngày tuần này`;
-            document.getElementById('session-count').textContent = `${doneCount} buổi`;
+            document.getElementById('week-summary').textContent = `${doneThisWeek}/7 days this week`;
+            document.getElementById('session-count').textContent = `${doneCount} session${doneCount === 1 ? '' : 's'}`;
 
             document.getElementById('week-strip').innerHTML = days.map(date => {
                 const done = state.sessions.some(item => item.date === date && item.done);
                 const isToday = date === today;
                 return `
-                    <label class="flex flex-col items-center justify-between gap-1 min-w-0 rounded-xl border px-0.5 py-1.5 cursor-pointer transition ${done ? 'border-emerald-300 bg-emerald-50' : 'border-purple-100 bg-white hover:bg-purple-50'} ${isToday ? 'ring-2 ring-inset ring-purple-300' : ''}">
-                        <span class="text-[9px] font-extrabold uppercase tracking-wide ${done ? 'text-emerald-600' : 'text-purple-400'}">${weekdayShort(date)}</span>
-                        <span class="text-[10px] font-extrabold ${done ? 'text-emerald-700' : 'text-purple-800'}">${formatShortDate(date)}</span>
-                        <input type="checkbox" ${done ? 'checked' : ''} onchange="toggleWeekDay('${date}')" class="custom-checkbox w-4 h-4 rounded border-purple-300 text-purple-600 focus:ring-purple-500">
+                    <label class="flex flex-col items-center justify-between gap-1 min-w-0 rounded-xl border px-0.5 py-1.5 cursor-pointer transition ${done ? 'border-emerald-300 bg-emerald-50' : 'border-slate-100 bg-white hover:bg-slate-50'} ${isToday ? 'ring-2 ring-inset ring-emerald-300' : ''}">
+                        <span class="text-[9px] font-extrabold uppercase tracking-wide ${done ? 'text-emerald-600' : 'text-slate-400'}">${weekdayShort(date)}</span>
+                        <span class="text-[10px] font-extrabold ${done ? 'text-emerald-700' : 'text-emerald-800'}">${formatShortDate(date)}</span>
+                        <input type="checkbox" ${done ? 'checked' : ''} onchange="toggleWeekDay('${date}')" class="custom-checkbox w-4 h-4 rounded border-emerald-300 text-emerald-600 focus:ring-emerald-600">
                     </label>
                 `;
             }).join('');
@@ -810,37 +795,38 @@
 
         function formatDate(isoDate) {
             if (!isoDate) return '';
-            const [year, month, day] = isoDate.split('-');
-            return `${day}/${month}/${year}`;
+            const date = new Date(`${isoDate}T00:00:00`);
+            if (Number.isNaN(date.getTime())) return isoDate;
+            return date.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
         }
 
         function renderPlanStatus(state) {
             const el = document.getElementById('plan-status');
             if (state.completed) {
-                el.textContent = '🎉 Đã hoàn thành chủ đề này!';
+                el.textContent = '🎉 Topic completed!';
                 el.className = 'text-xs font-bold text-emerald-600 mt-2';
                 return;
             }
             if (!state.planStart && !state.planTarget) {
-                el.textContent = 'Chưa đặt kế hoạch';
-                el.className = 'text-xs font-bold text-purple-500 mt-2';
+                el.textContent = 'No plan set';
+                el.className = 'text-xs font-bold text-slate-500 mt-2';
                 return;
             }
 
             const parts = [];
-            if (state.planStart) parts.push(`Bắt đầu ${formatDate(state.planStart)}`);
+            if (state.planStart) parts.push(`Start ${formatDate(state.planStart)}`);
 
             if (state.planTarget) {
                 const target = new Date(`${state.planTarget}T00:00:00`);
                 const today = new Date(`${todayISO()}T00:00:00`);
                 const diff = Math.round((target - today) / 86400000);
-                if (diff > 0) parts.push(`còn ${diff} ngày`);
-                else if (diff === 0) parts.push('hạn hôm nay');
-                else parts.push(`trễ ${Math.abs(diff)} ngày`);
+                if (diff > 0) parts.push(`${diff} days left`);
+                else if (diff === 0) parts.push('Due today');
+                else parts.push(`${Math.abs(diff)} days overdue`);
             }
 
             el.textContent = parts.join(' • ');
-            el.className = 'text-xs font-bold text-purple-600 mt-2';
+            el.className = 'text-xs font-bold text-emerald-600 mt-2';
         }
 
         function toggleStep(stepIndex) {
@@ -857,7 +843,7 @@
                     if (done && !state.stepDates[index]) state.stepDates[index] = todayISO();
                 });
                 triggerCelebration();
-                showToast('🎉 Tuyệt vời! Bạn đã hoàn thành ô cửa sổ này!');
+                showToast('🎉 Amazing — window complete!');
             } else if (!allDone && state.completed) {
                 state.completed = false;
             }
@@ -894,7 +880,7 @@
             const text = document.getElementById('note-text').value.trim();
             const date = document.getElementById('note-date').value || todayISO();
             if (!text) {
-                showToast('✍️ Hãy nhập nội dung ghi chú trước');
+                showToast('✍️ Write a note first');
                 return;
             }
             const state = getState(activeTopicId);
@@ -906,7 +892,7 @@
                 document.getElementById('note-date').value = todayISO();
             }
             refreshModal();
-            showToast('💾 Đã lưu ghi chú');
+            showToast('💾 Note saved');
         }
 
         function deleteNote(id) {
@@ -916,16 +902,16 @@
             saveProgress(false);
             updateStats();
             refreshModal();
-            showToast('🗑️ Đã xóa ghi chú');
+            showToast('🗑️ Note deleted');
         }
 
         function renderNotes(state) {
             const list = document.getElementById('notes-list');
             const notes = [...state.notesLog].sort((a, b) => (b.date.localeCompare(a.date)) || (b.createdAt - a.createdAt));
-            document.getElementById('notes-count').textContent = `${notes.length} ghi chú`;
+            document.getElementById('notes-count').textContent = `${notes.length} note${notes.length === 1 ? '' : 's'}`;
 
             if (!notes.length) {
-                list.innerHTML = '<p class="text-xs text-purple-400 italic px-1">Chưa có ghi chú nào. Viết suy nghĩ của bạn ở trên nhé.</p>';
+                list.innerHTML = '<p class="text-xs text-slate-400 italic px-1">No notes yet. Write your thoughts above.</p>';
                 return;
             }
 
@@ -937,12 +923,12 @@
 
             list.innerHTML = Object.keys(groups).sort((a, b) => b.localeCompare(a)).map(date => `
                 <div>
-                    <p class="text-[11px] font-extrabold uppercase tracking-wider text-purple-500 mb-1.5">📅 ${formatDate(date)}</p>
+                    <p class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-1.5">📅 ${formatDate(date)}</p>
                     <div class="space-y-1.5">
                         ${groups[date].map(note => `
-                            <div class="flex items-start justify-between gap-2 bg-white border border-purple-100 rounded-xl px-3 py-2">
-                                <p class="text-sm text-purple-900 whitespace-pre-wrap break-words min-w-0">${escapeHtml(note.text)}</p>
-                                <button onclick="deleteNote('${note.id}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition shrink-0">Xóa</button>
+                            <div class="flex items-start justify-between gap-2 bg-white border border-slate-100 rounded-xl px-3 py-2">
+                                <p class="text-sm text-slate-800 whitespace-pre-wrap break-words min-w-0">${escapeHtml(note.text)}</p>
+                                <button onclick="deleteNote('${note.id}')" class="text-[11px] font-bold text-rose-500 hover:text-rose-700 hover:bg-rose-50 px-2 py-0.5 rounded-lg transition shrink-0">Delete</button>
                             </div>
                         `).join('')}
                     </div>
@@ -975,12 +961,12 @@
                     if (done && !state.stepDates[index]) state.stepDates[index] = todayISO();
                 });
                 triggerCelebration();
-                showToast('✨ Đã đánh dấu hoàn thành!');
+                showToast('✨ Marked as complete!');
             } else {
                 state.completed = false;
                 state.steps[3] = false;
                 state.stepDates[3] = '';
-                showToast('↩️ Đã chuyển về trạng thái đang học');
+                showToast('↩️ Moved back to learning');
             }
 
             saveProgress(false);
@@ -994,7 +980,7 @@
                 particleCount: 65,
                 spread: 70,
                 origin: { y: 0.6 },
-                colors: ['#c084fc', '#e879f9', '#818cf8', '#f472b6', '#fde047']
+                colors: ['#059669', '#10b981', '#34d399', '#0ea5e9', '#fbbf24']
             });
         }
 
@@ -1019,6 +1005,7 @@
 
         updateStats();
         renderWindows();
+        if (window.lucide) lucide.createIcons();
     </script>
 </body>
 </html>
