@@ -130,7 +130,7 @@
           <div class="flex items-center gap-2">
             <h1 class="text-base sm:text-lg font-semibold tracking-tight text-slate-900 truncate">IELTS 7.5 Mastery Pipeline</h1>
             <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/70">
-              1 Topic / Week
+              9 sessions / topic
             </span>
           </div>
           <p id="header-target" class="text-xs text-slate-500 truncate" title="Target: Overall 7.0–7.5 (Writing &amp; Speaking 7.0) · Exam: July 2027">Target: Overall 7.0–7.5 · W &amp; S 7.0 · Exam: July 2027</p>
@@ -176,7 +176,7 @@
     <!-- Mobile Navigation Bar -->
     <div class="sm:hidden flex border-t border-slate-200/80 bg-white px-4 py-1.5 gap-1">
       <button onclick="switchMainView('command')" id="mnav-command" class="flex-1 py-1.5 rounded-lg text-xs font-medium bg-emerald-50 text-emerald-700">
-        Active Week
+        Active Topic
       </button>
       <button onclick="switchMainView('matrix')" id="mnav-matrix" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-slate-600">
         Topic Matrix
@@ -226,17 +226,17 @@
         </div>
       </div>
 
-      <!-- KPI 2: Weekly Consistency Score -->
+      <!-- KPI 2: Schedule Consistency Score -->
       <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-apple">
         <div class="flex items-center justify-between text-slate-500 mb-1.5">
-          <span class="text-xs font-medium">Week Consistency</span>
+          <span class="text-xs font-medium">Schedule Consistency</span>
           <i data-lucide="activity" class="w-4 h-4 text-emerald-600"></i>
         </div>
         <div class="flex items-baseline gap-2">
           <span id="kpi-consistency" class="text-2xl font-bold tracking-tight text-slate-900">0%</span>
           <span id="kpi-consistency-tag" class="text-[11px] font-medium px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600">Goal ≥90%</span>
         </div>
-        <p class="mt-1.5 text-[11px] text-slate-400">Active week gate completion</p>
+        <p class="mt-1.5 text-[11px] text-slate-400">Active topic gate completion</p>
       </div>
 
       <!-- KPI 3: Essays Written -->
@@ -280,17 +280,17 @@
     </section>
 
     <!-- ===================================================================== -->
-    <!-- VIEW 1: ACTIVE WEEK COMMAND CENTER                                    -->
+    <!-- VIEW 1: ACTIVE TOPIC COMMAND CENTER                                   -->
     <!-- ===================================================================== -->
     <div id="view-command" class="space-y-6">
 
-      <!-- Active Week Hero Banner -->
+      <!-- Active Topic Hero Banner -->
       <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-apple">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
           <div class="space-y-1.5 flex-1 min-w-0">
             <div class="flex flex-wrap items-center gap-2">
               <span id="active-week-pill" class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white">
-                WEEK 1 OF 30
+                TOPIC 1 OF 31
               </span>
               <span id="active-week-dates" class="text-xs font-medium text-slate-500 bg-slate-100 px-2.5 py-1 rounded-lg">
                 Nov 16 – Nov 22, 2026
@@ -314,25 +314,25 @@
             <p class="text-xs text-slate-500">Click the topic title above anytime to customize it to match your topic list.</p>
           </div>
 
-          <!-- Week Switcher Controls -->
+          <!-- Topic Switcher Controls -->
           <div class="flex items-center gap-2 self-start md:self-center shrink-0">
-            <button onclick="navigateWeek(-1)" id="btn-prev-week" class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 disabled:opacity-40 transition-colors" title="Previous Week">
+            <button onclick="navigateWeek(-1)" id="btn-prev-week" class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 disabled:opacity-40 transition-colors" title="Previous Topic">
               <i data-lucide="chevron-left" class="w-4 h-4"></i>
             </button>
             <select id="week-selector" onchange="selectWeek(Number(this.value))" class="px-3 py-2 rounded-xl border border-slate-200 bg-slate-50 text-xs font-semibold text-slate-800 focus:outline-none focus:border-emerald-600">
               <!-- Populated by JS -->
             </select>
-            <button onclick="navigateWeek(1)" id="btn-next-week" class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 disabled:opacity-40 transition-colors" title="Next Week">
+            <button onclick="navigateWeek(1)" id="btn-next-week" class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 disabled:opacity-40 transition-colors" title="Next Topic">
               <i data-lucide="chevron-right" class="w-4 h-4"></i>
             </button>
           </div>
         </div>
 
-        <!-- Overall Week Gate Progress Bar + Live 5-Gate Summary Pills -->
+        <!-- Overall Topic Gate Progress Bar + Live 5-Gate Summary Pills -->
         <div class="pt-4 space-y-3">
           <div class="flex items-center justify-between text-xs">
-            <span class="font-medium text-slate-700">Weekly Execution Progress (~12.25h Core + 5.75h Buffer)</span>
-            <span id="week-progress-text" class="font-semibold text-emerald-700">0 / 14 Tasks (0%)</span>
+            <span class="font-medium text-slate-700">Topic Progress · 9 sessions × 2h = 18h</span>
+            <span id="week-progress-text" class="font-semibold text-emerald-700">0 / 18 Tasks (0%)</span>
           </div>
           <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
             <div id="week-progress-bar" class="h-full bg-emerald-600 rounded-full transition-all duration-300" style="width: 0%"></div>
@@ -344,18 +344,21 @@
         </div>
       </div>
 
-      <!-- Day-by-Day Weekly Execution Schedule (Monday – Sunday) -->
+      <!-- D1–D9 Session Schedule (2 hours each) -->
       <section class="space-y-3">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
-            <i data-lucide="calendar-days" class="w-4 h-4 text-emerald-600"></i>
-            Monday – Sunday Execution Schedule (Aligned with 5 Mastery Gates)
-          </h2>
-          <span class="text-xs text-slate-500">Type your exact material (e.g., Cambridge 21 R3) anytime — auto-saves without checking done</span>
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+          <div class="space-y-1">
+            <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
+              <i data-lucide="calendar-days" class="w-4 h-4 text-emerald-600"></i>
+              D1–D9 Session Schedule (9 × 2h, aligned with the 5 Mastery Gates)
+            </h2>
+            <p class="text-xs text-slate-500">Each D is a 2-hour session. Change any date and every later session and topic shifts automatically — two sessions can share one day.</p>
+          </div>
+          <span id="pace-note" class="text-xs font-medium text-slate-500"></span>
         </div>
 
         <div id="days-container" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <!-- 7 Day Cards rendered dynamically by JS -->
+          <!-- 9 session cards rendered dynamically by JS -->
         </div>
       </section>
 
@@ -428,7 +431,7 @@
               <div class="space-y-2">
                 <label class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
                   <i data-lucide="headphones" class="w-3.5 h-3.5 text-emerald-600"></i>
-                  Monday–Tuesday Gate 1: Reading &amp; Listening Paraphrase Notes
+                  D1–D2 Gate 1: Reading &amp; Listening Paraphrase Notes
                 </label>
                 <textarea
                   id="sp-input-notes"
@@ -555,7 +558,7 @@
       <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-apple flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 class="text-lg font-bold text-slate-900">Topic Master Matrix &amp; Spaced Retention Queue</h2>
-          <p class="text-xs text-slate-500">Click any week card to open its Command Center. Completed topics automatically trigger +1w, +3w, and +6w reviews.</p>
+          <p class="text-xs text-slate-500">Click any topic card to open its Command Center. Completed topics automatically trigger +1w, +3w, and +6w reviews.</p>
         </div>
 
         <!-- Filter Pills -->
@@ -615,7 +618,7 @@
         <!-- Add Mistake Form -->
         <form onsubmit="addRedListItem(event)" class="grid grid-cols-1 md:grid-cols-12 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200/70">
           <div class="md:col-span-2">
-            <label class="block text-[11px] font-medium text-slate-500 mb-1">Topic Week</label>
+            <label class="block text-[11px] font-medium text-slate-500 mb-1">Topic</label>
             <select id="rl-week" class="w-full px-2.5 py-2 rounded-lg border border-slate-200 bg-white text-xs focus:outline-none focus:border-emerald-600">
               <!-- Populated by JS -->
             </select>
@@ -763,150 +766,358 @@
       5: { short: 'Gate 5: Closure', color: 'emerald' }
     };
 
-    const DAY_BLUEPRINT = [
+    const SESSION_BLUEPRINT = [
       {
-        dayIndex: 0,
-        dayName: 'Monday',
-        hoursLabel: '1.5h study / 2h avail',
-        gateBadge: 'Gate 1: Input',
+        sessionIndex: 0,
+        dayName: 'D1',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 1 · Input A',
         gateNums: [1],
         accent: 'emerald',
         tasks: [
           {
-            title: '1 Topic Reading Passage (20m timed + 40m deep review)',
+            title: 'Topic Reading Passage: 20m timed + 40m deep review',
             gate: 1,
             placeholder: 'e.g., Cambridge 21 Test 1 Passage 3 (Score: 11/13)'
           },
           {
-            title: 'Extract collocations & paraphrasing patterns (30m)',
+            title: 'Extract 30 target words & collocations from the passage (Batch A)',
             gate: 1,
-            placeholder: 'e.g., 12 paraphrases logged in notebook p.4'
+            placeholder: 'e.g., 30 words + collocations logged on pp. 4-6'
           }
         ]
       },
       {
-        dayIndex: 1,
-        dayName: 'Tuesday',
-        hoursLabel: '1.75h study / 2h avail',
-        gateBadge: 'Gate 1 & 2: Listening + Encoding',
+        sessionIndex: 1,
+        dayName: 'D2',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 1 & 2 · Input B + Encoding',
         gateNums: [1, 2],
         accent: 'emerald',
         tasks: [
           {
-            title: '1 Topic Listening Section (Part 3 or 4 + transcript check, 45m)',
+            title: 'Topic Listening Section (Part 3/4) + transcript check',
             gate: 1,
             placeholder: 'e.g., Cambridge 20 Test 2 Part 4 (9/10)'
           },
           {
-            title: 'Curate & encode 20–30 target words/collocations on paper (1h)',
+            title: 'Encode Batch A (words 1-30) with collocations + 2 example sentences each',
             gate: 2,
-            placeholder: 'e.g., 25 words encoded on Notebook pp. 5–7'
+            placeholder: 'e.g., 30 entries completed in the vocab notebook'
           }
         ]
       },
       {
-        dayIndex: 2,
-        dayName: 'Wednesday',
-        hoursLabel: '1.5h study / 2h avail',
-        gateBadge: 'Gate 2: Active Encoding',
+        sessionIndex: 2,
+        dayName: 'D3',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 2 · Encoding + Recall',
         gateNums: [2],
         accent: 'lavender',
         tasks: [
           {
-            title: 'Finish paper encoding & collocation example sentences (1h)',
+            title: 'Encode Batch B (words 31-60) with collocations + examples',
             gate: 2,
-            placeholder: 'e.g., Completed 2 example sentences per word'
+            placeholder: 'e.g., 30 entries completed and cross-linked to Batch A'
           },
           {
-            title: 'First active recall check on paper / flashcards (30m)',
+            title: 'Active recall check: cover meanings, test all 60 words & collocations',
             gate: 2,
-            placeholder: 'e.g., Covered meanings & recalled 22/25 collocations'
+            placeholder: 'e.g., Recalled 52/60 meanings and 45/60 collocations'
           }
         ]
       },
       {
-        dayIndex: 3,
-        dayName: 'Thursday',
-        hoursLabel: '1.5h study / 2h avail',
-        gateBadge: 'Gate 3: Speaking Output',
+        sessionIndex: 3,
+        dayName: 'D4',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 3 · Speaking Part 1 & 2',
         gateNums: [3],
         accent: 'lavender',
         tasks: [
           {
-            title: 'Outline Part 2 Cue Card ideas with 5–8 target collocations (30m)',
+            title: 'Outline a Part 2 cue card with 6-8 target collocations',
             gate: 3,
             placeholder: 'e.g., Cue Card: Describe an environmental problem in your city'
           },
           {
-            title: 'Record full Speaking Part 1, 2 & 3 set out loud (1h)',
+            title: 'Record Part 1 + Part 2 answers using the new vocabulary',
             gate: 3,
-            placeholder: 'e.g., Voice memo #12 recorded (Part 2: 2m05s, 4 Part 3 Qs)'
+            placeholder: 'e.g., Voice memo #12 (Part 1: 4 Qs, Part 2: 2m05s)'
           }
         ]
       },
       {
-        dayIndex: 4,
-        dayName: 'Friday',
-        hoursLabel: '1h study / 2h avail (Flex)',
-        gateBadge: 'Gate 3 & Flex Buffer',
+        sessionIndex: 4,
+        dayName: 'D5',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 3 · Speaking Part 3 + Feedback',
         gateNums: [3],
         accent: 'lavender',
         tasks: [
           {
-            title: 'Listen back to Speaking recording & re-record weakest answer (30m)',
+            title: 'Record 4-5 Part 3 questions with abstract, topic-linked answers',
             gate: 3,
-            placeholder: 'e.g., Re-recorded Part 3 Q2 fixing article & tense slips'
+            placeholder: 'e.g., 5 Part 3 questions recorded (2m each)'
           },
           {
-            title: '20-min recall review OR catch-up buffer for Mon–Thu tasks (30m)',
-            gate: 2,
-            placeholder: 'e.g., Quick paper recall pass on 10 tricky collocations'
+            title: 'Playback audit: fix grammar, upgrade lexis, re-record the weakest answer',
+            gate: 3,
+            placeholder: 'e.g., Re-recorded Q3 fixing tense and article slips'
           }
         ]
       },
       {
-        dayIndex: 5,
-        dayName: 'Saturday',
-        hoursLabel: '2.5h study / 4h avail',
-        gateBadge: 'Gate 4: Writing Output',
+        sessionIndex: 5,
+        dayName: 'D6',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 4 · Writing Task 2',
         gateNums: [4],
         accent: 'emerald',
         tasks: [
           {
-            title: 'Timed Task 2 Essay (250+ words, 40m) + 60m self-edit & upgrade',
+            title: 'Timed Task 2 essay (40m) + 20m self-edit',
             gate: 4,
             placeholder: 'e.g., Carbon tax vs renewable subsidies essay (285 words)'
           },
           {
-            title: 'Writing Task 1 practice (chart / map / process, 45m)',
+            title: 'Upgrade 5 sentences with target collocations and log slips to the Red List',
             gate: 4,
-            placeholder: 'e.g., Cambridge 19 Test 3 Task 1 Line Graph (172 words)'
+            placeholder: 'e.g., 5 upgrades + 3 Red List entries'
           }
         ]
       },
       {
-        dayIndex: 6,
-        dayName: 'Sunday',
-        hoursLabel: '2h study / 4h avail',
-        gateBadge: 'Gate 5: Verification & Closure',
+        sessionIndex: 6,
+        dayName: 'D7',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 4 · Writing Task 1 + Accuracy',
+        gateNums: [4],
+        accent: 'emerald',
+        tasks: [
+          {
+            title: 'Timed Task 1 (20m) + 40m review (chart / map / process)',
+            gate: 4,
+            placeholder: 'e.g., Cambridge 19 Test 3 Task 1 Line Graph (172 words)'
+          },
+          {
+            title: 'Rewrite one body paragraph for Band 7.5+ coherence and cohesion',
+            gate: 4,
+            placeholder: 'e.g., Rewrote paragraph 2 with clearer topic sentence + linking'
+          }
+        ]
+      },
+      {
+        sessionIndex: 7,
+        dayName: 'D8',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 5 · Spaced Recall',
+        gateNums: [2, 5],
+        accent: 'lavender',
+        tasks: [
+          {
+            title: '24h / 48h / 72h spaced recall: 60 words + collocations (45m)',
+            gate: 5,
+            placeholder: 'e.g., Reviewed all 60 entries; 48/60 recalled cold'
+          },
+          {
+            title: 'Mixed drill: 10 paraphrases + 5 rapid speaking prompts (45m)',
+            gate: 5,
+            placeholder: 'e.g., 10 paraphrases recorded + 5 prompts answered in 30s each'
+          }
+        ]
+      },
+      {
+        sessionIndex: 8,
+        dayName: 'D9',
+        hoursLabel: '2h',
+        gateBadge: 'Gate 5 · Consolidation & Closure',
         gateNums: [5],
         accent: 'emerald',
         tasks: [
           {
-            title: 'Cumulative spaced recall check (current + past topics, 45m)',
+            title: 'Mini test: 20 collocations + one essay outline (45m)',
             gate: 5,
-            placeholder: 'e.g., Reviewed Week 1 paper list + random flashcard quiz'
+            placeholder: 'e.g., 18/20 collocations correct; outline completed'
           },
           {
-            title: 'Weekly Error Log audit + 1 extra Reading/Listening set (1h 15m)',
+            title: 'Error-log audit, update the Red List and mark the topic complete (45m)',
             gate: 5,
-            placeholder: 'e.g., Logged 3 essay sentences to Red List + Cam 21 R1'
+            placeholder: 'e.g., 4 slips logged; topic closed and reviews scheduled'
           }
         ]
       }
     ];
 
     const STORAGE_KEY = 'ielts_mastery_pipeline_v2';
+    const SCHEMA_VERSION = 3;
+    const EXAM_TARGET_ISO = '2027-07-01';
+    const SESSION_HOURS = 2;
+
+    function todayISO() {
+      const now = new Date();
+      const offset = now.getTimezoneOffset();
+      return new Date(now.getTime() - offset * 60000).toISOString().slice(0, 10);
+    }
+
+    function parseISODate(iso) {
+      return new Date(`${iso}T00:00:00`);
+    }
+
+    function addDaysISO(iso, days) {
+      const date = parseISODate(iso);
+      date.setDate(date.getDate() + days);
+      const offset = date.getTimezoneOffset();
+      return new Date(date.getTime() - offset * 60000).toISOString().slice(0, 10);
+    }
+
+    function daysBetweenISO(fromISO, toISO) {
+      return Math.round((parseISODate(toISO) - parseISODate(fromISO)) / 86400000);
+    }
+
+    function formatShortDate(iso) {
+      if (!iso) return '';
+      return parseISODate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function formatFullDate(iso) {
+      if (!iso) return '';
+      return parseISODate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+
+    function sessionIsDone(dayObj) {
+      return Array.isArray(dayObj.tasks) && dayObj.tasks.length > 0 && dayObj.tasks.every(task => task.done);
+    }
+
+    function getOrderedSessions() {
+      const list = [];
+      (appState.weeks || []).forEach(week => {
+        (week.days || []).forEach((day, dayIndex) => {
+          list.push({ week, weekNumber: week.weekNumber, day, dayIndex });
+        });
+      });
+      return list;
+    }
+
+    function refreshWeekDateRange(week) {
+      const days = (week.days || []).filter(day => day.date);
+      if (!days.length) {
+        week.dateRange = '';
+        return;
+      }
+      week.dateRange = `${formatShortDate(days[0].date)} – ${formatFullDate(days[days.length - 1].date)}`;
+    }
+
+    function ensureScheduleDates(weeks, startISO) {
+      let cursor = startISO || todayISO();
+      (weeks || []).forEach(week => {
+        (week.days || []).forEach(day => {
+          if (!day.date) day.date = cursor;
+          cursor = addDaysISO(day.date, 1);
+        });
+        refreshWeekDateRange(week);
+      });
+    }
+
+    function shiftSessionDates(startIndex, deltaDays) {
+      if (!deltaDays) return;
+      const list = getOrderedSessions();
+      for (let i = startIndex; i < list.length; i += 1) {
+        const day = list[i].day;
+        if (day.date) day.date = addDaysISO(day.date, deltaDays);
+      }
+      (appState.weeks || []).forEach(refreshWeekDateRange);
+    }
+
+    function setSessionDate(weekNumber, dayIndex, value) {
+      if (!value) return;
+      const list = getOrderedSessions();
+      const position = list.findIndex(item => item.weekNumber === weekNumber && item.dayIndex === dayIndex);
+      if (position === -1) return;
+      let target = value;
+      if (position > 0) {
+        const previousDate = list[position - 1].day.date;
+        if (previousDate && daysBetweenISO(previousDate, target) < 0) target = previousDate;
+      }
+      const current = list[position].day.date;
+      if (!current) {
+        list[position].day.date = target;
+      } else {
+        shiftSessionDates(position, daysBetweenISO(current, target));
+      }
+      (appState.weeks || []).forEach(refreshWeekDateRange);
+      saveState(false);
+      renderAll();
+      showToast(`D${dayIndex + 1} scheduled for ${formatFullDate(target)}`);
+    }
+
+    function autoRollMissedSessions() {
+      const list = getOrderedSessions();
+      const today = todayISO();
+      const index = list.findIndex(item => item.day.date && !sessionIsDone(item.day) && daysBetweenISO(item.day.date, today) > 0);
+      if (index === -1) return false;
+      shiftSessionDates(index, daysBetweenISO(list[index].day.date, today));
+      saveState(false);
+      return true;
+    }
+
+    function getProjectedFinishDate() {
+      const list = getOrderedSessions();
+      if (!list.length) return '';
+      return list[list.length - 1].day.date || '';
+    }
+
+    function renderPaceNote() {
+      const el = document.getElementById('pace-note');
+      if (!el) return;
+      const finish = getProjectedFinishDate();
+      if (!finish) {
+        el.textContent = '';
+        return;
+      }
+      const remaining = getOrderedSessions().filter(item => !sessionIsDone(item.day)).length;
+      const daysLeft = Math.max(daysBetweenISO(todayISO(), EXAM_TARGET_ISO), 1);
+      const sessionsPerWeek = Math.ceil(remaining / Math.max(daysLeft / 7, 1));
+      const late = daysBetweenISO(EXAM_TARGET_ISO, finish) > 0;
+      el.className = late
+        ? 'inline-flex items-center gap-1.5 text-xs font-medium text-amber-800 bg-amber-50 border border-amber-200/80 rounded-lg px-2.5 py-1'
+        : 'inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200/80 rounded-lg px-2.5 py-1';
+      el.innerHTML = late
+        ? `<i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Projected finish ${formatFullDate(finish)} · ${sessionsPerWeek} sessions/week needed to hit Jul 2027`
+        : `<i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Projected finish ${formatFullDate(finish)} · on pace for Jul 2027`;
+    }
+
+    function migrateLegacyState(parsed) {
+      if (!parsed || !Array.isArray(parsed.weeks)) return parsed;
+      if (parsed.schemaVersion === SCHEMA_VERSION) return parsed;
+      const oldWeeks = parsed.weeks;
+      parsed.weeks = oldWeeks.map((old, idx) => {
+        const days = buildDefaultDaysForWeek(idx);
+        const oldTasks = (old.days || []).flatMap(day => day.tasks || []);
+        days.forEach(day => day.tasks.forEach(task => {
+          const match = oldTasks.find(item => (item.title || '').trim().toLowerCase() === task.title.trim().toLowerCase());
+          if (match) {
+            task.done = Boolean(match.done);
+            task.note = match.note || '';
+          }
+        }));
+        return {
+          weekNumber: idx + 1,
+          title: old.title || DEFAULT_TOPICS[idx] || `Topic ${idx + 1}`,
+          customTitle: Boolean(old.customTitle),
+          sheetTitle: old.sheetTitle || '',
+          phase: old.phase || 'Topic Sprint Phase',
+          dateRange: '',
+          days,
+          vocab: Array.isArray(old.vocab) ? old.vocab : [],
+          scratchpad: old.scratchpad || { essayPrompt: '', essayBody: '', speakingNotes: '', inputNotes: '' },
+          completedAtWeek: old.completedAtWeek || null,
+          reviewsDone: old.reviewsDone || { w1: false, w3: false, w6: false }
+        };
+      });
+      parsed.schemaVersion = SCHEMA_VERSION;
+      return parsed;
+    }
 
     // =========================================================================
     // 2. APPLICATION STATE & LOCALSTORAGE PERSISTENCE
@@ -925,9 +1136,10 @@
     let isCardFlipped = false;
 
     function buildDefaultDaysForWeek(weekIndex) {
-      return DAY_BLUEPRINT.map((bp, dIdx) => ({
+      return SESSION_BLUEPRINT.map((bp, dIdx) => ({
         dayIndex: bp.dayIndex,
         dayName: bp.dayName,
+        date: '',
         hoursLabel: bp.hoursLabel,
         gateBadge: bp.gateBadge,
         accent: bp.accent,
@@ -951,18 +1163,10 @@
     }
 
     function createInitialState() {
-      // Anchor Week 1 to Monday, Nov 16, 2026
-      const startDate = new Date(2026, 10, 16);
+      // Topic 1 starts today; every D-session then rolls forward one day at a time.
+      const startDate = todayISO();
 
       const weeks = DEFAULT_TOPICS.map((title, idx) => {
-        const wStart = new Date(startDate);
-        wStart.setDate(startDate.getDate() + idx * 7);
-        const wEnd = new Date(wStart);
-        wEnd.setDate(wStart.getDate() + 6);
-
-        const formatOpt = { month: 'short', day: 'numeric' };
-        const dateRange = `${wStart.toLocaleDateString('en-US', formatOpt)} – ${wEnd.toLocaleDateString('en-US', formatOpt)}, ${wEnd.getFullYear()}`;
-
         const starterVocab = idx === 0 ? [
           {
             id: 'v-init-1',
@@ -993,7 +1197,7 @@
           customTitle: false,
           sheetTitle: '',
           phase: 'Topic Sprint Phase',
-          dateRange,
+          dateRange: '',
           days: buildDefaultDaysForWeek(idx),
           vocab: starterVocab,
           scratchpad: {
@@ -1007,6 +1211,8 @@
         };
       });
 
+      ensureScheduleDates(weeks, startDate);
+
       const starterRedList = [
         {
           id: 'rl-init-1',
@@ -1019,6 +1225,7 @@
       ];
 
       return {
+        schemaVersion: SCHEMA_VERSION,
         activeWeek: 1,
         mainView: 'command',
         workspaceTab: 'scratchpad',
@@ -1035,7 +1242,9 @@
         if (raw) {
           const parsed = JSON.parse(raw);
           if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length > 0) {
-            appState = parsed;
+            appState = migrateLegacyState(parsed);
+            ensureScheduleDates(appState.weeks, (appState.weeks[0].days && appState.weeks[0].days[0].date) || todayISO());
+            appState.activeWeek = Math.min(Math.max(Number(appState.activeWeek) || 1, 1), appState.weeks.length);
             return;
           }
         }
@@ -1234,67 +1443,46 @@
         : DEFAULT_TOPICS.map((title, idx) => ({ week: idx + 1, title, dates: '', phase: 'Topic Sprint Phase' }));
       return topics.map((topic, idx) => {
         const prev = oldWeeks[idx] || {};
-        const prevDays = Array.isArray(prev.days) ? prev.days : [];
-        const sheetDays = detail[topic.week] || [];
-        const days = SHEET_DAYS.map((dayName, dIdx) => {
-          const prevDay = prevDays[dIdx] || {};
-          const sheetDay = sheetDays.find(day => day.dayIndex === dIdx) || sheetDays[dIdx] || {};
-          const fallback = DAY_BLUEPRINT[dIdx] || {};
-          const sheetTasks = Array.isArray(sheetDay.tasks) && sheetDay.tasks.length
-            ? sheetDay.tasks
-            : (fallback.tasks || []).map(task => task.title);
-          const oldSheetTasks = (prevDay.tasks || []).filter(task => !task.isCustom);
-          const customTasks = (prevDay.tasks || []).filter(task => task.isCustom);
-          const gateNums = sheetDay.gateNums && sheetDay.gateNums.length
-            ? sheetDay.gateNums
-            : (fallback.gateNums || [1]);
-          const usedOldIndexes = new Set();
-          const tasks = sheetTasks.map((title, tIdx) => {
-            let oldIndex = oldSheetTasks.findIndex((task, idx2) => !usedOldIndexes.has(idx2) && task.title === title);
-            if (oldIndex === -1 && tIdx < oldSheetTasks.length && !usedOldIndexes.has(tIdx)) oldIndex = tIdx;
-            if (oldIndex !== -1) usedOldIndexes.add(oldIndex);
-            const oldTask = oldIndex !== -1 ? oldSheetTasks[oldIndex] : {};
-            return {
-              id: `w${idx + 1}-d${dIdx}-t${tIdx}`,
-              title,
-              gate: gateNums[Math.min(tIdx, gateNums.length - 1)],
-              placeholder: oldTask.placeholder || 'Log specific material or result...',
-              done: Boolean(oldTask.done),
-              note: oldTask.note || '',
-              isCustom: false
-            };
-          });
-          return {
-            ...prevDay,
-            dayIndex: dIdx,
-            dayName: sheetDay.dayName || dayName,
-            hoursLabel: prevDay.hoursLabel || fallback.hoursLabel || '2h study / 2h avail',
-            gateBadge: sheetDay.gateBadge || fallback.gateBadge || '',
-            gateNums,
-            accent: gateNums.some(num => num === 1 || num === 4 || num === 5) ? 'emerald' : 'lavender',
-            tasks: [...tasks, ...customTasks]
-          };
-        });
-        const oldDefault = DEFAULT_TOPICS[idx] || '';
-        const knownSheetTitles = new Set([...DEFAULT_TOPICS, ...PREVIOUS_SHEET_TITLES, ...(master.topics || []).map(item => item.title)]);
-        const previousSheetTitle = prev.sheetTitle || '';
-        let isCustomTitle;
-        if (previousSheetTitle) {
-          isCustomTitle = prev.customTitle === true && Boolean(prev.title) && prev.title !== previousSheetTitle;
-        } else if (prev.customTitle === true) {
-          isCustomTitle = Boolean(prev.title) && !knownSheetTitles.has(prev.title);
-        } else {
-          isCustomTitle = Boolean(prev.title && prev.title !== oldDefault && !knownSheetTitles.has(prev.title));
+        const days = buildDefaultDaysForWeek(idx);
+        const sameTopic = Boolean(prev.sheetTitle && prev.sheetTitle === topic.title)
+          || Boolean(prev.title && prev.title === topic.title);
+        if (Array.isArray(prev.days) && prev.days.length) {
+          if (sameTopic && prev.days.length === days.length) {
+            days.forEach((day, dIdx) => {
+              const oldDay = prev.days[dIdx] || {};
+              day.date = oldDay.date || '';
+              day.tasks.forEach((task, tIdx) => {
+                const oldTask = (oldDay.tasks || [])[tIdx];
+                if (oldTask) {
+                  task.done = Boolean(oldTask.done);
+                  task.note = oldTask.note || '';
+                }
+              });
+              (oldDay.tasks || []).filter(task => task.isCustom).forEach(task => day.tasks.push(task));
+            });
+          } else {
+            const oldTasks = prev.days.flatMap(day => day.tasks || []);
+            days.forEach(day => day.tasks.forEach(task => {
+              const match = oldTasks.find(item => (item.title || '').trim().toLowerCase() === task.title.trim().toLowerCase());
+              if (match) {
+                task.done = Boolean(match.done);
+                task.note = match.note || '';
+              }
+            }));
+          }
         }
         return {
-          ...prev,
           weekNumber: idx + 1,
-          title: isCustomTitle ? prev.title : topic.title,
-          customTitle: isCustomTitle,
+          title: prev.customTitle && prev.title ? prev.title : topic.title,
+          customTitle: Boolean(prev.customTitle),
           sheetTitle: topic.title,
-          dateRange: topic.dates || prev.dateRange || '',
-          phase: topic.phase || 'Topic Sprint Phase',
-          days
+          phase: topic.phase || prev.phase || 'Topic Sprint Phase',
+          dateRange: '',
+          days,
+          vocab: Array.isArray(prev.vocab) ? prev.vocab : [],
+          scratchpad: prev.scratchpad || { essayPrompt: '', essayBody: '', speakingNotes: '', inputNotes: '' },
+          completedAtWeek: prev.completedAtWeek || null,
+          reviewsDone: prev.reviewsDone || { w1: false, w3: false, w6: false }
         };
       });
     }
@@ -1350,6 +1538,10 @@
         const detail = parseDetailedSheet(detailCsv);
         if (!master.topics.length) throw new Error('Master Timeline has no topics');
         appState.weeks = buildSheetWeeks(master, detail);
+        ensureScheduleDates(appState.weeks, (appState.weeks[0].days && appState.weeks[0].days[0].date) || todayISO());
+        autoRollMissedSessions();
+        appState.activeWeek = Math.min(Math.max(appState.activeWeek, 1), appState.weeks.length);
+        appState.schemaVersion = SCHEMA_VERSION;
         appState.sheetMeta = {
           targetScore: master.meta['Target Score:'] || '',
           targetExamDate: master.meta['Target Exam Date:'] || '',
@@ -1429,6 +1621,8 @@
     // 4. RENDERING FUNCTIONS
     // =========================================================================
     function renderAll() {
+      (appState.weeks || []).forEach(refreshWeekDateRange);
+      renderPaceNote();
       renderKPIs();
       renderWeekSelector();
       renderCommandCenter();
@@ -1494,7 +1688,7 @@
         const stats = getWeekCompletionStats(w);
         const mark = stats.isMastered ? '✓ ' : '';
         return `<option value="${w.weekNumber}" ${w.weekNumber === appState.activeWeek ? 'selected' : ''}>
-          Week ${w.weekNumber}: ${mark}${w.title.slice(0, 26)}${w.title.length > 26 ? '…' : ''}
+          Topic ${w.weekNumber}: ${mark}${w.title.slice(0, 24)}${w.title.length > 24 ? '…' : ''}
         </option>`;
       }).join('');
 
@@ -1506,7 +1700,7 @@
       const week = appState.weeks[appState.activeWeek - 1];
       const stats = getWeekCompletionStats(week);
 
-      document.getElementById('active-week-pill').textContent = `WEEK ${week.weekNumber} OF ${appState.weeks.length}`;
+      document.getElementById('active-week-pill').textContent = `TOPIC ${week.weekNumber} OF ${appState.weeks.length}`;
       document.getElementById('active-week-dates').textContent = week.dateRange;
       document.getElementById('active-topic-title').value = week.title;
 
@@ -1545,27 +1739,33 @@
         `;
       }).join('');
 
-      // Render Monday – Sunday Day-by-Day Cards
+      // Render D1–D9 session cards
       const daysContainer = document.getElementById('days-container');
       daysContainer.innerHTML = week.days.map((dayObj, dIdx) => {
         const dayDoneCount = dayObj.tasks.filter(t => t.done).length;
         const dayAllDone = dayObj.tasks.length > 0 && dayDoneCount === dayObj.tasks.length;
-        const isWeekend = dIdx >= 5;
+        const isOverdue = Boolean(dayObj.date) && !dayAllDone && daysBetweenISO(dayObj.date, todayISO()) > 0;
 
         const gatePillStyle = dayObj.accent === 'lavender'
           ? 'bg-lavender-50 text-lavender-700 border-lavender-200/80'
           : 'bg-emerald-50 text-emerald-700 border-emerald-200/80';
 
         return `
-          <div class="bg-white rounded-2xl p-4 sm:p-5 border ${dayAllDone ? 'border-emerald-300 bg-emerald-50/15' : 'border-slate-200/80'} shadow-apple flex flex-col justify-between transition-all ${dIdx === 6 ? 'lg:col-span-2' : ''}">
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border ${dayAllDone ? 'border-emerald-300 bg-emerald-50/15' : isOverdue ? 'border-amber-300 bg-amber-50/10' : 'border-slate-200/80'} shadow-apple flex flex-col justify-between transition-all ${dIdx === 8 ? 'lg:col-span-2' : ''}">
             <div class="space-y-3.5">
-              <!-- Day Card Header -->
+              <!-- Session Card Header -->
               <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-100">
-                <div class="flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2">
                   <span class="text-sm font-bold text-slate-900">${dayObj.dayName}</span>
-                  <span class="text-[11px] font-mono px-2 py-0.5 rounded-md ${isWeekend ? 'bg-amber-50 text-amber-800 border border-amber-200/60' : 'bg-slate-100 text-slate-600'}">
-                    ${dayObj.hoursLabel}
-                  </span>
+                  <span class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-600">${dayObj.hoursLabel || '2h'}</span>
+                  <input
+                    type="date"
+                    value="${dayObj.date || ''}"
+                    onchange="setSessionDate(${week.weekNumber}, ${dIdx}, this.value)"
+                    title="Choose the real study date for ${dayObj.dayName}"
+                    class="text-[11px] font-medium px-2 py-1 rounded-md border ${isOverdue ? 'border-amber-300 text-amber-800 bg-amber-50' : 'border-slate-200 text-slate-700 bg-white'} focus:outline-none focus:border-emerald-600"
+                  />
+                  ${isOverdue ? '<span class="text-[10px] font-semibold uppercase tracking-wider text-amber-700">Overdue</span>' : ''}
                 </div>
                 <div class="flex items-center gap-1.5">
                   <span class="text-[11px] font-medium px-2 py-0.5 rounded-md border ${gatePillStyle}">
@@ -1649,7 +1849,7 @@
       if (week.vocab.length === 0) {
         container.innerHTML = `
           <div class="p-8 text-center text-slate-400 space-y-1">
-            <p class="text-xs font-medium text-slate-500">No vocabulary encoded for Week ${week.weekNumber} yet.</p>
+            <p class="text-xs font-medium text-slate-500">No vocabulary encoded for Topic ${week.weekNumber} yet.</p>
             <p class="text-[11px]">Add 20–30 high-utility words above with exact collocations to unlock Flashcard Recall mode.</p>
           </div>
         `;
@@ -1716,7 +1916,7 @@
           <div onclick="openWeekFromMatrix(${w.weekNumber})" class="cursor-pointer bg-white rounded-2xl p-4 border ${isCurrent ? 'border-emerald-500 ring-2 ring-emerald-500/15' : 'border-slate-200/80 hover:border-emerald-300'} shadow-apple hover:shadow-apple-hover transition-all flex flex-col justify-between gap-3">
             <div>
               <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="text-xs font-bold text-emerald-700">WEEK ${w.weekNumber}</span>
+                <span class="text-xs font-bold text-emerald-700">TOPIC ${w.weekNumber}</span>
                 ${statusPill}
               </div>
               <h3 class="text-sm font-bold text-slate-900 line-clamp-1 mb-1">${escapeHTML(w.title)}</h3>
@@ -1756,7 +1956,7 @@
       const rlWeekSel = document.getElementById('rl-week');
       if (rlWeekSel) {
         rlWeekSel.innerHTML = appState.weeks.map(w =>
-          `<option value="${w.weekNumber}" ${w.weekNumber === appState.activeWeek ? 'selected' : ''}>W${w.weekNumber}: ${escapeHTML(w.title.slice(0, 18))}</option>`
+          `<option value="${w.weekNumber}" ${w.weekNumber === appState.activeWeek ? 'selected' : ''}>T${w.weekNumber}: ${escapeHTML(w.title.slice(0, 18))}</option>`
         ).join('');
       }
 
@@ -1777,7 +1977,7 @@
 
       container.innerHTML = items.map(item => {
         const weekObj = appState.weeks[item.weekNumber - 1];
-        const topicLabel = weekObj ? `Week ${item.weekNumber} · ${weekObj.title}` : `Week ${item.weekNumber}`;
+        const topicLabel = weekObj ? `Topic ${item.weekNumber} · ${weekObj.title}` : `Topic ${item.weekNumber}`;
         return `
           <div class="p-4 rounded-xl border border-slate-200/80 bg-white flex flex-col sm:flex-row sm:items-start justify-between gap-3">
             <div class="space-y-2 flex-1">
@@ -1914,7 +2114,7 @@
       const stats = getWeekCompletionStats(week);
       if (stats.isMastered && !week.completedAtWeek) {
         week.completedAtWeek = appState.activeWeek;
-        showToast(`Week ${week.weekNumber} Mastered (≥90%)! Spaced reviews scheduled (+1w, +3w, +6w).`);
+        showToast(`Topic ${week.weekNumber} complete! Spaced reviews scheduled (+1w, +3w, +6w).`);
       } else if (!stats.isMastered) {
         week.completedAtWeek = null;
       }
@@ -1979,7 +2179,7 @@
 
       saveState();
       renderAll();
-      showToast(`Added "${word}" to Week ${week.weekNumber}`);
+      showToast(`Added "${word}" to Topic ${week.weekNumber}`);
     }
 
     function deleteVocabWord(id) {
@@ -2097,7 +2297,7 @@
       week.reviewsDone[reviewKey] = true;
       saveState();
       renderAll();
-      showToast(`Completed ${reviewKey.toUpperCase()} spaced review for Week ${weekNum}!`);
+      showToast(`Completed ${reviewKey.toUpperCase()} spaced review for Topic ${weekNum}!`);
     }
 
     // Red List Functions
@@ -2167,7 +2367,9 @@
         try {
           const parsed = JSON.parse(e.target.result);
           if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length > 0) {
-            appState = parsed;
+            appState = migrateLegacyState(parsed);
+            ensureScheduleDates(appState.weeks, (appState.weeks[0].days && appState.weeks[0].days[0].date) || todayISO());
+            appState.activeWeek = Math.min(Math.max(Number(appState.activeWeek) || 1, 1), appState.weeks.length);
             saveState();
             renderAll();
             showToast('Backup restored successfully!');
@@ -2196,7 +2398,7 @@
       saveState();
       closeResetModal();
       renderAll();
-      showToast('Tracker reset to Week 1 defaults');
+      showToast('Tracker reset to Topic 1 defaults');
     }
 
     // =========================================================================
@@ -2234,6 +2436,7 @@
     // Initialize on Window Load
     window.onload = function() {
       loadState();
+      autoRollMissedSessions();
       renderAll();
       syncFromSheets(false);
     };
