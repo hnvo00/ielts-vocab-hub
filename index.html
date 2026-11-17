@@ -2609,6 +2609,52 @@
         }
         tp.autoFilter = { from: { row: 4, column: 1 }, to: { row: tpRow - 1, column: 11 } };
 
+        // ---------- Schedule grid ----------
+        const sc = wb.addWorksheet('Schedule', { views: [{ state: 'frozen', ySplit: 4, xSplit: 2, showGridLines: false }] });
+        decorateSheet(sc, 'FF10B981');
+        sc.columns = [
+          { width: 6 }, { width: 34 }, { width: 18 },
+          ...Array.from({ length: 9 }, () => ({ width: 11 })),
+          { width: 10 }, { width: 10 }
+        ];
+        addSheetTitle(sc, 'Topic Schedule Grid', 'D1–D9 dates for every topic. Green = completed · amber = overdue.', 14);
+        const scHeaders = ['#', 'Topic', 'Phase', ...Array.from({ length: 9 }, (_, i) => `D${i + 1}`), 'Sessions', 'Progress'];
+        scHeaders.forEach((label, idx) => { sc.getCell(4, idx + 1).value = label; });
+        styleHeaderRow(sc.getRow(4));
+        let scRow = 5;
+        (appState.weeks || []).forEach(week => {
+          const st = getWeekCompletionStats(week);
+          const doneSessions = (week.days || []).filter(day => sessionIsDone(day)).length;
+          sc.getCell(scRow, 1).value = week.weekNumber;
+          sc.getCell(scRow, 2).value = week.title;
+          sc.getCell(scRow, 3).value = week.phase || 'Topic Sprint';
+          (week.days || []).forEach((day, dIdx) => {
+            const cell = sc.getCell(scRow, 4 + dIdx);
+            cell.value = excelDate(day.date);
+            cell.numFmt = 'dd mmm';
+          });
+          sc.getCell(scRow, 13).value = `${doneSessions}/9`;
+          sc.getCell(scRow, 14).value = st.pct / 100;
+          sc.getCell(scRow, 14).numFmt = '0%';
+          scRow += 1;
+        });
+        styleDataRows(sc, 5, scRow - 1, 14, row => row.number);
+        (appState.weeks || []).forEach((week, wIdx) => {
+          const row = 5 + wIdx;
+          (week.days || []).forEach((day, dIdx) => {
+            const cell = sc.getCell(row, 4 + dIdx);
+            const status = sessionStatus(day);
+            if (status === 'Done') {
+              cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: XL.emeraldSoft } };
+              cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: XL.emeraldDark } };
+            } else if (status === 'Overdue') {
+              cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: XL.amberSoft } };
+              cell.font = { name: 'Calibri', size: 10, bold: true, color: { argb: XL.amber } };
+            }
+          });
+        });
+        sc.autoFilter = { from: { row: 4, column: 1 }, to: { row: scRow - 1, column: 14 } };
+
         // ---------- Tasks ----------
         const tk = wb.addWorksheet('Tasks', { views: [{ state: 'frozen', ySplit: 4, showGridLines: false }] });
         decorateSheet(tk, 'FF475569');
