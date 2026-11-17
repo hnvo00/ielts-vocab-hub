@@ -1101,6 +1101,22 @@
             task.note = match.note || '';
           }
         }));
+        // Positional fallback: old Mon-Sun days map onto D1-D7 so checkmarks/notes survive.
+        (old.days || []).forEach((oldDay, dIdx) => {
+          if (dIdx >= days.length) return;
+          (oldDay.tasks || []).forEach((oldTask, tIdx) => {
+            if (oldTask.isCustom) {
+              days[dIdx].tasks.push(oldTask);
+              return;
+            }
+            const newTask = days[dIdx].tasks[tIdx];
+            if (!newTask) return;
+            if (oldTask.done || oldTask.note) {
+              newTask.done = Boolean(oldTask.done) || newTask.done;
+              if (!newTask.note && oldTask.note) newTask.note = oldTask.note;
+            }
+          });
+        });
         return {
           weekNumber: idx + 1,
           title: old.title || DEFAULT_TOPICS[idx] || `Topic ${idx + 1}`,
