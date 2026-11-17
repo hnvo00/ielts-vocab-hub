@@ -1,4 +1,4 @@
-// Shared Tailwind design tokens — mirrors the IELTS 7.5 Mastery Pipeline homepage.
+// Shared Tailwind design tokens — mirrors the Nhung Vo Goooo! homepage.
 tailwind.config = {
   theme: {
     extend: {
