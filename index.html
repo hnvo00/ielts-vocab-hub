@@ -1287,13 +1287,11 @@
     }
 
     // =========================================================================
-    // 2B. GOOGLE SHEET SYNC (Master Timeline + Detailed Schedule)
+    // 2B. GOOGLE SHEET SYNC (Master Timeline only — single lightweight request)
     // =========================================================================
     const SHEET_ID = '191oY3oh2eqdy5WbaAUCiKhtQN7vGrLLO';
     const SHEET_GID_MASTER = '1045481230';
-    const SHEET_GID_DETAIL = '1914463206';
     const SHEET_CSV_BASE = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=`;
-    const SHEET_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
     let sheetSyncInFlight = false;
 
     function parseCSV(text) {
@@ -1405,54 +1403,7 @@
       return { meta, topics, phase2 };
     }
 
-    function parseGateNums(badge) {
-      const prefix = String(badge).split(':')[0];
-      const matches = Array.from(prefix.matchAll(/\b([1-5])[AB]?\b/g), match => Number(match[1]));
-      return [...new Set(matches)];
-    }
-
-    function parseDetailedSheet(csvText) {
-      const rows = parseCSV(csvText.replace(/^\uFEFF/, ''));
-      const headerIndex = rows.findIndex(row => (row[0] || '').trim().toLowerCase() === 'week number');
-      if (headerIndex === -1) throw new Error('Detailed Schedule header not found');
-      const header = rows[headerIndex].map(cell => cell.trim().toLowerCase());
-      const idxWeek = header.indexOf('week number');
-      const idxDay = header.indexOf('day');
-      const idxGate = header.indexOf('gate badge');
-      const idxTasks = header.findIndex(cell => cell.includes('daily study'));
-      if (idxWeek === -1 || idxDay === -1 || idxTasks === -1) {
-        throw new Error('Detailed Schedule columns not recognised');
-      }
-      const weeks = {};
-      for (let i = headerIndex + 1; i < rows.length; i += 1) {
-        const cells = rows[i];
-        const week = Number((cells[idxWeek] || '').trim());
-        const dayName = (cells[idxDay] || '').trim();
-        if (!week || !dayName) continue;
-        const gateBadge = idxGate === -1 ? '' : (cells[idxGate] || '').trim();
-        const rawTasks = (cells[idxTasks] || '').replace(/\r/g, '').trim();
-        const dayIndex = SHEET_DAYS.findIndex(name => name.toLowerCase() === dayName.toLowerCase());
-        const tasks = rawTasks
-          .split('\n')
-          .map(line => line.trim())
-          .filter(Boolean)
-          .map(line => line.replace(/^\d+[\).]\s*/, '').trim())
-          .filter(Boolean);
-        const gateNums = parseGateNums(gateBadge);
-        if (!weeks[week]) weeks[week] = [];
-        weeks[week].push({
-          dayIndex: dayIndex === -1 ? weeks[week].length : dayIndex,
-          dayName,
-          gateBadge,
-          gateNums: gateNums.length ? gateNums : [1],
-          tasks
-        });
-      }
-      Object.values(weeks).forEach(days => days.sort((a, b) => a.dayIndex - b.dayIndex));
-      return weeks;
-    }
-
-    function buildSheetWeeks(master, detail) {
+    function buildSheetWeeks(master) {
       const oldWeeks = Array.isArray(appState.weeks) ? appState.weeks : [];
       const topics = master.topics.length
         ? master.topics
@@ -1546,14 +1497,10 @@
         btn.classList.add('syncing');
       }
       try {
-        const [masterCsv, detailCsv] = await Promise.all([
-          fetchSheetCSV(SHEET_GID_MASTER),
-          fetchSheetCSV(SHEET_GID_DETAIL)
-        ]);
+        const masterCsv = await fetchSheetCSV(SHEET_GID_MASTER);
         const master = parseMasterSheet(masterCsv);
-        const detail = parseDetailedSheet(detailCsv);
         if (!master.topics.length) throw new Error('Master Timeline has no topics');
-        appState.weeks = buildSheetWeeks(master, detail);
+        appState.weeks = buildSheetWeeks(master);
         ensureScheduleDates(appState.weeks, (appState.weeks[0].days && appState.weeks[0].days[0].date) || todayISO());
         autoRollMissedSessions();
         appState.activeWeek = Math.min(Math.max(appState.activeWeek, 1), appState.weeks.length);
