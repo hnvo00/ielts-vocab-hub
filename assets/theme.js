@@ -1,4 +1,4 @@
-// Shared Tailwind design tokens — mirrors the Nhung Vo Goooo! homepage.
+// Shared Tailwind design tokens — mirrors the Nhung, Go!!! homepage.
 tailwind.config = {
   theme: {
     extend: {

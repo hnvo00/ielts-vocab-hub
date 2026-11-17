@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nhung Vo Goooo!</title>
+  <title>Nhung, Go!!!</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & JetBrains Mono -->
@@ -128,7 +128,7 @@
         </div>
         <div class="min-w-0">
           <div class="flex items-center gap-2">
-            <h1 class="text-base sm:text-lg font-semibold tracking-tight text-slate-900 truncate">Nhung Vo Goooo!</h1>
+            <h1 class="text-base sm:text-lg font-semibold tracking-tight text-slate-900 truncate">Nhung, Go!!!</h1>
             <span class="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/70">
               9 sessions / topic
             </span>
@@ -2433,7 +2433,7 @@
         margins: { left: 0.4, right: 0.4, top: 0.5, bottom: 0.5, header: 0.2, footer: 0.2 }
       };
       ws.headerFooter = {
-        oddFooter: '&L&8Nhung Vo Goooo!&C&8Page &P of &N&R&8Generated ' + todayISO()
+        oddFooter: '&L&8Nhung, Go!!!&C&8Page &P of &N&R&8Generated ' + todayISO()
       };
     }
 
@@ -2458,7 +2458,7 @@
       try {
         await loadExcelJS();
         const wb = new ExcelJS.Workbook();
-        wb.creator = 'Nhung Vo Goooo!';
+        wb.creator = 'Nhung, Go!!!';
         wb.created = new Date();
         const stats = getScheduleSummary();
         const generated = formatFullDate(todayISO());
@@ -2469,7 +2469,7 @@
         ov.columns = [
           { width: 22 }, { width: 42 }, { width: 12 }, { width: 28 }, { width: 46 }, { width: 22 }
         ];
-        addSheetTitle(ov, 'Nhung Vo Goooo! — Progress Report', `Generated ${generated} · ${stats.topicsTotal} topics · 9 sessions × 2h per topic`, 6);
+        addSheetTitle(ov, 'Nhung, Go!!! — Progress Report', `Generated ${generated} · ${stats.topicsTotal} topics · 9 sessions × 2h per topic`, 6);
 
         ov.getCell('A4').value = 'Schedule status';
         ov.getCell('A4').font = { name: 'Calibri', size: 10, bold: true, color: { argb: XL.slate500 } };
