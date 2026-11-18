@@ -251,7 +251,28 @@
   // -----------------------------------------------------------------------
   // Decorate the lesson table/cards with learned checkboxes
   // -----------------------------------------------------------------------
+  function prepareNumberColumn() {
+    document.querySelectorAll('#tableBody').forEach(tbody => {
+      const table = tbody.closest('table');
+      if (!table) return;
+      const header = table.querySelector('thead th');
+      if (header) {
+        header.style.width = '60px';
+        header.style.paddingLeft = '8px';
+        header.style.paddingRight = '8px';
+      }
+      tbody.querySelectorAll('tr > td:first-child').forEach(td => {
+        td.style.paddingLeft = '8px';
+        td.style.paddingRight = '8px';
+        // Keep the number and tick on the first line of the row instead of
+        // floating in the vertical middle of a tall row.
+        td.style.verticalAlign = 'top';
+      });
+    });
+  }
+
   function decorateRows() {
+    prepareNumberColumn();
     const data = getFiltered();
 
     document.querySelectorAll('#tableBody tr').forEach((row, index) => {
@@ -266,11 +287,11 @@
       let numberWrap = firstCell.querySelector('.vt-number-wrap');
       if (!numberWrap) {
         numberWrap = document.createElement('div');
-        numberWrap.className = 'vt-number-wrap flex items-center justify-center gap-2';
+        numberWrap.className = 'vt-number-wrap flex items-center justify-center gap-1.5';
         // Fixed-width number slot keeps the checkbox in the same place for
         // both single-digit and double-digit rows.
         const numberSpan = document.createElement('span');
-        numberSpan.className = 'vt-number inline-block w-5 text-center';
+        numberSpan.className = 'vt-number inline-flex h-4 w-4 items-center justify-center leading-none text-center';
         while (firstCell.firstChild) numberSpan.appendChild(firstCell.firstChild);
         numberWrap.appendChild(numberSpan);
         firstCell.appendChild(numberWrap);

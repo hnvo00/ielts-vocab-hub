@@ -318,6 +318,26 @@
           </div>
         </div>
 
+        <!-- Topic goal: what this topic must produce before it can close -->
+        <div id="topic-goal-strip" class="mt-4 rounded-xl border border-emerald-200/70 bg-emerald-50/30 p-3.5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <div class="min-w-0">
+              <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Goal for this topic</p>
+              <p id="topic-goal-text" class="text-xs font-medium text-slate-700 mt-0.5">—</p>
+              <p class="text-[10px] text-slate-500 mt-0.5">By D9: one reading log · 10+ collocations · one recorded speaking set · one timed Task 2 essay.</p>
+            </div>
+            <div id="topic-goal-metrics" class="flex flex-wrap items-center gap-1.5 shrink-0"></div>
+          </div>
+          <div class="flex flex-wrap items-center justify-between gap-2 mt-2.5">
+            <p id="topic-next-action" class="text-[11px] text-slate-600 min-w-0">Next: —</p>
+            <button id="topic-next-btn" onclick="scrollToNextTask()" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors">
+              <i data-lucide="arrow-right" class="w-3 h-3"></i>
+              Open next task
+            </button>
+          </div>
+          <div id="topic-goal-checks" class="flex flex-wrap gap-x-3 gap-y-1.5 mt-2.5 text-[11px] text-slate-600"></div>
+        </div>
+
         <!-- Overall Topic Gate Progress Bar + Live 5-Gate Summary Pills -->
         <div class="pt-4 space-y-3">
           <div class="flex items-center justify-between text-xs">
@@ -334,77 +354,156 @@
         </div>
       </div>
 
-      <!-- Cambridge practice recommendation for the current topic -->
+      <!-- Topic skill practice for the current topic -->
       <section id="cambridge-panel" class="bg-white rounded-2xl border border-slate-200/80 shadow-apple p-5 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
           <div class="min-w-0">
             <div class="flex items-center gap-2">
               <span class="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200/70 flex items-center justify-center shrink-0">
-                <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-700"></i>
+                <i data-lucide="target" class="w-4 h-4 text-emerald-700"></i>
               </span>
               <div>
-                <h2 class="text-sm font-semibold text-slate-900">Cambridge practice for this topic</h2>
-                <p id="cambridge-subtitle" class="text-xs text-slate-500 mt-0.5">Matching your current topic to recent Cambridge Academic tests…</p>
+                <h2 class="text-sm font-semibold text-slate-900">Topic skill practice</h2>
+                <p id="cambridge-subtitle" class="text-xs text-slate-500 mt-0.5">All four skills use the vocabulary from this topic.</p>
               </div>
             </div>
           </div>
           <span id="cambridge-match-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/70 self-start">
             <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            Topic match
+            1 of 4 skills matched
           </span>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
-          <div class="lg:col-span-2 rounded-xl border border-emerald-200/70 bg-emerald-50/30 p-4 sm:p-5">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Recommended full test</span>
-              <span class="text-[10px] font-semibold text-slate-500 bg-white/80 border border-slate-200/70 px-2 py-0.5 rounded-md">Cambridge 12–21 bank</span>
+        <div id="topic-plan-body" class="mt-4 space-y-4">
+          <!-- Shared vocabulary core -->
+          <div class="rounded-xl border border-slate-200/80 bg-slate-50/50 p-4">
+            <div class="flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Vocabulary core</p>
+                <p id="topic-vocab-note" class="text-[11px] text-slate-500 mt-0.5">Use these collocations across all four skills.</p>
+              </div>
+              <button onclick="openTopicLesson()" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                Open lesson vocabulary
+              </button>
             </div>
-            <h3 id="cam-test-title" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1.5">Cambridge 21 Test 4</h3>
-            <p id="cam-why" class="text-xs text-slate-600 leading-relaxed mt-1.5">Choose this test and work through the sections below under timed conditions.</p>
+            <div id="topic-vocab-chips" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2 mt-3"></div>
+          </div>
+
+          <!-- Reading anchor -->
+          <div class="rounded-xl border border-emerald-200/70 bg-emerald-50/30 p-4">
+            <div class="flex flex-wrap items-start justify-between gap-2">
+              <div class="min-w-0">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Reading · only Cambridge match for this topic</p>
+                <h3 id="cam-test-title" class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mt-1">Reading Passage 2</h3>
+                <p id="cam-why" class="text-xs text-slate-600 leading-relaxed mt-1"></p>
+              </div>
+              <span id="cam-test-label" class="text-[10px] font-semibold text-emerald-800 bg-white/80 border border-emerald-200/70 px-2 py-0.5 rounded-md">Cambridge 20 · Test 4 · Passage 2</span>
+            </div>
             <div id="cam-passage" class="mt-3"></div>
-            <div id="cam-sections" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 mt-3"></div>
-            <div class="mt-3 rounded-xl bg-white/80 border border-slate-200/70 p-3">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Topic output practice</p>
-                <span class="text-[9px] font-medium text-slate-400">Topic-linked prompts · not from Cambridge</span>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
-                <div>
-                  <p class="text-[10px] font-semibold text-emerald-700">Writing Task 2</p>
-                  <p id="cam-task2" class="text-[11px] text-slate-700 leading-relaxed mt-0.5"></p>
-                </div>
-                <div>
-                  <p class="text-[10px] font-semibold text-emerald-700">Speaking Part 3</p>
-                  <ul id="cam-speaking" class="list-disc pl-4 text-[11px] text-slate-700 leading-relaxed mt-0.5 space-y-1"></ul>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-wrap gap-2 mt-4">
+            <p id="cam-scope-note" class="text-[10.5px] text-emerald-800/80 leading-relaxed mt-2"></p>
+            <div class="flex flex-wrap gap-2 mt-3">
               <button onclick="useCambridgeForD1()" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors">
                 <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
-                Use for D1 input
+                Add reading to D1
               </button>
-              <button onclick="copyCambridgePlan()" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors">
+            </div>
+          </div>
+
+          <!-- Three topic-linked skills -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-3">
+            <div class="rounded-xl border border-slate-200/80 bg-white p-4 flex flex-col">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="headphones" class="w-4 h-4 text-emerald-600"></i>
+                  <h4 class="text-xs font-semibold text-slate-900">Listening</h4>
+                </div>
+                <span id="topic-listening-badge" class="text-[9px] font-semibold uppercase tracking-wider text-amber-600">No Cambridge match</span>
+              </div>
+              <p class="text-[11px] font-semibold text-slate-700 mt-2">Topic dictation · from this lesson</p>
+              <p id="topic-listening-note" class="text-[11px] text-slate-500 leading-relaxed mt-1">Hear a sentence from this lesson, then choose the target word.</p>
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="text-[10px] text-slate-500 bg-slate-50 border border-slate-200/70 px-2 py-0.5 rounded-md">15 min</span>
+                <span id="topic-listening-count" class="text-[10px] text-slate-500 bg-slate-50 border border-slate-200/70 px-2 py-0.5 rounded-md">5 questions</span>
+              </div>
+              <p id="topic-listening-optional" class="text-[10px] text-slate-400 leading-relaxed mt-2"></p>
+              <button id="topic-listening-btn" onclick="startTopicListeningDrill()" class="mt-auto pt-3 inline-flex items-center justify-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white px-3 py-2 rounded-xl text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                Start listening drill
+              </button>
+              <button onclick="addTopicSkillToDay('listening')" class="mt-1.5 w-full text-[10px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add this drill to D2</button>
+            </div>
+
+            <div class="rounded-xl border border-slate-200/80 bg-white p-4 flex flex-col">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="pen-line" class="w-4 h-4 text-emerald-600"></i>
+                  <h4 class="text-xs font-semibold text-slate-900">Writing</h4>
+                </div>
+                <span class="text-[9px] font-semibold uppercase tracking-wider text-amber-600">No Cambridge match</span>
+              </div>
+              <p class="text-[11px] font-semibold text-slate-700 mt-2">Topic Task 2 prompt</p>
+              <p id="cam-task2" class="text-[11px] text-slate-700 leading-relaxed mt-1"></p>
+              <p id="topic-writing-vocab-note" class="text-[10px] text-slate-500 leading-relaxed mt-2">Use at least 5 collocations from the vocabulary core.</p>
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="text-[10px] text-slate-500 bg-slate-50 border border-slate-200/70 px-2 py-0.5 rounded-md">40 min + 20 min edit</span>
+              </div>
+              <p id="topic-writing-optional" class="text-[10px] text-slate-400 leading-relaxed mt-2"></p>
+              <button onclick="copyTopicWritingTask()" class="mt-auto pt-3 inline-flex items-center justify-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-xl text-xs font-semibold transition-colors">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                Copy writing task
+              </button>
+              <button onclick="addTopicSkillToDay('writing')" class="mt-1.5 w-full text-[10px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add prompt to D6</button>
+            </div>
+
+            <div class="rounded-xl border border-slate-200/80 bg-white p-4 flex flex-col">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-1.5">
+                  <i data-lucide="mic" class="w-4 h-4 text-emerald-600"></i>
+                  <h4 class="text-xs font-semibold text-slate-900">Speaking</h4>
+                </div>
+                <span class="text-[9px] font-semibold uppercase tracking-wider text-amber-600">No Cambridge match</span>
+              </div>
+              <p class="text-[11px] font-semibold text-slate-700 mt-2">Topic Part 3 questions</p>
+              <ul id="cam-speaking" class="list-disc pl-4 text-[11px] text-slate-700 leading-relaxed mt-1 space-y-1"></ul>
+              <p id="topic-speaking-vocab-note" class="text-[10px] text-slate-500 leading-relaxed mt-2">Answer 2 minutes each and use at least 5 core collocations.</p>
+              <div class="flex flex-wrap gap-1.5 mt-2">
+                <span class="text-[10px] text-slate-500 bg-slate-50 border border-slate-200/70 px-2 py-0.5 rounded-md">15 min · record</span>
+              </div>
+              <p id="topic-speaking-optional" class="text-[10px] text-slate-400 leading-relaxed mt-2"></p>
+              <button onclick="copyTopicSpeakingTask()" class="mt-auto pt-3 inline-flex items-center justify-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-xl text-xs font-semibold transition-colors">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                Copy speaking questions
+              </button>
+              <button onclick="addTopicSkillToDay('speaking')" class="mt-1.5 w-full text-[10px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add questions to D5</button>
+            </div>
+          </div>
+
+          <!-- Sequence -->
+          <div class="rounded-xl border border-slate-200/80 bg-white p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <p class="text-[11px] text-slate-600"><strong class="font-semibold text-slate-900">Suggested sequence:</strong> D1 Reading → D2 Listening → D5 Speaking → D6 Writing</p>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="addTopicPlanToSchedule()" class="inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
+                Add full plan to schedule
+              </button>
+              <button onclick="copyTopicPlan()" class="inline-flex items-center justify-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
                 <i data-lucide="copy" class="w-3.5 h-3.5"></i>
                 Copy plan
               </button>
             </div>
           </div>
 
-          <div class="rounded-xl border border-slate-200/80 bg-slate-50/40 p-4">
-            <h4 class="text-xs font-semibold text-slate-900 flex items-center gap-1.5">
-              <i data-lucide="library" class="w-3.5 h-3.5 text-emerald-600"></i>
-              More reading matches
-            </h4>
-            <p class="text-[11px] text-slate-500 mt-0.5">Alternative passages on the same theme.</p>
+          <details class="rounded-xl border border-slate-200/80 bg-slate-50/40 p-3">
+            <summary class="cursor-pointer text-xs font-semibold text-slate-700">Alternative Cambridge reading passages</summary>
+            <p class="text-[11px] text-slate-500 mt-1">Reading only — swap the anchor passage for another passage on the same theme. These do not carry Listening, Writing or Speaking parts for this topic.</p>
             <div id="cam-more" class="space-y-2 mt-3"></div>
-          </div>
+          </details>
         </div>
       </section>
 
       <!-- D1–D9 Session Schedule (2 hours each) -->
-      <section class="space-y-3">
+      <section id="session-schedule" class="space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
           <div class="space-y-1">
             <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
@@ -414,6 +513,16 @@
             <p class="text-xs text-slate-500">Each D is a 2-hour session. Change any date and every later session and topic shifts automatically — two sessions can share one day.</p>
           </div>
           <span id="pace-note" class="text-xs font-medium text-slate-500"></span>
+        </div>
+        <div id="session-focus-strip" class="rounded-xl border border-slate-200/80 bg-slate-50/60 p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div class="min-w-0">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">This session</p>
+            <p id="session-focus-text" class="text-[11px] font-medium text-slate-700 mt-0.5">—</p>
+          </div>
+          <button onclick="scrollToNextTask()" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors shrink-0">
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            Go to next unchecked task
+          </button>
         </div>
 
         <div id="days-container" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -747,11 +856,54 @@
         <h3 class="text-base font-bold text-slate-900">Reset All Progress?</h3>
       </div>
       <p class="text-xs text-slate-600 leading-relaxed">
-        This will erase all checked gates, custom topic names, vocabulary flashcards, essays, and Red List entries stored in your browser. Export a JSON backup first if you want to keep your records.
+        This resets the main tracker to Topic 1 defaults: checked gates, custom topic names, essays and Red List entries. Lesson vocabulary ticks, custom words and the Library tracker stay. A pre-reset snapshot is saved so you can check or restore it.
       </p>
+      <div class="rounded-xl bg-slate-50 border border-slate-200/70 p-3">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Current usage</p>
+        <p id="reset-usage-summary" class="text-[11px] text-slate-700 mt-1">—</p>
+        <button onclick="exportExcel()" class="mt-2 text-[11px] font-semibold text-emerald-700 hover:text-emerald-800 underline">
+          Export Excel snapshot first
+        </button>
+      </div>
+      <div id="last-reset-box" class="hidden rounded-xl border border-amber-200/80 bg-amber-50/60 p-3">
+        <p class="text-[10px] font-bold uppercase tracking-widest text-amber-700">Last reset snapshot</p>
+        <p id="last-reset-summary" class="text-[11px] text-amber-900 mt-1 leading-relaxed">—</p>
+        <button onclick="restoreLastReset()" class="mt-2 text-[11px] font-semibold text-amber-900 hover:text-amber-950 underline">
+          Restore this snapshot
+        </button>
+      </div>
       <div class="flex items-center justify-end gap-2 pt-2">
         <button onclick="closeResetModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancel</button>
         <button onclick="confirmResetAll()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-rose-600 hover:bg-rose-700 text-white">Yes, Reset Everything</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Topic listening drill modal -->
+  <div id="topic-listening-modal" class="hidden fixed inset-0 z-[70] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 shadow-2xl border border-slate-200">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Topic listening</p>
+          <h3 class="text-lg font-bold text-slate-900">Dictation check</h3>
+          <p id="tl-progress" class="text-[11px] text-slate-500 mt-0.5">Question 1 of 5</p>
+        </div>
+        <button onclick="closeTopicListening()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors" aria-label="Close listening drill">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="mt-4 rounded-xl bg-slate-50 border border-slate-200/80 p-4">
+        <button onclick="playTopicListening()" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors">
+          <i data-lucide="volume-2" class="w-3.5 h-3.5"></i>
+          Play sentence
+        </button>
+        <p id="tl-hint" class="text-[11px] text-slate-500 mt-2">Listen, then choose the target word you heard.</p>
+      </div>
+      <div id="tl-options" class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3"></div>
+      <div id="tl-feedback" class="mt-3 text-xs text-slate-600 leading-relaxed"></div>
+      <div class="flex items-center justify-between gap-2 mt-4">
+        <button id="tl-transcript-btn" onclick="showTopicTranscript()" class="text-[11px] font-semibold text-slate-500 hover:text-slate-800 underline">Show transcript</button>
+        <button id="tl-next-btn" onclick="nextTopicListening()" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors disabled:opacity-40 disabled:cursor-not-allowed" disabled>Next</button>
       </div>
     </div>
   </div>
@@ -836,6 +988,18 @@
       5: { short: 'Gate 5: Closure', color: 'emerald' }
     };
 
+    const SESSION_FOCUS = [
+      'Input & vocabulary mining',
+      'Listening + encoding',
+      'Encoding + recall',
+      'Speaking Part 1–2',
+      'Speaking Part 3 + feedback',
+      'Writing Task 2',
+      'Writing Task 1 + accuracy',
+      'Spaced recall',
+      'Consolidation & closure'
+    ];
+
     const SESSION_BLUEPRINT = [
       {
         sessionIndex: 0,
@@ -866,9 +1030,9 @@
         accent: 'emerald',
         tasks: [
           {
-            title: 'Topic Listening Section (Part 3/4) + transcript check',
+            title: 'Topic listening dictation: 5 lesson sentences + score missed words',
             gate: 1,
-            placeholder: 'e.g., Cambridge test + part (9/10)'
+            placeholder: 'e.g., 4/5 correct; missed words added to the Red List'
           },
           {
             title: 'Encode Batch A (words 1-30) with collocations + 2 example sentences each',
@@ -1020,6 +1184,7 @@
     ];
 
     const STORAGE_KEY = 'ielts_mastery_pipeline_v2';
+    const RESET_SNAPSHOT_KEY = 'ielts_mastery_pipeline_pre_reset_v1';
     const SCHEMA_VERSION = 3;
     const EXAM_TARGET_ISO = '2027-07-01';
     const SESSION_HOURS = 2;
@@ -1906,7 +2071,7 @@
     // Topic-linked Writing Task 2 and Speaking Part 3 practice. These are
     // deliberately separate from the Cambridge reading bank: Cambridge books
     // are not reliably topic-mapped for Writing/Speaking, so the panel uses
-    // the same full test for Listening/Writing and adds targeted output prompts.
+    // a single topic anchor and targeted output prompts.
     const TOPIC_OUTPUT_RULES = [
       { re: /environment|climate|weather|pollution|sustainab|ecolog|\bgreen\b|biodiversity|wildlife|conservation|renewable|energy/i,
         writing: 'Some people believe individuals can do little to address climate change; only governments and large companies can make a difference. To what extent do you agree or disagree?',
@@ -2069,10 +2234,97 @@
       document.getElementById('btn-next-week').disabled = appState.activeWeek >= appState.weeks.length;
     }
 
+    function scrollToNextTask() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (!week) return;
+      for (let dIdx = 0; dIdx < week.days.length; dIdx += 1) {
+        const day = week.days[dIdx];
+        for (let tIdx = 0; tIdx < day.tasks.length; tIdx += 1) {
+          if (day.tasks[tIdx].done) continue;
+          const checkbox = document.getElementById(`daytask-${week.weekNumber}-${dIdx}-${tIdx}`);
+          if (checkbox) {
+            checkbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            checkbox.focus({ preventScroll: true });
+            return;
+          }
+        }
+      }
+      showToast('All tasks for this topic are complete.');
+    }
+
+    function renderTopicGoal(week, stats) {
+      const goalText = document.getElementById('topic-goal-text');
+      const metricsEl = document.getElementById('topic-goal-metrics');
+      const checksEl = document.getElementById('topic-goal-checks');
+      if (!goalText || !metricsEl || !checksEl) return;
+
+      const title = String(week.title || '');
+      const goalMap = [
+        { re: /environment|climate|weather|pollution|sustainab|biodiversity|energy/i, goal: 'Explain one climate problem, evaluate two solutions, and use precise environment collocations in all four skills.' },
+        { re: /city|urban|transport|infrastructure|housing/i, goal: 'Describe a city/transport problem, compare solutions, and defend a liveability judgement with topic vocabulary.' },
+        { re: /travel|tourism/i, goal: 'Discuss tourism impacts, recommend a sustainable policy, and narrate a travel experience with topic collocations.' },
+        { re: /food|agriculture|nutrition|diet/i, goal: 'Evaluate a food/diet issue, explain causes and effects, and propose a practical public-health solution.' },
+        { re: /health|fitness|medical|mental|wellbeing/i, goal: 'Explain a health trend, compare prevention and treatment, and recommend a realistic policy or habit change.' },
+        { re: /work|career|employment|business|economy/i, goal: 'Compare work/business trends, evaluate trade-offs, and support a clear opinion with examples and precise collocations.' },
+        { re: /technology|digital|internet|ai|media/i, goal: 'Explain a technological change, assess its risks and benefits, and take a defensible position in all four skills.' },
+        { re: /education|learning|school|university|language/i, goal: 'Evaluate an education policy, describe a learning experience, and justify one improvement with topic vocabulary.' },
+        { re: /crime|law|justice|police|prison/i, goal: 'Explain a cause of crime, compare punishment and rehabilitation, and support a reasoned justice policy.' },
+        { re: /art|arts|culture|museum|music|film|book|history|tradition|festival/i, goal: 'Describe a cultural work or tradition, explain its value, and argue how it should be preserved or funded.' }
+      ];
+      const matched = goalMap.find(item => item.re.test(title));
+      goalText.textContent = matched
+        ? matched.goal
+        : 'Build a clear topic position, reuse the core vocabulary in all four skills, and log the gaps that still limit accuracy.';
+
+      const vocabCount = (week.vocab || []).length;
+      const readingDone = Boolean(week.days[0] && week.days[0].tasks[0] && week.days[0].tasks[0].done);
+      const essayDone = Boolean(week.days[5] && week.days[5].tasks[0] && week.days[5].tasks[0].done);
+      const speakingDone = Boolean(week.days[3] && week.days[3].tasks[1] && week.days[3].tasks[1].done);
+      const outputCount = [readingDone, speakingDone, essayDone].filter(Boolean).length;
+      const outputTone = outputCount === 3
+        ? 'bg-emerald-600 text-white border-emerald-600'
+        : outputCount > 0
+          ? 'bg-amber-50 text-amber-700 border-amber-200/80'
+          : 'bg-white text-slate-600 border-slate-200/80';
+      const metric = (label, value, tone, id) => `<span ${id ? `id="${id}"` : ''} class="text-[10px] font-semibold px-2 py-0.5 rounded-md border ${tone}">${label}: ${value}</span>`;
+      metricsEl.innerHTML = [
+        metric('Tasks', `${stats.checked}/${stats.total}`, 'bg-white text-slate-700 border-slate-200/80'),
+        metric('Vocabulary', vocabCount, vocabCount ? 'bg-white text-emerald-700 border-emerald-200/80' : 'bg-amber-50 text-amber-700 border-amber-200/80', 'topic-goal-vocab-metric'),
+        metric('Outputs', `${outputCount}/3`, outputTone)
+      ].join('');
+
+      let nextDay = null;
+      let nextTask = null;
+      for (const day of week.days) {
+        const task = day.tasks.find(item => !item.done);
+        if (task) { nextDay = day; nextTask = task; break; }
+      }
+      const nextEl = document.getElementById('topic-next-action');
+      const nextBtn = document.getElementById('topic-next-btn');
+      if (nextEl) {
+        nextEl.innerHTML = nextTask
+          ? `<strong class="font-semibold text-slate-900">Next:</strong> ${nextDay.dayName} · ${escapeHTML(nextTask.title)}`
+          : '<strong class="font-semibold text-emerald-700">All tasks complete.</strong> Review the outputs or close the topic.';
+      }
+      if (nextBtn) nextBtn.disabled = !nextTask;
+
+      const check = (label, done) => `<span class="inline-flex items-center gap-1.5 ${done ? 'text-emerald-700 font-semibold' : 'text-slate-500'}">
+        <i data-lucide="${done ? 'check-circle-2' : 'circle'}" class="w-3.5 h-3.5 ${done ? 'text-emerald-600' : 'text-slate-300'}"></i>${label}
+      </span>`;
+      checksEl.innerHTML = [
+        check('Reading passage mined for target vocabulary', stats.gateStats[1].done > 0),
+        check('Listening + encoding completed', stats.gateStats[2].done > 0),
+        check('Speaking recorded and reviewed', stats.gateStats[3].done > 0),
+        check('Timed writing completed', stats.gateStats[4].done > 0),
+        check('Spaced recall + topic closure', stats.gateStats[5].done > 0)
+      ].join('');
+    }
+
     function renderCommandCenter() {
       const week = appState.weeks[appState.activeWeek - 1];
       const stats = getWeekCompletionStats(week);
 
+      renderTopicGoal(week, stats);
       document.getElementById('active-week-pill').textContent = `TOPIC ${week.weekNumber} OF ${appState.weeks.length}`;
       document.getElementById('active-week-dates').textContent = week.dateRange;
       document.getElementById('active-topic-title').value = week.title;
@@ -2131,6 +2383,7 @@
                 <div class="flex flex-wrap items-center gap-2">
                   <span class="text-sm font-bold text-slate-900">${dayObj.dayName}</span>
                   <span class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-600">${dayObj.hoursLabel || '2h'}</span>
+                  <span class="hidden sm:inline-flex text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-md">${SESSION_FOCUS[dIdx] || 'Topic work'}</span>
                   <input
                     type="date"
                     value="${dayObj.date || ''}"
@@ -2205,6 +2458,18 @@
         `;
       }).join('');
 
+      const focusEl = document.getElementById('session-focus-text');
+      if (focusEl) {
+        const nextFocus = week.days.findIndex(day => day.tasks.some(task => !task.done));
+        if (nextFocus >= 0) {
+          const day = week.days[nextFocus];
+          const open = day.tasks.filter(task => !task.done).length;
+          focusEl.innerHTML = `<strong class="font-semibold text-slate-900">${day.dayName} · ${SESSION_FOCUS[nextFocus] || 'Topic work'}</strong> — ${open} task${open === 1 ? '' : 's'} left. <span class="text-slate-400">${day.gateBadge}</span>`;
+        } else {
+          focusEl.innerHTML = '<strong class="font-semibold text-emerald-700">All sessions complete.</strong> Use the outputs and Red List to decide what to review next.';
+        }
+      }
+
       // Render Vocab List & Count
       document.getElementById('vocab-count-pill').textContent = week.vocab.length;
       renderVocabList(week);
@@ -2223,7 +2488,7 @@
     function getCambridgeRecommendation(topicTitle) {
       const title = (topicTitle || '').toLowerCase();
 
-      // Calibration phases: recommend a full recent test rather than a single passage.
+      // Calibration topics: use a single recent passage as the reading anchor.
       if (/mock|calibration|final exam/i.test(topicTitle || '')) {
         const isFinal = /final/i.test(topicTitle || '');
         return {
@@ -2337,92 +2602,239 @@
       };
     }
 
+    const TOPIC_LESSON_FILES = [
+      { re: /environment|climate|weather|pollution|sustainab|biodiversity|renewable|energy/i, file: '01 Weather.html' },
+      { re: /travel|tourism/i, file: '02 Travel.html' },
+      { re: /city|urban|transport|mobility|infrastructure/i, file: '03 City.html' },
+      { re: /housing|architecture|building/i, file: '04 Building.html' },
+      { re: /food|agriculture|nutrition|farming|diet/i, file: '05 Food.html' },
+      { re: /film|cinema|arts|culture|entertainment|heritage/i, file: '06 Film.html' },
+      { re: /book|reading|literature/i, file: '07 Book.html' },
+      { re: /music/i, file: '08 Music.html' },
+      { re: /sport|competition/i, file: '09 Sport.html' },
+      { re: /health|fitness|medical|mental|psychology|wellbeing|aging|population/i, file: '10 Health.html' },
+      { re: /internet|technology|digital|media|social network/i, file: '11 Internet.html' },
+      { re: /work|career|employment|workplace/i, file: '12 Work.html' },
+      { re: /business|economy|entrepreneur|globalization|globalisation|trade/i, file: '13 Business.html' },
+      { re: /advertising|consumerism|spending/i, file: '14 Advertising.html' }
+    ];
+
+    const topicVocabCache = Object.create(null);
+    let topicListeningSession = null;
+
+    function getTopicLessonFile(title) {
+      const rule = TOPIC_LESSON_FILES.find(item => item.re.test(String(title || '')));
+      return rule ? rule.file : '';
+    }
+
+    function normalizeTopicVocabItem(item, prefix) {
+      if (!item) return null;
+      const words = String(item.word || item.vocab || '')
+        .split(',')
+        .map(word => word.trim())
+        .filter(Boolean);
+      if (!words.length) return null;
+
+      const examples = [item.example, item.example1]
+        .filter(Boolean)
+        .flatMap(text => String(text).split('\n'))
+        .map(example => example.trim())
+        .filter(Boolean);
+      if (!examples.length) return null;
+
+      const variantsFor = (word) => word
+        .replace(/\([^)]*\)/g, '')
+        .split('/')
+        .map(variant => variant.trim())
+        .filter(Boolean);
+
+      const matchesWord = (example, variant) => {
+        const escaped = variant.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        return new RegExp(`(^|[^a-z])${escaped}([^a-z]|$)`, 'i').test(example);
+      };
+
+      const word = words[0];
+      let listeningWord = '';
+      let example = examples[0];
+      let heard = false;
+
+      for (const candidate of examples) {
+        const matches = [];
+        for (const itemWord of words) {
+          for (const variant of variantsFor(itemWord)) {
+            if (matchesWord(candidate, variant)) matches.push(variant);
+          }
+        }
+        if (matches.length) {
+          // Prefer the most specific phrase that actually appears in the
+          // sentence, so the listening question never asks for a word the
+          // learner cannot hear.
+          listeningWord = matches.sort((a, b) => b.length - a.length)[0];
+          example = candidate;
+          heard = true;
+          break;
+        }
+      }
+
+      const rawColl = String(item.collocation || '').split(/\),\s*/)[0];
+      const collocation = rawColl.replace(/\s*\([^)]*\)?\s*$/, '').trim() || word;
+      return {
+        id: `${prefix}-${item.no || word}`,
+        word,
+        listeningWord,
+        collocation,
+        example,
+        heard,
+        ipa: String(item.ipa || '').split(',')[0].trim()
+      };
+    }
+
+    async function getTopicVocab(week) {
+      const own = (week.vocab || [])
+        .map(item => normalizeTopicVocabItem(item, 'own'))
+        .filter(Boolean);
+      if (own.length >= 5) return own;
+
+      const file = getTopicLessonFile(week.title);
+      if (!file) return own;
+      if (Array.isArray(topicVocabCache[file])) {
+        return topicVocabCache[file].length ? topicVocabCache[file] : own;
+      }
+
+      try {
+        const response = await fetch(encodeURI(file));
+        if (!response.ok) throw new Error('Lesson fetch failed');
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const raw = doc.getElementById('vocabDataRaw');
+        if (!raw) throw new Error('No vocabulary data');
+        const data = JSON.parse(raw.textContent || '[]');
+        const mapped = data
+          .map(item => normalizeTopicVocabItem(item, file))
+          .filter(Boolean);
+        topicVocabCache[file] = mapped;
+        return mapped.length ? mapped : own;
+      } catch (error) {
+        topicVocabCache[file] = [];
+        return own;
+      }
+    }
+
+    function renderTopicVocab(week, vocab) {
+      const safeVocab = Array.isArray(vocab) ? vocab : [];
+      const items = safeVocab.slice(0, 6);
+      window.__topicVocab = safeVocab;
+
+      const chips = document.getElementById('topic-vocab-chips');
+      const note = document.getElementById('topic-vocab-note');
+      const count = document.getElementById('topic-listening-count');
+      const listeningBtn = document.getElementById('topic-listening-btn');
+      const listeningNote = document.getElementById('topic-listening-note');
+      const writingVocabNote = document.getElementById('topic-writing-vocab-note');
+      const speakingVocabNote = document.getElementById('topic-speaking-vocab-note');
+      const drillCount = Math.min(5, safeVocab.filter(item => item.heard && item.listeningWord && item.example).length);
+      const targetCount = Math.min(5, safeVocab.length);
+
+      if (chips) {
+        chips.innerHTML = items.length
+          ? items.map(item => `
+              <div class="rounded-lg bg-white border border-slate-200/70 p-2.5 min-w-0">
+                <p class="text-[11px] font-bold text-slate-900 leading-snug" title="${escapeHTML(item.word)}">${escapeHTML(item.word)}</p>
+                <p class="text-[10px] text-slate-500 leading-snug mt-0.5">${escapeHTML(item.collocation || '—')}</p>
+              </div>
+            `).join('')
+          : '<div class="sm:col-span-2 xl:col-span-3 rounded-lg bg-white border border-dashed border-slate-300 p-3 text-[11px] text-slate-500">No vocabulary loaded yet. Open the lesson page and add at least 5 words to unlock the topic tasks.</div>';
+      }
+
+      if (note) {
+        note.textContent = items.length
+          ? 'Use these collocations across all four skills.'
+          : 'Add vocabulary to connect every skill to this topic.';
+      }
+      const goalVocab = document.getElementById('topic-goal-vocab-metric');
+      if (goalVocab) goalVocab.textContent = `Vocabulary: ${safeVocab.length}`;
+      if (count) count.textContent = drillCount ? `${drillCount} questions` : 'Needs 2+ words';
+      if (listeningBtn) listeningBtn.disabled = drillCount < 2;
+      if (listeningNote) {
+        listeningNote.textContent = drillCount >= 2
+          ? `Hear a sentence from this lesson, then choose the target word. ${drillCount} questions.`
+          : 'Add at least 2 vocabulary words with examples to start the listening drill.';
+      }
+      if (writingVocabNote) {
+        writingVocabNote.textContent = targetCount
+          ? `Use at least ${targetCount} collocation${targetCount === 1 ? '' : 's'} from the vocabulary core.`
+          : 'Add vocabulary to connect this essay to the topic.';
+      }
+      if (speakingVocabNote) {
+        speakingVocabNote.textContent = targetCount
+          ? `Answer 2 minutes each and use at least ${targetCount} core collocation${targetCount === 1 ? '' : 's'}.`
+          : 'Add vocabulary to connect these answers to the topic.';
+      }
+    }
+
     function renderCambridgePanel(week) {
-      const rec = getCambridgeRecommendation(week.title);
+      let rec = getCambridgeRecommendation(week.title);
+      // The old mock-topic branch returned no passage because it expected a
+      // full-test panel. Keep the panel reading-first: use one passage as the
+      // anchor and let the topic tasks cover the other skills.
+      if (rec.isMock) {
+        const anchor = CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === 1) || CAMBRIDGE_READING_BANK[0];
+        rec = { ...rec, p: anchor.p, title: anchor.title, isMock: false, fallback: true };
+      }
       window.__cambridgeRec = rec;
 
       const subtitle = document.getElementById('cambridge-subtitle');
       const badge = document.getElementById('cambridge-match-badge');
       const testTitle = document.getElementById('cam-test-title');
+      const testLabel = document.getElementById('cam-test-label');
       const why = document.getElementById('cam-why');
       const passageEl = document.getElementById('cam-passage');
-      const sectionsEl = document.getElementById('cam-sections');
       const moreEl = document.getElementById('cam-more');
       if (!subtitle || !testTitle) return;
 
       subtitle.textContent = rec.fallback
-        ? `No exact match for “${week.title}”, so here is a recent full test for timed calibration.`
-        : `Matched to “${week.title}” across Cambridge Academic IELTS 12–21.`;
-
+        ? `“${week.title}” has no exact Cambridge reading match — closest theme only, other skills use topic tasks.`
+        : `“${week.title}” matched to Cambridge ${rec.b} Test ${rec.t} · Passage ${rec.p} for Reading; other skills use topic tasks.`;
       badge.innerHTML = rec.fallback
-        ? '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Closest match'
-        : '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Topic match';
+        ? '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Closest reading · 1 of 4'
+        : '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Reading only · 1 of 4';
 
-      testTitle.textContent = `Cambridge ${rec.b} Test ${rec.t}`;
+      testTitle.textContent = rec.fallback ? `Reading Passage ${rec.p} · closest theme` : `Reading Passage ${rec.p}`;
+      if (testLabel) testLabel.textContent = `Cambridge ${rec.b} · Test ${rec.t} · Passage ${rec.p}`;
 
-      if (rec.isMock) {
-        why.textContent = 'Use this complete test for a timed four-skill calibration. Keep the same test for Listening and Writing, then use the topic-linked Speaking questions below for Part 3.';
-        passageEl.innerHTML = `
-          <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
-            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0">
-              <i data-lucide="timer" class="w-3.5 h-3.5"></i>
-            </span>
-            <div>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Full timed test</p>
-              <p class="text-xs font-semibold text-slate-900 mt-0.5">Reading · Listening · Writing · Speaking</p>
-              <p class="text-[11px] text-slate-500 mt-0.5">Complete one section at a time, or run the full test in one block.</p>
-            </div>
-          </div>`;
-      } else if (rec.fallback) {
-        why.textContent = 'There is no close topic match in the reading bank. Use this recent test for a timed calibration across Reading, Listening and Writing, then answer the topic-linked Speaking questions below.';
-        passageEl.innerHTML = `
-          <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
-            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0">
-              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-            </span>
-            <div>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Reading Passage ${rec.p}</p>
-              <p class="text-xs font-semibold text-slate-900 mt-0.5">${escapeHTML(rec.title)}</p>
-              <p class="text-[11px] text-slate-500 mt-0.5">Closest available theme — treat it as general timed reading practice.</p>
-            </div>
-          </div>`;
-      } else {
-        why.textContent = `Reading Passage ${rec.p} — “${rec.title}” — is the closest topic match. Use the same test for Listening and Writing, then answer the topic-linked Speaking Part 3 questions below.`;
-        passageEl.innerHTML = `
-          <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
-            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-[11px]">R${rec.p}</span>
-            <div>
-              <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Reading Passage ${rec.p}</p>
-              <p class="text-xs font-semibold text-slate-900 mt-0.5">${escapeHTML(rec.title)}</p>
-              <p class="text-[11px] text-slate-500 mt-0.5">Start here, then use the rest of the test for timed sections.</p>
-            </div>
-          </div>`;
+      const scopeNote = document.getElementById('cam-scope-note');
+      if (scopeNote) {
+        scopeNote.textContent = 'Only this passage is a topic match. Do not run the full Cambridge 12–21 test unless you separately want timed calibration.';
       }
 
-      const sectionCards = rec.isMock
-        ? [
-            { icon: 'book-open', label: 'Reading', detail: 'All 3 passages · 60 min', action: 'Full paper under exam timing' },
-            { icon: 'headphones', label: 'Listening', detail: '4 parts · 30 min', action: 'Replay Section 4 with transcript' },
-            { icon: 'pen-line', label: 'Writing', detail: 'Task 1 + 2 · 60 min', action: 'Timed run; compare with the task below' },
-            { icon: 'mic', label: 'Speaking', detail: 'Full mock · 14 min', action: 'Use the Part 3 questions below' }
-          ]
-        : [
-            { icon: 'book-open', label: 'Reading', detail: `Passage ${rec.p} · 20 min`, action: 'Then 40 min deep review' },
-            { icon: 'headphones', label: 'Listening', detail: '4 parts · 30 min', action: 'Replay Section 4 with transcript' },
-            { icon: 'pen-line', label: 'Writing', detail: 'Task 1 + 2 · 60 min', action: 'Timed run; compare with the task below' },
-            { icon: 'mic', label: 'Speaking', detail: 'Full mock · 14 min', action: 'Use the Part 3 questions below' }
-          ];
+      const listeningOptional = document.getElementById('topic-listening-optional');
+      if (listeningOptional) {
+        listeningOptional.textContent = 'Cambridge has no topic-mapped Listening part. Optional extra: replay any Section 4 for accent training, but it will not recycle this topic’s vocabulary.';
+      }
+      const writingOptional = document.getElementById('topic-writing-optional');
+      if (writingOptional) {
+        writingOptional.textContent = 'Cambridge Writing tasks are not topic-mapped here. Optional extra: time a Task 1 chart you still owe — it does not use this topic’s vocabulary.';
+      }
+      const speakingOptional = document.getElementById('topic-speaking-optional');
+      if (speakingOptional) {
+        speakingOptional.textContent = 'Cambridge Speaking is not topic-mapped here. These Part 3 questions replace it so every answer recycles the topic vocabulary.';
+      }
 
-      sectionsEl.innerHTML = sectionCards.map(section => `
-        <div class="rounded-lg bg-white/80 border border-slate-200/70 p-2.5">
-          <div class="flex items-center gap-1.5">
-            <i data-lucide="${section.icon}" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
-            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">${section.label}</p>
+      if (rec.fallback) {
+        why.textContent = 'No direct reading match in the Cambridge bank. Use this passage as topic calibration only, then build the rest of the topic work from the tasks beside it.';
+      } else {
+        why.textContent = `“${rec.title}” is the closest reading match. Mine 10 words and collocations, then reuse them in the Listening, Writing and Speaking tasks below.`;
+      }
+
+      passageEl.innerHTML = `
+        <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
+          <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-[11px]">R${rec.p}</span>
+          <div class="min-w-0">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Reading Passage ${rec.p}</p>
+            <p class="text-xs font-semibold text-slate-900 mt-0.5">${escapeHTML(rec.title)}</p>
+            <p class="text-[11px] text-slate-500 mt-0.5">20 min timed + 40 min review · target: 10 collocations</p>
           </div>
-          <p class="text-[10px] font-semibold text-slate-700 mt-1">${section.detail}</p>
-          <p class="text-[9.5px] text-slate-500 leading-snug mt-1">${section.action}</p>
-        </div>
-      `).join('');
+        </div>`;
 
       const output = getTopicOutput(week.title);
       window.__cambridgeOutput = output;
@@ -2435,14 +2847,26 @@
           .join('');
       }
 
-      moreEl.innerHTML = rec.more && rec.more.length
-        ? rec.more.map(entry => `
-            <button onclick="useCambridgeForD1(${entry.b}, ${entry.t}, ${entry.p})" class="w-full text-left p-2.5 rounded-lg bg-white border border-slate-200/80 hover:border-emerald-300 hover:bg-emerald-50/30 transition-colors">
-              <p class="text-[9.5px] font-bold uppercase tracking-wider text-emerald-700">Cambridge ${entry.b} · Test ${entry.t} · Passage ${entry.p}</p>
-              <p class="text-[11px] font-medium text-slate-800 leading-snug mt-0.5">${escapeHTML(entry.title)}</p>
-            </button>
-          `).join('')
-        : '<p class="text-[11px] text-slate-400 italic">No alternative passage matches yet — use the recommended test.</p>';
+      const ownVocab = (week.vocab || [])
+        .map(item => normalizeTopicVocabItem(item, 'own'))
+        .filter(Boolean);
+      renderTopicVocab(week, ownVocab);
+      getTopicVocab(week).then(vocab => {
+        const active = appState.weeks[appState.activeWeek - 1];
+        if (!active || active.weekNumber !== week.weekNumber || active.title !== week.title) return;
+        renderTopicVocab(week, vocab);
+      });
+
+      if (moreEl) {
+        moreEl.innerHTML = rec.more && rec.more.length
+          ? rec.more.map(entry => `
+              <button onclick="useCambridgeForD1(${entry.b}, ${entry.t}, ${entry.p})" class="w-full text-left p-2.5 rounded-lg bg-white border border-slate-200/80 hover:border-emerald-300 hover:bg-emerald-50/30 transition-colors">
+                <p class="text-[9.5px] font-bold uppercase tracking-wider text-emerald-700">Cambridge ${entry.b} · Test ${entry.t} · Passage ${entry.p}</p>
+                <p class="text-[11px] font-medium text-slate-800 leading-snug mt-0.5">${escapeHTML(entry.title)}</p>
+              </button>
+            `).join('')
+          : '<p class="text-[11px] text-slate-400 italic">No alternative passage matches yet.</p>';
+      }
     }
 
     function useCambridgeForD1(b, t, p) {
@@ -2450,8 +2874,8 @@
       if (!rec) return;
       const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
       const label = entry
-        ? `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p} — "${entry.title}"`
-        : `Cambridge ${rec.b} Test ${rec.t} — full timed test`;
+        ? `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p} — "${entry.title}" · 20m timed + 40m review · extract 10 collocations`
+        : `Cambridge ${rec.b} Test ${rec.t} — Reading Passage ${rec.p} · 20m timed + 40m review`;
 
       const week = appState.weeks[appState.activeWeek - 1];
       const firstTask = week && week.days[0] && week.days[0].tasks[0];
@@ -2467,33 +2891,370 @@
       if (schedule) schedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    function copyCambridgePlan() {
+    function findOpenDayTask(dayIndex, pattern) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      const day = week && week.days[dayIndex];
+      if (!day) return null;
+      return day.tasks.find(task => !task.done && pattern.test(task.title)) || null;
+    }
+
+    function addCustomDayTask(dayIndex, title, note) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      const day = week && week.days[dayIndex];
+      if (!day) return;
+      const defaultGate = day.gateNums ? day.gateNums[0] : (dayIndex < 2 ? 1 : dayIndex < 3 ? 2 : dayIndex < 5 ? 3 : dayIndex === 5 ? 4 : 5);
+      day.tasks.push({
+        id: `custom-${Date.now()}`,
+        title,
+        gate: defaultGate,
+        placeholder: 'Log your material, score or reflection here...',
+        done: false,
+        note: note || '',
+        isCustom: true
+      });
+      saveState();
+      renderAll();
+    }
+
+    function addTopicSkillToDay(skill) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (!week) return;
+      const output = window.__cambridgeOutput || getTopicOutput(week.title);
+      const vocab = topicVocabLines(5);
+      const config = {
+        listening: {
+          dayIndex: 1,
+          pattern: /Listening/i,
+          title: 'Topic listening dictation: up to 5 lesson sentences',
+          note: `Topic listening drill · ${Math.min(5, (window.__topicVocab || []).filter(item => item.heard).length)} questions · add missed words to the Red List`
+        },
+        speaking: {
+          dayIndex: 4,
+          pattern: /Part 3|Speaking/i,
+          title: 'Record topic Part 3 answers (2 min each) using 5 core collocations',
+          note: `${output.speaking.map((question, index) => `Q${index + 1}: ${question}`).join(' | ')}\nVocabulary: ${vocab.replace(/\n/g, ' | ')}`
+        },
+        writing: {
+          dayIndex: 5,
+          pattern: /Task 2|essay/i,
+          title: 'Timed topic Task 2 essay + use 5 core collocations',
+          note: `${output.writing}\nVocabulary: ${vocab.replace(/\n/g, ' | ')}`
+        }
+      }[skill];
+      if (!config) return;
+      const day = week.days[config.dayIndex];
+      if (!day) return;
+      const task = findOpenDayTask(config.dayIndex, config.pattern);
+      if (task) {
+        task.note = config.note;
+        saveState();
+        renderAll();
+        showToast(`Updated ${day.dayName} task for this topic.`);
+      } else {
+        addCustomDayTask(config.dayIndex, config.title, config.note);
+        showToast(`Added to ${day.dayName}: ${config.title}`);
+      }
+    }
+
+    function addTopicPlanToSchedule() {
+      const week = appState.weeks[appState.activeWeek - 1];
       const rec = window.__cambridgeRec;
-      if (!rec) return;
+      if (!week || !rec) return;
       const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
-      const currentWeek = appState.weeks[appState.activeWeek - 1];
-      const output = window.__cambridgeOutput || getTopicOutput(currentWeek ? currentWeek.title : '');
-      const lines = [
-        `Cambridge ${rec.b} Test ${rec.t}`,
-        entry ? `Reading Passage ${rec.p}: ${entry.title}` : 'Full timed test',
-        '',
-        'Study plan:',
-        entry ? `- Reading Passage ${rec.p}: 20 minutes + 40 minutes review` : '- Reading: all 3 passages, 60 minutes',
-        '- Listening: all 4 parts, 30 minutes; replay Section 4 with the transcript',
-        '- Writing: Task 1 + Task 2, 60 minutes',
-        '- Speaking: full mock, 14 minutes; use the Part 3 questions below',
-        '',
-        'Topic output practice (not from Cambridge):',
-        `Writing Task 2: ${output.writing}`,
-        'Speaking Part 3:',
-        ...output.speaking.map(question => `- ${question}`)
+      const output = window.__cambridgeOutput || getTopicOutput(week.title);
+      const readingNote = `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p}${entry ? ` — "${entry.title}"` : ''} · 20m timed + 40m review · extract 10 collocations`;
+      const listeningCount = Math.min(5, (window.__topicVocab || []).filter(item => item.heard).length);
+
+      const updates = [
+        { dayIndex: 0, pattern: /Reading Passage/i, title: 'Topic Reading Passage', note: readingNote },
+        { dayIndex: 1, pattern: /Listening/i, title: 'Topic listening dictation', note: `Topic listening drill (no Cambridge Listening match) · ${listeningCount} questions · add missed words to the Red List` },
+        { dayIndex: 4, pattern: /Part 3|Speaking/i, title: 'Topic Part 3 speaking', note: `Topic Part 3 (no Cambridge Speaking match): ${output.speaking.map((question, index) => `Q${index + 1}: ${question}`).join(' | ')}\nVocabulary: ${topicVocabLines(5).replace(/\n/g, ' | ')}` },
+        { dayIndex: 5, pattern: /Task 2|essay/i, title: 'Topic Task 2 essay', note: `Topic Task 2 (no Cambridge Writing match): ${output.writing}\nVocabulary: ${topicVocabLines(5).replace(/\n/g, ' | ')}` }
       ];
-      const text = lines.join('\n');
+
+      updates.forEach(update => {
+        const day = week.days[update.dayIndex];
+        if (!day) return;
+        const task = findOpenDayTask(update.dayIndex, update.pattern);
+        if (task) {
+          task.note = update.note;
+        } else {
+          addCustomDayTask(update.dayIndex, update.title, update.note);
+        }
+      });
+      saveState();
+      renderAll();
+      showToast('Topic plan added to D1, D2, D5 and D6.');
+      const schedule = document.getElementById('session-schedule');
+      if (schedule) schedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function openTopicLesson() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      const file = week ? getTopicLessonFile(week.title) : '';
+      window.open(file ? encodeURI(file) : 'library.html', '_blank', 'noopener');
+    }
+
+    function topicVocabLines(limit = 6) {
+      const vocab = (window.__topicVocab || []).slice(0, limit);
+      return vocab.length
+        ? vocab.map(item => `- ${item.word}: ${item.collocation}`).join('\n')
+        : '- (No vocabulary loaded yet)';
+    }
+
+    function copyTextToClipboard(text, message) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => showToast('Cambridge plan copied.')).catch(() => showToast('Could not copy the plan.', 'error'));
+        navigator.clipboard.writeText(text)
+          .then(() => showToast(message))
+          .catch(() => showToast('Could not copy the task.', 'error'));
       } else {
         showToast('Clipboard is not available in this browser.', 'error');
       }
+    }
+
+    function copyTopicWritingTask() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (!week) return;
+      const output = window.__cambridgeOutput || getTopicOutput(week.title);
+      const target = Math.min(5, (window.__topicVocab || []).length);
+      const text = [
+        `Writing Task 2 — ${week.title}`,
+        '',
+        output.writing,
+        '',
+        target ? `Use at least ${target} of these collocations:` : 'Vocabulary core:',
+        topicVocabLines(6),
+        '',
+        'Time: 40 minutes writing + 20 minutes self-edit.'
+      ].join('\n');
+      copyTextToClipboard(text, 'Writing task copied.');
+    }
+
+    function copyTopicSpeakingTask() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (!week) return;
+      const output = window.__cambridgeOutput || getTopicOutput(week.title);
+      const target = Math.min(5, (window.__topicVocab || []).length);
+      const text = [
+        `Speaking Part 3 — ${week.title}`,
+        '',
+        ...output.speaking.map((question, index) => `${index + 1}. ${question}`),
+        '',
+        target ? `Use at least ${target} of these collocations:` : 'Vocabulary core:',
+        topicVocabLines(6),
+        '',
+        'Answer each question for up to 2 minutes and record yourself.'
+      ].join('\n');
+      copyTextToClipboard(text, 'Speaking questions copied.');
+    }
+
+    function copyTopicPlan() {
+      const week = appState.weeks[appState.activeWeek - 1];
+      const rec = window.__cambridgeRec;
+      if (!week || !rec) return;
+      const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
+      const output = window.__cambridgeOutput || getTopicOutput(week.title);
+      const text = [
+        `Topic: ${week.title}`,
+        '',
+        'Vocabulary core:',
+        topicVocabLines(6),
+        '',
+        'D1 · Reading (only Cambridge topic match):',
+        `- Cambridge ${rec.b} Test ${rec.t}, Reading Passage ${rec.p}${entry ? `: ${entry.title}` : ''}`,
+        '- 20 min timed + 40 min review; extract 10 collocations.',
+        '',
+        'D2 · Listening (no Cambridge topic match):',
+        '- Topic dictation: up to 5 example sentences from this lesson; score + missed words.',
+        '',
+        'D5 · Speaking (no Cambridge topic match):',
+        ...output.speaking.map(question => `- ${question}`),
+        '- 2 min each; record; use the core collocations.',
+        '',
+        'D6 · Writing (no Cambridge topic match):',
+        `- ${output.writing}`,
+        '- 40 min + 20 min edit; use the core collocations.',
+        '',
+        'Do not run the rest of the Cambridge test unless you separately want timed calibration.'
+      ].join('\n');
+      copyTextToClipboard(text, 'Topic plan copied.');
+    }
+
+    function startTopicListeningDrill() {
+      const vocab = (window.__topicVocab || []).filter(item => item.heard && item.listeningWord && item.example);
+      if (vocab.length < 2) {
+        showToast('Add at least 2 vocabulary words with examples first.', 'error');
+        return;
+      }
+
+      const picked = [...vocab].sort(() => Math.random() - 0.5).slice(0, 5);
+      const questions = picked.map(item => {
+        const otherWords = [...new Set(vocab.filter(other => other.listeningWord !== item.listeningWord).map(other => other.listeningWord))];
+        const distractors = otherWords.sort(() => Math.random() - 0.5).slice(0, 3);
+        return {
+          ...item,
+          options: [item.listeningWord, ...distractors].sort(() => Math.random() - 0.5)
+        };
+      });
+
+      topicListeningSession = { questions, index: 0, score: 0, answered: false, transcriptShown: false };
+      const modal = document.getElementById('topic-listening-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      renderTopicListening();
+      lucide.createIcons();
+    }
+
+    function renderTopicListening() {
+      if (!topicListeningSession) return;
+      if (topicListeningSession.index >= topicListeningSession.questions.length) {
+        renderTopicListeningResult();
+        return;
+      }
+
+      const session = topicListeningSession;
+      const question = session.questions[session.index];
+      session.answered = false;
+      session.transcriptShown = false;
+
+      const progress = document.getElementById('tl-progress');
+      const hint = document.getElementById('tl-hint');
+      const feedback = document.getElementById('tl-feedback');
+      const options = document.getElementById('tl-options');
+      const transcriptBtn = document.getElementById('tl-transcript-btn');
+      const nextBtn = document.getElementById('tl-next-btn');
+
+      if (progress) progress.textContent = `Question ${session.index + 1} of ${session.questions.length}`;
+      if (hint) hint.textContent = 'Listen, then choose the target word you heard.';
+      if (feedback) feedback.innerHTML = '';
+      if (transcriptBtn) {
+        transcriptBtn.style.visibility = 'visible';
+        transcriptBtn.textContent = 'Show transcript';
+      }
+      if (nextBtn) {
+        nextBtn.disabled = true;
+        nextBtn.textContent = session.index === session.questions.length - 1 ? 'Finish' : 'Next';
+      }
+      if (options) {
+        options.innerHTML = question.options.map(option => `
+          <button onclick="answerTopicListening(this)" data-answer="${escapeHTML(option)}" class="text-left px-3 py-2 rounded-xl border border-slate-200 bg-white hover:border-emerald-300 hover:bg-emerald-50/40 text-xs font-medium text-slate-700 transition-colors">${escapeHTML(option)}</button>
+        `).join('');
+      }
+      lucide.createIcons();
+    }
+
+    function playTopicListening() {
+      const session = topicListeningSession;
+      if (!session) return;
+      const question = session.questions[session.index];
+      if (!question) return;
+      if (!('speechSynthesis' in window)) {
+        showToast('Speech is not available in this browser. Use Show transcript.', 'error');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(question.example);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function answerTopicListening(button) {
+      const session = topicListeningSession;
+      if (!session || session.answered) return;
+      const question = session.questions[session.index];
+      if (!question) return;
+
+      const selected = button.dataset.answer;
+      const correct = selected === question.listeningWord;
+      session.answered = true;
+      if (correct) session.score += 1;
+
+      document.querySelectorAll('#tl-options button').forEach(option => {
+        option.disabled = true;
+        if (option.dataset.answer === question.listeningWord) {
+          option.className = 'text-left px-3 py-2 rounded-xl border border-emerald-400 bg-emerald-50 text-emerald-800 text-xs font-semibold';
+        } else if (option === button) {
+          option.className = 'text-left px-3 py-2 rounded-xl border border-rose-300 bg-rose-50 text-rose-700 text-xs font-semibold';
+        } else {
+          option.className = 'text-left px-3 py-2 rounded-xl border border-slate-200 bg-white text-slate-400 text-xs font-medium opacity-60';
+        }
+      });
+
+      const feedback = document.getElementById('tl-feedback');
+      if (feedback) {
+        feedback.innerHTML = correct
+          ? `<span class="text-emerald-700 font-semibold">Correct.</span> ${escapeHTML(question.example)}`
+          : `<span class="text-rose-600 font-semibold">Not quite.</span> Target: <strong>${escapeHTML(question.listeningWord)}</strong>. Use “Play sentence” again, or “Show transcript”.`;
+      }
+      const nextBtn = document.getElementById('tl-next-btn');
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.textContent = session.index === session.questions.length - 1 ? 'Finish' : 'Next';
+      }
+    }
+
+    function nextTopicListening() {
+      const session = topicListeningSession;
+      if (!session) return;
+      if (session.index >= session.questions.length) {
+        closeTopicListening();
+        return;
+      }
+      if (!session.answered) return;
+      session.index += 1;
+      renderTopicListening();
+    }
+
+    function renderTopicListeningResult() {
+      const session = topicListeningSession;
+      if (!session) return;
+      const progress = document.getElementById('tl-progress');
+      const hint = document.getElementById('tl-hint');
+      const options = document.getElementById('tl-options');
+      const feedback = document.getElementById('tl-feedback');
+      const transcriptBtn = document.getElementById('tl-transcript-btn');
+      const nextBtn = document.getElementById('tl-next-btn');
+      if (progress) progress.textContent = 'Drill complete';
+      if (hint) hint.textContent = 'Topic listening score';
+      if (feedback) feedback.innerHTML = '';
+      if (transcriptBtn) transcriptBtn.style.visibility = 'hidden';
+      if (options) {
+        options.innerHTML = `
+          <div class="sm:col-span-2 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-center">
+            <p class="text-2xl font-bold text-emerald-800">${session.score} / ${session.questions.length}</p>
+            <p class="text-[11px] text-emerald-700 mt-1">Review missed words and add them to your Red List.</p>
+            <button onclick="startTopicListeningDrill()" class="mt-3 inline-flex items-center gap-1.5 bg-white border border-emerald-200 hover:bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+              Practise again
+            </button>
+          </div>`;
+      }
+      if (nextBtn) {
+        nextBtn.disabled = false;
+        nextBtn.textContent = 'Close';
+      }
+    }
+
+    function showTopicTranscript() {
+      const session = topicListeningSession;
+      if (!session) return;
+      const question = session.questions[session.index];
+      if (!question) return;
+      const hint = document.getElementById('tl-hint');
+      const button = document.getElementById('tl-transcript-btn');
+      if (!hint || !button) return;
+      session.transcriptShown = !session.transcriptShown;
+      hint.textContent = session.transcriptShown ? question.example : 'Listen, then choose the target word you heard.';
+      button.textContent = session.transcriptShown ? 'Hide transcript' : 'Show transcript';
+    }
+
+    function closeTopicListening() {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      const modal = document.getElementById('topic-listening-modal');
+      if (modal) modal.classList.add('hidden');
+      document.body.style.overflow = '';
+      topicListeningSession = null;
     }
 
     function renderVocabList(week) {
@@ -3486,7 +4247,100 @@
       event.target.value = '';
     }
 
+    function getLocalUsageSnapshot() {
+      const usage = { learnedWords: 0, customWords: 0, lessonPages: 0, libraryCompleted: 0, libraryLearning: 0 };
+      try {
+        for (let index = 0; index < localStorage.length; index += 1) {
+          const key = localStorage.key(index);
+          if (!key) continue;
+          if (key.startsWith('vocabLearned_')) {
+            usage.lessonPages += 1;
+            const saved = JSON.parse(localStorage.getItem(key) || '[]');
+            if (Array.isArray(saved)) usage.learnedWords += saved.length;
+          } else if (key.startsWith('vocabCustom_')) {
+            const saved = JSON.parse(localStorage.getItem(key) || '[]');
+            if (Array.isArray(saved)) usage.customWords += saved.length;
+          }
+        }
+        const library = JSON.parse(localStorage.getItem('ielts_windows_tracker_v3') || '{}') || {};
+        Object.values(library).forEach(state => {
+          if (!state || typeof state !== 'object') return;
+          if (state.completed) {
+            usage.libraryCompleted += 1;
+          } else if ((Array.isArray(state.steps) && state.steps.some(Boolean))
+            || (Array.isArray(state.sessions) && state.sessions.length)
+            || (Array.isArray(state.notesLog) && state.notesLog.length)) {
+            usage.libraryLearning += 1;
+          }
+        });
+      } catch (error) {
+        console.warn('Could not read local usage snapshot', error);
+      }
+      return usage;
+    }
+
+    function usageText(stats, usage) {
+      const parts = [
+        `${stats.sessionsDone}/${stats.sessionsTotal} sessions`,
+        `${stats.tasksDone}/${stats.tasksTotal} tasks`,
+        `${stats.mastered}/${stats.topicsTotal} topics mastered`
+      ];
+      if (usage) {
+        parts.push(`${usage.learnedWords} learned words`);
+        parts.push(`${usage.customWords} custom words`);
+        parts.push(`${usage.libraryCompleted} library topics completed`);
+      }
+      return parts.join(' · ');
+    }
+
+    function loadResetSnapshot() {
+      try {
+        const raw = localStorage.getItem(RESET_SNAPSHOT_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        return parsed && parsed.stats && parsed.state ? parsed : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function saveResetSnapshot() {
+      const stats = getScheduleSummary();
+      const snapshot = {
+        createdAt: new Date().toISOString(),
+        stats,
+        usage: getLocalUsageSnapshot(),
+        state: appState
+      };
+      try {
+        localStorage.setItem(RESET_SNAPSHOT_KEY, JSON.stringify(snapshot));
+      } catch (error) {
+        console.warn('Could not save pre-reset snapshot', error);
+      }
+    }
+
+    function renderResetSnapshot() {
+      const box = document.getElementById('last-reset-box');
+      const summary = document.getElementById('last-reset-summary');
+      if (!box || !summary) return;
+      const snapshot = loadResetSnapshot();
+      if (!snapshot) {
+        box.classList.add('hidden');
+        return;
+      }
+      const stats = snapshot.stats;
+      const when = snapshot.createdAt ? new Date(snapshot.createdAt).toLocaleString() : 'Unknown time';
+      summary.textContent = `${when} · ${usageText(stats, snapshot.usage)}.`;
+      box.classList.remove('hidden');
+    }
+
     function resetDemoPrompt() {
+      const stats = getScheduleSummary();
+      const summary = document.getElementById('reset-usage-summary');
+      if (summary) {
+        summary.textContent = `${usageText(stats, getLocalUsageSnapshot())} · ${stats.sessionsOverdue} overdue`;
+      }
+      renderResetSnapshot();
       document.getElementById('reset-modal').classList.remove('hidden');
       lucide.createIcons();
     }
@@ -3496,11 +4350,27 @@
     }
 
     function confirmResetAll() {
+      saveResetSnapshot();
       appState = createInitialState();
       saveState();
       closeResetModal();
       renderAll();
-      showToast('Tracker reset to Topic 1 defaults');
+      showToast('Tracker reset. A pre-reset snapshot is available in Reset.');
+    }
+
+    function restoreLastReset() {
+      const snapshot = loadResetSnapshot();
+      if (!snapshot || !snapshot.state) {
+        showToast('No pre-reset snapshot found.', 'error');
+        return;
+      }
+      appState = migrateLegacyState(snapshot.state);
+      ensureScheduleDates(appState.weeks, (appState.weeks[0].days && appState.weeks[0].days[0].date) || todayISO());
+      appState.activeWeek = Math.min(Math.max(Number(appState.activeWeek) || 1, 1), appState.weeks.length);
+      saveState();
+      closeResetModal();
+      renderAll();
+      showToast('Pre-reset snapshot restored.');
     }
 
     // =========================================================================
