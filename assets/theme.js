@@ -16,13 +16,15 @@ tailwind.config = {
           700: '#047857',
           900: '#064E3B',
         },
+        // Kept as a token name for existing markup, but mapped to emerald
+        // so the interface never shows purple.
         lavender: {
-          50: '#F5F3FF',
-          100: '#EDE9FE',
-          200: '#DDD6FE',
-          500: '#8B5CF6',
-          600: '#7C3AED',
-          700: '#6D28D9',
+          50: '#ECFDF5',
+          100: '#D1FAE5',
+          200: '#A7F3D0',
+          500: '#10B981',
+          600: '#059669',
+          700: '#047857',
         },
         slate: {
           50: '#F9FAFB',

@@ -31,13 +31,15 @@
               700: '#047857',
               900: '#064E3B',
             },
+            // Kept as a token name for existing markup, but mapped to emerald
+            // so the interface never shows purple.
             lavender: {
-              50: '#F5F3FF',
-              100: '#EDE9FE',
-              200: '#DDD6FE',
-              500: '#8B5CF6',
-              600: '#7C3AED',
-              700: '#6D28D9',
+              50: '#ECFDF5',
+              100: '#D1FAE5',
+              200: '#A7F3D0',
+              500: '#10B981',
+              600: '#059669',
+              700: '#047857',
             },
             slate: {
               50: '#F9FAFB',
@@ -332,6 +334,59 @@
         </div>
       </div>
 
+      <!-- Cambridge practice recommendation for the current topic -->
+      <section id="cambridge-panel" class="bg-white rounded-2xl border border-slate-200/80 shadow-apple p-5 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200/70 flex items-center justify-center shrink-0">
+                <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-700"></i>
+              </span>
+              <div>
+                <h2 class="text-sm font-semibold text-slate-900">Cambridge practice for this topic</h2>
+                <p id="cambridge-subtitle" class="text-xs text-slate-500 mt-0.5">Matching your current topic to recent Cambridge Academic tests…</p>
+              </div>
+            </div>
+          </div>
+          <span id="cambridge-match-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/70 self-start">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            Topic match
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
+          <div class="lg:col-span-2 rounded-xl border border-emerald-200/70 bg-emerald-50/30 p-4 sm:p-5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Recommended full test</span>
+              <span class="text-[10px] font-semibold text-slate-500 bg-white/80 border border-slate-200/70 px-2 py-0.5 rounded-md">Cambridge 12–21 bank</span>
+            </div>
+            <h3 id="cam-test-title" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1.5">Cambridge 21 Test 4</h3>
+            <p id="cam-why" class="text-xs text-slate-600 leading-relaxed mt-1.5">Choose this test and work through the sections below under timed conditions.</p>
+            <div id="cam-passage" class="mt-3"></div>
+            <div id="cam-sections" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3"></div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <button onclick="useCambridgeForD1()" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors">
+                <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
+                Use for D1 input
+              </button>
+              <button onclick="copyCambridgePlan()" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                Copy plan
+              </button>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-slate-200/80 bg-slate-50/40 p-4">
+            <h4 class="text-xs font-semibold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="library" class="w-3.5 h-3.5 text-emerald-600"></i>
+              More reading matches
+            </h4>
+            <p class="text-[11px] text-slate-500 mt-0.5">Alternative passages on the same theme.</p>
+            <div id="cam-more" class="space-y-2 mt-3"></div>
+          </div>
+        </div>
+      </section>
+
       <!-- D1–D9 Session Schedule (2 hours each) -->
       <section class="space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
@@ -435,6 +490,17 @@
 
         <!-- TAB B: VOCABULARY & RANDOM RECALL BANK -->
         <div id="workspace-vocab" class="hidden p-4 sm:p-6 space-y-6">
+          <a href="./library.html" class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-emerald-200/80 bg-emerald-50/40 px-4 py-3 hover:bg-emerald-50 transition-colors">
+            <div>
+              <p class="text-xs font-semibold text-slate-800">Want learned ticks, Excel import and practice modes?</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Open a topic lesson from Vocabulary Library — the full study tools sit under the lesson title.</p>
+            </div>
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 shrink-0">
+              Open Vocabulary Library
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </span>
+          </a>
+
           <!-- Top Bar: Add Word Form + Mode Toggle -->
           <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-lavender-50/70 p-4 rounded-xl border border-lavender-200/70">
             <div>
@@ -1584,6 +1650,229 @@
     }
 
     // =========================================================================
+    // Cambridge IELTS topic → reading passage recommendation bank
+    // Titles are from Cambridge Academic IELTS 12–21.
+    // =========================================================================
+    const CAMBRIDGE_READING_BANK = [
+      { b: 12, t: 1, p: 1, title: "Cork" },
+      { b: 12, t: 1, p: 2, title: "Collecting as a hobby" },
+      { b: 12, t: 1, p: 3, title: "What’s the purpose of gaining knowledge?" },
+      { b: 12, t: 2, p: 1, title: "The Risks Agriculture Faces in Developing Countries" },
+      { b: 12, t: 2, p: 2, title: "The Lost City" },
+      { b: 12, t: 2, p: 3, title: "The Benefits of Being Bilingual" },
+      { b: 12, t: 3, p: 1, title: "Flying Tortoises" },
+      { b: 12, t: 3, p: 2, title: "The Intersection of Health Sciences and Geography" },
+      { b: 12, t: 3, p: 3, title: "Music and The Emotions" },
+      { b: 12, t: 4, p: 1, title: "The History of Glass" },
+      { b: 12, t: 4, p: 2, title: "Bring back the big cats" },
+      { b: 12, t: 4, p: 3, title: "UK companies need more effective boards of directors" },
+      { b: 13, t: 1, p: 1, title: "Case Study: Tourism New Zealand website" },
+      { b: 13, t: 1, p: 2, title: "Why being bored is stimulating – and useful, too" },
+      { b: 13, t: 1, p: 3, title: "Artificial artists" },
+      { b: 13, t: 2, p: 1, title: "Bringing cinnamon to Europe" },
+      { b: 13, t: 2, p: 2, title: "Oxytocin" },
+      { b: 13, t: 2, p: 3, title: "Making the most of trends" },
+      { b: 13, t: 3, p: 1, title: "The coconut palm" },
+      { b: 13, t: 3, p: 2, title: "How baby talk gives infant brains a boost" },
+      { b: 13, t: 3, p: 3, title: "Whatever happened to the Harappan Civilisation?" },
+      { b: 13, t: 4, p: 1, title: "Cutty Sark: the fastest sailing ship of all time" },
+      { b: 13, t: 4, p: 2, title: "Saving the soil" },
+      { b: 13, t: 4, p: 3, title: "Book Review: The Happiness Industry" },
+      { b: 14, t: 1, p: 1, title: "The importance of children’s play" },
+      { b: 14, t: 1, p: 2, title: "The growth of bike‑sharing schemes around the world" },
+      { b: 14, t: 1, p: 3, title: "Motivational factors and the hospitality industry" },
+      { b: 14, t: 2, p: 1, title: "Alexander Henderson (1831‑1913)" },
+      { b: 14, t: 2, p: 2, title: "Back to the future of skyscraper design" },
+      { b: 14, t: 2, p: 3, title: "Why companies should welcome disorder" },
+      { b: 14, t: 3, p: 1, title: "The concept of intelligence" },
+      { b: 14, t: 3, p: 2, title: "Saving bugs to find new drugs" },
+      { b: 14, t: 3, p: 3, title: "The power of play" },
+      { b: 14, t: 4, p: 1, title: "The secret of staying young" },
+      { b: 14, t: 4, p: 2, title: "Why zoos are good" },
+      { b: 14, t: 4, p: 3, title: "Marine debris research" },
+      { b: 15, t: 1, p: 1, title: "Nutmeg – a valuable spice" },
+      { b: 15, t: 1, p: 2, title: "Driverless cars" },
+      { b: 15, t: 1, p: 3, title: "What is exploration?" },
+      { b: 15, t: 2, p: 1, title: "Could urban engineers learn from dance?" },
+      { b: 15, t: 2, p: 2, title: "Should we try to bring extinct species back to life?" },
+      { b: 15, t: 2, p: 3, title: "Having a laugh" },
+      { b: 15, t: 3, p: 1, title: "Henry Moore (1898–1986)" },
+      { b: 15, t: 3, p: 2, title: "The Desolenator: producing clean water" },
+      { b: 15, t: 3, p: 3, title: "Why fairy tales are really scary tales" },
+      { b: 15, t: 4, p: 1, title: "The return of the huarango" },
+      { b: 15, t: 4, p: 2, title: "Silbo Gomero – the whistle ‘language’ of the Canary Islands" },
+      { b: 15, t: 4, p: 3, title: "Environmental practices of big businesses" },
+      { b: 16, t: 1, p: 1, title: "Why we need to protect polar bears" },
+      { b: 16, t: 1, p: 2, title: "The Step Pyramid of Djoser" },
+      { b: 16, t: 1, p: 3, title: "The future of work" },
+      { b: 16, t: 2, p: 1, title: "The White Horse of Uffington" },
+      { b: 16, t: 2, p: 2, title: "I contain multitudes" },
+      { b: 16, t: 2, p: 3, title: "How to make wise decisions" },
+      { b: 16, t: 3, p: 1, title: "Roman shipbuilding and navigation" },
+      { b: 16, t: 3, p: 2, title: "Climate change reveals ancient artefacts in Norway’s glaciers" },
+      { b: 16, t: 3, p: 3, title: "Plant ‘thermometer’ triggers springtime growth" },
+      { b: 16, t: 4, p: 1, title: "Roman tunnels" },
+      { b: 16, t: 4, p: 2, title: "Changes in reading habits" },
+      { b: 16, t: 4, p: 3, title: "Attitudes towards Artificial Intelligence" },
+      { b: 17, t: 1, p: 1, title: "The development of the London underground railway" },
+      { b: 17, t: 1, p: 2, title: "Stadiums: past, present and future" },
+      { b: 17, t: 1, p: 3, title: "To catch a king" },
+      { b: 17, t: 2, p: 1, title: "The Dead Sea Scrolls" },
+      { b: 17, t: 2, p: 2, title: "A second attempt at domesticating the tomato" },
+      { b: 17, t: 2, p: 3, title: "Insight or evolution?" },
+      { b: 17, t: 3, p: 1, title: "The thylacine" },
+      { b: 17, t: 3, p: 2, title: "Palm oil" },
+      { b: 17, t: 3, p: 3, title: "Building the Skyline: The birth and growth of Manhattan’s skyscrapers" },
+      { b: 17, t: 4, p: 1, title: "How Madagascar’s bats are helping to save the rainforest" },
+      { b: 17, t: 4, p: 2, title: "Does education fuel economic growth?" },
+      { b: 17, t: 4, p: 3, title: "Timur Gareyev – blindfold chess champion" },
+      { b: 18, t: 1, p: 1, title: "Urban farming" },
+      { b: 18, t: 1, p: 2, title: "Forest management in Pennsylvania, USA" },
+      { b: 18, t: 1, p: 3, title: "Conquering Earth’s space junk problem" },
+      { b: 18, t: 2, p: 1, title: "Stonehenge" },
+      { b: 18, t: 2, p: 2, title: "Living with artificial intelligence" },
+      { b: 18, t: 2, p: 3, title: "An ideal city" },
+      { b: 18, t: 3, p: 1, title: "Materials to take us beyond concrete" },
+      { b: 18, t: 3, p: 2, title: "The steam car" },
+      { b: 18, t: 3, p: 3, title: "The case for mixed-ability classes" },
+      { b: 18, t: 4, p: 1, title: "Green roofs" },
+      { b: 18, t: 4, p: 2, title: "The growth mindset" },
+      { b: 18, t: 4, p: 3, title: "Alfred Wegener: science, exploration and the theory of continental drift" },
+      { b: 19, t: 1, p: 1, title: "How tennis rackets have changed" },
+      { b: 19, t: 1, p: 2, title: "The pirates of the ancient Mediterranean" },
+      { b: 19, t: 1, p: 3, title: "The persistence and peril of misinformation" },
+      { b: 19, t: 2, p: 1, title: "The Industrial Revolution in Britain" },
+      { b: 19, t: 2, p: 2, title: "Athletes and stress" },
+      { b: 19, t: 2, p: 3, title: "An inquiry into the existence of the gifted child" },
+      { b: 19, t: 3, p: 1, title: "Archaeologists discover evidence of prehistoric island settlers" },
+      { b: 19, t: 3, p: 2, title: "The global importance of wetlands" },
+      { b: 19, t: 3, p: 3, title: "Is the era of artificial speech translation upon us?" },
+      { b: 19, t: 4, p: 1, title: "The impact of climate change on butterflies in Britain" },
+      { b: 19, t: 4, p: 2, title: "Deep-sea mining" },
+      { b: 19, t: 4, p: 3, title: "The Unselfish Gene" },
+      { b: 20, t: 1, p: 1, title: "The kakapo" },
+      { b: 20, t: 1, p: 2, title: "The return of the elm?" },
+      { b: 20, t: 1, p: 3, title: "How Stress Affects Our Judgement" },
+      { b: 20, t: 2, p: 1, title: "Manatees" },
+      { b: 20, t: 2, p: 2, title: "Procrastination" },
+      { b: 20, t: 2, p: 3, title: "Invasion of the Robot Umpires" },
+      { b: 20, t: 3, p: 1, title: "Frozen Food" },
+      { b: 20, t: 3, p: 2, title: "Can the planet’s coral reefs be saved?" },
+      { b: 20, t: 3, p: 3, title: "Robots and us" },
+      { b: 20, t: 4, p: 1, title: "Georgia O’Keeffe" },
+      { b: 20, t: 4, p: 2, title: "Adapting to the effects of climate change" },
+      { b: 20, t: 4, p: 3, title: "A new role for livestock guard dogs" },
+      { b: 21, t: 1, p: 1, title: "The Davies Sisters" },
+      { b: 21, t: 1, p: 2, title: "Why we need silence" },
+      { b: 21, t: 1, p: 3, title: "Book review: The World of Sugar by Ulbe Bosma" },
+      { b: 21, t: 2, p: 1, title: "Do animals dream?" },
+      { b: 21, t: 2, p: 2, title: "Mapungubwe" },
+      { b: 21, t: 2, p: 3, title: "Artificial Intelligence" },
+      { b: 21, t: 3, p: 1, title: "Saving the saiga" },
+      { b: 21, t: 3, p: 2, title: "The problems of getting around the city of Dar es Salaam" },
+      { b: 21, t: 3, p: 3, title: "Rethinking the Past" },
+      { b: 21, t: 4, p: 1, title: "The problems and benefits created by the spread of the water hyacinth in Kenya" },
+      { b: 21, t: 4, p: 2, title: "How could multilingualism benefit India's poorest schoolchildren?" },
+      { b: 21, t: 4, p: 3, title: "The Globemakers: The Curious Story of an Ancient Craft" }
+    ];
+
+    const CAMBRIDGE_TOPIC_RULES = [
+      { re: /environment|climate|weather|pollution|sustainab|ecolog|\bgreen\b|biodiversity|wildlife|conservation|renewable|energy/i,
+        core: ['climate', 'environment', 'biodiversity', 'wildlife', 'conservation', 'pollution', 'renewable', 'energy', 'sustainab', 'ecolog'],
+        keys: ['climate', 'environment', 'forest', 'wildlife', 'species', 'coral', 'reef', 'wetland', 'butterfl', 'polar', 'bear', 'elm', 'kakapo', 'manatee', 'saiga', 'bat', 'zoos', 'soil', 'palm oil', 'water', 'renewable', 'fuel', 'extinct', 'invasive', 'conservation', 'biodiversity', 'deep-sea', 'mining', 'marine debris', 'livestock', 'farming', 'agriculture', 'plant', 'green roofs', 'cork', 'huarango', 'rainforest'] },
+      { re: /education|learning|school|university|student|teacher|language|multilingual|communication/i,
+        core: ['education', 'school', 'learning', 'class', 'mindset', 'reading', 'multilingual', 'bilingual', 'language'],
+        keys: ['education', 'school', 'learning', 'class', 'student', 'teacher', 'intelligence', 'mindset', 'reading', 'multilingual', 'bilingual', 'baby talk', 'language', 'translation', 'communication'] },
+      { re: /\bwork\b|career|workplace|employment|\bjob\b|business|entrepreneur|economy|trade|globalization|industry/i,
+        core: ['work', 'business', 'economy', 'employment', 'trade', 'globalization', 'entrepreneur'],
+        keys: ['work', 'business', 'companies', 'industry', 'employment', 'career', 'board', 'hospitality', 'procrastination', 'economy', 'economic growth', 'trade', 'industrial revolution', 'entrepreneur', 'trends'] },
+      { re: /technology|digital|internet|automation|artificial intelligence|\bai\b|robot|innovation|science|\bspace\b/i,
+        core: ['artificial intelligence', 'ai', 'robot', 'technology', 'digital', 'internet', 'automation', 'innovation'],
+        keys: ['artificial intelligence', 'ai', 'robot', 'driverless', 'steam car', 'space junk', 'translation', 'internet', 'machine', 'technology', 'innovation', 'digital', 'science', 'space', 'exploration', 'wegener'] },
+      { re: /health|fitness|healthcare|medical|mental|wellbeing|happiness|psychology|stress|aging|population/i,
+        core: ['health', 'stress', 'psychology', 'mental', 'happiness', 'wellbeing', 'medicine', 'fitness'],
+        keys: ['health', 'stress', 'dream', 'sleep', 'silence', 'oxytocin', 'young', 'fitness', 'medicine', 'drug', 'mental', 'happiness', 'sugar', 'food', 'boredom', 'procrastination'] },
+      { re: /urban|city|cities|infrastructure|housing|architecture|building|transport|mobility|traffic/i,
+        core: ['city', 'urban', 'housing', 'architecture', 'transport', 'traffic', 'infrastructure', 'building'],
+        keys: ['city', 'urban', 'skyscraper', 'housing', 'building', 'architecture', 'tunnel', 'stadium', 'underground', 'traffic', 'transport', 'bike', 'green roofs', 'concrete', 'pyramid'] },
+      { re: /aging|\bage\b|demographic|population/i,
+        core: ['aging', 'young', 'old', 'generation', 'population'],
+        keys: ['young', 'aging', 'old', 'generation', 'staying young', 'gifted', 'retirement'] },
+      { re: /\bfamily\b|parenting|generation|children|\bchild\b/i,
+        core: ['family', 'children', 'child', 'parenting'],
+        keys: ['children', 'child', 'baby', 'family', 'gifted', 'play', 'generation', 'young'] },
+      { re: /\bmedia\b|journalism|\bnews\b|social network/i,
+        core: ['media', 'news', 'journalism', 'misinformation'],
+        keys: ['media', 'news', 'misinformation', 'reading habits', 'communication', 'social network'] },
+      { re: /advertising|consumerism|spending/i,
+        core: ['advertising', 'consumerism', 'marketing', 'trends', 'happiness industry', 'collecting', 'consumer'],
+        keys: ['advertising', 'marketing', 'consumer', 'trends', 'happiness industry', 'collecting', 'shopping'] },
+      { re: /tourism|\btravel\b|cultural exchange|festival|heritage/i,
+        core: ['tourism', 'travel', 'heritage', 'culture', 'festival'],
+        keys: ['tourism', 'travel', 'city', 'heritage', 'museum', 'culture', 'hotel', 'hospitality', 'festival', 'lost city', 'mapungubwe'] },
+      { re: /\bfood\b|agriculture|nutrition|farming|diet/i,
+        core: ['food', 'agriculture', 'farming', 'nutrition', 'diet'],
+        keys: ['food', 'agriculture', 'farming', 'tomato', 'sugar', 'nutmeg', 'cinnamon', 'coconut', 'soil', 'frozen', 'livestock', 'cork', 'huarango', 'water hyacinth'] },
+      { re: /\bart\b|arts?\b|culture|museum|music|film|\bbook\b|photography|history|tradition|\bplay\b|entertainment|hobby/i,
+        core: ['art', 'music', 'film', 'book', 'photography', 'museum', 'history', 'culture', 'heritage', 'play', 'entertainment', 'hobby', 'davies', 'sisters', 'o’keeffe', 'henry moore'],
+        keys: ['art', 'artist', 'music', 'film', 'book', 'photography', 'museum', 'culture', 'heritage', 'sculpture', 'painting', 'design', 'fairy tales', 'henry moore', 'o’keeffe', 'davies', 'sisters', 'play', 'chess', 'collecting', 'globemakers', 'glass', 'stonehenge', 'scrolls'] },
+      { re: /crime|law|justice|police|prison/i,
+        core: ['crime', 'law', 'justice', 'pirate'],
+        keys: ['crime', 'pirate', 'king', 'law', 'justice', 'police'] },
+      { re: /government|policy|public spending|\btax\b|politics/i,
+        core: ['government', 'policy', 'politics', 'public'],
+        keys: ['government', 'policy', 'public', 'city', 'education', 'economic growth', 'tax', 'politics'] },
+      { re: /sports?|competition|national pride|football|athlete/i,
+        core: ['sport', 'athlete', 'competition', 'tennis', 'stadium'],
+        keys: ['sport', 'tennis', 'athlete', 'stadium', 'umpire', 'chess', 'competition'] },
+      { re: /gender|equality|social role|\bwomen\b|fashion/i,
+        core: ['gender', 'women', 'fashion', 'equality'],
+        keys: ['women', 'gender', 'sisters', 'o’keeffe', 'boards', 'fashion', 'collecting', 'art'] },
+      { re: /charity|volunteer|social responsibility|\bethics\b|moral/i,
+        core: ['ethics', 'charity', 'responsibility', 'volunteer'],
+        keys: ['ethics', 'ethical', 'unselfish', 'zoos', 'extinct', 'mining', 'business', 'responsibility'] },
+      { re: /\bhistory\b|archeology|ancient/i,
+        core: ['history', 'archaeology', 'ancient', 'roman', 'prehistoric', 'civilisation'],
+        keys: ['history', 'archaeology', 'ancient', 'roman', 'prehistoric', 'civilisation', 'stonehenge', 'pyramid', 'scrolls', 'ship', 'king', 'past', 'fossil', 'exploration'] },
+      { re: /\bspace\b|innovation/i,
+        core: ['space', 'exploration', 'science', 'innovation'],
+        keys: ['space', 'wegener', 'exploration', 'science', 'innovation'] }
+    ];
+
+    // Precise keyword sets for the short legacy topic names. Without these,
+    // a broad category such as "Arts" would win just because it contains a
+    // common word like "book" or "culture".
+    const CAMBRIDGE_TOPIC_OVERRIDES = [
+      { re: /^music$/i, keys: ['music', 'emotions', 'sound'] },
+      { re: /^film$/i, keys: ['film', 'cinema', 'art', 'artist', 'music', 'entertainment'] },
+      { re: /^book$/i, keys: ['book', 'reading', 'globemakers', 'scrolls'] },
+      { re: /^photography/i, keys: ['photography', 'alexander henderson'] },
+      { re: /^art & museum$/i, keys: ['art', 'artist', 'museum', 'henry moore', 'o’keeffe', 'davies', 'sisters', 'sculpture', 'painting', 'glass'] },
+      { re: /^play, entertainment/i, keys: ['play', 'chess', 'music', 'film', 'entertainment', 'fairy tales'] },
+      { re: /^hobby/i, keys: ['hobby', 'collecting', 'globemakers', 'play', 'chess'] },
+      { re: /^festival$/i, keys: ['festival', 'culture', 'heritage', 'tourism', 'mapungubwe', 'play', 'music', 'fairy tales'] },
+      { re: /^famous fashion/i, keys: ['fashion', 'sisters', 'o’keeffe', 'collecting', 'art', 'artist'] },
+      { re: /^news$/i, keys: ['news', 'misinformation', 'media', 'journalism'] },
+      { re: /^internet$/i, keys: ['internet', 'misinformation', 'artificial intelligence', 'ai', 'robot', 'speech translation', 'social media'] },
+      { re: /^advertising$/i, keys: ['advertising', 'marketing', 'consumer', 'trends', 'happiness industry', 'collecting'] },
+      { re: /^business$/i, keys: ['business', 'companies', 'economy', 'trade', 'entrepreneur', 'board', 'economic growth'] },
+      { re: /^work$/i, keys: ['work', 'career', 'workplace', 'business', 'companies', 'hospitality'] },
+      { re: /^health$/i, keys: ['health', 'stress', 'sleep', 'silence', 'oxytocin', 'fitness', 'medicine', 'happiness', 'mental', 'wellbeing'] },
+      { re: /^sport$/i, keys: ['sport', 'tennis', 'athlete', 'stadium', 'umpire', 'chess'] },
+      { re: /^space$/i, keys: ['space', 'wegener', 'exploration', 'science'] },
+      { re: /^education$/i, keys: ['education', 'school', 'learning', 'class', 'student', 'teacher', 'intelligence', 'mindset', 'reading', 'multilingualism', 'bilingual', 'baby talk', 'play'] },
+      { re: /^language$/i, keys: ['language', 'bilingual', 'multilingual', 'multilingualism', 'baby talk', 'speech translation', 'silbo'] },
+      { re: /^family & friends$/i, keys: ['family', 'children', 'child', 'baby', 'gifted', 'play', 'generation'] },
+      { re: /^age & generations$/i, keys: ['young', 'aging', 'old', 'generation', 'staying young', 'gifted'] },
+      { re: /^travel$/i, keys: ['tourism', 'travel', 'heritage', 'culture', 'hotel', 'hospitality', 'mapungubwe'] },
+      { re: /^city$/i, keys: ['city', 'urban', 'skyscraper', 'housing', 'building', 'architecture', 'tunnel', 'stadium', 'underground', 'traffic', 'transport', 'bike', 'green roofs', 'concrete'] },
+      { re: /^food$/i, keys: ['food', 'agriculture', 'farming', 'tomato', 'sugar', 'nutmeg', 'cinnamon', 'coconut', 'soil', 'frozen', 'livestock'] },
+      { re: /^crime$/i, keys: ['crime', 'pirate', 'king', 'law', 'justice'] },
+      { re: /^history & archeology$/i, keys: ['history', 'archaeolog', 'roman', 'prehistoric', 'civilisation', 'stonehenge', 'pyramid', 'scrolls', 'ship', 'king', 'past', 'fossil', 'exploration', 'mapungubwe'] },
+      { re: /^building$/i, keys: ['building', 'architecture', 'housing', 'skyscraper', 'concrete', 'green roofs', 'tunnel', 'pyramid'] }
+    ];
+
+    // =========================================================================
     // 4. RENDERING FUNCTIONS
     // =========================================================================
     function renderAll() {
@@ -1808,6 +2097,264 @@
       document.getElementById('sp-speaking-notes').value = week.scratchpad.speakingNotes || '';
       document.getElementById('sp-input-notes').value = week.scratchpad.inputNotes || '';
       updateEssayWordCount();
+
+      // Cambridge practice recommendation for the active topic
+      renderCambridgePanel(week);
+    }
+
+    function getCambridgeRecommendation(topicTitle) {
+      const title = (topicTitle || '').toLowerCase();
+
+      // Calibration phases: recommend a full recent test rather than a single passage.
+      if (/mock|calibration|final exam/i.test(topicTitle || '')) {
+        const isFinal = /final/i.test(topicTitle || '');
+        return {
+          b: 21,
+          t: isFinal ? 4 : 1,
+          p: 0,
+          title: '',
+          isMock: true,
+          fallback: false,
+          more: []
+        };
+      }
+
+      const keywordMatch = (text, key) => {
+        const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const suffix = key.includes(' ') ? '' : '(?:s|es|ing|ed)?';
+        return new RegExp(`\\b${escaped}${suffix}\\b`, 'i').test(text);
+      };
+
+      const override = CAMBRIDGE_TOPIC_OVERRIDES.find(item => item.re.test(title));
+      let keys;
+      let coreKeys;
+
+      if (override) {
+        keys = [...new Set(override.keys.map(k => k.toLowerCase()))];
+        coreKeys = new Set(keys);
+      } else {
+        // A topic can mention several categories (e.g. "Work ... Culture").
+        // Use the category with the most matching terms so one stray word
+        // does not pull in an unrelated reading bank.
+        const ruleScores = CAMBRIDGE_TOPIC_RULES
+          .filter(rule => rule.re.test(title))
+          .map(rule => {
+            const terms = [...new Set([...(rule.core || []), ...rule.keys].map(k => k.toLowerCase()))];
+            return { rule, score: terms.filter(term => keywordMatch(title, term)).length };
+          })
+          .filter(item => item.score > 0)
+          .sort((a, b) => b.score - a.score);
+
+        const maxRuleScore = ruleScores.length ? ruleScores[0].score : 0;
+        const matchedRules = ruleScores
+          .filter(item => item.score === maxRuleScore)
+          .map(item => item.rule);
+
+        keys = [...new Set(matchedRules.flatMap(rule => rule.keys.map(k => k.toLowerCase())))];
+        coreKeys = new Set(matchedRules.flatMap(rule => (rule.core || []).map(k => k.toLowerCase())));
+      }
+
+      const scored = CAMBRIDGE_READING_BANK.map(entry => {
+        const passageTitle = entry.title.toLowerCase();
+        let score = 0;
+        keys.forEach(key => {
+          if (keywordMatch(passageTitle, key)) {
+            score += coreKeys.has(key) ? 6 : (key.includes(' ') ? 3 : 1);
+          }
+        });
+        return { ...entry, score };
+      }).filter(entry => entry.score > 0);
+
+      if (!scored.length) {
+        return {
+          b: 21,
+          t: 4,
+          p: 1,
+          title: 'The problems and benefits created by the spread of the water hyacinth in Kenya',
+          isMock: false,
+          fallback: true,
+          more: []
+        };
+      }
+
+      // Pick the test with the strongest single passage, then the most supporting matches.
+      const groups = {};
+      scored.forEach(entry => {
+        const key = `${entry.b}-${entry.t}`;
+        if (!groups[key]) groups[key] = { b: entry.b, t: entry.t, entries: [], score: 0, key };
+        groups[key].entries.push(entry);
+      });
+      Object.values(groups).forEach(group => {
+        group.entries.sort((a, b) => b.score - a.score || b.p - a.p);
+        group.best = group.entries[0];
+        // The strongest passage decides the test; newer books break ties.
+        group.score = (group.best.score * 1000) + (group.b * 10) + group.t;
+      });
+      const rankedGroups = Object.values(groups).sort((a, b) =>
+        b.score - a.score
+      );
+      const bestGroup = rankedGroups[0];
+      const best = bestGroup.best;
+
+      const more = [];
+      const seenTests = new Set([bestGroup.key]);
+      scored
+        .filter(entry => entry.score > 0)
+        .sort((a, b) => b.score - a.score || b.b - a.b || b.t - a.t || a.p - b.p)
+        .forEach(entry => {
+          const key = `${entry.b}-${entry.t}`;
+          if (seenTests.has(key)) return;
+          seenTests.add(key);
+          more.push(entry);
+        });
+
+      return {
+        b: best.b,
+        t: best.t,
+        p: best.p,
+        title: best.title,
+        isMock: false,
+        fallback: false,
+        more: more.slice(0, 3)
+      };
+    }
+
+    function renderCambridgePanel(week) {
+      const rec = getCambridgeRecommendation(week.title);
+      window.__cambridgeRec = rec;
+
+      const subtitle = document.getElementById('cambridge-subtitle');
+      const badge = document.getElementById('cambridge-match-badge');
+      const testTitle = document.getElementById('cam-test-title');
+      const why = document.getElementById('cam-why');
+      const passageEl = document.getElementById('cam-passage');
+      const sectionsEl = document.getElementById('cam-sections');
+      const moreEl = document.getElementById('cam-more');
+      if (!subtitle || !testTitle) return;
+
+      subtitle.textContent = rec.fallback
+        ? `No exact match for “${week.title}”, so here is a recent full test for timed calibration.`
+        : `Matched to “${week.title}” across Cambridge Academic IELTS 12–21.`;
+
+      badge.innerHTML = rec.fallback
+        ? '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Closest match'
+        : '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Topic match';
+
+      testTitle.textContent = `Cambridge ${rec.b} Test ${rec.t}`;
+
+      if (rec.isMock) {
+        why.textContent = 'Use this complete test as your calibration run. Do all four papers in exam order, then log your scores and error patterns.';
+        passageEl.innerHTML = `
+          <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
+            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0">
+              <i data-lucide="timer" class="w-3.5 h-3.5"></i>
+            </span>
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Full timed test</p>
+              <p class="text-xs font-semibold text-slate-900 mt-0.5">Reading · Listening · Writing · Speaking</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Complete one section at a time, or run the full test in one block.</p>
+            </div>
+          </div>`;
+      } else if (rec.fallback) {
+        why.textContent = 'There is no close topic match in the bank. Use this recent test as a timed calibration and note which question types slow you down.';
+        passageEl.innerHTML = `
+          <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
+            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0">
+              <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            </span>
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Reading Passage ${rec.p}</p>
+              <p class="text-xs font-semibold text-slate-900 mt-0.5">${escapeHTML(rec.title)}</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Closest available theme — treat it as general timed reading practice.</p>
+            </div>
+          </div>`;
+      } else {
+        why.textContent = `This test contains Reading Passage ${rec.p} — “${rec.title}” — the closest match to your current topic. Do the full test, or start with that passage.`;
+        passageEl.innerHTML = `
+          <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
+            <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-[11px]">R${rec.p}</span>
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-700">Reading Passage ${rec.p}</p>
+              <p class="text-xs font-semibold text-slate-900 mt-0.5">${escapeHTML(rec.title)}</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Start here, then use the rest of the test for timed sections.</p>
+            </div>
+          </div>`;
+      }
+
+      const sectionCards = rec.isMock
+        ? [
+            { icon: 'book-open', label: 'Reading', detail: 'All 3 passages · 60 min' },
+            { icon: 'headphones', label: 'Listening', detail: '4 parts · 30 min' },
+            { icon: 'pen-line', label: 'Writing', detail: 'Task 1 + 2 · 60 min' },
+            { icon: 'mic', label: 'Speaking', detail: 'Full test · 14 min' }
+          ]
+        : [
+            { icon: 'book-open', label: 'Reading', detail: `Passage ${rec.p} · 20 min` },
+            { icon: 'headphones', label: 'Listening', detail: '4 parts · 30 min' },
+            { icon: 'pen-line', label: 'Writing', detail: 'Task 1 + 2 · 60 min' },
+            { icon: 'mic', label: 'Speaking', detail: 'Part 3 · 5 min' }
+          ];
+
+      sectionsEl.innerHTML = sectionCards.map(section => `
+        <div class="rounded-lg bg-white/80 border border-slate-200/70 p-2.5">
+          <i data-lucide="${section.icon}" class="w-3.5 h-3.5 text-emerald-600"></i>
+          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mt-1">${section.label}</p>
+          <p class="text-[10px] text-slate-500 mt-0.5">${section.detail}</p>
+        </div>
+      `).join('');
+
+      moreEl.innerHTML = rec.more && rec.more.length
+        ? rec.more.map(entry => `
+            <button onclick="useCambridgeForD1(${entry.b}, ${entry.t}, ${entry.p})" class="w-full text-left p-2.5 rounded-lg bg-white border border-slate-200/80 hover:border-emerald-300 hover:bg-emerald-50/30 transition-colors">
+              <p class="text-[9.5px] font-bold uppercase tracking-wider text-emerald-700">Cambridge ${entry.b} · Test ${entry.t} · Passage ${entry.p}</p>
+              <p class="text-[11px] font-medium text-slate-800 leading-snug mt-0.5">${escapeHTML(entry.title)}</p>
+            </button>
+          `).join('')
+        : '<p class="text-[11px] text-slate-400 italic">No alternative passage matches yet — use the recommended test.</p>';
+    }
+
+    function useCambridgeForD1(b, t, p) {
+      const rec = (b && t) ? { b, t, p } : window.__cambridgeRec;
+      if (!rec) return;
+      const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
+      const label = entry
+        ? `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p} — "${entry.title}"`
+        : `Cambridge ${rec.b} Test ${rec.t} — full timed test`;
+
+      const week = appState.weeks[appState.activeWeek - 1];
+      const firstTask = week && week.days[0] && week.days[0].tasks[0];
+      if (!firstTask) {
+        showToast('Could not find the D1 input task.', 'error');
+        return;
+      }
+      firstTask.note = label;
+      saveState();
+      renderAll();
+      showToast(`Added to D1 input: Cambridge ${rec.b} Test ${rec.t}`);
+      const schedule = document.getElementById('days-container');
+      if (schedule) schedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function copyCambridgePlan() {
+      const rec = window.__cambridgeRec;
+      if (!rec) return;
+      const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
+      const lines = [
+        `Cambridge ${rec.b} Test ${rec.t}`,
+        entry ? `Reading Passage ${rec.p}: ${entry.title}` : 'Full timed test',
+        '',
+        'Study plan:',
+        entry ? `- Reading Passage ${rec.p}: 20 minutes` : '- Reading: all 3 passages, 60 minutes',
+        '- Listening: all 4 parts, 30 minutes',
+        '- Writing: Task 1 + Task 2, 60 minutes',
+        '- Speaking: Part 3, 5 minutes'
+      ];
+      const text = lines.join('\n');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast('Cambridge plan copied.')).catch(() => showToast('Could not copy the plan.', 'error'));
+      } else {
+        showToast('Clipboard is not available in this browser.', 'error');
+      }
     }
 
     function renderVocabList(week) {
