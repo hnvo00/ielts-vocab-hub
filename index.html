@@ -152,6 +152,10 @@
             Red List
             <span id="nav-redlist-badge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-rose-100 text-rose-700 font-semibold">0</span>
           </button>
+          <button onclick="switchMainView('history')" id="nav-history" class="px-3 py-1.5 rounded-lg text-xs font-medium transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5">
+            History
+            <span id="nav-history-badge" class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 text-slate-600 font-semibold">0</span>
+          </button>
         </nav>
 
         <!-- Vocabulary Library -->
@@ -192,6 +196,9 @@
       </button>
       <button onclick="switchMainView('redlist')" id="mnav-redlist" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-slate-600">
         Red List (<span id="mnav-redlist-badge">0</span>)
+      </button>
+      <button onclick="switchMainView('history')" id="mnav-history" class="flex-1 py-1.5 rounded-lg text-xs font-medium text-slate-600">
+        History
       </button>
     </div>
   </header>
@@ -316,6 +323,23 @@
               <i data-lucide="chevron-right" class="w-4 h-4"></i>
             </button>
           </div>
+        </div>
+
+        <!-- Today's review suggestions from practice games -->
+        <div id="today-review-strip" class="mt-4 rounded-xl border border-slate-200/80 bg-slate-50/60 p-3.5 hidden">
+          <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">
+            <div class="min-w-0">
+              <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Today's review</p>
+              <p id="today-review-summary" class="text-xs font-medium text-slate-700 mt-0.5">—</p>
+            </div>
+            <div class="flex flex-wrap gap-2 shrink-0">
+              <button onclick="switchMainView('history')" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors">
+                <i data-lucide="history" class="w-3 h-3"></i>
+                Full history
+              </button>
+            </div>
+          </div>
+          <div id="today-review-words" class="flex flex-wrap gap-1.5 mt-2"></div>
         </div>
 
         <!-- Topic goal: what this topic must produce before it can close -->
@@ -794,6 +818,8 @@
           </div>
         </div>
 
+        <div id="red-queue-host" class="hidden"></div>
+
         <!-- Add Mistake Form -->
         <form onsubmit="addRedListItem(event)" class="grid grid-cols-1 md:grid-cols-12 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200/70">
           <div class="md:col-span-2">
@@ -831,6 +857,33 @@
 
         <!-- Error List Entries -->
         <div id="redlist-container" class="space-y-3">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- VIEW 4: PRACTICE HISTORY & REVIEW QUEUE                            -->
+    <!-- ===================================================================== -->
+    <div id="view-history" class="hidden space-y-5">
+      <div class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200/80 shadow-apple space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="history" class="w-4 h-4 text-emerald-600"></i>
+              Practice History
+            </h2>
+            <p class="text-xs text-slate-500">Every practice and game session, with the answers you missed. Newest first.</p>
+          </div>
+          <button onclick="exportStudyLog()" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors self-start">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i>
+            Export log
+          </button>
+        </div>
+
+        <div id="history-summary" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+
+        <div id="history-list" class="space-y-3">
           <!-- Populated by JS -->
         </div>
       </div>
@@ -1185,6 +1238,10 @@
 
     const STORAGE_KEY = 'ielts_mastery_pipeline_v2';
     const RESET_SNAPSHOT_KEY = 'ielts_mastery_pipeline_pre_reset_v1';
+    // Practice/game results are shared with the lesson pages, which write the
+    // same two keys from assets/vocab-tools.js.
+    const STUDY_LOG_KEY = 'ieltsStudyLog_v1';
+    const RED_QUEUE_KEY = 'ieltsRedListQueue_v1';
     const SCHEMA_VERSION = 3;
     const EXAM_TARGET_ISO = '2027-07-01';
     const SESSION_HOURS = 2;
@@ -1536,8 +1593,7 @@
       saveState(false);
     }
 
-    function saveState(showPulse = true) {
-      try {
+    function saveState(showPulse = true) {      try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
         if (showPulse) {
           const el = document.getElementById('autosave-indicator');
@@ -1549,6 +1605,120 @@
       } catch (e) {
         showToast('Warning: Could not save to browser storage.', 'error');
       }
+    }
+
+    // =========================================================================
+    // 2A2. STUDY LOG & RED LIST QUEUE (shared with lesson practice tools)
+    // =========================================================================
+    function loadStudyLog() {
+      try {
+        const raw = localStorage.getItem(STUDY_LOG_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveStudyLog(log) {
+      try {
+        localStorage.setItem(STUDY_LOG_KEY, JSON.stringify(log.slice(0, 300)));
+      } catch (error) {
+        console.warn('Could not save study log', error);
+      }
+    }
+
+    function logStudySession(entry) {
+      const log = loadStudyLog();
+      const record = {
+        id: `s-${Date.now()}`,
+        date: todayISO(),
+        at: Date.now(),
+        skill: '',
+        topic: '',
+        modeLabel: '',
+        total: 0,
+        correct: 0,
+        review: 0,
+        missed: [],
+        ...entry
+      };
+      log.unshift(record);
+      saveStudyLog(log);
+      appendPracticeNoteToDay(record);
+      renderHistory();
+      return record;
+    }
+
+    // Mirror the result into the day card for today so the practice shows up in
+    // the schedule and in the Excel export, not only in local history.
+    function appendPracticeNoteToDay(record) {
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (!week || !record) return;
+      const today = todayISO();
+      const dayIndex = (week.days || []).findIndex(day => day.date === today);
+      if (dayIndex < 0) return;
+      const day = week.days[dayIndex];
+      const task = day.tasks.find(item => !item.done) || day.tasks[0];
+      if (!task) return;
+
+      const missedWords = (record.missed || []).map(miss => miss.word).filter(Boolean);
+      const line = `Practice: ${record.modeLabel || record.skill} ${record.correct}/${record.total}${missedWords.length ? ` · review: ${missedWords.join(', ')}` : ' · no errors'}`;
+      const marker = 'Practice:';
+      const current = String(task.note || '');
+      if (current.includes(marker)) {
+        task.note = current.replace(new RegExp(`${marker}[^\\n]*`), line);
+      } else {
+        task.note = current ? `${current}\n${line}` : line;
+      }
+      saveState();
+      renderAll();
+    }
+
+    function loadRedQueue() {
+      try {
+        const raw = localStorage.getItem(RED_QUEUE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveRedQueue(queue) {
+      try {
+        localStorage.setItem(RED_QUEUE_KEY, JSON.stringify(queue.slice(0, 200)));
+      } catch (error) {
+        console.warn('Could not save Red List queue', error);
+      }
+    }
+
+    // One pending Red List item per word per topic, so re-practising the same
+    // word does not flood the list with duplicates.
+    function queueRedListWords(items, topic) {
+      const queue = loadRedQueue();
+      const seen = new Set(queue.map(item => `${item.topic}||${item.word}`));
+      let added = 0;
+      (items || []).forEach(raw => {
+        const isObject = raw && typeof raw === 'object';
+        const text = String(isObject ? raw.word : raw || '').trim();
+        if (!text) return;
+        const key = `${topic}||${text}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        queue.unshift({
+          id: `rq-${Date.now()}-${added}`,
+          date: todayISO(),
+          topic: topic || '',
+          word: text,
+          vi: isObject ? (raw.vi || '') : '',
+          collocation: isObject ? (raw.collocation || '') : '',
+          example: isObject ? (raw.example || '') : ''
+        });
+        added += 1;
+      });
+      saveRedQueue(queue);
+      return added;
     }
 
     // =========================================================================
@@ -2166,6 +2336,7 @@
       renderCommandCenter();
       renderMatrix();
       renderRedList();
+      renderHistory();
       updateNavStyles();
       lucide.createIcons();
     }
@@ -2685,6 +2856,7 @@
         collocation,
         example,
         heard,
+        viMean: String(item.viMean || '').trim(),
         ipa: String(item.ipa || '').split(',')[0].trim()
       };
     }
@@ -3097,7 +3269,7 @@
         };
       });
 
-      topicListeningSession = { questions, index: 0, score: 0, answered: false, transcriptShown: false };
+      topicListeningSession = { questions, index: 0, score: 0, answered: false, transcriptShown: false, missed: [], logged: false };
       const modal = document.getElementById('topic-listening-modal');
       if (!modal) return;
       modal.classList.remove('hidden');
@@ -3170,6 +3342,7 @@
       const correct = selected === question.listeningWord;
       session.answered = true;
       if (correct) session.score += 1;
+      else if (question) session.missed.push(question);
 
       document.querySelectorAll('#tl-options button').forEach(option => {
         option.disabled = true;
@@ -3220,20 +3393,76 @@
       if (hint) hint.textContent = 'Topic listening score';
       if (feedback) feedback.innerHTML = '';
       if (transcriptBtn) transcriptBtn.style.visibility = 'hidden';
+
+      const week = appState.weeks[appState.activeWeek - 1];
+      if (!session.logged) {
+        logStudySession({
+          kind: 'listening',
+          skill: 'Listening',
+          topic: week ? week.title : '',
+          modeLabel: 'Topic dictation',
+          total: session.questions.length,
+          correct: session.score,
+          review: session.missed.length,
+          missed: session.missed.map(item => ({
+            word: item.listeningWord,
+            vi: item.viMean || '',
+            collocation: item.collocation || '',
+            example: item.example || ''
+          }))
+        });
+        session.logged = true;
+      }
+
+      const missed = session.missed || [];
       if (options) {
         options.innerHTML = `
-          <div class="sm:col-span-2 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-center">
-            <p class="text-2xl font-bold text-emerald-800">${session.score} / ${session.questions.length}</p>
-            <p class="text-[11px] text-emerald-700 mt-1">Review missed words and add them to your Red List.</p>
-            <button onclick="startTopicListeningDrill()" class="mt-3 inline-flex items-center gap-1.5 bg-white border border-emerald-200 hover:bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
-              Practise again
-            </button>
+          <div class="sm:col-span-2 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+            <div class="text-center">
+              <p class="text-2xl font-bold text-emerald-800">${session.score} / ${session.questions.length}</p>
+              <p class="text-[11px] text-emerald-700 mt-1">Saved to today's study log.</p>
+            </div>
+            ${missed.length ? `
+              <div class="mt-3 rounded-lg bg-white border border-rose-100 p-2.5">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-rose-700">Answers to review</p>
+                <ul class="mt-1.5 space-y-1">
+                  ${missed.map(item => `
+                    <li class="text-[10.5px] text-slate-700">
+                      <strong class="font-bold text-slate-900">${escapeHTML(item.listeningWord)}</strong>
+                      ${item.viMean ? ` — ${escapeHTML(item.viMean)}` : ''}
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            ` : '<p class="mt-3 text-[11px] text-center font-semibold text-emerald-800">No wrong answers — clean run.</p>'}
+            <div class="flex flex-wrap justify-center gap-2 mt-3">
+              ${missed.length ? '<button onclick="queueListeningMisses()" class="inline-flex items-center gap-1.5 bg-white border border-rose-200 hover:bg-rose-50 text-rose-700 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">Send misses to Red List</button>' : ''}
+              <button onclick="startTopicListeningDrill()" class="inline-flex items-center gap-1.5 bg-white border border-emerald-200 hover:bg-emerald-100 text-emerald-800 px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
+                Practise again
+              </button>
+            </div>
           </div>`;
       }
       if (nextBtn) {
         nextBtn.disabled = false;
         nextBtn.textContent = 'Close';
       }
+    }
+
+    function queueListeningMisses() {
+      const session = topicListeningSession;
+      if (!session || !session.missed.length) return;
+      const week = appState.weeks[appState.activeWeek - 1];
+      const words = session.missed.map(item => ({
+        word: item.listeningWord,
+        vi: item.viMean || '',
+        collocation: item.collocation || '',
+        example: item.example || ''
+      }));
+      const added = queueRedListWords(words, week ? week.title : '');
+      showToast(added
+        ? `${added} missed word${added === 1 ? '' : 's'} queued for the Red List.`
+        : 'Those words are already queued for the Red List.');
     }
 
     function showTopicTranscript() {
@@ -3364,7 +3593,261 @@
       }).join('');
     }
 
+    function renderRedQueue() {
+      const host = document.getElementById('red-queue-host');
+      if (!host) return;
+      const queue = loadRedQueue();
+      if (!queue.length) {
+        host.innerHTML = '';
+        host.classList.add('hidden');
+        return;
+      }
+      host.classList.remove('hidden');
+      host.innerHTML = `
+        <div class="rounded-xl border border-amber-200/80 bg-amber-50/60 p-3.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-amber-700">From practice games</p>
+              <p class="text-[11px] text-amber-900 mt-0.5">${queue.length} word${queue.length === 1 ? '' : 's'} you answered wrong, waiting to be logged.</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="acceptRedQueue()" class="px-3 py-1.5 rounded-lg bg-white border border-amber-300 text-amber-900 text-[11px] font-semibold hover:bg-amber-100 transition-colors">Log all to Red List</button>
+              <button onclick="clearRedQueue()" class="px-3 py-1.5 rounded-lg text-[11px] font-semibold text-amber-800 hover:underline">Dismiss</button>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-1.5 mt-2.5">
+            ${queue.slice(0, 12).map(item => `<span class="text-[10px] font-medium text-amber-900 bg-white border border-amber-200/80 px-2 py-0.5 rounded-md">${escapeHTML(item.word)}</span>`).join('')}
+            ${queue.length > 12 ? `<span class="text-[10px] text-amber-700">+${queue.length - 12} more</span>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function acceptRedQueue() {
+      const queue = loadRedQueue();
+      if (!queue.length) return;
+      const weekNumber = appState.activeWeek;
+      let added = 0;
+      queue.forEach(item => {
+        const exists = appState.redList.some(entry =>
+          (entry.original || '').trim().toLowerCase() === item.word.toLowerCase()
+          && Number(entry.weekNumber) === weekNumber
+        );
+        if (exists) return;
+        appState.redList.unshift({
+          id: `rl-${Date.now()}-${added}`,
+          weekNumber,
+          skill: 'Collocation',
+          original: item.word,
+          upgraded: item.collocation ? `${item.collocation}` : `${item.word} — add a Band 7.5+ collocation`,
+          note: `Missed in practice${item.topic ? ` · ${item.topic}` : ''}${item.date ? ` · ${formatFullDate(item.date)}` : ''}${item.example ? ` · e.g. ${item.example}` : ''}`
+        });
+        added += 1;
+      });
+      saveRedQueue([]);
+      saveState();
+      renderAll();
+      renderRedList();
+      showToast(added ? `${added} word${added === 1 ? '' : 's'} added to the Red List.` : 'Those words were already in the Red List.');
+    }
+
+    function clearRedQueue() {
+      saveRedQueue([]);
+      renderRedQueue();
+      showToast('Queued words dismissed.');
+    }
+
+    // Suggest what to review on the command centre without opening History.
+    function renderTodayReview(log) {
+      const strip = document.getElementById('today-review-strip');
+      const summary = document.getElementById('today-review-summary');
+      const wordsEl = document.getElementById('today-review-words');
+      if (!strip || !summary || !wordsEl) return;
+
+      const today = todayISO();
+      const todays = (log || []).filter(item => item.date === today);
+      const week = appState.weeks[appState.activeWeek - 1];
+      const topicTitle = week ? week.title : '';
+
+      // Words missed today, de-duplicated, topic first.
+      const missedMap = new Map();
+      todays.forEach(item => {
+        const isActiveTopic = topicTitle && item.topic === topicTitle;
+        (item.missed || []).forEach(miss => {
+          const word = String(miss.word || '').trim();
+          if (!word) return;
+          const key = word.toLowerCase();
+          const existing = missedMap.get(key);
+          if (existing) {
+            existing.count += 1;
+            existing.activeTopic = existing.activeTopic || isActiveTopic;
+            return;
+          }
+          missedMap.set(key, { word, vi: miss.vi || '', collocation: miss.collocation || '', count: 1, activeTopic: isActiveTopic });
+        });
+      });
+
+      const queue = loadRedQueue();
+      const dueReviews = week ? getDueSpacedReviews(week).length : 0;
+
+      if (!todays.length && !queue.length && !dueReviews) {
+        strip.classList.add('hidden');
+        return;
+      }
+      strip.classList.remove('hidden');
+
+      const missedList = [...missedMap.values()].sort((a, b) =>
+        (b.activeTopic - a.activeTopic) || (b.count - a.count)
+      );
+      const parts = [];
+      if (todays.length) {
+        const correct = todays.reduce((sum, item) => sum + (Number(item.correct) || 0), 0);
+        const total = todays.reduce((sum, item) => sum + (Number(item.total) || 0), 0);
+        parts.push(`${todays.length} session${todays.length === 1 ? '' : 's'} today (${correct}/${total})`);
+      }
+      if (missedList.length) parts.push(`${missedList.length} word${missedList.length === 1 ? '' : 's'} to revisit`);
+      if (queue.length) parts.push(`${queue.length} waiting in the Red List queue`);
+      if (dueReviews) parts.push(`${dueReviews} spaced review${dueReviews === 1 ? '' : 's'} due`);
+      summary.textContent = parts.join(' · ');
+
+      if (missedList.length) {
+        wordsEl.innerHTML = missedList.slice(0, 8).map(item => `
+          <span class="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded-md border ${item.activeTopic ? 'bg-white text-rose-800 border-rose-200/80' : 'bg-white text-slate-600 border-slate-200/80'}">
+            ${escapeHTML(item.word)}${item.count > 1 ? ` ×${item.count}` : ''}
+          </span>
+        `).join('');
+      } else {
+        wordsEl.innerHTML = '<span class="text-[10px] text-emerald-700 font-semibold">No missed words today — clean runs.</span>';
+      }
+    }
+
+    function renderHistory() {
+      const listEl = document.getElementById('history-list');
+      const summaryEl = document.getElementById('history-summary');
+      const badge = document.getElementById('nav-history-badge');
+      if (!listEl) return;
+
+      const log = loadStudyLog();
+      if (badge) badge.textContent = log.length;
+      renderTodayReview(log);
+
+      if (summaryEl) {
+        const totalSessions = log.length;
+        const totalQuestions = log.reduce((sum, item) => sum + (Number(item.total) || 0), 0);
+        const totalCorrect = log.reduce((sum, item) => sum + (Number(item.correct) || 0), 0);
+        const accuracy = totalQuestions ? Math.round((totalCorrect / totalQuestions) * 100) : 0;
+        const toReview = log.reduce((sum, item) => sum + ((item.missed || []).length || Number(item.review) || 0), 0);
+        const stat = (label, value, tone) => `
+          <div class="rounded-xl border ${tone} p-3">
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">${label}</p>
+            <p class="text-lg font-bold text-slate-900 mt-0.5">${value}</p>
+          </div>`;
+        summaryEl.innerHTML = [
+          stat('Sessions', totalSessions, 'border-slate-200/80 bg-slate-50/60'),
+          stat('Questions', totalQuestions, 'border-slate-200/80 bg-slate-50/60'),
+          stat('Accuracy', `${accuracy}%`, totalQuestions && accuracy >= 80 ? 'border-emerald-200/80 bg-emerald-50/50' : 'border-amber-200/80 bg-amber-50/50'),
+          stat('To review', toReview, toReview ? 'border-rose-200/80 bg-rose-50/50' : 'border-emerald-200/80 bg-emerald-50/50')
+        ].join('');
+      }
+
+      if (!log.length) {
+        listEl.innerHTML = `
+          <div class="p-8 text-center border border-dashed border-slate-200 rounded-xl text-slate-400">
+            <p class="text-xs font-medium text-slate-500">No practice history yet.</p>
+            <p class="text-[11px] mt-1">Run a listening drill or a lesson practice mode — every session will be logged here with the answers you missed.</p>
+          </div>
+        `;
+        return;
+      }
+
+      listEl.innerHTML = log.slice(0, 40).map(item => {
+        const missed = item.missed || [];
+        const total = Number(item.total) || 0;
+        const correct = Number(item.correct) || 0;
+        const pct = total ? Math.round((correct / total) * 100) : 0;
+        const clean = !missed.length;
+        return `
+          <div class="rounded-xl border ${clean ? 'border-emerald-200/70 bg-emerald-50/25' : 'border-slate-200/80 bg-white'} p-3.5">
+            <div class="flex flex-wrap items-start justify-between gap-2">
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-slate-900">${escapeHTML(item.modeLabel || item.kind || 'Practice')}</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">${escapeHTML(item.topic || '—')} · ${escapeHTML(formatFullDate(item.date))}</p>
+              </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span class="text-[11px] font-bold ${pct >= 80 ? 'text-emerald-700' : 'text-amber-700'}">${correct}/${total}</span>
+                <span class="text-[10px] font-semibold px-2 py-0.5 rounded-md border ${clean ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80' : 'bg-rose-50 text-rose-700 border-rose-200/80'}">${clean ? 'Clean' : `${missed.length} to review`}</span>
+              </div>
+            </div>
+            ${missed.length ? `
+              <div class="mt-2 rounded-lg bg-white border border-rose-100 p-2.5">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-rose-700">Review these</p>
+                <ul class="mt-1.5 space-y-1">
+                  ${missed.slice(0, 8).map(miss => `
+                    <li class="text-[10.5px] text-slate-700">
+                      <strong class="font-bold text-slate-900">${escapeHTML(miss.word || '')}</strong>
+                      ${miss.vi ? ` — ${escapeHTML(miss.vi)}` : ''}
+                      ${miss.collocation ? `<span class="block text-emerald-700">${escapeHTML(miss.collocation)}</span>` : ''}
+                    </li>
+                  `).join('')}
+                  ${missed.length > 8 ? `<li class="text-[10px] text-slate-400">+${missed.length - 8} more</li>` : ''}
+                </ul>
+                <button onclick="queueHistoryMisses('${item.id}')" class="mt-2 text-[10px] font-semibold text-rose-700 hover:text-rose-900 underline">Send these to Red List</button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function queueHistoryMisses(id) {
+      const entry = loadStudyLog().find(item => item.id === id);
+      if (!entry) return;
+      const words = (entry.missed || []).map(miss => ({
+        word: miss.word,
+        vi: miss.vi || '',
+        collocation: miss.collocation || '',
+        example: miss.example || ''
+      }));
+      const added = queueRedListWords(words, entry.topic || '');
+      renderRedList();
+      showToast(added ? `${added} word${added === 1 ? '' : 's'} queued for the Red List.` : 'Those words are already queued.');
+    }
+
+    function exportStudyLog() {
+      const log = loadStudyLog();
+      if (!log.length) {
+        showToast('No practice history to export yet.', 'error');
+        return;
+      }
+      const rows = [['Date', 'Topic', 'Mode', 'Score', 'Total', 'Correct', 'To review', 'Missed words']];
+      log.forEach(item => {
+        rows.push([
+          item.date || '',
+          item.topic || '',
+          item.modeLabel || item.kind || '',
+          `${Number(item.correct) || 0}/${Number(item.total) || 0}`,
+          Number(item.total) || 0,
+          Number(item.correct) || 0,
+          (item.missed || []).length,
+          (item.missed || []).map(miss => miss.word).filter(Boolean).join('; ')
+        ]);
+      });
+      const csv = rows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `practice-history-${todayISO()}.csv`;
+      link.click();
+      URL.revokeObjectURL(url);
+      showToast('Practice history exported.');
+    }
+
     function renderRedList() {
+      // Words queued by the practice games / listening drills wait here until
+      // the learner decides what to do with them.
+      renderRedQueue();
+
       // Populate week dropdown inside Red List form
       const rlWeekSel = document.getElementById('rl-week');
       if (rlWeekSel) {
@@ -3436,15 +3919,17 @@
       document.getElementById('view-command').classList.toggle('hidden', view !== 'command');
       document.getElementById('view-matrix').classList.toggle('hidden', view !== 'matrix');
       document.getElementById('view-redlist').classList.toggle('hidden', view !== 'redlist');
+      document.getElementById('view-history').classList.toggle('hidden', view !== 'history');
 
       updateNavStyles();
       if (view === 'matrix') renderMatrix();
       if (view === 'redlist') renderRedList();
+      if (view === 'history') renderHistory();
       lucide.createIcons();
     }
 
     function updateNavStyles() {
-      const views = ['command', 'matrix', 'redlist'];
+      const views = ['command', 'matrix', 'redlist', 'history'];
       views.forEach(v => {
         const btn = document.getElementById(`nav-${v}`);
         const mbtn = document.getElementById(`mnav-${v}`);
@@ -4166,6 +4651,34 @@
           styleDataRows(rl, 5, rlRow - 1, 6, row => row.number);
         }
 
+        // ---------- Practice History ----------
+        const studyLog = loadStudyLog();
+        if (studyLog.length) {
+          const pl = wb.addWorksheet('Practice Log', { views: [{ state: 'frozen', ySplit: 4, showGridLines: false }] });
+          decorateSheet(pl, 'FF059669');
+          pl.columns = [{ width: 14 }, { width: 34 }, { width: 24 }, { width: 10 }, { width: 22 }, { width: 60 }];
+          addSheetTitle(pl, 'Practice Log — Games & Drills', 'Every practice session with the answers you missed, newest first.', 6);
+          ['Date', 'Topic', 'Mode', 'Score', 'Correct %', 'Answers to review'].forEach((label, idx) => {
+            pl.getCell(4, idx + 1).value = label;
+          });
+          styleHeaderRow(pl.getRow(4));
+          let plRow = 5;
+          studyLog.forEach(item => {
+            const total = Number(item.total) || 0;
+            const correct = Number(item.correct) || 0;
+            const missed = (item.missed || []).map(miss => miss.word).filter(Boolean).join(', ');
+            pl.getCell(plRow, 1).value = item.date || '';
+            pl.getCell(plRow, 2).value = item.topic || '';
+            pl.getCell(plRow, 3).value = item.modeLabel || item.kind || '';
+            pl.getCell(plRow, 4).value = `${correct}/${total}`;
+            pl.getCell(plRow, 5).value = total ? correct / total : 0;
+            pl.getCell(plRow, 5).numFmt = '0%';
+            pl.getCell(plRow, 6).value = missed;
+            plRow += 1;
+          });
+          styleDataRows(pl, 5, plRow - 1, 6, row => row.number);
+        }
+
         // ---------- Vocabulary Bank ----------
         const vocabRows = [];
         (appState.weeks || []).forEach(week => {
@@ -4411,6 +4924,13 @@
       autoRollMissedSessions();
       renderAll();
       syncFromSheets(false);
+
+      // Lesson pages link here with ?view=history, and the Red List needs a
+      // visible landing spot for the words queued by the practice games.
+      const requestedView = new URLSearchParams(location.search).get('view');
+      if (requestedView === 'history' || requestedView === 'redlist') {
+        switchMainView(requestedView);
+      }
     };
 
     // Keep the page in step with the shared sheet when the user returns to it.

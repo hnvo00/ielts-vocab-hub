@@ -22,6 +22,11 @@
   const LEARNED_KEY = 'vocabLearned_' + pageKey;
   const CUSTOM_KEY = 'vocabCustom_' + pageKey;
 
+  // Shared across every page: practice history and a queue of words to send to
+  // the Red List on the tracker page.
+  const STUDY_LOG_KEY = 'ieltsStudyLog_v1';
+  const RED_QUEUE_KEY = 'ieltsRedListQueue_v1';
+
   const $ = id => document.getElementById(id);
 
   const escapeHtml = value => String(value == null ? '' : value)
@@ -175,6 +180,10 @@
             <i data-lucide="brain" class="w-3.5 h-3.5"></i>
             <span id="vt-practice-label">Practice learned</span>
           </button>
+          <a id="vt-btn-history" href="./index.html" title="Open practice history on the tracker" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition-colors">
+            <i data-lucide="history" class="w-3.5 h-3.5 text-emerald-600"></i>
+            <span id="vt-history-label">History</span>
+          </a>
         </div>
       </div>
 
@@ -246,6 +255,13 @@
     if (bar) bar.style.width = `${total ? Math.round((count / total) * 100) : 0}%`;
     if (practiceBtn) practiceBtn.disabled = count === 0;
     if (practiceLabel) practiceLabel.textContent = count ? `Practice ${count} learned` : 'Practice learned';
+
+    const historyLink = $('vt-btn-history');
+    const historyLabel = $('vt-history-label');
+    const pending = loadJSON(RED_QUEUE_KEY, []);
+    const pendingCount = Array.isArray(pending) ? pending.length : 0;
+    if (historyLink) historyLink.href = './index.html?view=history';
+    if (historyLabel) historyLabel.textContent = pendingCount ? `History · ${pendingCount} to review` : 'History';
   }
 
   // -----------------------------------------------------------------------
@@ -925,6 +941,8 @@
       mode: 'cloze',
       correct: 0,
       review: 0,
+      missed: [],
+      logged: false,
       revealed: false,
       answered: false,
       wasCorrect: false
@@ -939,6 +957,8 @@
     practiceState.idx = 0;
     practiceState.correct = 0;
     practiceState.review = 0;
+    practiceState.missed = [];
+    practiceState.logged = false;
     practiceState.revealed = false;
     practiceState.answered = false;
     practiceState.wasCorrect = false;
@@ -980,16 +1000,7 @@
     if (feedback) feedback.innerHTML = '';
 
     if (practiceState.idx >= total) {
-      card.innerHTML = `
-        <div class="text-center space-y-2">
-          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
-            <i data-lucide="party-popper" class="w-6 h-6"></i>
-          </div>
-          <h4 class="text-lg font-bold text-slate-900">Session complete</h4>
-          <p class="text-xs text-slate-600">${practiceState.correct} correct · ${practiceState.review} to review</p>
-          <p class="text-[11px] text-slate-400">Switch mode or practise the same learned set again.</p>
-        </div>
-      `;
+      renderPracticeReview();
       setPracticeButtons(['vt-p-restart']);
       refreshIcons();
       return;
@@ -1044,6 +1055,189 @@
     refreshIcons();
   }
 
+  // -----------------------------------------------------------------------
+  // Review / history helpers
+  // -----------------------------------------------------------------------
+  const MODE_LABELS = {
+    cloze: 'Fill the word',
+    'word-vi': 'Word → Vietnamese',
+    'vi-word': 'Vietnamese → Word',
+    example: 'Example recall'
+  };
+
+  function topicLabel() {
+    const title = document.getElementById('mainTitle');
+    const text = title ? title.innerText.trim() : '';
+    if (text) return text;
+    return document.title ? document.title.split('—')[0].trim() : pageKey;
+  }
+
+  function formatLogDate(iso) {
+    const date = new Date(`${iso}T00:00:00`);
+    if (Number.isNaN(date.getTime())) return iso;
+    return date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+
+  function todayISO() {
+    const now = new Date();
+    const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+    return local.toISOString().slice(0, 10);
+  }
+
+  function loadStudyLog() {
+    const log = loadJSON(STUDY_LOG_KEY, []);
+    return Array.isArray(log) ? log : [];
+  }
+
+  // One pending Red List item per missed word, so re-practising the same word
+  // does not flood the tracker with duplicates.
+  function buildRedQueue(entry, existing) {
+    const queue = Array.isArray(existing) ? existing.slice() : [];
+    const seen = new Set(queue.map(item => `${item.topic}||${item.word}`));
+    entry.missed.forEach(miss => {
+      const key = `${entry.topic}||${miss.word}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      queue.unshift({
+        id: `rq-${Date.now()}-${miss.no}`,
+        date: entry.date,
+        topic: entry.topic,
+        word: miss.word,
+        vi: miss.vi,
+        collocation: miss.collocation,
+        example: miss.example,
+        modeLabel: entry.modeLabel
+      });
+    });
+    return queue.slice(0, 200);
+  }
+
+  function savePracticeSession() {
+    if (!practiceState) return null;
+    const total = practiceState.items.length;
+    if (!total) return null;
+    const missed = practiceState.missed || [];
+    const entry = {
+      id: `s-${Date.now()}`,
+      date: todayISO(),
+      at: Date.now(),
+      topic: topicLabel(),
+      page: pageKey,
+      mode: practiceState.mode,
+      modeLabel: MODE_LABELS[practiceState.mode] || practiceState.mode,
+      total,
+      correct: practiceState.correct,
+      review: practiceState.review,
+      missed: missed.map(item => ({
+        no: item.no,
+        word: String(item.vocab || '').split(',')[0].trim(),
+        vi: item.viMean || '',
+        collocation: item.collocation || '',
+        example: englishExample(item)
+      }))
+    };
+    const log = loadStudyLog();
+    log.unshift(entry);
+    saveJSON(STUDY_LOG_KEY, log.slice(0, 300));
+    saveJSON(RED_QUEUE_KEY, buildRedQueue(entry, loadJSON(RED_QUEUE_KEY, [])));
+    practiceState.logged = true;
+    return entry;
+  }
+
+  function renderPracticeReview() {
+    const card = $('vt-p-card');
+    if (!card || !practiceState) return;
+    const total = practiceState.items.length;
+    const missed = practiceState.missed || [];
+    const pct = total ? Math.round((practiceState.correct / total) * 100) : 0;
+    const entry = practiceState.logged ? null : savePracticeSession();
+    const history = loadStudyLog().slice(0, 5);
+
+    card.innerHTML = `
+      <div class="space-y-3">
+        <div class="text-center space-y-1.5">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto">
+            <i data-lucide="party-popper" class="w-6 h-6"></i>
+          </div>
+          <h4 class="text-lg font-bold text-slate-900">Session complete</h4>
+          <p class="text-xs text-slate-600">${practiceState.correct} correct · ${practiceState.review} to review · ${pct}%</p>
+          <p class="text-[11px] text-slate-400">${entry ? 'Saved to today\'s study log and the tracker history.' : 'Already saved to today\'s study log.'}</p>
+        </div>
+
+        ${missed.length ? `
+          <div class="rounded-xl border border-rose-200/80 bg-rose-50/50 p-3">
+            <div class="flex items-center justify-between gap-2">
+              <p class="text-[10px] font-bold uppercase tracking-widest text-rose-700">Answers to review</p>
+              <span class="text-[10px] font-semibold text-rose-700">Queued for Red List</span>
+            </div>
+            <ul class="mt-2 space-y-1.5">
+              ${missed.map(item => `
+                <li class="rounded-lg bg-white border border-rose-100 px-2.5 py-2">
+                  <p class="text-[11px] font-bold text-slate-900">${escapeHtml(String(item.vocab || '').split(',')[0].trim())}</p>
+                  ${item.viMean ? `<p class="text-[10px] text-slate-500 mt-0.5">${escapeHtml(item.viMean)}</p>` : ''}
+                  ${item.collocation ? `<p class="text-[10px] text-emerald-700 mt-0.5">${escapeHtml(item.collocation)}</p>` : ''}
+                  ${englishExample(item) ? `<p class="text-[10px] text-slate-500 italic mt-0.5">${escapeHtml(englishExample(item))}</p>` : ''}
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        ` : `
+          <div class="rounded-xl border border-emerald-200/80 bg-emerald-50/50 p-3 text-center">
+            <p class="text-[11px] font-semibold text-emerald-800">No words to review — clean run.</p>
+          </div>
+        `}
+
+        <div class="rounded-xl border border-slate-200/80 bg-slate-50/60 p-3">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Recent practice on this page</p>
+          <ul class="mt-2 space-y-1">
+            ${history.map(item => `
+              <li class="flex items-center justify-between gap-2 text-[10.5px] text-slate-600">
+                <span class="truncate">${escapeHtml(formatLogDate(item.date))} · ${escapeHtml(item.modeLabel)}</span>
+                <span class="shrink-0 font-semibold ${item.review ? 'text-rose-600' : 'text-emerald-700'}">${item.correct}/${item.total}</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+
+        <div class="flex flex-wrap gap-2 justify-center">
+          ${missed.length ? '<button type="button" data-vt-practice-missed class="px-3 py-2 rounded-xl border border-rose-200 bg-rose-50 text-rose-700 text-[11px] font-semibold hover:bg-rose-100">Practise missed words</button>' : ''}
+          <button type="button" data-vt-copy-summary class="px-3 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-[11px] font-semibold hover:bg-slate-50">Copy summary</button>
+        </div>
+      </div>
+    `;
+
+    const missedBtn = card.querySelector('[data-vt-practice-missed]');
+    if (missedBtn) {
+      missedBtn.addEventListener('click', () => {
+        practiceState.items = shuffle(missed);
+        practiceState.idx = 0;
+        practiceState.correct = 0;
+        practiceState.review = 0;
+        practiceState.missed = [];
+        practiceState.logged = false;
+        renderPractice();
+      });
+    }
+    const copyBtn = card.querySelector('[data-vt-copy-summary]');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const lines = [
+          `Practice: ${topicLabel()} · ${MODE_LABELS[practiceState.mode]}`,
+          `Date: ${formatLogDate(todayISO())}`,
+          `Score: ${practiceState.correct}/${total} (${pct}%)`,
+          '',
+          missed.length ? 'Words to review:' : 'No words to review.',
+          ...missed.map(item => `- ${String(item.vocab || '').split(',')[0].trim()}: ${item.viMean || ''}`)
+        ];
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(lines.join('\n'))
+            .then(() => notify('Summary copied.'))
+            .catch(() => notify('Could not copy the summary.', 'error'));
+        }
+      });
+    }
+  }
+
   function renderTypedVietnamesePrompt(item) {
     const card = $('vt-p-card');
     card.innerHTML = `
@@ -1080,11 +1274,16 @@
     if (!practiceState || practiceState.answered) return;
     const input = $('vt-p-input');
     if (!input) return;
+    const item = currentPracticeItem();
     const { answers, display } = practiceAnswer();
     const correct = answerIsCorrect(input.value, answers);
     practiceState.answered = true;
     practiceState.wasCorrect = correct;
-    if (correct) practiceState.correct += 1; else practiceState.review += 1;
+    if (correct) practiceState.correct += 1;
+    else {
+      practiceState.review += 1;
+      recordMiss(item);
+    }
 
     const feedback = $('vt-p-feedback');
     if (feedback) {
@@ -1106,9 +1305,20 @@
     setPracticeButtons(['vt-p-again', 'vt-p-got']);
   }
 
+  function recordMiss(item) {
+    if (!practiceState || !item) return;
+    if (!practiceState.missed) practiceState.missed = [];
+    if (practiceState.missed.some(entry => entry.no === item.no)) return;
+    practiceState.missed.push(item);
+  }
+
   function markPractice(correct) {
     if (!practiceState) return;
-    if (correct) practiceState.correct += 1; else practiceState.review += 1;
+    if (correct) practiceState.correct += 1;
+    else {
+      practiceState.review += 1;
+      recordMiss(currentPracticeItem());
+    }
     advancePractice();
   }
 
