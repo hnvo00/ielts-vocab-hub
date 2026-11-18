@@ -363,7 +363,23 @@
             <h3 id="cam-test-title" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1.5">Cambridge 21 Test 4</h3>
             <p id="cam-why" class="text-xs text-slate-600 leading-relaxed mt-1.5">Choose this test and work through the sections below under timed conditions.</p>
             <div id="cam-passage" class="mt-3"></div>
-            <div id="cam-sections" class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3"></div>
+            <div id="cam-sections" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 mt-3"></div>
+            <div class="mt-3 rounded-xl bg-white/80 border border-slate-200/70 p-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Topic output practice</p>
+                <span class="text-[9px] font-medium text-slate-400">Topic-linked prompts · not from Cambridge</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                <div>
+                  <p class="text-[10px] font-semibold text-emerald-700">Writing Task 2</p>
+                  <p id="cam-task2" class="text-[11px] text-slate-700 leading-relaxed mt-0.5"></p>
+                </div>
+                <div>
+                  <p class="text-[10px] font-semibold text-emerald-700">Speaking Part 3</p>
+                  <ul id="cam-speaking" class="list-disc pl-4 text-[11px] text-slate-700 leading-relaxed mt-0.5 space-y-1"></ul>
+                </div>
+              </div>
+            </div>
             <div class="flex flex-wrap gap-2 mt-4">
               <button onclick="useCambridgeForD1()" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors">
                 <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
@@ -832,7 +848,7 @@
           {
             title: 'Topic Reading Passage: 20m timed + 40m deep review',
             gate: 1,
-            placeholder: 'e.g., Cambridge 21 Test 1 Passage 3 (Score: 11/13)'
+            placeholder: 'e.g., Cambridge test + passage (Score: 11/13)'
           },
           {
             title: 'Extract 30 target words & collocations from the passage (Batch A)',
@@ -852,7 +868,7 @@
           {
             title: 'Topic Listening Section (Part 3/4) + transcript check',
             gate: 1,
-            placeholder: 'e.g., Cambridge 20 Test 2 Part 4 (9/10)'
+            placeholder: 'e.g., Cambridge test + part (9/10)'
           },
           {
             title: 'Encode Batch A (words 1-30) with collocations + 2 example sentences each',
@@ -1228,22 +1244,15 @@
         hoursLabel: bp.hoursLabel,
         gateBadge: bp.gateBadge,
         accent: bp.accent,
-        tasks: bp.tasks.map((t, tIdx) => {
-          // Pre-populate Week 1 Monday Task 1 with an example material note
-          let sampleNote = '';
-          if (weekIndex === 0 && dIdx === 0 && tIdx === 0) {
-            sampleNote = 'Cambridge 21 Test 1 Reading Passage 3 — "Carbon Capture & Urban Forestry"';
-          }
-          return {
-            id: `w${weekIndex + 1}-d${dIdx}-t${tIdx}`,
-            title: t.title,
-            gate: t.gate,
-            placeholder: t.placeholder,
-            done: false,
-            note: sampleNote,
-            isCustom: false
-          };
-        })
+        tasks: bp.tasks.map((t, tIdx) => ({
+          id: `w${weekIndex + 1}-d${dIdx}-t${tIdx}`,
+          title: t.title,
+          gate: t.gate,
+          placeholder: t.placeholder,
+          done: false,
+          note: '',
+          isCustom: false
+        }))
       }));
     }
 
@@ -1321,6 +1330,26 @@
       };
     }
 
+    const LEGACY_D1_SAMPLE_NOTE = 'Cambridge 21 Test 1 Reading Passage 3 — "Carbon Capture & Urban Forestry"';
+
+    // Older builds pre-filled D1 with a sample passage that could contradict
+    // the topic recommendation. Clear only that exact sample; never touch a
+    // note the learner has written.
+    function clearLegacyCambridgeSampleNote() {
+      let changed = false;
+      (appState.weeks || []).forEach(week => {
+        (week.days || []).forEach(day => {
+          (day.tasks || []).forEach(task => {
+            if (task.note === LEGACY_D1_SAMPLE_NOTE) {
+              task.note = '';
+              changed = true;
+            }
+          });
+        });
+      });
+      return changed;
+    }
+
     function loadState() {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
@@ -1328,6 +1357,7 @@
           const parsed = JSON.parse(raw);
           if (parsed && Array.isArray(parsed.weeks) && parsed.weeks.length > 0) {
             appState = migrateLegacyState(parsed);
+            if (clearLegacyCambridgeSampleNote()) saveState(false);
             ensureScheduleDates(appState.weeks, (appState.weeks[0].days && appState.weeks[0].days[0].date) || todayISO());
             appState.activeWeek = Math.min(Math.max(Number(appState.activeWeek) || 1, 1), appState.weeks.length);
             return;
@@ -1337,6 +1367,7 @@
         console.error('Failed to load state from localStorage:', e);
       }
       appState = createInitialState();
+      clearLegacyCambridgeSampleNote();
       saveState(false);
     }
 
@@ -1872,6 +1903,93 @@
       { re: /^building$/i, keys: ['building', 'architecture', 'housing', 'skyscraper', 'concrete', 'green roofs', 'tunnel', 'pyramid'] }
     ];
 
+    // Topic-linked Writing Task 2 and Speaking Part 3 practice. These are
+    // deliberately separate from the Cambridge reading bank: Cambridge books
+    // are not reliably topic-mapped for Writing/Speaking, so the panel uses
+    // the same full test for Listening/Writing and adds targeted output prompts.
+    const TOPIC_OUTPUT_RULES = [
+      { re: /environment|climate|weather|pollution|sustainab|ecolog|\bgreen\b|biodiversity|wildlife|conservation|renewable|energy/i,
+        writing: 'Some people believe individuals can do little to address climate change; only governments and large companies can make a difference. To what extent do you agree or disagree?',
+        speaking: ['How is climate change affecting your country?', 'What can individuals do to reduce their carbon footprint?', 'Should environmental education be compulsory in schools?'] },
+      { re: /education|learning|school|university|student|teacher|language|multilingual|communication/i,
+        writing: 'Some people think university education should be free for everyone, while others believe students should pay. Discuss both views and give your own opinion.',
+        speaking: ['What makes a good teacher?', 'Should all children learn a second language at school?', 'How has technology changed the way people learn?'] },
+      { re: /globalization|globalisation|international trade|\btrade\b/i,
+        writing: 'Globalization brings more benefits than problems to developing countries. To what extent do you agree or disagree?',
+        speaking: ['How has globalization affected your country?', 'What are the benefits and drawbacks of international trade?', 'Should governments protect local industries?'] },
+      { re: /business|entrepreneur|economy|economic/i,
+        writing: 'Small businesses are better for the economy than large corporations. To what extent do you agree or disagree?',
+        speaking: ['What makes a business successful?', 'Should governments support start-ups?', 'Is entrepreneurship suitable for everyone?'] },
+      { re: /\bwork\b|career|workplace|employment|\bjob\b|industry/i,
+        writing: 'Some people change jobs frequently, while others stay with one employer for most of their career. Discuss both views and give your own opinion.',
+        speaking: ['What motivates people at work?', 'Is working from home better than working in an office?', 'How might artificial intelligence change jobs in the future?'] },
+      { re: /science|\bspace\b|innovation|exploration/i,
+        writing: 'Space exploration is a waste of money that could be spent on public services. To what extent do you agree or disagree?',
+        speaking: ['Why is science important for society?', 'Should governments spend money on space exploration?', 'How does scientific innovation affect daily life?'] },
+      { re: /technology|digital|internet|automation|artificial intelligence|\bai\b|robot/i,
+        writing: 'Artificial intelligence will replace many human jobs. Some see this as progress, while others see it as a threat. Discuss both views and give your own opinion.',
+        speaking: ['How has technology changed communication in your country?', 'Should schools teach students how to use AI responsibly?', 'What are the main risks of relying on technology?'] },
+      { re: /housing|architecture|living spaces|building/i,
+        writing: 'Governments should provide affordable housing in city centres. To what extent do you agree or disagree?',
+        speaking: ['What are the housing problems in your city?', 'Is it better to rent or buy a home?', 'How can cities be made more liveable?'] },
+      { re: /urban|city|cities|infrastructure|transport|mobility|traffic/i,
+        writing: 'Some people believe private cars should be banned from city centres. To what extent do you agree or disagree?',
+        speaking: ['What are the biggest transport problems in your city?', 'How can public transport be improved?', 'Is it better to live in the city centre or in the suburbs?'] },
+      { re: /\bfamily\b|parenting|generation|children|\bchild\b/i,
+        writing: 'Grandparents should play a larger role in raising children. To what extent do you agree or disagree?',
+        speaking: ['How have family roles changed in your country?', 'Is it better for children to grow up in a small or a large family?', 'Who should be responsible for caring for elderly relatives?'] },
+      { re: /\bmedia\b|journalism|\bnews\b|social network/i,
+        writing: 'Social media does more harm than good to society. To what extent do you agree or disagree?',
+        speaking: ['How do most people in your country get the news?', 'Is information on social media reliable?', 'Should governments regulate online content?'] },
+      { re: /advertising|consumerism|spending/i,
+        writing: 'Advertising encourages people to buy things they do not need. To what extent do you agree or disagree?',
+        speaking: ['Why do people buy more than they need?', 'Is advertising harmful to children?', 'Should there be limits on advertising?'] },
+      { re: /tourism|\btravel\b|cultural exchange|festival|heritage/i,
+        writing: 'Tourism often damages local cultures and environments. To what extent do you agree or disagree?',
+        speaking: ['Why do people travel to other countries?', 'What are the benefits and drawbacks of tourism?', 'How can tourism be made more sustainable?'] },
+      { re: /\bfood\b|agriculture|nutrition|farming|diet/i,
+        writing: 'Governments should control the advertising of unhealthy food to children. To what extent do you agree or disagree?',
+        speaking: ['What is a healthy diet?', 'Should schools provide free meals for children?', 'How has food culture changed in your country?'] },
+      { re: /\bart\b|arts?\b|culture|museum|music|film|\bbook\b|photography|history|tradition|\bplay\b|entertainment|hobby/i,
+        writing: 'Governments should spend more money on the arts than on sport. To what extent do you agree or disagree?',
+        speaking: ['Why are the arts important to society?', 'Should museums and galleries be free?', 'How can traditional culture be preserved?'] },
+      { re: /crime|law|justice|police|prison/i,
+        writing: 'Prisons are not the best way to reduce crime. To what extent do you agree or disagree?',
+        speaking: ['What are the main causes of crime?', 'How can juvenile crime be reduced?', 'Should the focus be on punishment or rehabilitation?'] },
+      { re: /government|policy|public spending|\btax\b|politics/i,
+        writing: 'Governments should spend more on public services than on space exploration. To what extent do you agree or disagree?',
+        speaking: ['What should governments prioritise?', 'Is the tax system in your country fair?', 'How can public spending be improved?'] },
+      { re: /sports?|competition|national pride|football|athlete/i,
+        writing: 'Governments should invest more in grassroots sport than in elite sport. To what extent do you agree or disagree?',
+        speaking: ['Why do people enjoy watching sport?', 'Should sport be compulsory at school?', 'Is competition good for children?'] },
+      { re: /gender|equality|social role|\bwomen\b|fashion/i,
+        writing: 'Gender quotas in politics and business are necessary to achieve equality. To what extent do you agree or disagree?',
+        speaking: ['How have gender roles changed in your country?', 'Do men and women have equal opportunities at work?', 'What barriers to equality still exist?'] },
+      { re: /charity|volunteer|social responsibility|\bethics\b|moral/i,
+        writing: 'Wealthy countries should give more financial aid to poorer countries. To what extent do you agree or disagree?',
+        speaking: ['Why do people volunteer?', 'Should community service be compulsory for young people?', 'How can companies be more socially responsible?'] },
+      { re: /aging|\bage\b|demographic|population/i,
+        writing: 'Governments should encourage people to work beyond retirement age. To what extent do you agree or disagree?',
+        speaking: ['How does an ageing population affect society?', 'Who should care for elderly people?', 'Is the retirement age in your country appropriate?'] },
+      { re: /health|fitness|healthcare|medical|mental|wellbeing|happiness|psychology|stress/i,
+        writing: 'Governments should tax unhealthy food and drinks to improve public health. To what extent do you agree or disagree?',
+        speaking: ['What do people in your country do to stay healthy?', 'Should healthcare be free for everyone?', 'Why is mental health becoming a more important issue?'] }
+    ];
+
+    function getTopicOutput(topicTitle) {
+      const title = String(topicTitle || '');
+      const rule = TOPIC_OUTPUT_RULES.find(item => item.re.test(title));
+      if (rule) return { writing: rule.writing, speaking: rule.speaking };
+      return {
+        writing: 'Some people believe this issue brings more benefits than problems, while others disagree. Discuss both views and give your own opinion.',
+        speaking: [
+          'Why is this issue important in your country?',
+          'What are the main challenges connected with it?',
+          'What should governments and individuals do to improve the situation?'
+        ]
+      };
+    }
+
     // =========================================================================
     // 4. RENDERING FUNCTIONS
     // =========================================================================
@@ -2243,7 +2361,7 @@
       testTitle.textContent = `Cambridge ${rec.b} Test ${rec.t}`;
 
       if (rec.isMock) {
-        why.textContent = 'Use this complete test as your calibration run. Do all four papers in exam order, then log your scores and error patterns.';
+        why.textContent = 'Use this complete test for a timed four-skill calibration. Keep the same test for Listening and Writing, then use the topic-linked Speaking questions below for Part 3.';
         passageEl.innerHTML = `
           <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
             <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0">
@@ -2256,7 +2374,7 @@
             </div>
           </div>`;
       } else if (rec.fallback) {
-        why.textContent = 'There is no close topic match in the bank. Use this recent test as a timed calibration and note which question types slow you down.';
+        why.textContent = 'There is no close topic match in the reading bank. Use this recent test for a timed calibration across Reading, Listening and Writing, then answer the topic-linked Speaking questions below.';
         passageEl.innerHTML = `
           <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
             <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0">
@@ -2269,7 +2387,7 @@
             </div>
           </div>`;
       } else {
-        why.textContent = `This test contains Reading Passage ${rec.p} — “${rec.title}” — the closest match to your current topic. Do the full test, or start with that passage.`;
+        why.textContent = `Reading Passage ${rec.p} — “${rec.title}” — is the closest topic match. Use the same test for Listening and Writing, then answer the topic-linked Speaking Part 3 questions below.`;
         passageEl.innerHTML = `
           <div class="rounded-xl bg-white/80 border border-emerald-200/70 p-3 flex items-start gap-2.5">
             <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-[11px]">R${rec.p}</span>
@@ -2283,25 +2401,39 @@
 
       const sectionCards = rec.isMock
         ? [
-            { icon: 'book-open', label: 'Reading', detail: 'All 3 passages · 60 min' },
-            { icon: 'headphones', label: 'Listening', detail: '4 parts · 30 min' },
-            { icon: 'pen-line', label: 'Writing', detail: 'Task 1 + 2 · 60 min' },
-            { icon: 'mic', label: 'Speaking', detail: 'Full test · 14 min' }
+            { icon: 'book-open', label: 'Reading', detail: 'All 3 passages · 60 min', action: 'Full paper under exam timing' },
+            { icon: 'headphones', label: 'Listening', detail: '4 parts · 30 min', action: 'Replay Section 4 with transcript' },
+            { icon: 'pen-line', label: 'Writing', detail: 'Task 1 + 2 · 60 min', action: 'Timed run; compare with the task below' },
+            { icon: 'mic', label: 'Speaking', detail: 'Full mock · 14 min', action: 'Use the Part 3 questions below' }
           ]
         : [
-            { icon: 'book-open', label: 'Reading', detail: `Passage ${rec.p} · 20 min` },
-            { icon: 'headphones', label: 'Listening', detail: '4 parts · 30 min' },
-            { icon: 'pen-line', label: 'Writing', detail: 'Task 1 + 2 · 60 min' },
-            { icon: 'mic', label: 'Speaking', detail: 'Part 3 · 5 min' }
+            { icon: 'book-open', label: 'Reading', detail: `Passage ${rec.p} · 20 min`, action: 'Then 40 min deep review' },
+            { icon: 'headphones', label: 'Listening', detail: '4 parts · 30 min', action: 'Replay Section 4 with transcript' },
+            { icon: 'pen-line', label: 'Writing', detail: 'Task 1 + 2 · 60 min', action: 'Timed run; compare with the task below' },
+            { icon: 'mic', label: 'Speaking', detail: 'Full mock · 14 min', action: 'Use the Part 3 questions below' }
           ];
 
       sectionsEl.innerHTML = sectionCards.map(section => `
         <div class="rounded-lg bg-white/80 border border-slate-200/70 p-2.5">
-          <i data-lucide="${section.icon}" class="w-3.5 h-3.5 text-emerald-600"></i>
-          <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500 mt-1">${section.label}</p>
-          <p class="text-[10px] text-slate-500 mt-0.5">${section.detail}</p>
+          <div class="flex items-center gap-1.5">
+            <i data-lucide="${section.icon}" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
+            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-500">${section.label}</p>
+          </div>
+          <p class="text-[10px] font-semibold text-slate-700 mt-1">${section.detail}</p>
+          <p class="text-[9.5px] text-slate-500 leading-snug mt-1">${section.action}</p>
         </div>
       `).join('');
+
+      const output = getTopicOutput(week.title);
+      window.__cambridgeOutput = output;
+      const task2El = document.getElementById('cam-task2');
+      const speakingEl = document.getElementById('cam-speaking');
+      if (task2El) task2El.textContent = output.writing;
+      if (speakingEl) {
+        speakingEl.innerHTML = output.speaking
+          .map(question => `<li>${escapeHTML(question)}</li>`)
+          .join('');
+      }
 
       moreEl.innerHTML = rec.more && rec.more.length
         ? rec.more.map(entry => `
@@ -2339,15 +2471,22 @@
       const rec = window.__cambridgeRec;
       if (!rec) return;
       const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
+      const currentWeek = appState.weeks[appState.activeWeek - 1];
+      const output = window.__cambridgeOutput || getTopicOutput(currentWeek ? currentWeek.title : '');
       const lines = [
         `Cambridge ${rec.b} Test ${rec.t}`,
         entry ? `Reading Passage ${rec.p}: ${entry.title}` : 'Full timed test',
         '',
         'Study plan:',
-        entry ? `- Reading Passage ${rec.p}: 20 minutes` : '- Reading: all 3 passages, 60 minutes',
-        '- Listening: all 4 parts, 30 minutes',
+        entry ? `- Reading Passage ${rec.p}: 20 minutes + 40 minutes review` : '- Reading: all 3 passages, 60 minutes',
+        '- Listening: all 4 parts, 30 minutes; replay Section 4 with the transcript',
         '- Writing: Task 1 + Task 2, 60 minutes',
-        '- Speaking: Part 3, 5 minutes'
+        '- Speaking: full mock, 14 minutes; use the Part 3 questions below',
+        '',
+        'Topic output practice (not from Cambridge):',
+        `Writing Task 2: ${output.writing}`,
+        'Speaking Part 3:',
+        ...output.speaking.map(question => `- ${question}`)
       ];
       const text = lines.join('\n');
       if (navigator.clipboard && navigator.clipboard.writeText) {

@@ -260,11 +260,27 @@
       const firstCell = row.querySelector('td');
       if (!firstCell) return;
 
+      // Keep the row number and its checkbox in one centered flex group.
+      // Previously the checkbox was appended as an inline sibling with a top
+      // margin, so it drifted down and looked misaligned from row to row.
+      let numberWrap = firstCell.querySelector('.vt-number-wrap');
+      if (!numberWrap) {
+        numberWrap = document.createElement('div');
+        numberWrap.className = 'vt-number-wrap flex items-center justify-center gap-2';
+        // Fixed-width number slot keeps the checkbox in the same place for
+        // both single-digit and double-digit rows.
+        const numberSpan = document.createElement('span');
+        numberSpan.className = 'vt-number inline-block w-5 text-center';
+        while (firstCell.firstChild) numberSpan.appendChild(firstCell.firstChild);
+        numberWrap.appendChild(numberSpan);
+        firstCell.appendChild(numberWrap);
+      }
+
       const label = document.createElement('label');
-      label.className = 'vt-learned-toggle inline-flex items-center justify-center mt-1.5 cursor-pointer';
+      label.className = 'vt-learned-toggle inline-flex items-center justify-center cursor-pointer';
       label.title = 'Mark this word as learned';
       label.innerHTML = `<input type="checkbox" data-no="${Number(item.no)}" class="vt-learned-check w-3.5 h-3.5 rounded border-slate-300 text-emerald-600 accent-emerald-600 cursor-pointer" ${learned.has(Number(item.no)) ? 'checked' : ''}>`;
-      firstCell.appendChild(label);
+      numberWrap.appendChild(label);
 
       if (learned.has(Number(item.no))) row.classList.add('bg-emerald-50/30');
     });
