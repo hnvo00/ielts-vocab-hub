@@ -487,12 +487,12 @@
               <span class="flex items-center gap-1.5 min-w-0">
                 <i data-lucide="book-open" class="w-3.5 h-3.5 text-slate-500 shrink-0"></i>
                 <span class="text-[11px] font-semibold text-slate-800 shrink-0">Vocabulary core</span>
-                <span id="topic-vocab-hint" class="hidden sm:inline text-[10px] text-slate-500 truncate">· use these collocations in every skill</span>
+                <span id="topic-vocab-hint" class="hidden sm:inline text-[10px] text-slate-500 truncate">· use these words and phrases in every skill</span>
               </span>
               <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform group-open:rotate-180"></i>
             </summary>
             <div class="flex flex-wrap items-start justify-between gap-2 mt-2.5">
-              <p id="topic-vocab-note" class="text-[10.5px] text-slate-500">Use these collocations across all four skills.</p>
+              <p id="topic-vocab-note" class="text-[10.5px] text-slate-500">Use these words and phrases across all four skills.</p>
               <button onclick="openTopicLesson()" class="inline-flex items-center gap-1.5 bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg text-[10px] font-semibold transition-colors">
                 <i data-lucide="book-open" class="w-3 h-3"></i>
                 Open lesson vocabulary
@@ -2524,13 +2524,13 @@
 
     const SLOT_FOLLOWUP = {
       S1: 'Playback: list 3 fluency fixes and re-answer the weakest question',
-      S2: 'Playback audit: upgrade 3 phrases with core collocations',
-      S3: 'Re-record the weakest answer using 5 core collocations',
+      S2: 'Playback audit: upgrade 3 phrases with preset words',
+      S3: 'Re-record the weakest answer using 5 preset phrases',
       SM: 'Score yourself: fluency / lexis / grammar / pronunciation',
-      W2: 'Upgrade 5 sentences with target collocations and log slips to the Red List',
+      W2: 'Upgrade 5 sentences with preset phrases and log slips to the Red List',
       W1: 'Rewrite one body paragraph for Band 7.5+ coherence and cohesion',
-      R2: 'Log 10 collocations + 3 paraphrases from the passage',
-      L2: 'Transcribe 3 answers and note 8 collocations'
+      R2: 'Log 10 phrases + 3 paraphrases from the passage',
+      L2: 'Transcribe 3 answers and note 8 phrases'
     };
 
     function planSlotTask(kind, plan, altRec) {
@@ -2581,10 +2581,11 @@
       const known = Number(vocabCount) >= 10;
       const core = known ? Math.min(Number(vocabCount), 40) : 30;
       const totalLabel = known ? `${Number(vocabCount)} preset words` : '20–40 preset words';
+      const rangeLabel = known ? `${Number(vocabCount)} words` : '20–40 words';
       const half = Math.ceil(core / 2);
       const batchALabel = known ? `words 1–${half}` : 'first half';
       const batchBLabel = known ? `words ${half + 1}–${core}` : 'second half';
-      return { core, totalLabel, half, rest: core - half, batchALabel, batchBLabel };
+      return { core, totalLabel, rangeLabel, half, rest: core - half, batchALabel, batchBLabel };
     }
 
     const SLOT_SHORT = {
@@ -2638,14 +2639,14 @@
         inputBShort = 'Speaking input';
         inputA = {
           gate: 1,
-          title: 'Speaking input: mine 20 collocations from model answers',
+          title: 'Speaking input: pull 20 useful phrases from model answers',
           placeholder: `Read 2 model answers on "${shortText(title, 48)}" and pull the preset words out of them`,
           note: `Model answers on "${title}" — highlight where each preset word is used`
         };
         inputB = {
           gate: 1,
           title: 'Build a Part 2 story bank: 5 cue cards',
-          placeholder: 'Write 5 cue cards with 8 preset collocations each, then read one aloud',
+          placeholder: 'Write 5 cue cards with 8 preset phrases each, then read one aloud',
           note: 'Reuse the preset list across all five cue cards so the words become automatic'
         };
       }
@@ -2653,23 +2654,23 @@
       const days = [
         { badge: 'Gate 1 · Input A', accent: 'emerald', short: inputAShort, focus: 'Input A + sort preset words', tasks: [inputA, {
           gate: 1,
-          title: `Load your ${vp.totalLabel} and split them into Batch A (${vp.batchALabel}) + Batch B (${vp.batchBLabel})`,
-          placeholder: 'Mark known / fuzzy / new · keep the full preset list next to the tracker',
-          note: `Open the lesson vocabulary (or your notebook) and sort the ${vp.totalLabel} into known / fuzzy / new, then lock the full list for the week.`
+          title: `Open your preset word list (${vp.rangeLabel}) in the lesson or notebook, then split it into Batch A (${vp.batchALabel}) + Batch B (${vp.batchBLabel})`,
+          placeholder: 'Mark each word known / fuzzy / new · keep the list open while you work',
+          note: `Work from the written list in the lesson (or your notebook): mark each of the ${vp.totalLabel} known / fuzzy / new, then keep the same list beside the tracker all week.`
         }] },
         { badge: 'Gate 1 & 2 · Input B + Encoding', accent: 'emerald', short: inputBShort, focus: 'Input B + encode Batch A', tasks: [inputB, {
           gate: 2,
-          title: `Encode Batch A (${vp.batchALabel}): collocation + 2 examples each`,
-          placeholder: `${vp.half} entries done · each with one personal example`
+          title: `Learn Batch A (${vp.batchALabel}): copy the phrase from the lesson + write 2 sentences`,
+          placeholder: `${vp.half} words done · 1 phrase + 2 sentences each · use the lesson wording`
         }] },
         { badge: 'Gate 2 · Encoding + Recall', accent: 'lavender', short: 'Encoding', focus: 'Encoding + active recall', tasks: [{
           gate: 2,
-          title: `Encode Batch B (${vp.batchBLabel}): collocation + 2 examples each`,
-          placeholder: `${vp.rest} entries done · cross-linked to Batch A`
+          title: `Learn Batch B (${vp.batchBLabel}): copy the phrase from the lesson + write 2 sentences`,
+          placeholder: `${vp.rest} words done · reuse a Batch A word in each sentence`
         }, {
           gate: 2,
-          title: `Active recall: cover meanings, test all ${vp.core} core words & collocations`,
-          placeholder: `Recalled __/${vp.core} meanings and __/${vp.core} collocations`
+          title: `Active recall: cover the meanings and test all ${vp.core} preset words + phrases`,
+          placeholder: `Recalled __/${vp.core} meanings and __/${vp.core} phrases`
         }] }
       ];
 
@@ -2696,7 +2697,7 @@
             { ...main, note: slotPromptNote(slot, plan, planReadingTask(altForSlot), listen2) },
             { gate,
               title: SLOT_FOLLOWUP[slot] || 'Review and log fixes',
-              placeholder: 'Reuse ≥5 core collocations · tick them off the preset list · log slips to the Red List' }
+              placeholder: 'Reuse ≥5 phrases from the preset list · tick them off · log slips to the Red List' }
           ]
         });
       });
@@ -2704,7 +2705,7 @@
       days.push(
         { badge: 'Gate 5 · Spaced Recall', accent: 'lavender', short: 'Recall', focus: 'Spaced recall', tasks: [{
           gate: 5,
-          title: `24h / 48h / 72h spaced recall: all ${vp.core} core words + collocations (45m)`,
+          title: `Spaced recall at 24h / 48h / 72h: cover the list and test all ${vp.core} preset words + phrases (45m)`,
           placeholder: `Reviewed ${vp.core} entries; __/${vp.core} recalled cold`
         }, {
           gate: 5,
@@ -2713,8 +2714,8 @@
         }] },
         { badge: 'Gate 5 · Consolidation', accent: 'emerald', short: 'Close', focus: 'Consolidation & closure', tasks: [{
           gate: 5,
-          title: `Mini test: 20 preset collocations + one ${plan.w > 0 ? 'essay outline' : 'speaking outline'} (45m)`,
-          placeholder: '__/20 collocations correct; outline completed'
+          title: `Mini test: 20 phrases from the preset list + one ${plan.w > 0 ? 'essay outline' : 'speaking outline'} (45m)`,
+          placeholder: '__/20 phrases correct; outline completed'
         }, {
           gate: 5,
           title: 'Error-log audit, update the Red List and mark the topic complete (45m)',
@@ -3345,7 +3346,7 @@
 
       if (note) {
         note.textContent = items.length
-          ? `${safeVocab.length} preset words · sorted on D1, encoded on D2–D3, forced into outputs on D4–D7, tested cold on D8–D9.`
+          ? `${vocabPlanMeta(safeVocab.length).totalLabel} · sorted on D1, learned on D2–D3, reused in outputs on D4–D7, tested cold on D8–D9.`
           : 'Add vocabulary to connect every skill to this topic.';
       }
       const goalVocab = document.getElementById('topic-goal-vocab-metric');
@@ -3359,12 +3360,12 @@
       }
       if (writingVocabNote) {
         writingVocabNote.textContent = targetCount
-          ? `Use at least ${targetCount} collocation${targetCount === 1 ? '' : 's'} from the vocabulary core.`
+          ? `Use at least ${targetCount} phrase${targetCount === 1 ? '' : 's'} from the preset list.`
           : 'Add vocabulary to connect this essay to the topic.';
       }
       if (speakingVocabNote) {
         speakingVocabNote.textContent = targetCount
-          ? `Answer 2 minutes each and use at least ${targetCount} core collocation${targetCount === 1 ? '' : 's'}.`
+          ? `Answer 2 minutes each and use at least ${targetCount} preset phrase${targetCount === 1 ? '' : 's'}.`
           : 'Add vocabulary to connect these answers to the topic.';
       }
     }
@@ -3572,13 +3573,13 @@
         speaking: {
           gate: 3,
           pattern: /part 3|speaking/i,
-          title: 'Record topic Part 3 answers (2 min each) using 5 core collocations',
+          title: 'Record topic Part 3 answers (2 min each) using 5 preset phrases',
           note: `${output.speaking.map((question, index) => `Q${index + 1}: ${question}`).join(' | ')}\nVocabulary: ${vocab.replace(/\n/g, ' | ')}`
         },
         writing: {
           gate: 4,
           pattern: /task 2/i,
-          title: 'Timed topic Task 2 essay + use 5 core collocations',
+          title: 'Timed topic Task 2 essay + use 5 preset phrases',
           note: `${output.writing}\nVocabulary: ${vocab.replace(/\n/g, ' | ')}`
         }
       }[skill];
@@ -3672,7 +3673,7 @@
         '',
         output.writing,
         '',
-        target ? `Use at least ${target} of these collocations:` : 'Vocabulary core:',
+        target ? `Use at least ${target} of these phrases from the preset list:` : 'Vocabulary core:',
         topicVocabLines(6),
         '',
         'Time: 40 minutes writing + 20 minutes self-edit.'
@@ -3690,7 +3691,7 @@
         '',
         ...output.speaking.map((question, index) => `${index + 1}. ${question}`),
         '',
-        target ? `Use at least ${target} of these collocations:` : 'Vocabulary core:',
+        target ? `Use at least ${target} of these phrases from the preset list:` : 'Vocabulary core:',
         topicVocabLines(6),
         '',
         'Answer each question for up to 2 minutes and record yourself.'
