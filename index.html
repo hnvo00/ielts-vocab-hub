@@ -246,7 +246,7 @@
           <span id="kpi-essays" class="text-2xl font-bold tracking-tight text-slate-900">0</span>
           <span class="text-xs font-medium text-slate-400">logged</span>
         </div>
-        <p class="mt-1.5 text-[11px] text-slate-400">Gate 4 timed essays completed</p>
+        <p class="mt-1.5 text-[11px] text-slate-400">Timed Task 2 essays completed</p>
       </div>
 
       <!-- KPI 4: Speaking Sets -->
@@ -530,7 +530,7 @@
           <div class="space-y-1">
             <h2 class="text-sm font-semibold text-slate-900 flex items-center gap-2">
               <i data-lucide="calendar-days" class="w-4 h-4 text-emerald-600"></i>
-              D1–D9 Session Schedule (9 × 2h, aligned with the 5 Mastery Gates)
+              D1–D9 Session Schedule (9 × 2h)
             </h2>
             <p class="text-xs text-slate-500">Each D is a 2-hour session. Change any date and every later session and topic shifts automatically — two sessions can share one day.</p>
           </div>
@@ -582,7 +582,7 @@
               <div class="flex items-center justify-between">
                 <label class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
                   <i data-lucide="pen-tool" class="w-3.5 h-3.5 text-emerald-600"></i>
-                  Saturday Gate 4: Writing Task 2 Prompt &amp; Essay (250+ Words)
+                  Writing Task 2: prompt &amp; timed essay (250+ words)
                 </label>
                 <span id="essay-word-count" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600">0 words</span>
               </div>
@@ -590,14 +590,14 @@
                 type="text"
                 id="sp-essay-prompt"
                 oninput="saveScratchpad()"
-                placeholder="Paste your Saturday Task 2 essay question here..."
+                placeholder="Paste the Task 2 essay question here..."
                 class="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm text-slate-800 placeholder-slate-400 bg-slate-50/70 focus:bg-white focus:outline-none focus:border-emerald-600"
               />
               <textarea
                 id="sp-essay-body"
                 oninput="saveScratchpad()"
                 rows="12"
-                placeholder="Write your timed 40-minute essay here, then highlight/upgrade 6–8 target collocations from your paper notebook..."
+                placeholder="Write your 40-minute essay here, then upgrade 6–8 phrases from your word list..."
                 class="w-full p-3.5 rounded-xl border border-slate-200 text-sm leading-relaxed text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-600 resize-y"
               ></textarea>
             </div>
@@ -607,13 +607,13 @@
               <div class="space-y-2">
                 <label class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
                   <i data-lucide="mic" class="w-3.5 h-3.5 text-lavender-600"></i>
-                  Thursday–Friday Gate 3: Speaking Cue Card &amp; Self-Audit Notes
+                  Speaking practice: cue card &amp; self-review notes
                 </label>
                 <textarea
                   id="sp-speaking-notes"
                   oninput="saveScratchpad()"
                   rows="7"
-                  placeholder="Cue Card Topic: Describe a...&#10;• Point 1 (Target collocation: ...)&#10;• Point 2 (Target collocation: ...)&#10;• Friday Re-record & Pronunciation Audit..."
+                  placeholder="Cue card topic: Describe a...&#10;• Point 1 (phrase: ...)&#10;• Point 2 (phrase: ...)&#10;• After re-recording: what to fix..."
                   class="w-full p-3.5 rounded-xl border border-slate-200 text-sm leading-relaxed text-slate-800 placeholder-slate-400 focus:outline-none focus:border-emerald-600 resize-y"
                 ></textarea>
               </div>
@@ -621,7 +621,7 @@
               <div class="space-y-2">
                 <label class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
                   <i data-lucide="headphones" class="w-3.5 h-3.5 text-emerald-600"></i>
-                  D1–D2 Gate 1: Reading &amp; Listening Paraphrase Notes
+                  Reading &amp; listening notes (Days 1–2)
                 </label>
                 <textarea
                   id="sp-input-notes"
@@ -678,12 +678,12 @@
                 <input type="text" id="v-ipa" placeholder="/ˈmɪt.ɪ.ɡeɪt/ (v)" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs font-mono focus:outline-none focus:border-emerald-600" />
               </div>
               <div class="sm:col-span-3">
-                <label class="block text-[11px] font-medium text-slate-500 mb-1">Key Collocation *</label>
+                <label class="block text-[11px] font-medium text-slate-500 mb-1">Phrase to learn *</label>
                 <input type="text" id="v-collocation" required placeholder="mitigate the adverse impact of" class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:outline-none focus:border-emerald-600" />
               </div>
               <div class="sm:col-span-4 flex flex-col sm:flex-row gap-2">
                 <div class="flex-1">
-                  <label class="block text-[11px] font-medium text-slate-500 mb-1">Band 7.5 Example Sentence *</label>
+                  <label class="block text-[11px] font-medium text-slate-500 mb-1">Example sentence *</label>
                   <input type="text" id="v-example" required placeholder="Strict carbon taxes can mitigate the adverse impact of industrial emissions." class="w-full px-3 py-2 rounded-lg border border-slate-200 text-xs focus:outline-none focus:border-emerald-600" />
                 </div>
                 <div class="self-end">
@@ -706,7 +706,7 @@
             <div class="max-w-xl mx-auto space-y-4">
               <div class="flex items-center justify-between text-xs text-slate-500">
                 <span id="fc-counter">Card 1 of 1</span>
-                <span>Click card to flip · Test collocation &amp; meaning</span>
+                <span>Click card to flip · test the phrase &amp; meaning</span>
               </div>
 
               <!-- 3D Flip Card -->
@@ -718,7 +718,7 @@
                     <h4 id="fc-front-word" class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">mitigate</h4>
                     <p id="fc-front-ipa" class="text-sm font-mono text-slate-400">/ˈmɪt.ɪ.ɡeɪt/ (v)</p>
                     <span class="mt-6 text-[11px] text-slate-400 flex items-center gap-1">
-                      <i data-lucide="rotate-cw" class="w-3 h-3"></i> Tap to reveal collocation &amp; context
+                      <i data-lucide="rotate-cw" class="w-3 h-3"></i> Tap to reveal the phrase &amp; context
                     </span>
                   </div>
 
@@ -1032,23 +1032,23 @@
     ];
 
     const GATE_META = {
-      1: { short: 'Gate 1: Input', color: 'emerald' },
-      2: { short: 'Gate 2: Encoding', color: 'lavender' },
-      3: { short: 'Gate 3: Speaking', color: 'lavender' },
-      4: { short: 'Gate 4: Writing', color: 'emerald' },
-      5: { short: 'Gate 5: Closure', color: 'emerald' }
+      1: { short: 'Step 1: Input', color: 'emerald' },
+      2: { short: 'Step 2: Learn words', color: 'lavender' },
+      3: { short: 'Step 3: Speaking', color: 'lavender' },
+      4: { short: 'Step 4: Writing', color: 'emerald' },
+      5: { short: 'Step 5: Test & finish', color: 'emerald' }
     };
 
     const SESSION_FOCUS = [
-      'Input & vocabulary mining',
-      'Listening + encoding',
-      'Encoding + recall',
+      'New input + check the word list',
+      'New input + learn the first half',
+      'Learn the rest + self-test',
       'Speaking Part 1–2',
       'Speaking Part 3 + feedback',
       'Writing Task 2',
       'Writing Task 1 + accuracy',
-      'Spaced recall',
-      'Consolidation & closure'
+      'Recall test',
+      'Final test + close the topic'
     ];
 
     const STORAGE_KEY = 'ielts_mastery_pipeline_v2';
@@ -1057,7 +1057,7 @@
     // same two keys from assets/vocab-tools.js.
     const STUDY_LOG_KEY = 'ieltsStudyLog_v1';
     const RED_QUEUE_KEY = 'ieltsRedListQueue_v1';
-    const SCHEMA_VERSION = 5;
+    const SCHEMA_VERSION = 7;
     const EXAM_TARGET_ISO = '2027-07-01';
     const SESSION_HOURS = 2;
 
@@ -1272,6 +1272,7 @@
           title: t.title,
           gate: t.gate,
           placeholder: t.placeholder,
+          detail: t.detail || '',
           done: false,
           note: t.note || '',
           isCustom: false
@@ -1293,6 +1294,12 @@
           const oldTask = oldTasks[tIdx];
           const newTask = day.tasks[tIdx];
           if (oldTask && (oldTask.done || oldTask.isCustom)) {
+            // Old ticked tasks keep their progress, but still gain the new
+            // "What to do" text when the title has not changed.
+            if (newTask && !oldTask.isCustom && !oldTask.detail && newTask.detail
+                && oldTask.title === newTask.title) {
+              oldTask.detail = newTask.detail;
+            }
             merged.push(oldTask);
           } else if (newTask) {
             // Keep a note the learner typed, but not the stale auto note when
@@ -2498,6 +2505,7 @@
         gate: 1,
         title: `Reading: Cambridge ${rec.b} Test ${rec.t} Passage ${rec.p}${name ? ` — ${name}` : ''}`,
         placeholder: '20 min timed + 40 min review · score __/13 · spot your preset words in context',
+        detail: `Open Cambridge IELTS ${rec.b}, Test ${rec.t}, Reading Passage ${rec.p}${entry ? ` — "${entry.title}"` : ''}.\n\n1. Do the passage in 20 minutes with a timer. Answer all 13 questions.\n2. Spend 40 minutes reviewing: check every answer against the text and write down why the wrong options were wrong.\n3. Underline the preset words you meet in the passage.`,
         note: `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p}${entry ? ` — "${entry.title}"` : ''} · 20m timed + 40m review · note how the preset words are used`
       };
     }
@@ -2507,52 +2515,53 @@
         gate: 1,
         title: `Listening: Cambridge ${ref.b} Test ${ref.t} Part ${ref.part} — ${ref.type}`,
         placeholder: '30 min + 20 min review · score __/10 · replay the 2 hardest questions · catch preset words by ear',
+        detail: `Open Cambridge IELTS ${ref.b}, Test ${ref.t}, Listening Part ${ref.part} (${ref.type}).\n\n1. Listen once and answer all 10 questions without pausing.\n2. Check your answers, then replay the 2 questions you got wrong.\n3. Write down the preset words you hear in the recording.`,
         note: `Cambridge ${ref.b} Test ${ref.t} Listening Part ${ref.part} (${ref.type}) · 30m + 20m review · write down the preset words you hear`
       };
     }
 
     const SLOT_META = {
-      S1: { badge: 'Gate 3 · Speaking P1', accent: 'lavender', focus: 'Speaking Part 1' },
-      S2: { badge: 'Gate 3 · Speaking P2', accent: 'lavender', focus: 'Speaking Part 2' },
-      S3: { badge: 'Gate 3 · Speaking P3', accent: 'lavender', focus: 'Speaking Part 3' },
-      SM: { badge: 'Gate 3 · Speaking mock', accent: 'lavender', focus: 'Speaking mock + feedback' },
-      W2: { badge: 'Gate 4 · Writing T2', accent: 'emerald', focus: 'Writing Task 2' },
-      W1: { badge: 'Gate 4 · Writing T1', accent: 'emerald', focus: 'Writing Task 1' },
-      R2: { badge: 'Gate 1 · Reading drill', accent: 'emerald', focus: 'Second reading passage' },
-      L2: { badge: 'Gate 1 · Listening drill', accent: 'emerald', focus: 'Second listening section' }
+      S1: { badge: 'Speaking', accent: 'lavender', focus: 'Speaking Part 1' },
+      S2: { badge: 'Speaking', accent: 'lavender', focus: 'Speaking Part 2' },
+      S3: { badge: 'Speaking', accent: 'lavender', focus: 'Speaking Part 3' },
+      SM: { badge: 'Speaking mock', accent: 'lavender', focus: 'Speaking mock + feedback' },
+      W2: { badge: 'Writing', accent: 'emerald', focus: 'Writing Task 2' },
+      W1: { badge: 'Writing', accent: 'emerald', focus: 'Writing Task 1' },
+      R2: { badge: 'Reading', accent: 'emerald', focus: 'Second reading passage' },
+      L2: { badge: 'Listening', accent: 'emerald', focus: 'Second listening section' }
     };
 
     const SLOT_FOLLOWUP = {
-      S1: 'Playback: list 3 fluency fixes and re-answer the weakest question',
-      S2: 'Playback audit: upgrade 3 phrases with preset words',
-      S3: 'Re-record the weakest answer using 5 preset phrases',
-      SM: 'Score yourself: fluency / lexis / grammar / pronunciation',
-      W2: 'Upgrade 5 sentences with preset phrases and log slips to the Red List',
-      W1: 'Rewrite one body paragraph for Band 7.5+ coherence and cohesion',
-      R2: 'Log 10 phrases + 3 paraphrases from the passage',
-      L2: 'Transcribe 3 answers and note 8 phrases'
+      S1: { title: 'Re-answer your 2 weakest Part 1 answers', ph: '2 answers re-recorded · 3 preset words each · slips noted', detail: 'Listen back to your recording. Re-record the two answers that sounded least fluent, this time using at least 3 preset words each.' },
+      S2: { title: 'Re-record the same talk with 5 preset phrases', ph: 'Talk re-recorded · 5 phrases used · 1 thing fixed', detail: 'Play your 2-minute talk back. Mark where you repeated simple words, then re-record the whole talk with 5 phrases from the preset list.' },
+      S3: { title: 'Re-answer your weakest Part 3 question', ph: 'Weakest answer re-recorded · 4-part structure used', detail: 'Pick the answer where you ran out of ideas. Re-record it with a clear structure: opinion → reason → example → short conclusion.' },
+      SM: { title: 'Score your mock on the 4 IELTS criteria', ph: '4 bands written · 1 fix chosen for the weakest', detail: 'Give yourself a band for fluency, vocabulary, grammar and pronunciation. Write down one concrete fix for the lowest one.' },
+      W2: { title: 'Upgrade 5 sentences with preset phrases', ph: '5 sentences rewritten · grammar slips logged', detail: 'Reread your essay. Pick 5 plain sentences and rewrite them using phrases from the preset list. Then log every grammar slip.' },
+      W1: { title: 'Rewrite your overview paragraph', ph: 'Overview rewritten · 2 trends named without numbers', detail: 'Reread your report. Rewrite the overview so it names the 2 biggest trends without numbers, then check the figures in each body paragraph.' },
+      R2: { title: 'Log 10 phrases + 3 paraphrases from the passage', ph: '10 phrases copied · 3 paraphrases written', detail: 'Go back through the passage and copy 10 useful phrases. Then write 3 sentences that paraphrase the writer\'s main claims.' },
+      L2: { title: 'Transcribe 3 answers and note 8 phrases', ph: '3 answers transcribed · 8 phrases noted', detail: 'Replay the section and transcribe 3 answers word for word. Circle 8 phrases you could reuse when speaking.' }
     };
 
     function planSlotTask(kind, plan, altRec) {
       switch (kind) {
         case 'S1':
-          return { gate: 3, title: 'Speaking Part 1: 3 personal questions', placeholder: `${plan.p1.join('  |  ')} · record 30-45s each` };
+          return { gate: 3, title: 'Answer 3 Part 1 questions out loud (30–45s each)', placeholder: '3 answers recorded · 3 preset words used · slips noted' };
         case 'S2':
-          return { gate: 3, title: 'Speaking Part 2: 2-min long turn', placeholder: `Cue card: ${plan.p2}` };
+          return { gate: 3, title: 'Record a 2-minute Part 2 talk (1 min prep)', placeholder: '2-min talk recorded · listened back · 5 preset phrases used' };
         case 'S3':
-          return { gate: 3, title: 'Speaking Part 3: 3 abstract questions', placeholder: `${plan.p3.join('  |  ')} · 2 min each, record` };
+          return { gate: 3, title: 'Answer 3 Part 3 questions (2 minutes each)', placeholder: '3 answers recorded · opinion + reason + example each' };
         case 'SM':
-          return { gate: 3, title: 'Full speaking mock (P1 + P2 + P3)', placeholder: `Cue card: ${plan.p2} · then list 3 grammar/lexis fixes` };
+          return { gate: 3, title: 'Do a full speaking mock (Part 1 + 2 + 3)', placeholder: 'Full mock recorded · 4 band scores written down' };
         case 'W2':
-          return { gate: 4, title: 'Timed Task 2 essay (40m) + 20m self-edit', placeholder: plan.w2 };
+          return { gate: 4, title: 'Write a Task 2 essay in 40 minutes', placeholder: '280+ words · 2 body paragraphs · checked in 20 min' };
         case 'W1':
-          return { gate: 4, title: 'Timed Task 1 report (20m) + 25m review', placeholder: plan.w1 };
+          return { gate: 4, title: 'Write a Task 1 report in 20 minutes', placeholder: '150+ words · overview first · key figures covered' };
         case 'R2':
           return planReadingTask(altRec);
         case 'L2':
           return planListeningTask(plan.listenAlt || plan.listen);
         default:
-          return { gate: 3, title: 'Speaking practice', placeholder: plan.p2 };
+          return { gate: 3, title: 'Speaking practice', placeholder: 'Recorded and reviewed' };
       }
     }
 
@@ -2565,10 +2574,10 @@
         else if (slot === 'L2') counts.L += 1;
       });
       const parts = [];
-      if (counts.S) parts.push(`Speaking ×${counts.S}`);
-      if (counts.W) parts.push(`Writing ×${counts.W}`);
-      if (counts.R) parts.push(`Reading ×${counts.R}`);
-      if (counts.L) parts.push(`Listening ×${counts.L}`);
+      if (counts.S) parts.push(`Speaking ${counts.S} session${counts.S > 1 ? 's' : ''}`);
+      if (counts.W) parts.push(`Writing ${counts.W} session${counts.W > 1 ? 's' : ''}`);
+      if (counts.R) parts.push(`Reading ${counts.R} session${counts.R > 1 ? 's' : ''}`);
+      if (counts.L) parts.push(`Listening ${counts.L} session${counts.L > 1 ? 's' : ''}`);
       return parts.join(' + ');
     }
 
@@ -2617,22 +2626,52 @@
       };
     }
 
+    function presetWordList(title) {
+      const file = getTopicLessonFile(title);
+      if (file && PRESET_WORDS[file]) return PRESET_WORDS[file];
+      const extra = PRESET_VOCAB_EXTRA.find(item => item.re.test(String(title || '')));
+      return extra && PRESET_WORDS['15 Crime.docx'] ? PRESET_WORDS['15 Crime.docx'] : [];
+    }
+
+    // Short label for one row of the preset list: "word — collocation".
+    function presetWordLabel(pair) {
+      const word = String(pair[0] || '').trim();
+      const coll = String(pair[1] || '').trim();
+      return coll && coll.toLowerCase() !== word.toLowerCase() ? `${word} — ${coll}` : word;
+    }
+
+    function presetSlice(title, from, to) {
+      const list = presetWordList(title);
+      if (!list.length) return '';
+      return list.slice(from - 1, to).map((pair, i) => `${from + i}. ${presetWordLabel(pair)}`).join('\n');
+    }
+
     const SLOT_SHORT = {
       S1: 'Speaking P1', S2: 'Speaking P2', S3: 'Speaking P3', SM: 'Speaking mock',
       W2: 'Writing T2', W1: 'Writing T1', R2: 'Reading drill', L2: 'Listening drill'
     };
 
-    function slotPromptNote(slot, plan, read2, listen2) {
+    function slotPromptDetail(slot, plan, read2, listen2) {
+      const vocabHint = 'Use at least 5 phrases from the preset list, then tick the ones you used.';
       switch (slot) {
-        case 'S1': return plan.p1.map((q, i) => `Q${i + 1}: ${q}`).join('  ·  ');
-        case 'S2': return `Cue card: ${plan.p2}`;
-        case 'S3': return plan.p3.map((q, i) => `Q${i + 1}: ${q}`).join('  ·  ');
-        case 'SM': return `Full mock · Part 1 + Part 2 + Part 3 — cue card: ${plan.p2}`;
-        case 'W2': return plan.w2;
-        case 'W1': return plan.w1;
-        case 'R2': return read2 ? read2.note || read2.title : '';
-        case 'L2': return listen2 ? listen2.note || listen2.title : '';
-        default: return '';
+        case 'S1':
+          return `Answer these 3 questions out loud, 30–45 seconds each. Record on your phone, then listen back once.\n\n1. ${plan.p1[0]}\n2. ${plan.p1[1]}\n3. ${plan.p1[2]}\n\n${vocabHint}`;
+        case 'S2':
+          return `Cue card: ${plan.p2}\n\n1 minute to plan, then talk for 2 minutes without stopping.\nRecord it, listen back, and note one thing to fix.\n\n${vocabHint}`;
+        case 'S3':
+          return `Answer these 3 questions out loud, about 2 minutes each. Record them.\n\n1. ${plan.p3[0]}\n2. ${plan.p3[1]}\n3. ${plan.p3[2]}\n\nStructure each answer: opinion → reason → example → short conclusion.\n${vocabHint}`;
+        case 'SM':
+          return `Do a full test in one sitting: Part 1 (4–5 min), Part 2 (1 min prep + 2 min talk), Part 3 (4–5 min).\n\nCue card: ${plan.p2}\n\nRecord everything, then give yourself a band for fluency, vocabulary, grammar and pronunciation.`;
+        case 'W2':
+          return `Write at least 280 words in 40 minutes, then spend 20 minutes checking.\n\nPrompt: ${plan.w2}\n\nStructure: introduction with a clear position → 2 body paragraphs, one idea each → conclusion.\n${vocabHint}`;
+        case 'W1':
+          return `Write at least 150 words in 20 minutes, then review for 25 minutes.\n\nTask: ${plan.w1}\n\nWrite the overview first (2 biggest trends, no numbers), then one paragraph per detail group.`;
+        case 'R2':
+          return read2 ? `Passage: ${read2.title}\n\n20 minutes timed, then 40 minutes reviewing. Score __/13, then find 5 preset words in the text.` : '';
+        case 'L2':
+          return listen2 ? `Section: ${listen2.title}\n\n30 minutes, then 20 minutes reviewing. Score __/10 and replay the 2 questions you missed.` : '';
+        default:
+          return '';
       }
     }
 
@@ -2668,47 +2707,70 @@
         inputBShort = 'Speaking input';
         inputA = {
           gate: 1,
-          title: 'Speaking input: pull 20 useful phrases from model answers',
-          placeholder: `Read 2 model answers on "${shortText(title, 48)}" and pull the preset words out of them`,
+          title: 'Read 2 model answers, then copy 20 useful phrases',
+          placeholder: '2 model answers read · 20 phrases copied · where each one was used',
+          detail: `Find two Band 8+ model answers on "${shortText(title, 48)}" (any IELTS speaking site or book).\n\n1. Read both answers once for meaning.\n2. Copy 20 phrases you would actually say.\n3. Mark which of your preset words appear in them.`,
           note: `Model answers on "${title}" — highlight where each preset word is used`
         };
         inputB = {
           gate: 1,
-          title: 'Build a Part 2 story bank: 5 cue cards',
-          placeholder: 'Write 5 cue cards with 8 preset phrases each, then read one aloud',
+          title: 'Write 5 Part 2 cue cards using your word list',
+          placeholder: '5 cue cards written · 8 phrases each · one read aloud',
+          detail: `Write 5 Part 2 cue cards on this topic, each with the 4 bullet points. Under each card list 8 phrases from your word list you could use.\n\nThen read one card aloud as a 2-minute talk.`,
           note: 'Reuse the preset list across all five cue cards so the words become automatic'
         };
       }
 
+      const batchA = presetSlice(title, 1, vp.half);
+      const batchB = presetSlice(title, vp.half + 1, vp.core);
+      const hasList = Boolean(batchA);
+
       const days = [
-        { badge: 'Gate 1 · Input A', accent: 'emerald', short: inputAShort, focus: 'Input A + sort preset words', tasks: [inputA, {
+        { badge: inputAShort === 'Reading' ? 'Reading + words' : (inputAShort === 'Listening' ? 'Listening + words' : 'Speaking input + words'),
+          short: (inputAShort === 'Reading' ? 'Read' : inputAShort === 'Listening' ? 'Listen' : 'Input') + ' + sort list', accent: 'emerald', focus: 'New input + check the word list', tasks: [inputA, {
           gate: 1,
-          title: `Open your preset word list in the lesson (${vp.known ? vp.totalLabel : 'two batches of 15'}), then split it into Batch A (${vp.batchALabel}) + Batch B (${vp.batchBLabel})`,
-          placeholder: 'Mark each group known / fuzzy / new · keep the list open while you work',
-          note: `Work from the written list in the lesson: mark each of the ${vp.core} groups known / fuzzy / new, then keep the same list beside the tracker all week.`
+          title: hasList
+            ? `Check your word list: mark all ${vp.core} words known / fuzzy / new`
+            : 'Write 30 topic words, then mark each one known / fuzzy / new',
+          placeholder: 'Tick one box per word · anything fuzzy or new goes to the Red List',
+          detail: hasList
+            ? `All ${vp.core} rows of the lesson list${vp.phrases ? ` (${vp.phrases} phrases in total)` : ''}:\n${presetSlice(title, 1, vp.core)}\n\nMark each row known / fuzzy / new. Everything fuzzy or new goes to the Red List.`
+            : `No lesson file exists for this topic yet. Write down 30 words or phrases on "${shortText(title, 40)}", then mark each one known / fuzzy / new.`
         }] },
-        { badge: 'Gate 1 & 2 · Input B + Encoding', accent: 'emerald', short: inputBShort, focus: 'Input B + encode Batch A', tasks: [inputB, {
+        { badge: inputBShort === 'Reading' ? 'Reading + words' : (inputBShort === 'Listening' ? 'Listening + words' : 'Words'),
+          short: (inputBShort === 'Reading' ? 'Read' : inputBShort === 'Listening' ? 'Listen' : 'Words') + ' + learn 1–' + vp.half, accent: 'emerald', focus: 'Input + learn words 1–' + vp.half, tasks: [inputB, {
           gate: 2,
-          title: `Learn Batch A (${vp.batchALabel}): copy each group's phrases from the lesson + write 2 sentences`,
-          placeholder: `${vp.known ? `${vp.half} ` : ''}word groups done · all phrases copied · 2 sentences each`
+          title: hasList
+            ? `Learn words 1–${vp.half} (batch A)`
+            : `Learn your first ${vp.half} words`,
+          placeholder: `${vp.half} words done · phrases copied · 2 sentences each`,
+          detail: hasList
+            ? `Batch A — study these ${vp.half} rows:\n${batchA}\n\nFor each row: copy its phrases from the lesson, then write 2 sentences of your own (one everyday, one IELTS-style).`
+            : `Take the first ${vp.half} words from your list. For each one copy its phrases, then write 2 sentences (one everyday, one IELTS-style).`
         }] },
-        { badge: 'Gate 2 · Encoding + Recall', accent: 'lavender', short: 'Encoding', focus: 'Encoding + active recall', tasks: [{
+        { badge: 'Words + self-test', accent: 'lavender', short: 'Words 2 + test', focus: 'Learn words ' + (vp.half + 1) + '–' + vp.core + ' + self-test', tasks: [{
           gate: 2,
-          title: `Learn Batch B (${vp.batchBLabel}): copy each group's phrases from the lesson + write 2 sentences`,
-          placeholder: `${vp.known ? `${vp.rest} ` : ''}word groups done · reuse a Batch A word in each sentence`
+          title: hasList
+            ? `Learn words ${vp.half + 1}–${vp.core} (batch B)`
+            : `Learn the next ${vp.rest} words`,
+          placeholder: `${vp.rest} words done · one batch A word reused in each sentence`,
+          detail: hasList
+            ? `Batch B — study these ${vp.rest} rows:\n${batchB}\n\nCopy the phrases, write 2 sentences each, and reuse one batch A word in every sentence.`
+            : `Take the next ${vp.rest} words. Same method: copy the phrases, write 2 sentences each, and reuse one word from the first batch.`
         }, {
           gate: 2,
-          title: vp.phrases
-            ? `Active recall: cover the meanings and test all ${vp.core} words · ${vp.phrases} phrases`
-            : `Active recall: cover the meanings and test all ${vp.core} words + their phrases`,
-          placeholder: `Recalled __/${vp.core} groups and __/${vp.phrases || vp.core} phrases`
+          title: `Test yourself on all ${vp.core} words`,
+          placeholder: `Recalled __/${vp.core} words cold · misses noted`,
+          detail: hasList
+            ? `Cover the right-hand side and go through all ${vp.core} rows:\n${presetSlice(title, 1, vp.core)}\n\nSay the meaning and one phrase for each. Note every miss.`
+            : `Cover your list and test yourself on all ${vp.core} words. Say the meaning and one phrase for each, and note every miss.`
         }] }
       ];
 
       const slotSeen = {};
       plan.slots.forEach(slot => {
         const meta = SLOT_META[slot] || SLOT_META.S3;
-        const gate = meta.badge.includes('Gate 4') ? 4 : (meta.badge.includes('Gate 3') ? 3 : 1);
+        const gate = meta.badge.includes('Writing') ? 4 : (meta.badge.includes('Speaking') ? 3 : 1);
         const occurrence = slotSeen[slot] = (slotSeen[slot] || 0) + 1;
         let altForSlot = altRec;
         let main;
@@ -2725,32 +2787,41 @@
           short: (SLOT_SHORT[slot] || meta.focus) + repeatLabel,
           focus: meta.focus + repeatLabel,
           tasks: [
-            { ...main, note: slotPromptNote(slot, plan, planReadingTask(altForSlot), listen2) },
+            { ...main, note: '', detail: slotPromptDetail(slot, plan, planReadingTask(altForSlot), listen2) },
             { gate,
-              title: SLOT_FOLLOWUP[slot] || 'Review and log fixes',
-              placeholder: 'Reuse ≥5 phrases from the preset list · tick them off · log slips to the Red List' }
+              title: (SLOT_FOLLOWUP[slot] || {}).title || 'Review and log fixes',
+              placeholder: (SLOT_FOLLOWUP[slot] || {}).ph || 'Reuse ≥5 phrases from the preset list · tick them off · log slips to the Red List',
+              detail: (SLOT_FOLLOWUP[slot] || {}).detail || '' }
           ]
         });
       });
 
       days.push(
-        { badge: 'Gate 5 · Spaced Recall', accent: 'lavender', short: 'Recall', focus: 'Spaced recall', tasks: [{
+        { badge: 'Recall', accent: 'lavender', short: 'Recall test', focus: 'Test yourself again', tasks: [{
           gate: 5,
-          title: `Spaced recall at 24h / 48h / 72h: cover the list and test all ${vp.core} words${vp.phrases ? ` · ${vp.phrases} phrases` : ''} (45m)`,
-          placeholder: `Reviewed ${vp.core} groups; __/${vp.core} recalled cold`
+          title: `Recall all ${vp.core} words from memory (3 rounds, 45m)`,
+          placeholder: `__/${vp.core} recalled cold · misses added to the Red List`,
+          detail: hasList
+            ? `Cover the list and test yourself at three points — 24h, 48h and 72h:\n${presetSlice(title, 1, vp.core)}\n\nSay the meaning plus one phrase per row. Anything you miss goes back to the Red List.`
+            : `Run the same recall test at 24h, 48h and 72h. Misses go to the Red List.`
         }, {
           gate: 5,
-          title: 'Mixed drill: 10 paraphrases + 5 rapid speaking prompts (45m)',
-          placeholder: '10 paraphrases recorded + 5 prompts answered in 30s each'
+          title: 'Paraphrase 10 phrases + answer 5 quick questions (45m)',
+          placeholder: '10 paraphrases written · 5 prompts answered in 30s each',
+          detail: 'Paraphrase 10 phrases from your list without looking, then answer 5 one-line speaking questions out loud in 30 seconds each.'
         }] },
-        { badge: 'Gate 5 · Consolidation', accent: 'emerald', short: 'Close', focus: 'Consolidation & closure', tasks: [{
+        { badge: 'Test + finish', accent: 'emerald', short: 'Final test', focus: 'Final test + close the topic', tasks: [{
           gate: 5,
-          title: `Mini test: ${Math.min(20, vp.phrases || vp.core)} phrases from the preset list + one ${plan.w > 0 ? 'essay outline' : 'speaking outline'} (45m)`,
-          placeholder: `__/${Math.min(20, vp.phrases || vp.core)} phrases correct; outline completed`
+          title: `Final test: ${Math.min(20, vp.core)} words + one ${plan.w > 0 ? 'essay' : 'speaking'} outline (45m)`,
+          placeholder: `__/${Math.min(20, vp.core)} correct · outline written`,
+          detail: hasList
+            ? `Write the meaning and one phrase for ${Math.min(20, vp.core)} of these words without looking:\n${presetSlice(title, 1, Math.min(20, vp.core))}\n\nThen plan one ${plan.w > 0 ? 'Task 2 essay' : 'Speaking Part 3 answer'} that uses at least 5 of them.`
+            : `Test ${Math.min(20, vp.core)} words from the list, then outline one ${plan.w > 0 ? 'essay' : 'speaking answer'} using 5 of them.`
         }, {
           gate: 5,
-          title: 'Error-log audit, update the Red List and mark the topic complete (45m)',
-          placeholder: 'Slips logged; topic closed and reviews scheduled'
+          title: 'Log your mistakes and close the topic (45m)',
+          placeholder: 'Slips logged · Red List updated · topic closed',
+          detail: 'Go through the week, log every mistake into the Red List, and set the next review date before marking the topic complete.'
         }] }
       );
 
@@ -2884,12 +2955,12 @@
 
       const title = String(week.title || '');
       const goalMap = [
-        { re: /environment|climate|weather|pollution|sustainab|biodiversity|energy/i, goal: 'Explain one climate problem, evaluate two solutions, and use precise environment collocations in all four skills.' },
+        { re: /environment|climate|weather|pollution|sustainab|biodiversity|energy/i, goal: 'Explain one climate problem, evaluate two solutions, and use precise environment words in all four skills.' },
         { re: /city|urban|transport|infrastructure|housing/i, goal: 'Describe a city/transport problem, compare solutions, and defend a liveability judgement with topic vocabulary.' },
-        { re: /travel|tourism/i, goal: 'Discuss tourism impacts, recommend a sustainable policy, and narrate a travel experience with topic collocations.' },
+        { re: /travel|tourism/i, goal: 'Discuss tourism impacts, recommend a sustainable policy, and narrate a travel experience with topic words.' },
         { re: /food|agriculture|nutrition|diet/i, goal: 'Evaluate a food/diet issue, explain causes and effects, and propose a practical public-health solution.' },
         { re: /health|fitness|medical|mental|wellbeing/i, goal: 'Explain a health trend, compare prevention and treatment, and recommend a realistic policy or habit change.' },
-        { re: /work|career|employment|business|economy/i, goal: 'Compare work/business trends, evaluate trade-offs, and support a clear opinion with examples and precise collocations.' },
+        { re: /work|career|employment|business|economy/i, goal: 'Compare work/business trends, evaluate trade-offs, and support a clear opinion with examples and precise words.' },
         { re: /technology|digital|internet|ai|media/i, goal: 'Explain a technological change, assess its risks and benefits, and take a defensible position in all four skills.' },
         { re: /education|learning|school|university|language/i, goal: 'Evaluate an education policy, describe a learning experience, and justify one improvement with topic vocabulary.' },
         { re: /crime|law|justice|police|prison/i, goal: 'Explain a cause of crime, compare punishment and rehabilitation, and support a reasoned justice policy.' },
@@ -2941,11 +3012,11 @@
         ? check(label, stats.gateStats[gate].done > 0)
         : '';
       checksEl.innerHTML = [
-        gateCheck(1, 'Input mined for preset vocabulary'),
-        gateCheck(2, 'Encoding + active recall completed'),
+        gateCheck(1, 'Read / listened and checked the word list'),
+        gateCheck(2, 'Learned the words and tested yourself'),
         gateCheck(3, 'Speaking recorded and reviewed'),
         gateCheck(4, 'Timed writing completed'),
-        gateCheck(5, 'Spaced recall + topic closure')
+        gateCheck(5, 'Final test done and topic closed')
       ].filter(Boolean).join('');
     }
 
@@ -3034,6 +3105,8 @@
               <div class="space-y-3">
                 ${dayObj.tasks.map((task, tIdx) => {
                   const chkId = `daytask-${week.weekNumber}-${dIdx}-${tIdx}`;
+                  const detId = `daydetail-${week.weekNumber}-${dIdx}-${tIdx}`;
+                  const hasDetail = Boolean(task.detail && String(task.detail).trim());
                   return `
                     <div class="p-3 rounded-xl bg-slate-50/80 border border-slate-200/70 space-y-2 transition-colors hover:border-slate-300/90">
                       <div class="flex items-start justify-between gap-2">
@@ -3049,12 +3122,26 @@
                             ${escapeHTML(task.title)}
                           </span>
                         </label>
+                        ${hasDetail ? `
+                          <button onclick="toggleTaskDetail('${detId}', this)" title="Show what to do" class="shrink-0 text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/70 hover:bg-emerald-100 px-1.5 py-0.5 rounded-md flex items-center gap-1 transition-colors">
+                            <i data-lucide="chevron-down" class="w-3 h-3 detail-chev"></i>
+                            <span>What to do</span>
+                          </button>
+                        ` : ''}
                         ${task.isCustom ? `
                           <button onclick="deleteCustomDayTask(${dIdx}, ${tIdx})" title="Remove custom task" class="text-slate-400 hover:text-rose-600 p-0.5">
                             <i data-lucide="x" class="w-3.5 h-3.5"></i>
                           </button>
                         ` : ''}
                       </div>
+
+                      ${hasDetail ? `
+                        <div id="${detId}" class="hidden pl-6">
+                          <div class="rounded-lg bg-white border border-emerald-200/70 px-3 py-2">
+                            <p class="text-[11px] text-slate-700 whitespace-pre-line leading-relaxed">${escapeHTML(task.detail)}</p>
+                          </div>
+                        </div>
+                      ` : ''}
 
                       <!-- Always-Accessible Inline Material Input (No need to mark task done) -->
                       <div class="pl-6">
@@ -3253,6 +3340,26 @@
     // number of rows in vocabDataRaw; each row is one "word" on the list that
     // usually bundles several phrases (`phrases`). Kept in step with
     // data/vocabularies.json, which generate-vocab-config.js rewrites.
+    // One entry per row of each lesson's preset list: [word, first collocation].
+    // Titles stay short; these are what the task's detail shows.
+    const PRESET_WORDS = {
+      '01 Weather.html': [['the ecosystem','preserve the balance of the ecosystem'], ['biodiversity','protect biodiversity'], ['rainfall pattern','unpredictable rainfall patterns'], ['torrential rain','be caught in torrential rain'], ['rain/temperature gauge','measure atmospheric pressure'], ['searing winds','a rare weather phenomenon'], ['climate change','be at the mercy of climate change'], ['weather catastrophes','vulnerable to weather catastrophes'], ['thunderstorms','struck by a lightning bolt'], ['sustainable environmental policies','implement sustainable environmental policies'], ['wildfire','battle raging blazes'], ['forecast the weather','accurately forecast the weather'], ['battle blazes','fire breaks out suddenly'], ['erratic','experience erratic weather'], ['fossil fuels','depend on fossil fuels'], ['contamination','soaring greenhouse gas emissions'], ['go green','encourage people to go green'], ['ice/snow thaws','glacier ice shrinks rapidly'], ['meteorologist','consult a meteorologist']],
+      '02 Travel.html': [['travel enthusiast','keen travel enthusiast'], ['tourism','the tourist industry'], ['tourist destination','boast numerous stunning tourist sites'], ['host country','show hospitality to visitors'], ['itinerary','outline/draft the itinerary'], ['trek','kick off with a trek'], ['accommodation','provide accommodation'], ['equipment','pack camping equipment'], ['tranquility','sense of tranquility and serenity'], ['off the beaten track','go off the beaten track'], ['scenic','spectacular views of the scenery'], ['mountain slopes','climb to the top of a mountain'], ['waterfall','pristine/unspoilt beaches'], ['culture shock','promote cross-cultural understanding and tolerance'], ['shed prejudiced views','the highlight of a trip'], ['recharge my batteries','go on high-risk, high-energy activities'], ['local craft tour','have a long tradition of'], ['disposable income','minimize disruption to local residents'], ['taste new cuisine','sample mouth-watering local specialties'], ['do a little light shopping','go on a shopping spree'], ['boast','boast stunning beaches'], ['bucket list','cross off my bucket list']],
+      '03 City.html': [['urban planning','combat urban sprawl'], ['population inflow','the rush of people from the country to the city'], ['metropolis','on the outskirts of the city'], ['economic hub','commercial/financial/economic hub'], ['infrastructure','sophisticated infrastructure system'], ['public transit','comprehensive public transit system'], ['shopping mall','out-of-town shopping center/retail park'], ['pavement café','street food vendor'], ['amenities','medical/shopping/sports/parking facilities'], ['air pollution','severe air pollution'], ['bustling','hectic pace of city life'], ['inhabitant','a sense of community']],
+      '04 Building.html': [['the building industry','work in the building industry'], ['the cityscape','transform the cityscape'], ['real estate','invest in real estate'], ['house-hunting','alleviate the housing shortage'], ['Apartment','rent a basement apartment'], ['Studio apartment','rent a cozy bedsit'], ['public building','a famous historical landmark'], ['staircase','install double glazing'], ['fixtures and fittings','install a crystal chandelier'], ['acoustic seal','improve the acoustic properties of the auditorium'], ['minimalist look','embrace a minimalist look'], ['home comforts','equipped with all the mod cons'], ['erect','erect a landmark building'], ['run-down','restore a run-down building'], ['spacious','a spacious and airy living room'], ['a blot on the landscape','be considered a blot on the landscape'], ['house-warming party','throw a house-warming party'], ['heavy traffic noise','drown out the background noise'], ['sleep disturbance','suffer from sleep disturbance']],
+      '05 Food.html': [['chef','a veteran/seasoned chef'], ['food production','rapid growth of fast-food chains'], ['imported food','prolong the shelf life'], ['eating habit','cultivate healthy eating habits'], ['foodstuffs','reduce weekly food bills'], ['nutrition','achieve a perfect nutritional balance'], ['intake of sth','reduce daily intake of fat'], ['beverage','avoid sugary beverages'], ['cuisine','master culinary skills'], ['sweetness','avoid artificial flavor enhancers'], ['aroma','the tantalizing aroma of fresh food'], ['seaweed','avoid processed junk food'], ['starving','a fussy eater at mealtimes'], ['food safety','comply with food safety standards'], ['intensive farming','the rise of factory farming'], ['crop','enhance soil fertility'], ['chemical fertilizers','excessive agrochemical use'], ['sow','efficient irrigation systems'], ['genetically modified crops','transition to an agrarian economy']],
+      '06 Film.html': [['scene','the opening/closing scene'], ['performance','the film adaptation'], ['audience','a mass commercial audience'], ['genre','a film genre'], ['screen time','limit your screen time'], ['soundtrack','brilliant sound effects'], ['special effects','stunning special effects'], ['cast','an aspiring young actress'], ['protagonist','good characterization'], ['plot','brilliant/captivating/appealing plot'], ['escapism','a great form of escapism'], ['masterpiece','a cinematic masterpiece'], ['be set in','be set in a historical period'], ['indulge in','indulge in TV series'], ['absorbing/gripping','witty dialogue'], ['foul language','contain foul language']],
+      '07 Book.html': [['literature','a literary genre , a classic novel , visual input from comics , traditional folk stories'], ['article','academic journal , online materials vs. printed materials , refer to a reference book'], ['physical book','be protected by copyright , be out of copyright , annual online subscription , the latest best-seller'], ['page-turner','a real page-turner , thoroughly researched historical novel , a well-regarded author , demanding texts'], ['reading habit','cultivate a reading habit , bury your head in books , have a hard time putting it down , do some bedtime reading'], ['main character','convey a meaningful message , in chronological order , give a fascinating insight into , extol the virtues of'], ['flick through','be completely engrossed in , break one\'s chain of thought , accumulate vast knowledge , open the door to education'], ['public library','a good selection of books , the library\'s reserve , organize regular events , free internet access']],
+      '08 Music.html': [['the music industry','with an armload of number-one hits'], ['composer','polish up a song in the studio'], ['a music concert (rock concert','perform live in a small venue'], ['musician','suffer from severe stage fright'], ['rehearsal (rehearse)','years of intensive practice'], ['a wide/small vocal range','improve voice control'], ['instrument','take up a musical instrument'], ['music taste/preferences','have an eclectic taste in music'], ['lift/pick up/cheer up/put sb in a better mood (lift spirits)','put someone in a positive frame of mind'], ['turn to music','escape from the chaos of life'], ['cultural exchange festival','transcend geographical borders'], ['attend a concert/performance (in person)','connect with an audience in real time']],
+      '09 Sport.html': [['a sports fan','stay physically active'], ['PE (physical education)','train with a personal trainer'], ['team sports','national sports teams'], ['a sporting event','host major sporting events'], ['spectator','tune in to watch the final match'], ['equipment','wear protective equipment'], ['a champion athlete','be in good form'], ['local pool','enroll sb in a swimming course'], ['an avid runner','do a brisk walk'], ['a training program','undergo appropriate training'], ['co-ordination','develop body coordination'], ['extreme sports','freefall from enormous altitudes'], ['regulation','take the appropriate precautions'], ['gym membership','excessive physical exercise'], ['injury','a high risk of injury'], ['a social pastime','enhance social life'], ['well-being','boost the immune system'], ['intense','strenuous physical exercise']],
+      '10 Health.html': [['well-being','general wellbeing'], ['clinic','run a clinic'], ['health crisis','health concerns'], ['epidemic','epidemiology'], ['asthma','lung cancer'], ['osteoporosis','malaria-prone areas'], ['chronic back pain','sports injury treatment service'], ['remedy','folk/old-fashioned remedies'], ['fatigue','develop depression'], ['nutritionist','consult a professional dietician/nutritionist'], ['insomnia','suffer from sleep disturbances'], ['as fit as a fiddle','make a speedy recovery'], ['good shape','remain in good shape']],
+      '11 Internet.html': [['device','domestic/kitchen/household appliances'], ['application','productivity applications/software'], ['automation','advances/developments in robotics'], ['satellite','beam up data to the satellite'], ['social media','an entirely free platform'], ['digital lifestyle','be part of the digital native generation'], ['telecommuting','hold/organize a video conference'], ['cutting-edge','an unprecedented leap in productivity'], ['handheld','portable electronic devices'], ['virtual interaction','free from the constraints of geography and time'], ['always-on culture','cause enormous disturbance'], ['collect data','feed systems with false data'], ['down','system goes down'], ['workforce','looming risks of unemployment'], ['undertake','undertake complex tasks'], ['motorist','avoid fatal collisions'], ['marginalize','marginalize physical interaction'], ['youtube','mindlessly scroll through Facebook'], ['outperform','the advent of sth'], ['energy-saving','energy-efficient household appliances']],
+      '12 Work.html': [['company','multinational company'], ['industrial plant','superior working conditions'], ['diversity','identify individual talent'], ['senior manager','board decision-making'], ['entrepreneur','foster entrepreneurship'], ['profit','make a profit'], ['business venture','gain a competitive edge'], ['marketplace','identify a niche market'], ['corporate culture','have a strong work ethic'], ['decision-making','stimulate innovation'], ['delegate','delegate responsibilities'], ['strive for excellence','replicate success on a bigger scale'], ['complacency','avoid complacency']],
+      '13 Business.html': [['company','a family business'], ['hospitality industry','the luxury hotel market'], ['workplace','during working hours'], ['diversity','diversity on companies'], ['conflict','the root of conflict between staff'], ['problem solver','ambitious, driven, high-achieving individuals'], ['governance','top managements/senior management positions'], ['entrepreneur','entrepreneurship'], ['sales','attract more sales'], ['profit','make a profit/make money'], ['corporate culture','recognize the culture of the organization'], ['procedure','a set of rules and procedures'], ['economic growth','strong/healthy/thriving/flourishing/well-performing/robust/prosperous economy'], ['competitive advantage','competitive edge'], ['outsource','outsource work to someone'], ['think outside the box','draw up a business plan'], ['complacency','rest on your laurels']],
+      '15 Crime.docx': [['theft, burglary, robbery', 'commit a burglary'], ['assault, vandalism, arson', 'a brutal assault'], ['juvenile delinquency', 'combat juvenile delinquency'], ['hardened criminal, repeat offender', 'a hardened criminal'], ['human trafficking, organized crime', 'combat human trafficking'], ['deterrent', 'act as a deterrent'], ['rehabilitation', 'rehabilitation programmes'], ['capital punishment', 'impose capital punishment'], ['video surveillance, CCTV', 'install video surveillance'], ['misdemeanour, criminal record', 'a minor misdemeanour'], ['gun control, firearms', 'tighten gun control'], ['abusive home, parental neglect', 'come from an abusive home']],
+      '14 Advertising.html': [['marketing consultant','elaborate marketing scheme'], ['promotion','a method/form of promotion'], ['advertisement','commercial break'], ['targeted advertising','monitor children’s exposure to adverts'], ['celebrity endorsement','sign celebrities to massive sponsorship deals'], ['cold calling','sign up to a mailing list'], ['sales page','increase the traffic to company’s website'], ['consumer behavior','sort through demographics & cross-test content'], ['purchasing decision','make insensible buying decisions'], ['brand awareness','associate a brand with quality'], ['soaring sales','the main driver of soaring sales'], ['target audience','direct at the target audience'], ['misleading','disingenuous ads'], ['cautious','remain vigilant about marketing tactics'], ['reach wider audiences','be bombarded with commercials'], ['shopping habit','alter customer shopping habits']]
+    };
+
     const PRESET_VOCAB_COUNTS = {
       '01 Weather.html': { groups: 19, phrases: 56 },
       '02 Travel.html': { groups: 22, phrases: 63 },
@@ -3272,7 +3379,7 @@
 
     // Topics whose word list lives in a non-HTML file. Crime ships as a .docx,
     // so it cannot be fetched as a lesson page but the plan still knows its
-    // real size (12 word groups, 33 collocations).
+    // real size (12 word groups, 33 phrases).
     const PRESET_VOCAB_EXTRA = [
       { re: /crime|law|justice|offender|prison|police/i, groups: 12, phrases: 33 }
     ];
@@ -3690,7 +3797,11 @@
         if (!day) return;
         planDay.tasks.forEach((planTask, tIdx) => {
           const task = day.tasks[tIdx];
-          if (!task || task.done || task.isCustom || !planTask.note) return;
+          if (!task || task.isCustom) return;
+          // The "What to do" text always follows the plan; the free-text note
+          // stays whatever the learner typed.
+          if (planTask.detail) task.detail = planTask.detail;
+          if (task.done || !planTask.note) return;
           task.note = /preset|core words/i.test(planTask.title)
             ? `${planTask.note}\n${topicVocabLines(8)}`
             : planTask.note;
@@ -3767,10 +3878,10 @@
       const week = appState.weeks[appState.activeWeek - 1];
       if (!week) return;
       const planDays = buildTopicDayPlan(week.weekNumber - 1, week.sheetTitle || week.title, (week.vocab || []).length);
-      const vocabCount = (week.vocab || []).length;
+      const vp = vocabPlanMeta((week.vocab || []).length, week.sheetTitle || week.title);
       const lines = [
         `Topic: ${week.title}`,
-        `Vocabulary: ${vocabCount >= 10 ? `${vocabCount} preset words` : '20–40 preset words (lesson bank / notebook)'}`,
+        `Vocabulary: ${vp.core} words${vp.phrases ? ` · ${vp.phrases} phrases` : ''}`,
         '',
         'Vocabulary core:',
         topicVocabLines(8),
@@ -3780,11 +3891,11 @@
         lines.push(`D${idx + 1} · ${day.focus}`);
         day.tasks.forEach(task => {
           lines.push(`- ${task.title}`);
-          if (task.note) lines.push(`  ${String(task.note).replace(/\n/g, '\n  ')}`);
+          if (task.detail) lines.push(`  ${String(task.detail).replace(/\n/g, '\n  ')}`);
         });
         lines.push('');
       });
-      lines.push('Tick every task in the tracker. D8 is spaced recall; D9 closes the topic.');
+      lines.push('Tick every task in the tracker. D8 is a recall test; D9 tests everything and closes the topic.');
       copyTextToClipboard(lines.join('\n'), 'Topic plan copied.');
     }
 
@@ -4027,8 +4138,8 @@
       if (week.vocab.length === 0) {
         container.innerHTML = `
           <div class="p-8 text-center text-slate-400 space-y-1">
-            <p class="text-xs font-medium text-slate-500">No vocabulary encoded for Topic ${week.weekNumber} yet.</p>
-            <p class="text-[11px]">Add 20–30 high-utility words above with exact collocations to unlock Flashcard Recall mode.</p>
+            <p class="text-xs font-medium text-slate-500">No words added for Topic ${week.weekNumber} yet.</p>
+            <p class="text-[11px]">Add 20–30 useful words above, each with one phrase, to unlock Flashcard Recall mode.</p>
           </div>
         `;
         return;
@@ -4563,6 +4674,19 @@
       saveState();
     }
 
+    // Expand/collapse the "What to do" panel for one task. Kept outside render
+    // so the state lives in the DOM and survives without touching appState.
+    function toggleTaskDetail(detailId, btn) {
+      const panel = document.getElementById(detailId);
+      if (!panel) return;
+      const opening = panel.classList.contains('hidden');
+      panel.classList.toggle('hidden');
+      if (btn) {
+        const chev = btn.querySelector('.detail-chev');
+        if (chev) chev.style.transform = opening ? 'rotate(180deg)' : '';
+      }
+    }
+
     function openAddTaskPrompt(dayIdx) {
       const week = appState.weeks[appState.activeWeek - 1];
       const dayObj = week.days[dayIdx];
@@ -4977,7 +5101,7 @@
         ov.getCell(`A${nextStart}`).value = 'Next 7 days';
         ov.getCell(`A${nextStart}`).font = { name: 'Calibri', size: 12, bold: true, color: { argb: XL.emeraldDark } };
         const nextHeader = nextStart + 1;
-        ['Date', 'Topic', 'Session', 'Gate', 'Tasks'].forEach((label, idx) => {
+        ['Date', 'Topic', 'Session', 'Skill focus', 'Tasks'].forEach((label, idx) => {
           ov.getCell(nextHeader, idx + 1).value = label;
         });
         styleHeaderRow(ov.getRow(nextHeader));
@@ -5011,7 +5135,7 @@
           { width: 7 }, { width: 30 }, { width: 11 }, { width: 11 }, { width: 44 }, { width: 40 }
         ];
         addSheetTitle(tl, 'Session Timeline', 'Every D1–D9 session for every topic. Use the filters to inspect what is coming next.', 11);
-        const tlHead = ['Topic #', 'Topic', 'Session', 'Date', 'Day', 'Hours', 'Gate', 'Tasks done', 'Status', 'Task 1', 'Task 2'];
+        const tlHead = ['Topic #', 'Topic', 'Session', 'Date', 'Day', 'Hours', 'Focus', 'Tasks done', 'Status', 'Task 1', 'Task 2'];
         tlHead.forEach((label, idx) => { tl.getCell(4, idx + 1).value = label; });
         styleHeaderRow(tl.getRow(4));
         let tlRow = 5;
@@ -5133,7 +5257,7 @@
           { width: 62 }, { width: 9 }, { width: 46 }
         ];
         addSheetTitle(tk, 'Task Checklist', 'Every task inside every session, with the material you logged and completion status.', 8);
-        ['Topic #', 'Topic', 'Session', 'Date', 'Gate', 'Task', 'Done', 'Material / note'].forEach((label, idx) => {
+        ['Topic #', 'Topic', 'Session', 'Date', 'Focus', 'Task', 'Done', 'Material / note'].forEach((label, idx) => {
           tk.getCell(4, idx + 1).value = label;
         });
         styleHeaderRow(tk.getRow(4));
@@ -5224,7 +5348,7 @@
           const vb = wb.addWorksheet('Vocabulary', { views: [{ state: 'frozen', ySplit: 4, showGridLines: false }] });
         decorateSheet(vb, 'FF0EA5E9');
           vb.columns = [{ width: 8 }, { width: 32 }, { width: 22 }, { width: 20 }, { width: 40 }, { width: 62 }];
-          addSheetTitle(vb, 'Vocabulary Bank', 'Words and collocations you added to each topic workspace.', 6);
+          addSheetTitle(vb, 'Vocabulary Bank', 'Words and phrases you added to each topic workspace.', 6);
           ['Topic #', 'Topic', 'Word', 'IPA', 'Collocation', 'Example'].forEach((label, idx) => {
             vb.getCell(4, idx + 1).value = label;
           });
