@@ -52,21 +52,32 @@ function extractVocabularySectionFromHtml(htmlContent) {
         const descMatch = htmlContent.match(/<p[^>]*id="complexitySummarySection"[^>]*>([^<]+)<\/p>/);
         const description = descMatch ? descMatch[1].trim().substring(0, 200) : 'No description';
 
-        // Count vocabulary items by finding all "no": X entries in the vocabData array
-        const vocabCountMatch = htmlContent.match(/const vocabData = \[([\s\S]*?)\];/);
+        // Count vocabulary rows. Each row is one "word" in the lesson but it
+        // usually bundles several phrases, which is why the phrase count is
+        // tracked separately.
         let vocabularyCount = 0;
-        
-        if (vocabCountMatch) {
-            const vocabArray = vocabCountMatch[1];
-            // Count objects in the array (each vocab group has "no": X)
-            const noMatches = vocabArray.match(/"no"\s*:\s*\d+/g) || [];
-            vocabularyCount = noMatches.length;
+        let phraseCount = 0;
+        const rawMatch = htmlContent.match(/id="vocabDataRaw"[^>]*>([\s\S]*?)<\/script>/);
+        if (rawMatch) {
+            try {
+                const rows = JSON.parse(rawMatch[1].trim());
+                vocabularyCount = rows.length;
+                rows.forEach(row => {
+                    const text = String((row && row.collocation) || '');
+                    phraseCount += text.split(/\),\s*/).filter(part => part.trim()).length;
+                });
+            } catch (error) {
+                vocabularyCount = 0;
+                phraseCount = 0;
+            }
         }
 
         return {
             title,
             description,
             topics: vocabularyCount > 0 ? vocabularyCount : 1,
+            groups: vocabularyCount,
+            phrases: phraseCount,
         };
     } catch (error) {
         log(`Error parsing HTML: ${error.message}`, 'yellow');
@@ -114,12 +125,15 @@ function generateVocabulariesList() {
                 title: extracted.title,
                 description: extracted.description,
                 topics: extracted.topics,
+                groups: extracted.groups,
+                phrases: extracted.phrases,
                 color: gradientColors[index % gradientColors.length],
             };
 
             log(`  ✓ ${filename}`, 'green');
             log(`    - Title: ${vocabEntry.title.substring(0, 60)}...`);
             log(`    - Topics: ${vocabEntry.topics} groups`);
+            log(`    - Phrases: ${vocabEntry.phrases}`);
 
             return vocabEntry;
         });

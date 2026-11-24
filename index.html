@@ -1057,7 +1057,7 @@
     // same two keys from assets/vocab-tools.js.
     const STUDY_LOG_KEY = 'ieltsStudyLog_v1';
     const RED_QUEUE_KEY = 'ieltsRedListQueue_v1';
-    const SCHEMA_VERSION = 4;
+    const SCHEMA_VERSION = 5;
     const EXAM_TARGET_ISO = '2027-07-01';
     const SESSION_HOURS = 2;
 
@@ -2572,20 +2572,49 @@
       return parts.join(' + ');
     }
 
-    // Each topic ships with a preset 20-40 word list (lesson page / notebook).
-    // The 9 sessions are built around that list: D1 sorts it, D2-D3 encode it,
+    // Each topic ships with a preset word list in its lesson file. One "word"
+    // on that list is often a group of several phrases, so we track both.
+    // The 9 sessions are built around that list: D1 sorts it, D2-D3 learn it,
     // D4-D7 force it into output, D8-D9 test it cold. No mining 60 new words.
-    function vocabPlanMeta(vocabCount) {
-      // Use the real preset list when it is loaded; otherwise assume the middle
-      // of the usual 20-40 range so the batch sizes stay concrete.
-      const known = Number(vocabCount) >= 10;
-      const core = known ? Math.min(Number(vocabCount), 40) : 30;
-      const totalLabel = known ? `${Number(vocabCount)} preset words` : '20–40 preset words';
-      const rangeLabel = known ? `${Number(vocabCount)} words` : '20–40 words';
+    function presetVocabInfo(title) {
+      const file = getTopicLessonFile(title);
+      if (file && PRESET_VOCAB_COUNTS[file]) return PRESET_VOCAB_COUNTS[file];
+      const extra = PRESET_VOCAB_EXTRA.find(item => item.re.test(String(title || '')));
+      return extra ? { groups: extra.groups, phrases: extra.phrases } : null;
+    }
+
+    function vocabPlanMeta(vocabCount, title) {
+      const preset = presetVocabInfo(title);
+      let core = 0;
+      let phrases = 0;
+
+      if (preset && preset.groups > 0) {
+        core = preset.groups;
+        phrases = preset.phrases;
+      } else if (Number(vocabCount) >= 5) {
+        core = Math.min(Number(vocabCount), 40);
+      } else {
+        // No lesson file yet: two batches of 15 is the default.
+        core = 30;
+      }
+
       const half = Math.ceil(core / 2);
-      const batchALabel = known ? `words 1–${half}` : 'first half';
-      const batchBLabel = known ? `words ${half + 1}–${core}` : 'second half';
-      return { known, core, totalLabel, rangeLabel, half, rest: core - half, batchALabel, batchBLabel };
+      const known = Boolean(preset || Number(vocabCount) >= 5);
+      const totalLabel = known
+        ? (phrases ? `${core} words · ${phrases} phrases` : `${core} words`)
+        : 'about 30 words, two batches of 15';
+      const rangeLabel = known ? `${core} words` : 'about 30 words';
+      return {
+        known,
+        core,
+        phrases,
+        totalLabel,
+        rangeLabel,
+        half,
+        rest: core - half,
+        batchALabel: `words 1–${half}`,
+        batchBLabel: `words ${half + 1}–${core}`
+      };
     }
 
     const SLOT_SHORT = {
@@ -2615,7 +2644,7 @@
       const read2 = planReadingTask(altRec);
       const listen1 = planListeningTask(plan.listen);
       const listen2 = planListeningTask(plan.listenAlt || plan.listen);
-      const vp = vocabPlanMeta(vocabCount);
+      const vp = vocabPlanMeta(vocabCount, title);
 
       let inputA;
       let inputB;
@@ -2654,27 +2683,25 @@
       const days = [
         { badge: 'Gate 1 · Input A', accent: 'emerald', short: inputAShort, focus: 'Input A + sort preset words', tasks: [inputA, {
           gate: 1,
-          title: `Open your preset word list (${vp.rangeLabel}) in the lesson or notebook, then split it into Batch A (${vp.batchALabel}) + Batch B (${vp.batchBLabel})`,
-          placeholder: 'Mark each word known / fuzzy / new · keep the list open while you work',
-          note: `Work from the written list in the lesson (or your notebook): mark each of the ${vp.totalLabel} known / fuzzy / new, then keep the same list beside the tracker all week.`
+          title: `Open your preset word list in the lesson (${vp.known ? vp.totalLabel : 'two batches of 15'}), then split it into Batch A (${vp.batchALabel}) + Batch B (${vp.batchBLabel})`,
+          placeholder: 'Mark each group known / fuzzy / new · keep the list open while you work',
+          note: `Work from the written list in the lesson: mark each of the ${vp.core} groups known / fuzzy / new, then keep the same list beside the tracker all week.`
         }] },
         { badge: 'Gate 1 & 2 · Input B + Encoding', accent: 'emerald', short: inputBShort, focus: 'Input B + encode Batch A', tasks: [inputB, {
           gate: 2,
-          title: `Learn Batch A (${vp.batchALabel}): copy the phrase from the lesson + write 2 sentences`,
-          placeholder: `${vp.known ? `${vp.half} words done` : 'Batch A done'} · 1 phrase + 2 sentences each · use the lesson wording`
+          title: `Learn Batch A (${vp.batchALabel}): copy each group's phrases from the lesson + write 2 sentences`,
+          placeholder: `${vp.known ? `${vp.half} ` : ''}word groups done · all phrases copied · 2 sentences each`
         }] },
         { badge: 'Gate 2 · Encoding + Recall', accent: 'lavender', short: 'Encoding', focus: 'Encoding + active recall', tasks: [{
           gate: 2,
-          title: `Learn Batch B (${vp.batchBLabel}): copy the phrase from the lesson + write 2 sentences`,
-          placeholder: `${vp.known ? `${vp.rest} words done` : 'Batch B done'} · reuse a Batch A word in each sentence`
+          title: `Learn Batch B (${vp.batchBLabel}): copy each group's phrases from the lesson + write 2 sentences`,
+          placeholder: `${vp.known ? `${vp.rest} ` : ''}word groups done · reuse a Batch A word in each sentence`
         }, {
           gate: 2,
-          title: vp.known
-            ? `Active recall: cover the meanings and test all ${vp.core} preset words + phrases`
-            : 'Active recall: cover the meanings and test every word on the preset list + phrases',
-          placeholder: vp.known
-            ? `Recalled __/${vp.core} meanings and __/${vp.core} phrases`
-            : 'Every meaning and phrase tested · note the misses'
+          title: vp.phrases
+            ? `Active recall: cover the meanings and test all ${vp.core} words · ${vp.phrases} phrases`
+            : `Active recall: cover the meanings and test all ${vp.core} words + their phrases`,
+          placeholder: `Recalled __/${vp.core} groups and __/${vp.phrases || vp.core} phrases`
         }] }
       ];
 
@@ -2709,12 +2736,8 @@
       days.push(
         { badge: 'Gate 5 · Spaced Recall', accent: 'lavender', short: 'Recall', focus: 'Spaced recall', tasks: [{
           gate: 5,
-          title: vp.known
-            ? `Spaced recall at 24h / 48h / 72h: cover the list and test all ${vp.core} preset words + phrases (45m)`
-            : 'Spaced recall at 24h / 48h / 72h: cover the list and test every preset word + phrase (45m)',
-          placeholder: vp.known
-            ? `Reviewed ${vp.core} entries; __/${vp.core} recalled cold`
-            : 'Whole list reviewed; misses logged for the next pass'
+          title: `Spaced recall at 24h / 48h / 72h: cover the list and test all ${vp.core} words${vp.phrases ? ` · ${vp.phrases} phrases` : ''} (45m)`,
+          placeholder: `Reviewed ${vp.core} groups; __/${vp.core} recalled cold`
         }, {
           gate: 5,
           title: 'Mixed drill: 10 paraphrases + 5 rapid speaking prompts (45m)',
@@ -2722,8 +2745,8 @@
         }] },
         { badge: 'Gate 5 · Consolidation', accent: 'emerald', short: 'Close', focus: 'Consolidation & closure', tasks: [{
           gate: 5,
-          title: `Mini test: ${Math.min(20, vp.core)} phrases from the preset list + one ${plan.w > 0 ? 'essay outline' : 'speaking outline'} (45m)`,
-          placeholder: `__/${Math.min(20, vp.core)} phrases correct; outline completed`
+          title: `Mini test: ${Math.min(20, vp.phrases || vp.core)} phrases from the preset list + one ${plan.w > 0 ? 'essay outline' : 'speaking outline'} (45m)`,
+          placeholder: `__/${Math.min(20, vp.phrases || vp.core)} phrases correct; outline completed`
         }, {
           gate: 5,
           title: 'Error-log audit, update the Red List and mark the topic complete (45m)',
@@ -3225,6 +3248,35 @@
       { re: /advertising|consumerism|spending/i, file: '14 Advertising.html' }
     ];
 
+    // What each lesson actually contains, so the 9-session plan can name real
+    // batch sizes before the lesson file finishes loading. `groups` is the
+    // number of rows in vocabDataRaw; each row is one "word" on the list that
+    // usually bundles several phrases (`phrases`). Kept in step with
+    // data/vocabularies.json, which generate-vocab-config.js rewrites.
+    const PRESET_VOCAB_COUNTS = {
+      '01 Weather.html': { groups: 19, phrases: 56 },
+      '02 Travel.html': { groups: 22, phrases: 63 },
+      '03 City.html': { groups: 12, phrases: 46 },
+      '04 Building.html': { groups: 19, phrases: 66 },
+      '05 Food.html': { groups: 19, phrases: 50 },
+      '06 Film.html': { groups: 16, phrases: 48 },
+      '07 Book.html': { groups: 8, phrases: 8 },
+      '08 Music.html': { groups: 12, phrases: 37 },
+      '09 Sport.html': { groups: 18, phrases: 57 },
+      '10 Health.html': { groups: 13, phrases: 87 },
+      '11 Internet.html': { groups: 20, phrases: 61 },
+      '12 Work.html': { groups: 13, phrases: 43 },
+      '13 Business.html': { groups: 17, phrases: 148 },
+      '14 Advertising.html': { groups: 16, phrases: 47 }
+    };
+
+    // Topics whose word list lives in a non-HTML file. Crime ships as a .docx,
+    // so it cannot be fetched as a lesson page but the plan still knows its
+    // real size (12 word groups, 33 collocations).
+    const PRESET_VOCAB_EXTRA = [
+      { re: /crime|law|justice|offender|prison|police/i, groups: 12, phrases: 33 }
+    ];
+
     const topicVocabCache = Object.create(null);
     let topicListeningSession = null;
 
@@ -3353,7 +3405,10 @@
       }
 
       if (note) {
-        const planVocabLabel = vocabPlanMeta(week && Array.isArray(week.vocab) ? week.vocab.length : 0).totalLabel;
+        const planVocabLabel = vocabPlanMeta(
+          week && Array.isArray(week.vocab) ? week.vocab.length : 0,
+          week ? (week.sheetTitle || week.title) : ''
+        ).totalLabel;
         note.textContent = items.length
           ? `${planVocabLabel} · sorted on D1, learned on D2–D3, reused in outputs on D4–D7, tested cold on D8–D9.`
           : 'Add vocabulary to connect every skill to this topic.';

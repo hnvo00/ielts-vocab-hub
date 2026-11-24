@@ -4,7 +4,9 @@ window.vocabularies = [
     "filename": "01 Weather.html",
     "title": "Environment, Climate & Weather",
     "description": "No description",
-    "topics": 1,
+    "topics": 19,
+    "groups": 19,
+    "phrases": 56,
     "color": "from-blue-400 to-cyan-500"
   },
   {
@@ -12,7 +14,9 @@ window.vocabularies = [
     "filename": "02 Travel.html",
     "title": "Travel",
     "description": "No description",
-    "topics": 1,
+    "topics": 22,
+    "groups": 22,
+    "phrases": 63,
     "color": "from-emerald-400 to-teal-500"
   },
   {
@@ -20,7 +24,9 @@ window.vocabularies = [
     "filename": "03 City.html",
     "title": "City",
     "description": "No description",
-    "topics": 1,
+    "topics": 12,
+    "groups": 12,
+    "phrases": 46,
     "color": "from-orange-400 to-rose-500"
   },
   {
@@ -28,7 +34,9 @@ window.vocabularies = [
     "filename": "04 Building.html",
     "title": "Building",
     "description": "No description",
-    "topics": 1,
+    "topics": 19,
+    "groups": 19,
+    "phrases": 66,
     "color": "from-purple-400 to-pink-500"
   },
   {
@@ -36,7 +44,9 @@ window.vocabularies = [
     "filename": "05 Food.html",
     "title": "Food",
     "description": "No description",
-    "topics": 1,
+    "topics": 19,
+    "groups": 19,
+    "phrases": 50,
     "color": "from-indigo-400 to-blue-500"
   },
   {
@@ -44,7 +54,9 @@ window.vocabularies = [
     "filename": "06 Film.html",
     "title": "Film",
     "description": "No description",
-    "topics": 1,
+    "topics": 16,
+    "groups": 16,
+    "phrases": 48,
     "color": "from-cyan-400 to-emerald-500"
   },
   {
@@ -52,7 +64,9 @@ window.vocabularies = [
     "filename": "07 Book.html",
     "title": "Book",
     "description": "No description",
-    "topics": 1,
+    "topics": 8,
+    "groups": 8,
+    "phrases": 8,
     "color": "from-rose-400 to-orange-500"
   },
   {
@@ -60,7 +74,9 @@ window.vocabularies = [
     "filename": "08 Music.html",
     "title": "Music",
     "description": "No description",
-    "topics": 1,
+    "topics": 12,
+    "groups": 12,
+    "phrases": 37,
     "color": "from-violet-400 to-purple-500"
   },
   {
@@ -68,7 +84,9 @@ window.vocabularies = [
     "filename": "09 Sport.html",
     "title": "Sport",
     "description": "No description",
-    "topics": 1,
+    "topics": 18,
+    "groups": 18,
+    "phrases": 57,
     "color": "from-blue-400 to-cyan-500"
   },
   {
@@ -76,7 +94,9 @@ window.vocabularies = [
     "filename": "10 Health.html",
     "title": "Health",
     "description": "No description",
-    "topics": 1,
+    "topics": 13,
+    "groups": 13,
+    "phrases": 87,
     "color": "from-emerald-400 to-teal-500"
   },
   {
@@ -84,7 +104,9 @@ window.vocabularies = [
     "filename": "11 Internet.html",
     "title": "Internet",
     "description": "No description",
-    "topics": 1,
+    "topics": 20,
+    "groups": 20,
+    "phrases": 61,
     "color": "from-orange-400 to-rose-500"
   },
   {
@@ -92,7 +114,9 @@ window.vocabularies = [
     "filename": "12 Work.html",
     "title": "Work",
     "description": "No description",
-    "topics": 1,
+    "topics": 13,
+    "groups": 13,
+    "phrases": 43,
     "color": "from-purple-400 to-pink-500"
   },
   {
@@ -100,7 +124,9 @@ window.vocabularies = [
     "filename": "13 Business.html",
     "title": "Business",
     "description": "No description",
-    "topics": 1,
+    "topics": 17,
+    "groups": 17,
+    "phrases": 148,
     "color": "from-indigo-400 to-blue-500"
   },
   {
@@ -108,7 +134,9 @@ window.vocabularies = [
     "filename": "14 Advertising.html",
     "title": "Advertising",
     "description": "No description",
-    "topics": 1,
+    "topics": 16,
+    "groups": 16,
+    "phrases": 47,
     "color": "from-cyan-400 to-emerald-500"
   }
 ];
