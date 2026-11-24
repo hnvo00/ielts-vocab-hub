@@ -2585,7 +2585,7 @@
       const half = Math.ceil(core / 2);
       const batchALabel = known ? `words 1–${half}` : 'first half';
       const batchBLabel = known ? `words ${half + 1}–${core}` : 'second half';
-      return { core, totalLabel, rangeLabel, half, rest: core - half, batchALabel, batchBLabel };
+      return { known, core, totalLabel, rangeLabel, half, rest: core - half, batchALabel, batchBLabel };
     }
 
     const SLOT_SHORT = {
@@ -2661,16 +2661,20 @@
         { badge: 'Gate 1 & 2 · Input B + Encoding', accent: 'emerald', short: inputBShort, focus: 'Input B + encode Batch A', tasks: [inputB, {
           gate: 2,
           title: `Learn Batch A (${vp.batchALabel}): copy the phrase from the lesson + write 2 sentences`,
-          placeholder: `${vp.half} words done · 1 phrase + 2 sentences each · use the lesson wording`
+          placeholder: `${vp.known ? `${vp.half} words done` : 'Batch A done'} · 1 phrase + 2 sentences each · use the lesson wording`
         }] },
         { badge: 'Gate 2 · Encoding + Recall', accent: 'lavender', short: 'Encoding', focus: 'Encoding + active recall', tasks: [{
           gate: 2,
           title: `Learn Batch B (${vp.batchBLabel}): copy the phrase from the lesson + write 2 sentences`,
-          placeholder: `${vp.rest} words done · reuse a Batch A word in each sentence`
+          placeholder: `${vp.known ? `${vp.rest} words done` : 'Batch B done'} · reuse a Batch A word in each sentence`
         }, {
           gate: 2,
-          title: `Active recall: cover the meanings and test all ${vp.core} preset words + phrases`,
-          placeholder: `Recalled __/${vp.core} meanings and __/${vp.core} phrases`
+          title: vp.known
+            ? `Active recall: cover the meanings and test all ${vp.core} preset words + phrases`
+            : 'Active recall: cover the meanings and test every word on the preset list + phrases',
+          placeholder: vp.known
+            ? `Recalled __/${vp.core} meanings and __/${vp.core} phrases`
+            : 'Every meaning and phrase tested · note the misses'
         }] }
       ];
 
@@ -2705,8 +2709,12 @@
       days.push(
         { badge: 'Gate 5 · Spaced Recall', accent: 'lavender', short: 'Recall', focus: 'Spaced recall', tasks: [{
           gate: 5,
-          title: `Spaced recall at 24h / 48h / 72h: cover the list and test all ${vp.core} preset words + phrases (45m)`,
-          placeholder: `Reviewed ${vp.core} entries; __/${vp.core} recalled cold`
+          title: vp.known
+            ? `Spaced recall at 24h / 48h / 72h: cover the list and test all ${vp.core} preset words + phrases (45m)`
+            : 'Spaced recall at 24h / 48h / 72h: cover the list and test every preset word + phrase (45m)',
+          placeholder: vp.known
+            ? `Reviewed ${vp.core} entries; __/${vp.core} recalled cold`
+            : 'Whole list reviewed; misses logged for the next pass'
         }, {
           gate: 5,
           title: 'Mixed drill: 10 paraphrases + 5 rapid speaking prompts (45m)',
@@ -2714,8 +2722,8 @@
         }] },
         { badge: 'Gate 5 · Consolidation', accent: 'emerald', short: 'Close', focus: 'Consolidation & closure', tasks: [{
           gate: 5,
-          title: `Mini test: 20 phrases from the preset list + one ${plan.w > 0 ? 'essay outline' : 'speaking outline'} (45m)`,
-          placeholder: '__/20 phrases correct; outline completed'
+          title: `Mini test: ${Math.min(20, vp.core)} phrases from the preset list + one ${plan.w > 0 ? 'essay outline' : 'speaking outline'} (45m)`,
+          placeholder: `__/${Math.min(20, vp.core)} phrases correct; outline completed`
         }, {
           gate: 5,
           title: 'Error-log audit, update the Red List and mark the topic complete (45m)',
@@ -3345,8 +3353,9 @@
       }
 
       if (note) {
+        const planVocabLabel = vocabPlanMeta(week && Array.isArray(week.vocab) ? week.vocab.length : 0).totalLabel;
         note.textContent = items.length
-          ? `${vocabPlanMeta(safeVocab.length).totalLabel} · sorted on D1, learned on D2–D3, reused in outputs on D4–D7, tested cold on D8–D9.`
+          ? `${planVocabLabel} · sorted on D1, learned on D2–D3, reused in outputs on D4–D7, tested cold on D8–D9.`
           : 'Add vocabulary to connect every skill to this topic.';
       }
       const goalVocab = document.getElementById('topic-goal-vocab-metric');
