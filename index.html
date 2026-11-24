@@ -389,7 +389,7 @@
 
         <div id="topic-plan-body" class="mt-3 space-y-3">
           <!-- Reading anchor -->
-          <div class="rounded-xl border border-emerald-200/70 bg-emerald-50/30 px-3 py-2.5">
+          <div id="skill-reading-card" class="rounded-xl border border-emerald-200/70 bg-emerald-50/30 px-3 py-2.5">
             <div class="flex items-start gap-2">
               <span class="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 font-bold text-[10px] mt-0.5">R</span>
               <div class="min-w-0 flex-1">
@@ -408,20 +408,20 @@
               </p>
               <button onclick="useCambridgeForD1()" class="inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 rounded-lg text-[10.5px] font-semibold transition-colors shrink-0 self-start sm:self-auto">
                 <i data-lucide="clipboard-check" class="w-3 h-3"></i>
-                Add reading to D1
+                Add reading to <span id="skill-reading-day">D1</span>
               </button>
             </div>
           </div>
 
           <!-- Three topic-linked skills -->
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-2.5">
-            <div class="rounded-xl border border-slate-200/80 bg-white p-3 flex flex-col">
+            <div id="skill-listening-card" class="rounded-xl border border-slate-200/80 bg-white p-3 flex flex-col">
               <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-1.5 min-w-0">
                   <i data-lucide="headphones" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
                   <h4 class="text-xs font-semibold text-slate-900">Listening</h4>
                 </div>
-                <span class="text-[9px] font-semibold uppercase tracking-wider text-amber-600 shrink-0">No Cam. match</span>
+                <span class="text-[9px] font-semibold uppercase tracking-wider text-amber-600 shrink-0" id="skill-listening-tag">No Cam. match</span>
               </div>
               <p id="topic-listening-note" class="text-[10.5px] text-slate-500 leading-relaxed mt-1.5">Hear a sentence from this lesson, then choose the target word.</p>
               <div class="flex flex-wrap gap-1 mt-1.5">
@@ -433,16 +433,16 @@
                 <i data-lucide="play" class="w-3 h-3"></i>
                 Start drill
               </button>
-              <button onclick="addTopicSkillToDay('listening')" class="mt-1 w-full text-[9.5px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add drill to D2</button>
+              <button onclick="addTopicSkillToDay('listening')" class="mt-1 w-full text-[9.5px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add drill to <span id="skill-listening-day">D2</span></button>
             </div>
 
-            <div class="rounded-xl border border-slate-200/80 bg-white p-3 flex flex-col">
+            <div id="skill-writing-card" class="rounded-xl border border-slate-200/80 bg-white p-3 flex flex-col">
               <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-1.5 min-w-0">
                   <i data-lucide="pen-line" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
                   <h4 class="text-xs font-semibold text-slate-900">Writing</h4>
                 </div>
-                <span class="text-[9px] font-semibold uppercase tracking-wider text-amber-600 shrink-0">No Cam. match</span>
+                <span class="text-[9px] font-semibold uppercase tracking-wider text-amber-600 shrink-0" id="skill-writing-tag">No Cam. match</span>
               </div>
               <p id="cam-task2" class="text-[10.5px] text-slate-700 leading-relaxed mt-1.5"></p>
               <p id="topic-writing-vocab-note" class="text-[9px] text-slate-400 leading-snug mt-1"></p>
@@ -454,16 +454,16 @@
                 <i data-lucide="copy" class="w-3 h-3"></i>
                 Copy task
               </button>
-              <button onclick="addTopicSkillToDay('writing')" class="mt-1 w-full text-[9.5px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add prompt to D6</button>
+              <button onclick="addTopicSkillToDay('writing')" class="mt-1 w-full text-[9.5px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add prompt to <span id="skill-writing-day">D6</span></button>
             </div>
 
-            <div class="rounded-xl border border-slate-200/80 bg-white p-3 flex flex-col">
+            <div id="skill-speaking-card" class="rounded-xl border border-slate-200/80 bg-white p-3 flex flex-col">
               <div class="flex items-center justify-between gap-2">
                 <div class="flex items-center gap-1.5 min-w-0">
                   <i data-lucide="mic" class="w-3.5 h-3.5 text-emerald-600 shrink-0"></i>
                   <h4 class="text-xs font-semibold text-slate-900">Speaking</h4>
                 </div>
-                <span class="text-[9px] font-semibold uppercase tracking-wider text-amber-600 shrink-0">No Cam. match</span>
+                <span class="text-[9px] font-semibold uppercase tracking-wider text-amber-600 shrink-0" id="skill-speaking-tag">No Cam. match</span>
               </div>
               <ul id="cam-speaking" class="list-disc pl-3.5 text-[10.5px] text-slate-700 leading-relaxed mt-1.5 space-y-0.5"></ul>
               <p id="topic-speaking-vocab-note" class="text-[9px] text-slate-400 leading-snug mt-1"></p>
@@ -475,7 +475,7 @@
                 <i data-lucide="copy" class="w-3 h-3"></i>
                 Copy questions
               </button>
-              <button onclick="addTopicSkillToDay('speaking')" class="mt-1 w-full text-[9.5px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add questions to D5</button>
+              <button onclick="addTopicSkillToDay('speaking')" class="mt-1 w-full text-[9.5px] font-semibold text-emerald-700 hover:text-emerald-800 hover:underline">Add questions to <span id="skill-speaking-day">D5</span></button>
             </div>
           </div>
 
@@ -503,7 +503,7 @@
 
           <!-- Sequence -->
           <div class="rounded-xl border border-slate-200/80 bg-white p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <p class="text-[11px] text-slate-600"><strong class="font-semibold text-slate-900">Sequence:</strong> D1 Reading → D2 Listening → D5 Speaking → D6 Writing</p>
+            <p id="topic-plan-sequence" class="text-[11px] text-slate-600"><strong class="font-semibold text-slate-900">Sequence:</strong> D1 Reading → D2 Listening → D5 Speaking → D6 Writing</p>
             <div class="flex flex-wrap gap-2">
               <button onclick="addTopicPlanToSchedule()" class="inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-semibold transition-colors">
                 <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
@@ -516,7 +516,7 @@
             </div>
           </div>
 
-          <details class="rounded-xl border border-slate-200/80 bg-slate-50/40 p-3">
+          <details id="cam-more-wrap" class="rounded-xl border border-slate-200/80 bg-slate-50/40 p-3">
             <summary class="cursor-pointer text-xs font-semibold text-slate-700">Alternative Cambridge reading passages</summary>
             <p class="text-[11px] text-slate-500 mt-1">Reading only — swap the anchor passage for another passage on the same theme. These do not carry Listening, Writing or Speaking parts for this topic.</p>
             <div id="cam-more" class="space-y-2 mt-3"></div>
@@ -1051,196 +1051,13 @@
       'Consolidation & closure'
     ];
 
-    const SESSION_BLUEPRINT = [
-      {
-        sessionIndex: 0,
-        dayName: 'D1',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 1 · Input A',
-        gateNums: [1],
-        accent: 'emerald',
-        tasks: [
-          {
-            title: 'Topic Reading Passage: 20m timed + 40m deep review',
-            gate: 1,
-            placeholder: 'e.g., Cambridge test + passage (Score: 11/13)'
-          },
-          {
-            title: 'Extract 30 target words & collocations from the passage (Batch A)',
-            gate: 1,
-            placeholder: 'e.g., 30 words + collocations logged on pp. 4-6'
-          }
-        ]
-      },
-      {
-        sessionIndex: 1,
-        dayName: 'D2',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 1 & 2 · Input B + Encoding',
-        gateNums: [1, 2],
-        accent: 'emerald',
-        tasks: [
-          {
-            title: 'Topic listening dictation: 5 lesson sentences + score missed words',
-            gate: 1,
-            placeholder: 'e.g., 4/5 correct; missed words added to the Red List'
-          },
-          {
-            title: 'Encode Batch A (words 1-30) with collocations + 2 example sentences each',
-            gate: 2,
-            placeholder: 'e.g., 30 entries completed in the vocab notebook'
-          }
-        ]
-      },
-      {
-        sessionIndex: 2,
-        dayName: 'D3',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 2 · Encoding + Recall',
-        gateNums: [2],
-        accent: 'lavender',
-        tasks: [
-          {
-            title: 'Encode Batch B (words 31-60) with collocations + examples',
-            gate: 2,
-            placeholder: 'e.g., 30 entries completed and cross-linked to Batch A'
-          },
-          {
-            title: 'Active recall check: cover meanings, test all 60 words & collocations',
-            gate: 2,
-            placeholder: 'e.g., Recalled 52/60 meanings and 45/60 collocations'
-          }
-        ]
-      },
-      {
-        sessionIndex: 3,
-        dayName: 'D4',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 3 · Speaking Part 1 & 2',
-        gateNums: [3],
-        accent: 'lavender',
-        tasks: [
-          {
-            title: 'Outline a Part 2 cue card with 6-8 target collocations',
-            gate: 3,
-            placeholder: 'e.g., Cue Card: Describe an environmental problem in your city'
-          },
-          {
-            title: 'Record Part 1 + Part 2 answers using the new vocabulary',
-            gate: 3,
-            placeholder: 'e.g., Voice memo #12 (Part 1: 4 Qs, Part 2: 2m05s)'
-          }
-        ]
-      },
-      {
-        sessionIndex: 4,
-        dayName: 'D5',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 3 · Speaking Part 3 + Feedback',
-        gateNums: [3],
-        accent: 'lavender',
-        tasks: [
-          {
-            title: 'Record 4-5 Part 3 questions with abstract, topic-linked answers',
-            gate: 3,
-            placeholder: 'e.g., 5 Part 3 questions recorded (2m each)'
-          },
-          {
-            title: 'Playback audit: fix grammar, upgrade lexis, re-record the weakest answer',
-            gate: 3,
-            placeholder: 'e.g., Re-recorded Q3 fixing tense and article slips'
-          }
-        ]
-      },
-      {
-        sessionIndex: 5,
-        dayName: 'D6',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 4 · Writing Task 2',
-        gateNums: [4],
-        accent: 'emerald',
-        tasks: [
-          {
-            title: 'Timed Task 2 essay (40m) + 20m self-edit',
-            gate: 4,
-            placeholder: 'e.g., Carbon tax vs renewable subsidies essay (285 words)'
-          },
-          {
-            title: 'Upgrade 5 sentences with target collocations and log slips to the Red List',
-            gate: 4,
-            placeholder: 'e.g., 5 upgrades + 3 Red List entries'
-          }
-        ]
-      },
-      {
-        sessionIndex: 6,
-        dayName: 'D7',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 4 · Writing Task 1 + Accuracy',
-        gateNums: [4],
-        accent: 'emerald',
-        tasks: [
-          {
-            title: 'Timed Task 1 (20m) + 40m review (chart / map / process)',
-            gate: 4,
-            placeholder: 'e.g., Cambridge 19 Test 3 Task 1 Line Graph (172 words)'
-          },
-          {
-            title: 'Rewrite one body paragraph for Band 7.5+ coherence and cohesion',
-            gate: 4,
-            placeholder: 'e.g., Rewrote paragraph 2 with clearer topic sentence + linking'
-          }
-        ]
-      },
-      {
-        sessionIndex: 7,
-        dayName: 'D8',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 5 · Spaced Recall',
-        gateNums: [2, 5],
-        accent: 'lavender',
-        tasks: [
-          {
-            title: '24h / 48h / 72h spaced recall: 60 words + collocations (45m)',
-            gate: 5,
-            placeholder: 'e.g., Reviewed all 60 entries; 48/60 recalled cold'
-          },
-          {
-            title: 'Mixed drill: 10 paraphrases + 5 rapid speaking prompts (45m)',
-            gate: 5,
-            placeholder: 'e.g., 10 paraphrases recorded + 5 prompts answered in 30s each'
-          }
-        ]
-      },
-      {
-        sessionIndex: 8,
-        dayName: 'D9',
-        hoursLabel: '2h',
-        gateBadge: 'Gate 5 · Consolidation & Closure',
-        gateNums: [5],
-        accent: 'emerald',
-        tasks: [
-          {
-            title: 'Mini test: 20 collocations + one essay outline (45m)',
-            gate: 5,
-            placeholder: 'e.g., 18/20 collocations correct; outline completed'
-          },
-          {
-            title: 'Error-log audit, update the Red List and mark the topic complete (45m)',
-            gate: 5,
-            placeholder: 'e.g., 4 slips logged; topic closed and reviews scheduled'
-          }
-        ]
-      }
-    ];
-
     const STORAGE_KEY = 'ielts_mastery_pipeline_v2';
     const RESET_SNAPSHOT_KEY = 'ielts_mastery_pipeline_pre_reset_v1';
     // Practice/game results are shared with the lesson pages, which write the
     // same two keys from assets/vocab-tools.js.
     const STUDY_LOG_KEY = 'ieltsStudyLog_v1';
     const RED_QUEUE_KEY = 'ieltsRedListQueue_v1';
-    const SCHEMA_VERSION = 3;
+    const SCHEMA_VERSION = 4;
     const EXAM_TARGET_ISO = '2027-07-01';
     const SESSION_HOURS = 2;
 
@@ -1397,31 +1214,9 @@
       if (parsed.schemaVersion === SCHEMA_VERSION) return parsed;
       const oldWeeks = parsed.weeks;
       parsed.weeks = oldWeeks.map((old, idx) => {
-        const days = buildDefaultDaysForWeek(idx);
-        const oldTasks = (old.days || []).flatMap(day => day.tasks || []);
-        days.forEach(day => day.tasks.forEach(task => {
-          const match = oldTasks.find(item => (item.title || '').trim().toLowerCase() === task.title.trim().toLowerCase());
-          if (match) {
-            task.done = Boolean(match.done);
-            task.note = match.note || '';
-          }
-        }));
-        // Positional fallback: old Mon-Sun days map onto D1-D7 so checkmarks/notes survive.
-        (old.days || []).forEach((oldDay, dIdx) => {
-          if (dIdx >= days.length) return;
-          (oldDay.tasks || []).forEach((oldTask, tIdx) => {
-            if (oldTask.isCustom) {
-              days[dIdx].tasks.push(oldTask);
-              return;
-            }
-            const newTask = days[dIdx].tasks[tIdx];
-            if (!newTask) return;
-            if (oldTask.done || oldTask.note) {
-              newTask.done = Boolean(oldTask.done) || newTask.done;
-              if (!newTask.note && oldTask.note) newTask.note = oldTask.note;
-            }
-          });
-        });
+        const planTitle = old.sheetTitle || old.title || DEFAULT_TOPICS[idx] || `Topic ${idx + 1}`;
+        const days = buildDefaultDaysForWeek(idx, planTitle, Array.isArray(old.vocab) ? old.vocab.length : 0);
+        mergeDayProgress(days, old.days || []);
         return {
           weekNumber: idx + 1,
           title: old.title || DEFAULT_TOPICS[idx] || `Topic ${idx + 1}`,
@@ -1456,24 +1251,61 @@
     let flashcardIndex = 0;
     let isCardFlipped = false;
 
-    function buildDefaultDaysForWeek(weekIndex) {
-      return SESSION_BLUEPRINT.map((bp, dIdx) => ({
-        dayIndex: bp.dayIndex,
-        dayName: bp.dayName,
+    function buildDefaultDaysForWeek(weekIndex, title, vocabCount) {
+      const planned = buildTopicDayPlan(
+        weekIndex,
+        title || DEFAULT_TOPICS[weekIndex] || `Topic ${weekIndex + 1}`,
+        vocabCount
+      );
+      return planned.map((day, dIdx) => ({
+        dayIndex: dIdx,
+        dayName: `D${dIdx + 1}`,
         date: '',
-        hoursLabel: bp.hoursLabel,
-        gateBadge: bp.gateBadge,
-        accent: bp.accent,
-        tasks: bp.tasks.map((t, tIdx) => ({
+        hoursLabel: '2h',
+        gateBadge: day.badge,
+        gateNums: day.gateNums,
+        short: day.short,
+        focus: day.focus,
+        accent: day.accent,
+        tasks: day.tasks.map((t, tIdx) => ({
           id: `w${weekIndex + 1}-d${dIdx}-t${tIdx}`,
           title: t.title,
           gate: t.gate,
           placeholder: t.placeholder,
           done: false,
-          note: '',
+          note: t.note || '',
           isCustom: false
         }))
       }));
+    }
+
+    // Completed and custom tasks are never thrown away: only open, auto-planned
+    // tasks get replaced by the fresh plan at the same position.
+    function mergeDayProgress(days, prevDays) {
+      (prevDays || []).forEach((oldDay, dIdx) => {
+        const day = days[dIdx];
+        if (!day) return;
+        if (oldDay.date) day.date = oldDay.date;
+        const oldTasks = oldDay.tasks || [];
+        const merged = [];
+        const max = Math.max(day.tasks.length, oldTasks.length);
+        for (let tIdx = 0; tIdx < max; tIdx += 1) {
+          const oldTask = oldTasks[tIdx];
+          const newTask = day.tasks[tIdx];
+          if (oldTask && (oldTask.done || oldTask.isCustom)) {
+            merged.push(oldTask);
+          } else if (newTask) {
+            // Keep a note the learner typed, but not the stale auto note when
+            // the plan itself changed (title differs).
+            if (oldTask && oldTask.note && oldTask.note !== newTask.note && oldTask.title === newTask.title) {
+              newTask.note = oldTask.note;
+            }
+            merged.push(newTask);
+          }
+        }
+        day.tasks = merged;
+      });
+      return days;
     }
 
     function createInitialState() {
@@ -1512,7 +1344,7 @@
           sheetTitle: '',
           phase: 'Topic Sprint Phase',
           dateRange: '',
-          days: buildDefaultDaysForWeek(idx),
+          days: buildDefaultDaysForWeek(idx, title, starterVocab.length),
           vocab: starterVocab,
           scratchpad: {
             essayPrompt: idx === 0 ? 'Some people believe that environmental problems are too big for individuals to solve, while others think individuals can make a meaningful impact. Discuss both views and give your own opinion.' : '',
@@ -1843,32 +1675,17 @@
         : DEFAULT_TOPICS.map((title, idx) => ({ week: idx + 1, title, dates: '', phase: 'Topic Sprint Phase' }));
       return topics.map((topic, idx) => {
         const prev = oldWeeks[idx] || {};
-        const days = buildDefaultDaysForWeek(idx);
+        const vocabCount = Array.isArray(prev.vocab) ? prev.vocab.length : 0;
+        const days = buildDefaultDaysForWeek(idx, topic.title, vocabCount);
         const sameTopic = Boolean(prev.sheetTitle && prev.sheetTitle === topic.title)
           || Boolean(prev.title && prev.title === topic.title);
         if (Array.isArray(prev.days) && prev.days.length) {
-          if (sameTopic && prev.days.length === days.length) {
-            days.forEach((day, dIdx) => {
-              const oldDay = prev.days[dIdx] || {};
-              day.date = oldDay.date || '';
-              day.tasks.forEach((task, tIdx) => {
-                const oldTask = (oldDay.tasks || [])[tIdx];
-                if (oldTask) {
-                  task.done = Boolean(oldTask.done);
-                  task.note = oldTask.note || '';
-                }
-              });
-              (oldDay.tasks || []).filter(task => task.isCustom).forEach(task => day.tasks.push(task));
-            });
+          if (sameTopic) {
+            mergeDayProgress(days, prev.days);
           } else {
-            const oldTasks = prev.days.flatMap(day => day.tasks || []);
-            days.forEach(day => day.tasks.forEach(task => {
-              const match = oldTasks.find(item => (item.title || '').trim().toLowerCase() === task.title.trim().toLowerCase());
-              if (match) {
-                task.done = Boolean(match.done);
-                task.note = match.note || '';
-              }
-            }));
+            prev.days.forEach((oldDay, dIdx) => {
+              if (days[dIdx] && oldDay.date) days[dIdx].date = oldDay.date;
+            });
           }
         }
         return {
@@ -1972,6 +1789,34 @@
     // =========================================================================
     // 3. HELPER CALCULATIONS (DAY TASKS -> 5 GATES & CONSISTENCY)
     // =========================================================================
+    function weekTaskDone(week, gate, pattern) {
+      return ((week && week.days) || []).some(day =>
+        (day.tasks || []).some(task =>
+          (!gate || task.gate === gate) && (!pattern || pattern.test(task.title)) && Boolean(task.done)
+        )
+      );
+    }
+
+    function findWeekDayIndex(week, gate, pattern) {
+      return ((week && week.days) || []).findIndex(day =>
+        (day.tasks || []).some(task =>
+          (!gate || task.gate === gate) && (!pattern || pattern.test(task.title))
+        )
+      );
+    }
+
+    function findWeekTask(week, gate, pattern, openOnly) {
+      for (const day of (week && week.days) || []) {
+        const found = (day.tasks || []).find(task =>
+          (!gate || task.gate === gate)
+          && (!pattern || pattern.test(task.title))
+          && (!openOnly || !task.done)
+        );
+        if (found) return found;
+      }
+      return null;
+    }
+
     function getWeekCompletionStats(week) {
       let checked = 0;
       let total = 0;
@@ -2309,6 +2154,584 @@
         speaking: ['What do people in your country do to stay healthy?', 'Should healthcare be free for everyone?', 'Why is mental health becoming a more important issue?'] }
     ];
 
+    // =========================================================================
+    // Per-topic 9-session plan, built from the "Topics Strategy" sheet.
+    // r/l/s/w = skill weight: 3 rất cao · 2 cao · 1 trung bình · 0 bypass.
+    // slots = the four D4-D7 output slots (S1/P1, S2/P2, S3/P3, SM mock,
+    //         W2 Task 2, W1 Task 1, R2 extra reading, L2 extra listening).
+    // Listening refs are a concrete Cambridge book/test/part to drill; the
+    // part + question type is the training value, so swap tests freely if the
+    // lecture topic drifts away from the theme.
+    // =========================================================================
+    const TOPIC_PLANS = [
+      { re: /environment|climate|weather|ecolog|biodiversity|conservation|renewable|energy/i,
+        r: 3, l: 2, s: 2, w: 3, focus: 'All four skills · Reading + Writing T2',
+        listen: { b: 19, t: 1, part: 4, type: 'lecture · note completion' },
+        listenAlt: { b: 16, t: 4, part: 4, type: 'lecture · note completion' },
+        p1: ['What is the weather like in your country?', 'Do you spend much time outdoors?', 'Are there many green spaces where you live?'],
+        p2: 'Describe an environmental problem in your city. You should say what it is, what causes it, how it affects people, and what could be done about it.',
+        p3: ['Why do some people ignore environmental problems?', 'Should governments fine individuals who pollute?', 'Is it fair to ask developing countries to cut emissions?'],
+        w2: 'Some people believe individuals can do little to address climate change; only governments and large companies can make a difference. To what extent do you agree or disagree?',
+        w1: 'Bar chart: household recycling rates in four countries in 2005 and 2025.',
+        slots: ['S2', 'S3', 'W2', 'W1'] },
+      { re: /travel|tourism/i,
+        r: 1, l: 3, s: 3, w: 2, focus: 'Listening + Speaking · Writing ideas only',
+        listen: { b: 16, t: 2, part: 2, type: 'monologue · map/plan labelling' },
+        listenAlt: { b: 18, t: 3, part: 2, type: 'monologue · matching' },
+        p1: ['Do you enjoy travelling?', 'What is the most interesting place you have visited?', 'Do you prefer travelling alone or with others?'],
+        p2: 'Describe a memorable journey you have taken. You should say where you went, who you went with, what happened, and why it was memorable.',
+        p3: ['Why do people want to visit other countries?', 'How does tourism change local communities?', 'Should governments limit the number of tourists at famous sites?'],
+        w2: 'Tourism often damages local cultures and environments. To what extent do you agree or disagree?',
+        w1: 'Line graph: international tourist arrivals in three countries, 2000-2025.',
+        slots: ['S1', 'S2', 'S3', 'W2'] },
+      { re: /\bcity\b|urban/i,
+        r: 2, l: 2, s: 3, w: 3, focus: 'Speaking + Writing T2 · Reading support',
+        listen: { b: 17, t: 4, part: 2, type: 'monologue · map labelling' },
+        listenAlt: { b: 19, t: 2, part: 2, type: 'monologue · multiple choice' },
+        p1: ['Do you live in a city or in the countryside?', 'What do you like most about your city?', 'How is your city changing?'],
+        p2: 'Describe a place in your city that you like to visit. You should say where it is, how often you go there, what you do there, and why you like it.',
+        p3: ['What are the biggest problems facing modern cities?', 'Should cities limit the number of private cars?', 'How can city planners make urban life healthier?'],
+        w2: 'Some people believe private cars should be banned from city centres. To what extent do you agree or disagree?',
+        w1: 'Map: changes to a town centre between 1990 and today.',
+        slots: ['S2', 'S3', 'W2', 'W1'] },
+      { re: /building|architecture|housing/i,
+        r: 3, l: 2, s: 2, w: 1, focus: 'Reading + Speaking P1-P2',
+        listen: { b: 18, t: 1, part: 2, type: 'monologue · plan labelling' },
+        listenAlt: { b: 16, t: 3, part: 2, type: 'monologue · matching' },
+        p1: ['Do you live in a house or an apartment?', 'What kind of building do you find beautiful?', 'Are there many old buildings in your area?'],
+        p2: 'Describe a building you find impressive. You should say where it is, what it looks like, what it is used for, and why you find it impressive.',
+        p3: ['Should old buildings be preserved or replaced?', 'Why do some cities allow tall skyscrapers?', 'How does architecture affect the way people feel?'],
+        w2: 'Governments should protect historic buildings even when they are expensive to maintain. To what extent do you agree or disagree?',
+        w1: 'Diagram: the process of building a modern eco-house.',
+        slots: ['S1', 'S2', 'W2', 'R2'] },
+      { re: /\bfood\b|agricultur|nutrition/i,
+        r: 2, l: 2, s: 3, w: 2, focus: 'Speaking P1 · Reading + Writing support',
+        listen: { b: 19, t: 3, part: 4, type: 'lecture · table completion' },
+        listenAlt: { b: 17, t: 1, part: 4, type: 'lecture · note completion' },
+        p1: ['What kind of food do you like?', 'Do you enjoy cooking?', 'Are there any traditional dishes in your country?'],
+        p2: 'Describe a meal you will never forget. You should say what you ate, where you were, who you were with, and why you remember it.',
+        p3: ['Why are traditional diets changing in many countries?', 'Should schools teach children how to cook?', 'How can governments encourage healthier eating?'],
+        w2: 'Governments should tax unhealthy food and drinks to improve public health. To what extent do you agree or disagree?',
+        w1: 'Bar chart: consumption of fast food in four countries in 2010 and 2025.',
+        slots: ['S1', 'S2', 'S3', 'W2'] },
+      { re: /\bfilm\b|cinema/i,
+        r: 0, l: 1, s: 3, w: 0, focus: 'Speaking only · Reading & Writing bypassed',
+        listen: { b: 16, t: 1, part: 1, type: 'dialogue · form completion' },
+        listenAlt: { b: 18, t: 2, part: 3, type: 'discussion · multiple choice' },
+        p1: ['Do you enjoy watching films?', 'What kind of films do you like?', 'Do you prefer watching films at home or at the cinema?'],
+        p2: 'Describe a film that made a strong impression on you. You should say what it was about, when you watched it, who you watched it with, and why it impressed you.',
+        p3: ['Why are films so popular around the world?', 'Do films influence the way people behave?', 'Should governments support the national film industry?'],
+        w2: 'Films and television programmes are less valuable than books. To what extent do you agree or disagree?',
+        w1: 'Table: cinema attendance in five countries in 2024.',
+        slots: ['S1', 'S2', 'S3', 'SM'] },
+      { re: /\bbook\b|library|reading/i,
+        r: 1, l: 2, s: 3, w: 1, focus: 'Speaking + Listening P3 · Reading skim only',
+        listen: { b: 17, t: 2, part: 3, type: 'discussion · matching' },
+        listenAlt: { b: 16, t: 4, part: 3, type: 'discussion · multiple choice' },
+        p1: ['Do you read much in your free time?', 'What kind of books do you enjoy?', 'Did you enjoy reading as a child?'],
+        p2: 'Describe a book you have read recently. You should say what it was about, why you read it, what you thought of it, and whether you would recommend it.',
+        p3: ['Why do some people prefer digital books to paper books?', 'How can libraries stay relevant today?', 'Should children be encouraged to read more?'],
+        w2: 'Public libraries are no longer necessary because information is available online. To what extent do you agree or disagree?',
+        w1: 'Line graph: book sales and e-book sales in one country, 2010-2025.',
+        slots: ['S1', 'S2', 'S3', 'W2'] },
+      { re: /music/i,
+        r: 0, l: 2, s: 3, w: 0, focus: 'Speaking + Listening · Reading & Writing bypassed',
+        listen: { b: 18, t: 3, part: 1, type: 'dialogue · form completion' },
+        listenAlt: { b: 19, t: 4, part: 2, type: 'monologue · multiple choice' },
+        p1: ['What kind of music do you like?', 'Do you play any musical instruments?', 'Do you listen to music while you study or work?'],
+        p2: 'Describe a song or piece of music you especially like. You should say what it is, when you first heard it, how often you listen to it, and why you like it.',
+        p3: ['Why is music important to people?', 'Should music be taught in every school?', 'How has technology changed the way people listen to music?'],
+        w2: 'Music education should be compulsory in schools. To what extent do you agree or disagree?',
+        w1: 'Pie chart: how people in one country listen to music, 2025.',
+        slots: ['S1', 'S2', 'S3', 'L2'] },
+      { re: /sport/i,
+        r: 1, l: 2, s: 3, w: 2, focus: 'Speaking + Writing T2 · light Reading',
+        listen: { b: 19, t: 2, part: 1, type: 'dialogue · form completion' },
+        listenAlt: { b: 17, t: 3, part: 2, type: 'monologue · matching' },
+        p1: ['Do you play any sports?', 'What sports are popular in your country?', 'Did you play sport at school?'],
+        p2: 'Describe a sport you enjoy watching or playing. You should say what it is, how you became interested in it, how often you do it, and why you enjoy it.',
+        p3: ['Why do people enjoy watching professional sport?', 'Should governments spend more on sport than on the arts?', 'Is competition good for children?'],
+        w2: 'Governments should invest more in grassroots sport than in elite sport. To what extent do you agree or disagree?',
+        w1: 'Bar chart: participation in five sports in one country in 2025.',
+        slots: ['S1', 'S2', 'S3', 'W2'] },
+      { re: /health|fitness|medical/i,
+        r: 3, l: 2, s: 2, w: 3, focus: 'Reading + Writing T2 · health policy',
+        listen: { b: 20, t: 1, part: 3, type: 'discussion · multiple choice' },
+        listenAlt: { b: 18, t: 4, part: 3, type: 'discussion · matching' },
+        p1: ['What do you do to stay healthy?', 'Do you think you have a healthy lifestyle?', 'How much sleep do you usually get?'],
+        p2: 'Describe a healthy habit you have. You should say what it is, when you started it, how it helps you, and whether it was easy to develop.',
+        p3: ['Why are lifestyle diseases increasing in many countries?', 'Should healthcare be free for everyone?', 'How can employers help workers stay healthy?'],
+        w2: 'Governments should make vaccination compulsory for all children. To what extent do you agree or disagree?',
+        w1: 'Line graph: life expectancy in three countries, 1960-2025.',
+        slots: ['S1', 'S3', 'W2', 'W1'] },
+      { re: /internet|technology|digital|artificial intelligence|automation/i,
+        r: 3, l: 2, s: 3, w: 3, focus: 'All four skills · Reading + Writing priority',
+        listen: { b: 20, t: 2, part: 4, type: 'lecture · note completion' },
+        listenAlt: { b: 19, t: 4, part: 4, type: 'lecture · summary completion' },
+        p1: ['How much time do you spend online?', 'What do you mainly use the internet for?', 'Do you think you could live without the internet?'],
+        p2: 'Describe a website or app you use often. You should say what it is, how you found it, what you use it for, and why it is useful to you.',
+        p3: ['How has the internet changed the way people communicate?', 'Should access to the internet be a basic right?', 'What are the main risks of artificial intelligence?'],
+        w2: 'Artificial intelligence will replace many human jobs. Some see this as progress, while others see it as a threat. Discuss both views and give your own opinion.',
+        w1: 'Bar chart: internet use by age group in one country in 2025.',
+        slots: ['S2', 'S3', 'W2', 'W1'] },
+      { re: /\bwork\b|career|employment/i,
+        r: 2, l: 2, s: 3, w: 3, focus: 'Speaking + Writing T2 · organisational psychology',
+        listen: { b: 16, t: 1, part: 3, type: 'discussion · multiple choice' },
+        listenAlt: { b: 18, t: 2, part: 4, type: 'lecture · note completion' },
+        p1: ['What do you do for a living, or what would you like to do?', 'What do you enjoy most about your work or studies?', 'Would you prefer to work from home?'],
+        p2: 'Describe a job you would like to do. You should say what it is, what skills it requires, what the working conditions are like, and why it appeals to you.',
+        p3: ['Why do people change jobs more often now than in the past?', 'Is working from home better than working in an office?', 'How might automation change the workplace?'],
+        w2: 'Some people change jobs frequently, while others stay with one employer for most of their career. Discuss both views and give your own opinion.',
+        w1: 'Table: average working hours in five countries in 2025.',
+        slots: ['S1', 'S2', 'S3', 'W2'] },
+      { re: /business|entrepreneur|econom/i,
+        r: 2, l: 2, s: 1, w: 3, focus: 'Writing T2 + Reading P2-P3',
+        listen: { b: 17, t: 4, part: 4, type: 'lecture · note completion' },
+        listenAlt: { b: 19, t: 1, part: 3, type: 'discussion · multiple choice' },
+        p1: ['Are there many small businesses where you live?', 'Would you like to run your own business?', 'What makes a business successful?'],
+        p2: 'Describe a business you admire. You should say what it does, how you know about it, what makes it different, and why you admire it.',
+        p3: ['Should governments support small businesses?', 'What are the responsibilities of large companies?', 'Is entrepreneurship suitable for everyone?'],
+        w2: 'Large companies should be required to pay more tax. To what extent do you agree or disagree?',
+        w1: 'Bar chart: profits of four companies in 2020 and 2025.',
+        slots: ['S3', 'W2', 'W1', 'R2'] },
+      { re: /advertising|consumerism/i,
+        r: 1, l: 1, s: 2, w: 3, focus: 'Writing T2 + Speaking P3 · light Reading',
+        listen: { b: 18, t: 2, part: 3, type: 'discussion · matching' },
+        listenAlt: { b: 20, t: 3, part: 4, type: 'lecture · note completion' },
+        p1: ['Do you notice advertisements in your daily life?', 'What kind of advertising do you find annoying?', 'Have you ever bought something because of an advert?'],
+        p2: 'Describe an advertisement you remember. You should say what it advertised, where you saw it, what happened in it, and why you remember it.',
+        p3: ['Why is advertising so powerful?', 'Should advertising to children be restricted?', 'Does advertising encourage unnecessary spending?'],
+        w2: 'Advertising encourages people to buy things they do not need. To what extent do you agree or disagree?',
+        w1: 'Bar chart: spending on advertising in five media, 2025.',
+        slots: ['S3', 'W2', 'W1', 'R2'] },
+      { re: /crime|\blaw\b|justice/i,
+        r: 2, l: 1, s: 1, w: 3, focus: 'Writing T2 + Reading · Speaking P3 ideas only',
+        listen: { b: 19, t: 4, part: 3, type: 'discussion · multiple choice' },
+        listenAlt: { b: 17, t: 2, part: 4, type: 'lecture · note completion' },
+        p1: ['Is crime a problem where you live?', 'Do you feel safe walking alone at night?', 'What do you think of the police in your country?'],
+        p2: 'Describe a crime you have heard about. You should say what happened, where it happened, who was involved, and how you felt about it.',
+        p3: ['What are the main causes of crime?', 'Should the focus be on punishment or rehabilitation?', 'How can juvenile crime be reduced?'],
+        w2: 'Prisons are not the best way to reduce crime. To what extent do you agree or disagree?',
+        w1: 'Line graph: recorded crime rates in one country, 2000-2025.',
+        slots: ['S3', 'W2', 'W1', 'R2'] },
+      { re: /famous|celebrity/i,
+        r: 0, l: 1, s: 3, w: 1, focus: 'Speaking P2-P3 · Reading bypassed',
+        listen: { b: 20, t: 3, part: 2, type: 'monologue · matching' },
+        listenAlt: { b: 16, t: 2, part: 3, type: 'discussion · multiple choice' },
+        p1: ['Are you interested in famous people?', 'Who is a famous person you admire?', 'Do you think famous people have a right to privacy?'],
+        p2: 'Describe a famous person you would like to meet. You should say who they are, how you know about them, what they are famous for, and why you would like to meet them.',
+        p3: ['Why are people so interested in celebrities?', 'Should famous people be role models?', 'How does social media affect famous people?'],
+        w2: 'Famous people have a responsibility to behave well in public. To what extent do you agree or disagree?',
+        w1: 'Table: the most followed people on social media in 2025.',
+        slots: ['S1', 'S2', 'S3', 'SM'] },
+      { re: /fashion/i,
+        r: 0, l: 1, s: 3, w: 1, focus: 'Speaking · Writing ideas only · Reading bypassed',
+        listen: { b: 17, t: 1, part: 1, type: 'dialogue · form completion' },
+        listenAlt: { b: 19, t: 3, part: 3, type: 'discussion · matching' },
+        p1: ['Are you interested in fashion?', 'What kind of clothes do you usually wear?', 'Do you ever buy clothes online?'],
+        p2: 'Describe an item of clothing you like. You should say what it is, where you got it, when you wear it, and why you like it.',
+        p3: ['Why do people follow fashion trends?', 'Is fast fashion a serious problem?', 'Should schools require students to wear uniforms?'],
+        w2: 'Fast fashion has more negative effects than positive ones. To what extent do you agree or disagree?',
+        w1: 'Bar chart: spending on clothing in four countries in 2025.',
+        slots: ['S1', 'S2', 'S3', 'W2'] },
+      { re: /\bperson\b|personality/i,
+        r: 0, l: 0, s: 3, w: 0, focus: 'Speaking only · R/L/W bypassed',
+        listen: { b: 20, t: 1, part: 1, type: 'dialogue · form completion' },
+        listenAlt: { b: 20, t: 1, part: 1, type: 'dialogue · form completion' },
+        p1: ['What kind of person are you?', 'Who is the most important person in your life?', 'What qualities do you admire in other people?'],
+        p2: 'Describe a person you admire. You should say who they are, how you know them, what they are like, and why you admire them.',
+        p3: ['What makes a good friend?', 'Can personality change over time?', 'How do people in your country show respect?'],
+        w2: 'People are influenced more by their friends than by their families. To what extent do you agree or disagree?',
+        w1: 'Table: personality traits most valued by employers in 2025.',
+        slots: ['S1', 'S2', 'S3', 'SM'] },
+      { re: /festival/i,
+        r: 1, l: 2, s: 3, w: 1, focus: 'Speaking + Listening P2 · light Reading',
+        listen: { b: 18, t: 4, part: 2, type: 'monologue · matching' },
+        listenAlt: { b: 16, t: 3, part: 2, type: 'monologue · map labelling' },
+        p1: ['What festivals are celebrated in your country?', 'Do you enjoy festivals?', 'How do you usually celebrate special occasions?'],
+        p2: 'Describe a festival or celebration you remember. You should say what it was, when it happened, who you were with, and why you remember it.',
+        p3: ['Why do people celebrate traditional festivals?', 'Should festivals be modernised?', 'How does tourism affect local festivals?'],
+        w2: 'Traditional festivals are being lost because of modern lifestyles. To what extent do you agree or disagree?',
+        w1: 'Bar chart: visitor numbers at four festivals in 2025.',
+        slots: ['S1', 'S2', 'S3', 'L2'] },
+      { re: /\bspace\b|astronom/i,
+        r: 3, l: 2, s: 0, w: 1, focus: 'Reading P2-P3 + Listening P4 · Speaking bypassed',
+        listen: { b: 20, t: 4, part: 4, type: 'lecture · note completion' },
+        listenAlt: { b: 17, t: 2, part: 4, type: 'lecture · table completion' },
+        p1: ['Are you interested in space?', 'Have you ever watched a programme about space?', 'Would you like to travel to space?'],
+        p2: 'Describe something you have learned about space. You should say what it was, where you learned it, why it interested you, and how it changed your view.',
+        p3: ['Should governments spend money on space exploration?', 'What are the benefits of space research for ordinary people?', 'Will space tourism become common?'],
+        w2: 'Space exploration is a waste of money that could be spent on public services. To what extent do you agree or disagree?',
+        w1: 'Diagram: the process of launching a satellite into orbit.',
+        slots: ['R2', 'R2', 'L2', 'W2'] },
+      { re: /science|research|innovation/i,
+        r: 3, l: 3, s: 1, w: 2, focus: 'Reading + Listening P3-P4',
+        listen: { b: 19, t: 1, part: 3, type: 'discussion · multiple choice' },
+        listenAlt: { b: 20, t: 2, part: 4, type: 'lecture · note completion' },
+        p1: ['Did you enjoy science at school?', 'Are you interested in scientific discoveries?', 'Do you follow science news?'],
+        p2: 'Describe a scientific discovery that impressed you. You should say what it was, when you learned about it, how it affects people, and why it impressed you.',
+        p3: ['Why is scientific research important?', 'Should governments fund research into space or medicine?', 'How can scientists communicate better with the public?'],
+        w2: 'Governments should fund scientific research even when the results are uncertain. To what extent do you agree or disagree?',
+        w1: 'Table: research spending in five countries in 2025.',
+        slots: ['S3', 'W2', 'R2', 'L2'] },
+      { re: /education|learning|school/i,
+        r: 3, l: 3, s: 3, w: 3, focus: 'All four skills · no skill skipped',
+        listen: { b: 20, t: 2, part: 3, type: 'discussion · matching' },
+        listenAlt: { b: 18, t: 1, part: 4, type: 'lecture · note completion' },
+        p1: ['What did you enjoy most about school?', 'Do you prefer studying alone or in a group?', 'What would you like to learn in the future?'],
+        p2: 'Describe a teacher who influenced you. You should say who they were, what they taught, what they were like, and how they influenced you.',
+        p3: ['Should university education be free?', 'How has technology changed learning?', 'Are exams the best way to measure ability?'],
+        w2: 'Some people think university education should be free for everyone, while others believe students should pay. Discuss both views and give your own opinion.',
+        w1: 'Bar chart: university enrolment by subject in one country in 2025.',
+        slots: ['S2', 'S3', 'W2', 'W1'] },
+      { re: /news|media|journalism/i,
+        r: 1, l: 2, s: 3, w: 2, focus: 'Speaking + Writing T2 · light Reading',
+        listen: { b: 17, t: 3, part: 3, type: 'discussion · multiple choice' },
+        listenAlt: { b: 19, t: 2, part: 4, type: 'lecture · note completion' },
+        p1: ['How do you usually get the news?', 'Do you trust the news you read online?', 'Do you discuss the news with friends?'],
+        p2: 'Describe a news story that interested you. You should say what it was about, where you saw it, why it interested you, and how you felt about it.',
+        p3: ['Why do people share news on social media?', 'How can we identify fake news?', 'Should governments regulate online news?'],
+        w2: 'Social media does more harm than good to society. To what extent do you agree or disagree?',
+        w1: 'Line graph: newspaper sales and online news visits in one country, 2010-2025.',
+        slots: ['S1', 'S3', 'W2', 'W1'] },
+      { re: /language|multilingual|communication/i,
+        r: 3, l: 2, s: 3, w: 2, focus: 'Reading + Speaking + Writing T2',
+        listen: { b: 18, t: 1, part: 4, type: 'lecture · note completion' },
+        listenAlt: { b: 20, t: 3, part: 3, type: 'discussion · multiple choice' },
+        p1: ['How many languages do you speak?', 'Would you like to learn another language?', 'Is English important in your country?'],
+        p2: 'Describe a language you would like to learn. You should say what it is, why you want to learn it, how you would learn it, and how it would help you.',
+        p3: ['Why are some languages disappearing?', 'Should children learn a foreign language at primary school?', 'How does language shape the way people think?'],
+        w2: 'Governments should spend money protecting minority languages. To what extent do you agree or disagree?',
+        w1: 'Table: the most widely spoken languages in 2025.',
+        slots: ['S1', 'S3', 'W2', 'R2'] },
+      { re: /play|entertainment|games/i,
+        r: 0, l: 2, s: 3, w: 1, focus: 'Speaking P1-P2 + Listening · Reading bypassed',
+        listen: { b: 16, t: 2, part: 1, type: 'dialogue · form completion' },
+        listenAlt: { b: 17, t: 3, part: 2, type: 'monologue · matching' },
+        p1: ['Did you play games as a child?', 'Do you still play any games?', 'Do you prefer indoor or outdoor games?'],
+        p2: 'Describe a game you enjoyed playing. You should say what it was, who you played it with, how you played it, and why you enjoyed it.',
+        p3: ['Why is play important for children?', 'Are video games harmful?', 'Should adults spend time playing games?'],
+        w2: 'Children today spend too much time playing computer games and too little time playing outdoors. To what extent do you agree or disagree?',
+        w1: 'Bar chart: time spent on leisure activities by age group in 2025.',
+        slots: ['S1', 'S2', 'S3', 'L2'] },
+      { re: /hobby|pastime/i,
+        r: 0, l: 2, s: 3, w: 0, focus: 'Speaking + Listening P1 · R/W bypassed',
+        listen: { b: 19, t: 2, part: 2, type: 'monologue · matching' },
+        listenAlt: { b: 16, t: 1, part: 1, type: 'dialogue · form completion' },
+        p1: ['Do you have a hobby?', 'How did you become interested in it?', 'Do you prefer hobbies that cost money or free ones?'],
+        p2: 'Describe a hobby you enjoy. You should say what it is, how you started it, how often you do it, and why you enjoy it.',
+        p3: ['Why do people need hobbies?', 'Are hobbies different for young and old people?', 'Should schools offer more hobby clubs?'],
+        w2: 'People today have less free time for hobbies than in the past. To what extent do you agree or disagree?',
+        w1: 'Pie chart: how people in one country spend their free time, 2025.',
+        slots: ['S1', 'S2', 'S3', 'L2'] },
+      { re: /family|friends|parenting/i,
+        r: 0, l: 2, s: 3, w: 2, focus: 'Speaking + Writing T2 · Reading bypassed',
+        listen: { b: 17, t: 1, part: 1, type: 'dialogue · form completion' },
+        listenAlt: { b: 20, t: 1, part: 3, type: 'discussion · multiple choice' },
+        p1: ['Do you have a large family?', 'How often do you see your friends?', 'Who are you closest to in your family?'],
+        p2: 'Describe a family member you are close to. You should say who they are, what they are like, how often you see them, and why you are close to them.',
+        p3: ['How have family roles changed in your country?', 'Is it better for children to grow up in a small or a large family?', 'Who should care for elderly relatives?'],
+        w2: 'Grandparents should play a larger role in raising children. To what extent do you agree or disagree?',
+        w1: 'Line graph: average household size in three countries, 1970-2025.',
+        slots: ['S1', 'S2', 'S3', 'W2'] },
+      { re: /\bage\b|generation|demograph|elderly/i,
+        r: 2, l: 2, s: 2, w: 3, focus: 'Writing T2 + Reading · demographics',
+        listen: { b: 18, t: 4, part: 4, type: 'lecture · note completion' },
+        listenAlt: { b: 19, t: 3, part: 3, type: 'discussion · matching' },
+        p1: ['Do you enjoy spending time with older people?', 'How do generations differ in your country?', 'What do you think your life will be like when you are older?'],
+        p2: 'Describe an older person you respect. You should say who they are, how you know them, what they have done, and why you respect them.',
+        p3: ['How does an ageing population affect society?', 'Who should care for elderly people?', 'Is the retirement age in your country appropriate?'],
+        w2: 'Governments should encourage people to work beyond retirement age. To what extent do you agree or disagree?',
+        w1: 'Line graph: population aged over 65 in three countries, 2000-2050.',
+        slots: ['S3', 'W2', 'W1', 'R2'] },
+      { re: /photograph/i,
+        r: 0, l: 1, s: 3, w: 0, focus: 'Speaking only · R/W bypassed',
+        listen: { b: 20, t: 1, part: 1, type: 'dialogue · form completion' },
+        listenAlt: { b: 17, t: 4, part: 2, type: 'monologue · map labelling' },
+        p1: ['Do you enjoy taking photographs?', 'What do you usually take photos of?', 'Do you prefer photos on your phone or a camera?'],
+        p2: 'Describe a photograph you like. You should say what it shows, where you saw it, when it was taken, and why you like it.',
+        p3: ['Why do people take so many photographs today?', 'Has photography changed the way we remember events?', 'Should photographers be allowed to take pictures in public?'],
+        w2: 'Photography has made people less able to live in the moment. To what extent do you agree or disagree?',
+        w1: 'Bar chart: the most popular subjects photographed by age group in 2025.',
+        slots: ['S1', 'S2', 'S3', 'SM'] },
+      { re: /\bart\b|museum|heritage|culture/i,
+        r: 2, l: 3, s: 2, w: 2, focus: 'Listening P2 + Reading + Writing T2',
+        listen: { b: 19, t: 3, part: 2, type: 'monologue · map labelling' },
+        listenAlt: { b: 18, t: 2, part: 2, type: 'monologue · matching' },
+        p1: ['Are you interested in art?', 'Have you visited a museum recently?', 'Did you enjoy art lessons at school?'],
+        p2: 'Describe a museum or gallery you enjoyed visiting. You should say where it is, what you saw there, who you went with, and why you enjoyed it.',
+        p3: ['Why are museums important?', 'Should museums and galleries be free?', 'Should governments spend money on the arts?'],
+        w2: 'Governments should spend more money on the arts than on sport. To what extent do you agree or disagree?',
+        w1: 'Bar chart: visitor numbers at four museums in 2025.',
+        slots: ['S2', 'S3', 'W2', 'L2'] },
+      { re: /history|archeolog|tradition/i,
+        r: 3, l: 3, s: 1, w: 1, focus: 'Reading + Listening P4 · Speaking reduced',
+        listen: { b: 20, t: 4, part: 4, type: 'lecture · note completion' },
+        listenAlt: { b: 17, t: 3, part: 4, type: 'lecture · table completion' },
+        p1: ['Are you interested in history?', 'Did you study history at school?', 'Have you visited any historical places?'],
+        p2: 'Describe a historical place you have visited. You should say where it is, what it looks like, when you went there, and what you learned from the visit.',
+        p3: ['Why is it important to learn history?', 'Should governments protect old buildings?', 'How can museums make history more interesting?'],
+        w2: 'History should be a compulsory subject at school. To what extent do you agree or disagree?',
+        w1: 'Table: visits to historical sites in one country, 2015-2025.',
+        slots: ['S3', 'W2', 'R2', 'L2'] }
+    ];
+
+    function getTopicPlan(title, weekIndex) {
+      const text = String(title || '');
+      const byRule = TOPIC_PLANS.find(plan => plan.re.test(text));
+      if (byRule) return byRule;
+      return TOPIC_PLANS[weekIndex] || TOPIC_PLANS[0];
+    }
+
+    function shortText(value, limit = 70) {
+      const text = String(value || '');
+      return text.length > limit ? `${text.slice(0, limit - 1)}…` : text;
+    }
+
+    function planReadingTask(rec) {
+      if (!rec) return null;
+      const entry = rec.p
+        ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p)
+        : null;
+      const name = shortText(entry ? entry.title : (rec.title || ''));
+      return {
+        gate: 1,
+        title: `Reading: Cambridge ${rec.b} Test ${rec.t} Passage ${rec.p}${name ? ` — ${name}` : ''}`,
+        placeholder: '20 min timed + 40 min review · score __/13 · spot your preset words in context',
+        note: `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p}${entry ? ` — "${entry.title}"` : ''} · 20m timed + 40m review · note how the preset words are used`
+      };
+    }
+
+    function planListeningTask(ref) {
+      return {
+        gate: 1,
+        title: `Listening: Cambridge ${ref.b} Test ${ref.t} Part ${ref.part} — ${ref.type}`,
+        placeholder: '30 min + 20 min review · score __/10 · replay the 2 hardest questions · catch preset words by ear',
+        note: `Cambridge ${ref.b} Test ${ref.t} Listening Part ${ref.part} (${ref.type}) · 30m + 20m review · write down the preset words you hear`
+      };
+    }
+
+    const SLOT_META = {
+      S1: { badge: 'Gate 3 · Speaking P1', accent: 'lavender', focus: 'Speaking Part 1' },
+      S2: { badge: 'Gate 3 · Speaking P2', accent: 'lavender', focus: 'Speaking Part 2' },
+      S3: { badge: 'Gate 3 · Speaking P3', accent: 'lavender', focus: 'Speaking Part 3' },
+      SM: { badge: 'Gate 3 · Speaking mock', accent: 'lavender', focus: 'Speaking mock + feedback' },
+      W2: { badge: 'Gate 4 · Writing T2', accent: 'emerald', focus: 'Writing Task 2' },
+      W1: { badge: 'Gate 4 · Writing T1', accent: 'emerald', focus: 'Writing Task 1' },
+      R2: { badge: 'Gate 1 · Reading drill', accent: 'emerald', focus: 'Second reading passage' },
+      L2: { badge: 'Gate 1 · Listening drill', accent: 'emerald', focus: 'Second listening section' }
+    };
+
+    const SLOT_FOLLOWUP = {
+      S1: 'Playback: list 3 fluency fixes and re-answer the weakest question',
+      S2: 'Playback audit: upgrade 3 phrases with core collocations',
+      S3: 'Re-record the weakest answer using 5 core collocations',
+      SM: 'Score yourself: fluency / lexis / grammar / pronunciation',
+      W2: 'Upgrade 5 sentences with target collocations and log slips to the Red List',
+      W1: 'Rewrite one body paragraph for Band 7.5+ coherence and cohesion',
+      R2: 'Log 10 collocations + 3 paraphrases from the passage',
+      L2: 'Transcribe 3 answers and note 8 collocations'
+    };
+
+    function planSlotTask(kind, plan, altRec) {
+      switch (kind) {
+        case 'S1':
+          return { gate: 3, title: 'Speaking Part 1: 3 personal questions', placeholder: `${plan.p1.join('  |  ')} · record 30-45s each` };
+        case 'S2':
+          return { gate: 3, title: 'Speaking Part 2: 2-min long turn', placeholder: `Cue card: ${plan.p2}` };
+        case 'S3':
+          return { gate: 3, title: 'Speaking Part 3: 3 abstract questions', placeholder: `${plan.p3.join('  |  ')} · 2 min each, record` };
+        case 'SM':
+          return { gate: 3, title: 'Full speaking mock (P1 + P2 + P3)', placeholder: `Cue card: ${plan.p2} · then list 3 grammar/lexis fixes` };
+        case 'W2':
+          return { gate: 4, title: 'Timed Task 2 essay (40m) + 20m self-edit', placeholder: plan.w2 };
+        case 'W1':
+          return { gate: 4, title: 'Timed Task 1 report (20m) + 25m review', placeholder: plan.w1 };
+        case 'R2':
+          return planReadingTask(altRec);
+        case 'L2':
+          return planListeningTask(plan.listenAlt || plan.listen);
+        default:
+          return { gate: 3, title: 'Speaking practice', placeholder: plan.p2 };
+      }
+    }
+
+    function planSlotSummary(plan) {
+      const counts = { S: 0, W: 0, R: 0, L: 0 };
+      plan.slots.forEach(slot => {
+        if (slot[0] === 'S') counts.S += 1;
+        else if (slot[0] === 'W') counts.W += 1;
+        else if (slot === 'R2') counts.R += 1;
+        else if (slot === 'L2') counts.L += 1;
+      });
+      const parts = [];
+      if (counts.S) parts.push(`Speaking ×${counts.S}`);
+      if (counts.W) parts.push(`Writing ×${counts.W}`);
+      if (counts.R) parts.push(`Reading ×${counts.R}`);
+      if (counts.L) parts.push(`Listening ×${counts.L}`);
+      return parts.join(' + ');
+    }
+
+    // Each topic ships with a preset 20-40 word list (lesson page / notebook).
+    // The 9 sessions are built around that list: D1 sorts it, D2-D3 encode it,
+    // D4-D7 force it into output, D8-D9 test it cold. No mining 60 new words.
+    function vocabPlanMeta(vocabCount) {
+      // Use the real preset list when it is loaded; otherwise assume the middle
+      // of the usual 20-40 range so the batch sizes stay concrete.
+      const known = Number(vocabCount) >= 10;
+      const core = known ? Math.min(Number(vocabCount), 40) : 30;
+      const totalLabel = known ? `${Number(vocabCount)} preset words` : '20–40 preset words';
+      const half = Math.ceil(core / 2);
+      const batchALabel = known ? `words 1–${half}` : 'first half';
+      const batchBLabel = known ? `words ${half + 1}–${core}` : 'second half';
+      return { core, totalLabel, half, rest: core - half, batchALabel, batchBLabel };
+    }
+
+    const SLOT_SHORT = {
+      S1: 'Speaking P1', S2: 'Speaking P2', S3: 'Speaking P3', SM: 'Speaking mock',
+      W2: 'Writing T2', W1: 'Writing T1', R2: 'Reading drill', L2: 'Listening drill'
+    };
+
+    function slotPromptNote(slot, plan, read2, listen2) {
+      switch (slot) {
+        case 'S1': return plan.p1.map((q, i) => `Q${i + 1}: ${q}`).join('  ·  ');
+        case 'S2': return `Cue card: ${plan.p2}`;
+        case 'S3': return plan.p3.map((q, i) => `Q${i + 1}: ${q}`).join('  ·  ');
+        case 'SM': return `Full mock · Part 1 + Part 2 + Part 3 — cue card: ${plan.p2}`;
+        case 'W2': return plan.w2;
+        case 'W1': return plan.w1;
+        case 'R2': return read2 ? read2.note || read2.title : '';
+        case 'L2': return listen2 ? listen2.note || listen2.title : '';
+        default: return '';
+      }
+    }
+
+    function buildTopicDayPlan(weekIndex, title, vocabCount) {
+      const plan = getTopicPlan(title, weekIndex);
+      const rec = getCambridgeRecommendation(title);
+      const altRec = (rec && rec.more && rec.more[0]) ? { ...rec, ...rec.more[0] } : rec;
+      const read1 = planReadingTask(rec);
+      const read2 = planReadingTask(altRec);
+      const listen1 = planListeningTask(plan.listen);
+      const listen2 = planListeningTask(plan.listenAlt || plan.listen);
+      const vp = vocabPlanMeta(vocabCount);
+
+      let inputA;
+      let inputB;
+      let inputAShort;
+      let inputBShort;
+      if (plan.r > 0 && plan.l > 0) {
+        if (plan.r >= plan.l) { inputA = read1; inputB = listen1; inputAShort = 'Reading'; inputBShort = 'Listening'; }
+        else { inputA = listen1; inputB = read1; inputAShort = 'Listening'; inputBShort = 'Reading'; }
+      } else if (plan.r > 0) {
+        inputA = read1;
+        inputB = read2;
+        inputAShort = 'Reading';
+        inputBShort = 'Reading';
+      } else if (plan.l > 0) {
+        inputA = listen1;
+        inputB = listen2;
+        inputAShort = 'Listening';
+        inputBShort = 'Listening';
+      } else {
+        inputAShort = 'Speaking input';
+        inputBShort = 'Speaking input';
+        inputA = {
+          gate: 1,
+          title: 'Speaking input: mine 20 collocations from model answers',
+          placeholder: `Read 2 model answers on "${shortText(title, 48)}" and pull the preset words out of them`,
+          note: `Model answers on "${title}" — highlight where each preset word is used`
+        };
+        inputB = {
+          gate: 1,
+          title: 'Build a Part 2 story bank: 5 cue cards',
+          placeholder: 'Write 5 cue cards with 8 preset collocations each, then read one aloud',
+          note: 'Reuse the preset list across all five cue cards so the words become automatic'
+        };
+      }
+
+      const days = [
+        { badge: 'Gate 1 · Input A', accent: 'emerald', short: inputAShort, focus: 'Input A + sort preset words', tasks: [inputA, {
+          gate: 1,
+          title: `Load your ${vp.totalLabel} and split them into Batch A (${vp.batchALabel}) + Batch B (${vp.batchBLabel})`,
+          placeholder: 'Mark known / fuzzy / new · keep the full preset list next to the tracker',
+          note: `Open the lesson vocabulary (or your notebook) and sort the ${vp.totalLabel} into known / fuzzy / new, then lock the full list for the week.`
+        }] },
+        { badge: 'Gate 1 & 2 · Input B + Encoding', accent: 'emerald', short: inputBShort, focus: 'Input B + encode Batch A', tasks: [inputB, {
+          gate: 2,
+          title: `Encode Batch A (${vp.batchALabel}): collocation + 2 examples each`,
+          placeholder: `${vp.half} entries done · each with one personal example`
+        }] },
+        { badge: 'Gate 2 · Encoding + Recall', accent: 'lavender', short: 'Encoding', focus: 'Encoding + active recall', tasks: [{
+          gate: 2,
+          title: `Encode Batch B (${vp.batchBLabel}): collocation + 2 examples each`,
+          placeholder: `${vp.rest} entries done · cross-linked to Batch A`
+        }, {
+          gate: 2,
+          title: `Active recall: cover meanings, test all ${vp.core} core words & collocations`,
+          placeholder: `Recalled __/${vp.core} meanings and __/${vp.core} collocations`
+        }] }
+      ];
+
+      const slotSeen = {};
+      plan.slots.forEach(slot => {
+        const meta = SLOT_META[slot] || SLOT_META.S3;
+        const gate = meta.badge.includes('Gate 4') ? 4 : (meta.badge.includes('Gate 3') ? 3 : 1);
+        const occurrence = slotSeen[slot] = (slotSeen[slot] || 0) + 1;
+        let altForSlot = altRec;
+        let main;
+        if (slot === 'R2' && occurrence > 1) {
+          // A second reading drill must not reuse the same passage.
+          const moreEntry = (rec && rec.more && rec.more[(occurrence - 1) % rec.more.length]) || null;
+          altForSlot = moreEntry ? { ...rec, ...moreEntry } : altRec;
+        }
+        main = planSlotTask(slot, plan, altForSlot);
+        const repeatLabel = occurrence > 1 ? ` ${occurrence}` : '';
+        days.push({
+          badge: meta.badge,
+          accent: meta.accent,
+          short: (SLOT_SHORT[slot] || meta.focus) + repeatLabel,
+          focus: meta.focus + repeatLabel,
+          tasks: [
+            { ...main, note: slotPromptNote(slot, plan, planReadingTask(altForSlot), listen2) },
+            { gate,
+              title: SLOT_FOLLOWUP[slot] || 'Review and log fixes',
+              placeholder: 'Reuse ≥5 core collocations · tick them off the preset list · log slips to the Red List' }
+          ]
+        });
+      });
+
+      days.push(
+        { badge: 'Gate 5 · Spaced Recall', accent: 'lavender', short: 'Recall', focus: 'Spaced recall', tasks: [{
+          gate: 5,
+          title: `24h / 48h / 72h spaced recall: all ${vp.core} core words + collocations (45m)`,
+          placeholder: `Reviewed ${vp.core} entries; __/${vp.core} recalled cold`
+        }, {
+          gate: 5,
+          title: 'Mixed drill: 10 paraphrases + 5 rapid speaking prompts (45m)',
+          placeholder: '10 paraphrases recorded + 5 prompts answered in 30s each'
+        }] },
+        { badge: 'Gate 5 · Consolidation', accent: 'emerald', short: 'Close', focus: 'Consolidation & closure', tasks: [{
+          gate: 5,
+          title: `Mini test: 20 preset collocations + one ${plan.w > 0 ? 'essay outline' : 'speaking outline'} (45m)`,
+          placeholder: '__/20 collocations correct; outline completed'
+        }, {
+          gate: 5,
+          title: 'Error-log audit, update the Red List and mark the topic complete (45m)',
+          placeholder: 'Slips logged; topic closed and reviews scheduled'
+        }] }
+      );
+
+      days.forEach(day => {
+        day.gateNums = [...new Set(day.tasks.map(task => task.gate))];
+      });
+      return days;
+    }
+
+    function planSequence(days) {
+      return (days || []).map((day, idx) => `D${idx + 1} ${day.short || 'Work'}`).join(' → ');
+    }
+
     function getTopicOutput(topicTitle) {
       const title = String(topicTitle || '');
       const rule = TOPIC_OUTPUT_RULES.find(item => item.re.test(title));
@@ -2348,9 +2771,9 @@
       appState.weeks.forEach(w => {
         const stats = getWeekCompletionStats(w);
         if (stats.isMastered) masteredCount++;
-        // Saturday task 0 is Task 2 Essay; Thursday task 1 is Speaking recording
-        if (w.days[5]?.tasks[0]?.done) essaysCount++;
-        if (w.days[3]?.tasks[1]?.done) speakingCount++;
+        // Topic-2 essay and any recorded speaking set.
+        if (weekTaskDone(w, 4, /task 2/i)) essaysCount++;
+        if (weekTaskDone(w, 3)) speakingCount++;
         totalDueReviews += getDueSpacedReviews(w).length;
       });
 
@@ -2446,11 +2869,13 @@
         : 'Build a clear topic position, reuse the core vocabulary in all four skills, and log the gaps that still limit accuracy.';
 
       const vocabCount = (week.vocab || []).length;
-      const readingDone = Boolean(week.days[0] && week.days[0].tasks[0] && week.days[0].tasks[0].done);
-      const essayDone = Boolean(week.days[5] && week.days[5].tasks[0] && week.days[5].tasks[0].done);
-      const speakingDone = Boolean(week.days[3] && week.days[3].tasks[1] && week.days[3].tasks[1].done);
-      const outputCount = [readingDone, speakingDone, essayDone].filter(Boolean).length;
-      const outputTone = outputCount === 3
+      const inputDone = weekTaskDone(week, 1);
+      const essayDone = weekTaskDone(week, 4);
+      const speakingDone = weekTaskDone(week, 3);
+      const outputGates = [1, 3, 4].filter(gate => stats.gateStats[gate].total > 0);
+      const outputCount = [inputDone, speakingDone, essayDone].filter(Boolean).length;
+      const outputTotal = outputGates.length || 3;
+      const outputTone = outputCount >= outputTotal
         ? 'bg-emerald-600 text-white border-emerald-600'
         : outputCount > 0
           ? 'bg-amber-50 text-amber-700 border-amber-200/80'
@@ -2459,7 +2884,7 @@
       metricsEl.innerHTML = [
         metric('Tasks', `${stats.checked}/${stats.total}`, 'bg-white text-slate-700 border-slate-200/80'),
         metric('Vocabulary', vocabCount, vocabCount ? 'bg-white text-emerald-700 border-emerald-200/80' : 'bg-amber-50 text-amber-700 border-amber-200/80', 'topic-goal-vocab-metric'),
-        metric('Outputs', `${outputCount}/3`, outputTone)
+        metric('Outputs', `${outputCount}/${outputTotal}`, outputTone)
       ].join('');
 
       let nextDay = null;
@@ -2480,13 +2905,16 @@
       const check = (label, done) => `<span class="inline-flex items-center gap-1.5 ${done ? 'text-emerald-700 font-semibold' : 'text-slate-500'}">
         <i data-lucide="${done ? 'check-circle-2' : 'circle'}" class="w-3.5 h-3.5 ${done ? 'text-emerald-600' : 'text-slate-300'}"></i>${label}
       </span>`;
+      const gateCheck = (gate, label) => stats.gateStats[gate].total > 0
+        ? check(label, stats.gateStats[gate].done > 0)
+        : '';
       checksEl.innerHTML = [
-        check('Reading passage mined for target vocabulary', stats.gateStats[1].done > 0),
-        check('Listening + encoding completed', stats.gateStats[2].done > 0),
-        check('Speaking recorded and reviewed', stats.gateStats[3].done > 0),
-        check('Timed writing completed', stats.gateStats[4].done > 0),
-        check('Spaced recall + topic closure', stats.gateStats[5].done > 0)
-      ].join('');
+        gateCheck(1, 'Input mined for preset vocabulary'),
+        gateCheck(2, 'Encoding + active recall completed'),
+        gateCheck(3, 'Speaking recorded and reviewed'),
+        gateCheck(4, 'Timed writing completed'),
+        gateCheck(5, 'Spaced recall + topic closure')
+      ].filter(Boolean).join('');
     }
 
     function renderCommandCenter() {
@@ -2552,7 +2980,7 @@
                 <div class="flex flex-wrap items-center gap-2">
                   <span class="text-sm font-bold text-slate-900">${dayObj.dayName}</span>
                   <span class="text-[11px] font-mono px-2 py-0.5 rounded-md bg-slate-100 text-slate-600">${dayObj.hoursLabel || '2h'}</span>
-                  <span class="hidden sm:inline-flex text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-md">${SESSION_FOCUS[dIdx] || 'Topic work'}</span>
+                  <span class="hidden sm:inline-flex text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/70 px-2 py-0.5 rounded-md">${dayObj.focus || SESSION_FOCUS[dIdx] || 'Topic work'}</span>
                   <input
                     type="date"
                     value="${dayObj.date || ''}"
@@ -2633,7 +3061,7 @@
         if (nextFocus >= 0) {
           const day = week.days[nextFocus];
           const open = day.tasks.filter(task => !task.done).length;
-          focusEl.innerHTML = `<strong class="font-semibold text-slate-900">${day.dayName} · ${SESSION_FOCUS[nextFocus] || 'Topic work'}</strong> — ${open} task${open === 1 ? '' : 's'} left. <span class="text-slate-400">${day.gateBadge}</span>`;
+          focusEl.innerHTML = `<strong class="font-semibold text-slate-900">${day.dayName} · ${day.focus || SESSION_FOCUS[nextFocus] || 'Topic work'}</strong> — ${open} task${open === 1 ? '' : 's'} left. <span class="text-slate-400">${day.gateBadge}</span>`;
         } else {
           focusEl.innerHTML = '<strong class="font-semibold text-emerald-700">All sessions complete.</strong> Use the outputs and Red List to decide what to review next.';
         }
@@ -2917,7 +3345,7 @@
 
       if (note) {
         note.textContent = items.length
-          ? 'Use these collocations across all four skills.'
+          ? `${safeVocab.length} preset words · sorted on D1, encoded on D2–D3, forced into outputs on D4–D7, tested cold on D8–D9.`
           : 'Add vocabulary to connect every skill to this topic.';
       }
       const goalVocab = document.getElementById('topic-goal-vocab-metric');
@@ -2952,6 +3380,57 @@
       }
       window.__cambridgeRec = rec;
 
+      const planDays = buildTopicDayPlan(week.weekNumber - 1, week.sheetTitle || week.title, (week.vocab || []).length);
+      const plan = getTopicPlan(week.sheetTitle || week.title, week.weekNumber - 1);
+      const activeSkills = [plan.r, plan.l, plan.s, plan.w].filter(value => value > 0).length;
+      const skillLabel = [
+        plan.r > 0 ? 'Reading' : '',
+        plan.l > 0 ? 'Listening' : '',
+        plan.s > 0 ? 'Speaking' : '',
+        plan.w > 0 ? 'Writing' : ''
+      ].filter(Boolean).join(' + ');
+      const toggleSkillCard = (id, enabled) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('hidden', !enabled);
+      };
+      toggleSkillCard('skill-reading-card', plan.r > 0);
+      const moreWrap = document.getElementById('cam-more-wrap');
+      if (moreWrap) moreWrap.classList.toggle('hidden', plan.r === 0);
+
+      // Point each "add to D?" button at the day that actually carries the skill.
+      const findPlanDay = (shortLabel) => planDays.findIndex(day => day.short === shortLabel);
+      const dayLabels = {
+        'skill-reading-day': findPlanDay('Reading'),
+        'skill-listening-day': findPlanDay('Listening'),
+        'skill-writing-day': findPlanDay('Writing T2'),
+        'skill-speaking-day': findPlanDay('Speaking P3') >= 0 ? findPlanDay('Speaking P3') : findPlanDay('Speaking P2')
+      };
+      Object.entries(dayLabels).forEach(([id, idx]) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = idx >= 0 ? `D${idx + 1}` : '—';
+      });
+
+      // The chip in each card now says what the task actually uses.
+      const tagText = (id, text, tone) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = text;
+        el.className = `text-[9px] font-semibold uppercase tracking-wider shrink-0 ${tone}`;
+      };
+      if (plan.l > 0 && plan.listen) {
+        tagText('skill-listening-tag', `Cam ${plan.listen.b} · T${plan.listen.t} · P${plan.listen.part}`, 'text-emerald-700');
+      }
+      if (plan.w > 0) tagText('skill-writing-tag', 'Topic prompt', 'text-emerald-700');
+      if (plan.s > 0) tagText('skill-speaking-tag', 'Topic questions', 'text-emerald-700');
+      toggleSkillCard('skill-listening-card', plan.l > 0);
+      toggleSkillCard('skill-writing-card', plan.w > 0);
+      toggleSkillCard('skill-speaking-card', plan.s > 0);
+
+      const sequenceEl = document.getElementById('topic-plan-sequence');
+      if (sequenceEl) {
+        sequenceEl.innerHTML = `<strong class="font-semibold text-slate-900">Sequence:</strong> ${escapeHTML(planSequence(planDays))}`;
+      }
+
       const subtitle = document.getElementById('cambridge-subtitle');
       const badge = document.getElementById('cambridge-match-badge');
       const testTitle = document.getElementById('cam-test-title');
@@ -2961,12 +3440,12 @@
       const moreEl = document.getElementById('cam-more');
       if (!subtitle || !testTitle) return;
 
-      subtitle.textContent = rec.fallback
-        ? `“${week.title}” has no exact Cambridge reading match — closest theme only, other skills use topic tasks.`
-        : `“${week.title}” matched to Cambridge ${rec.b} Test ${rec.t} · Passage ${rec.p} for Reading; other skills use topic tasks.`;
-      badge.innerHTML = rec.fallback
-        ? '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Closest reading · 1 of 4'
-        : '<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Reading only · 1 of 4';
+      subtitle.textContent = plan.r > 0
+        ? (rec.fallback
+          ? `“${week.title}” · ${skillLabel} focus. No exact reading match — closest theme only.`
+          : `“${week.title}” · ${skillLabel} focus. Reading anchor: Cambridge ${rec.b} Test ${rec.t} · Passage ${rec.p}.`)
+        : `“${week.title}” · ${skillLabel} focus. Reading is bypassed for this topic.`;
+      badge.innerHTML = `<i data-lucide="sparkles" class="w-3.5 h-3.5"></i> ${activeSkills} of 4 skills · ${skillLabel}`;
 
       testTitle.textContent = rec.title || `Reading Passage ${rec.p}`;
       testTitle.title = rec.fallback ? `Reading Passage ${rec.p} (closest theme)` : `Reading Passage ${rec.p}`;
@@ -2992,13 +3471,14 @@
       if (rec.fallback) {
         why.textContent = 'No direct reading match — use this passage as topic calibration only. ';
       } else {
-        why.textContent = 'Closest reading match: mine 10 words and collocations, then reuse them in the topic tasks below. ';
+        why.textContent = 'Reading anchor: spot your preset words in context, then reuse them in the outputs below. ';
       }
 
       passageEl.innerHTML = `<span class="text-[10px] text-slate-500 whitespace-nowrap">20 min + 40 min review</span>`;
 
-      const output = getTopicOutput(week.title);
+      const output = { writing: plan.w2, speaking: plan.p3 };
       window.__cambridgeOutput = output;
+      window.__topicPlan = plan;
       const task2El = document.getElementById('cam-task2');
       const speakingEl = document.getElementById('cam-speaking');
       if (task2El) task2El.textContent = output.writing;
@@ -3035,13 +3515,13 @@
       if (!rec) return;
       const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
       const label = entry
-        ? `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p} — "${entry.title}" · 20m timed + 40m review · extract 10 collocations`
+        ? `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p} — "${entry.title}" · 20m timed + 40m review · spot your preset words in context`
         : `Cambridge ${rec.b} Test ${rec.t} — Reading Passage ${rec.p} · 20m timed + 40m review`;
 
       const week = appState.weeks[appState.activeWeek - 1];
-      const firstTask = week && week.days[0] && week.days[0].tasks[0];
+      const firstTask = findWeekTask(week, 1, /^reading:/i) || findWeekTask(week, 1);
       if (!firstTask) {
-        showToast('Could not find the D1 input task.', 'error');
+        showToast(rec && !rec.b ? 'This topic bypasses reading.' : 'Could not find the D1 input task.', 'error');
         return;
       }
       firstTask.note = label;
@@ -3084,68 +3564,77 @@
       const vocab = topicVocabLines(5);
       const config = {
         listening: {
-          dayIndex: 1,
-          pattern: /Listening/i,
+          gate: 1,
+          pattern: /listening/i,
           title: 'Topic listening dictation: up to 5 lesson sentences',
           note: `Topic listening drill · ${Math.min(5, (window.__topicVocab || []).filter(item => item.heard).length)} questions · add missed words to the Red List`
         },
         speaking: {
-          dayIndex: 4,
-          pattern: /Part 3|Speaking/i,
+          gate: 3,
+          pattern: /part 3|speaking/i,
           title: 'Record topic Part 3 answers (2 min each) using 5 core collocations',
           note: `${output.speaking.map((question, index) => `Q${index + 1}: ${question}`).join(' | ')}\nVocabulary: ${vocab.replace(/\n/g, ' | ')}`
         },
         writing: {
-          dayIndex: 5,
-          pattern: /Task 2|essay/i,
+          gate: 4,
+          pattern: /task 2/i,
           title: 'Timed topic Task 2 essay + use 5 core collocations',
           note: `${output.writing}\nVocabulary: ${vocab.replace(/\n/g, ' | ')}`
         }
       }[skill];
       if (!config) return;
-      const day = week.days[config.dayIndex];
-      if (!day) return;
-      const task = findOpenDayTask(config.dayIndex, config.pattern);
+      let dayIndex = findWeekDayIndex(week, config.gate, config.pattern);
+      if (dayIndex < 0) dayIndex = findWeekDayIndex(week, config.gate);
+      if (dayIndex < 0) {
+        showToast(`This topic bypasses ${skill} — no ${skill} session in its plan.`, 'error');
+        return;
+      }
+      const day = week.days[dayIndex];
+      const task = findOpenDayTask(dayIndex, config.pattern);
       if (task) {
         task.note = config.note;
         saveState();
         renderAll();
         showToast(`Updated ${day.dayName} task for this topic.`);
       } else {
-        addCustomDayTask(config.dayIndex, config.title, config.note);
+        addCustomDayTask(dayIndex, config.title, config.note);
         showToast(`Added to ${day.dayName}: ${config.title}`);
       }
     }
 
     function addTopicPlanToSchedule() {
       const week = appState.weeks[appState.activeWeek - 1];
+      if (!week) return;
+      const planDays = buildTopicDayPlan(week.weekNumber - 1, week.sheetTitle || week.title, (week.vocab || []).length);
+
+      // If the learner picked an alternative passage in the panel, keep it.
       const rec = window.__cambridgeRec;
-      if (!week || !rec) return;
-      const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
-      const output = window.__cambridgeOutput || getTopicOutput(week.title);
-      const readingNote = `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p}${entry ? ` — "${entry.title}"` : ''} · 20m timed + 40m review · extract 10 collocations`;
-      const listeningCount = Math.min(5, (window.__topicVocab || []).filter(item => item.heard).length);
+      if (rec && rec.b && rec.t) {
+        const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
+        const readNote = `Cambridge ${rec.b} Test ${rec.t} Reading Passage ${rec.p}${entry ? ` — "${entry.title}"` : ''} · 20m timed + 40m review · note how the preset words are used`;
+        planDays.forEach(day => {
+          day.tasks.forEach(task => {
+            if (task.gate === 1 && /reading/i.test(task.title)) task.note = readNote;
+          });
+        });
+      }
 
-      const updates = [
-        { dayIndex: 0, pattern: /Reading Passage/i, title: 'Topic Reading Passage', note: readingNote },
-        { dayIndex: 1, pattern: /Listening/i, title: 'Topic listening dictation', note: `Topic listening drill (no Cambridge Listening match) · ${listeningCount} questions · add missed words to the Red List` },
-        { dayIndex: 4, pattern: /Part 3|Speaking/i, title: 'Topic Part 3 speaking', note: `Topic Part 3 (no Cambridge Speaking match): ${output.speaking.map((question, index) => `Q${index + 1}: ${question}`).join(' | ')}\nVocabulary: ${topicVocabLines(5).replace(/\n/g, ' | ')}` },
-        { dayIndex: 5, pattern: /Task 2|essay/i, title: 'Topic Task 2 essay', note: `Topic Task 2 (no Cambridge Writing match): ${output.writing}\nVocabulary: ${topicVocabLines(5).replace(/\n/g, ' | ')}` }
-      ];
-
-      updates.forEach(update => {
-        const day = week.days[update.dayIndex];
+      let updated = 0;
+      planDays.forEach((planDay, dIdx) => {
+        const day = week.days[dIdx];
         if (!day) return;
-        const task = findOpenDayTask(update.dayIndex, update.pattern);
-        if (task) {
-          task.note = update.note;
-        } else {
-          addCustomDayTask(update.dayIndex, update.title, update.note);
-        }
+        planDay.tasks.forEach((planTask, tIdx) => {
+          const task = day.tasks[tIdx];
+          if (!task || task.done || task.isCustom || !planTask.note) return;
+          task.note = /preset|core words/i.test(planTask.title)
+            ? `${planTask.note}\n${topicVocabLines(8)}`
+            : planTask.note;
+          updated += 1;
+        });
       });
       saveState();
       renderAll();
-      showToast('Topic plan added to D1, D2, D5 and D6.');
+      showToast(updated ? `Topic plan added to ${week.days.length} sessions.` : 'Plan already in place.');
       const schedule = document.getElementById('session-schedule');
       if (schedule) schedule.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -3211,34 +3700,27 @@
 
     function copyTopicPlan() {
       const week = appState.weeks[appState.activeWeek - 1];
-      const rec = window.__cambridgeRec;
-      if (!week || !rec) return;
-      const entry = rec.p ? CAMBRIDGE_READING_BANK.find(item => item.b === rec.b && item.t === rec.t && item.p === rec.p) : null;
-      const output = window.__cambridgeOutput || getTopicOutput(week.title);
-      const text = [
+      if (!week) return;
+      const planDays = buildTopicDayPlan(week.weekNumber - 1, week.sheetTitle || week.title, (week.vocab || []).length);
+      const vocabCount = (week.vocab || []).length;
+      const lines = [
         `Topic: ${week.title}`,
+        `Vocabulary: ${vocabCount >= 10 ? `${vocabCount} preset words` : '20–40 preset words (lesson bank / notebook)'}`,
         '',
         'Vocabulary core:',
-        topicVocabLines(6),
-        '',
-        'D1 · Reading (only Cambridge topic match):',
-        `- Cambridge ${rec.b} Test ${rec.t}, Reading Passage ${rec.p}${entry ? `: ${entry.title}` : ''}`,
-        '- 20 min timed + 40 min review; extract 10 collocations.',
-        '',
-        'D2 · Listening (no Cambridge topic match):',
-        '- Topic dictation: up to 5 example sentences from this lesson; score + missed words.',
-        '',
-        'D5 · Speaking (no Cambridge topic match):',
-        ...output.speaking.map(question => `- ${question}`),
-        '- 2 min each; record; use the core collocations.',
-        '',
-        'D6 · Writing (no Cambridge topic match):',
-        `- ${output.writing}`,
-        '- 40 min + 20 min edit; use the core collocations.',
-        '',
-        'Do not run the rest of the Cambridge test unless you separately want timed calibration.'
-      ].join('\n');
-      copyTextToClipboard(text, 'Topic plan copied.');
+        topicVocabLines(8),
+        ''
+      ];
+      planDays.forEach((day, idx) => {
+        lines.push(`D${idx + 1} · ${day.focus}`);
+        day.tasks.forEach(task => {
+          lines.push(`- ${task.title}`);
+          if (task.note) lines.push(`  ${String(task.note).replace(/\n/g, '\n  ')}`);
+        });
+        lines.push('');
+      });
+      lines.push('Tick every task in the tracker. D8 is spaced recall; D9 closes the topic.');
+      copyTextToClipboard(lines.join('\n'), 'Topic plan copied.');
     }
 
     function startTopicListeningDrill() {
@@ -3540,8 +4022,8 @@
           statusPill = `<span class="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-100 text-amber-800">Active (${stats.pct}%)</span>`;
         }
 
-        const essayDone = w.days[5]?.tasks[0]?.done;
-        const speakingDone = w.days[3]?.tasks[1]?.done;
+        const essayDone = weekTaskDone(w, 4, /task 2/i);
+        const speakingDone = weekTaskDone(w, 3);
 
         return `
           <div onclick="openWeekFromMatrix(${w.weekNumber})" class="cursor-pointer bg-white rounded-2xl p-4 border ${isCurrent ? 'border-emerald-500 ring-2 ring-emerald-500/15' : 'border-slate-200/80 hover:border-emerald-300'} shadow-apple hover:shadow-apple-hover transition-all flex flex-col justify-between gap-3">
@@ -4515,8 +4997,8 @@
             `${doneSessions}/${(week.days || []).length}`,
             `${st.checked}/${st.total}`, st.pct / 100,
             st.isMastered ? 'Mastered' : st.checked > 0 ? 'In progress' : 'Not started',
-            week.days && week.days[5] && week.days[5].tasks[0] && week.days[5].tasks[0].done ? '✓' : '—',
-            week.days && week.days[3] && week.days[3].tasks[1] && week.days[3].tasks[1].done ? '✓' : '—',
+            weekTaskDone(week, 4, /task 2/i) ? '✓' : '—',
+            weekTaskDone(week, 3) ? '✓' : '—',
             reviews || '—'
           ];
           values.forEach((value, idx) => { tp.getCell(tpRow, idx + 1).value = value; });
